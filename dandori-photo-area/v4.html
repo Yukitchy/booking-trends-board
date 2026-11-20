@@ -1,0 +1,56 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>案4 プレビュー中心型｜だんどりー 写真と投稿</title><link rel="icon" href="img/ig-07.webp">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css"><script src="common.js"></script>
+<style>
+.app{background:#141414;color:#fff}
+.guest{border-color:#333}.guest .sub,.muted{color:#a8a8a8}
+.tabs{display:flex;gap:6px;padding:14px 20px 0}
+.tb{flex:1;background:#262626;color:#fff;border:0;border-radius:999px;font:inherit;font-size:13px;font-weight:800;padding:8px 0;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer}
+.tb.on{background:#fff;color:#141414}
+.tb i{width:8px;height:8px;border-radius:50%}
+.rail{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;padding:16px 44px 8px;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.sl{flex:0 0 302px;scroll-snap-align:center;position:relative}
+.sl .fr{position:relative}
+.sl img,.sl .rv{width:100%;border-radius:14px;display:block}
+.sl .story,.sl .rv{aspect-ratio:9/16;object-fit:cover}
+.sl .rv{--qs:16px}
+.tools{position:absolute;right:10px;bottom:10px;z-index:3;display:flex;gap:6px}
+.tools button{background:rgba(255,255,255,.94);color:#141414;border:0;border-radius:999px;font:inherit;font-size:13px;font-weight:800;padding:7px 12px;cursor:pointer}
+.cap{display:flex;justify-content:space-between;align-items:center;margin:12px 2px}
+.cap b{font-size:16px}
+.sl .btn.ghost{background:transparent;color:#fff;border-color:#fff}
+</style></head><body><div class="app">
+<div class="mockbar"><span>案4 プレビュー中心型</span><a href="./">← 5案のボードへ</a></div>
+<div class="guest"><p class="nm">Michaela さん</p><p class="sub">11/19（水） Airbnb ・ 2名 ・ ★5 レビュー到着</p></div>
+<div class="tabs">
+  <button class="tb" data-go="0"><i style="background:#3fbf73"></i>フィード</button>
+  <button class="tb" data-go="1"><i style="background:#3fbf73"></i>ストーリー</button>
+  <button class="tb on" data-go="2"><i style="background:var(--red)" id="rvdot"></i>レビュー</button>
+</div>
+<div class="rail" id="rail">
+  <div class="sl"><div class="fr"><img src="img/ig-00-collage.webp" alt=""><div class="tools"><button onclick="toast('並べ替え画面（モックでは省略）')">8枚を並べ替え</button></div></div>
+    <div class="cap"><b>フィード</b><span class="pill done">投稿済み 11/19</span></div>
+    <a class="btn ghost" href="https://www.instagram.com/p/Df6rJO3E268/" target="_blank" rel="noopener">インスタで見る</a></div>
+  <div class="sl"><div class="fr"><img class="story" src="img/story.webp" alt=""><div class="tools"><button data-open="ss">形と写真</button></div></div>
+    <div class="cap"><b>ストーリー</b><span class="pill done">投稿済み 11/19</span></div>
+    <button class="btn ghost" data-open="ss">作り直す</button></div>
+  <div class="sl"><div class="fr" id="rvfr"></div>
+    <div class="cap"><b>レビューストーリー</b><span class="pill todo" id="rvp">投稿待ち</span></div>
+    <button class="btn" id="go">投稿する</button></div>
+</div>
+<p class="muted" style="text-align:center;font-size:12px;margin:8px 0 28px">左右にめくって3つの投稿を見比べ。写真か文を押すと替えられます。</p>
+</div>
+<script>
+$("#rvfr").innerHTML = rvHTML("見本") + `<div class="tools"><button data-open="ps">写真</button><button data-open="qs">文</button></div>`;
+photoSheet("ps", "#rvfr .rv"); quoteSheet("qs"); storySheet("ss");
+const rail = $("#rail"), sls = $$(".sl");
+const go = i => rail.scrollTo({left: sls[i].offsetLeft - (rail.clientWidth - sls[i].offsetWidth) / 2, behavior: "smooth"});
+$$(".tb").forEach(t => t.onclick = () => go(+t.dataset.go));
+rail.addEventListener("scroll", () => { const c = rail.scrollLeft + rail.clientWidth / 2;
+  let k = 0; sls.forEach((s, i) => { if(Math.abs(s.offsetLeft + s.offsetWidth / 2 - c) < Math.abs(sls[k].offsetLeft + sls[k].offsetWidth / 2 - c)) k = i; });
+  $$(".tb").forEach((t, i) => t.classList.toggle("on", i === k)); });
+addEventListener("load", () => { rail.scrollLeft = sls[2].offsetLeft - (rail.clientWidth - sls[2].offsetWidth) / 2; });
+$("#go").onclick = function(){ this.textContent = "投稿しました"; this.disabled = true; $("#rvp").className = "pill done"; $("#rvp").textContent = "投稿済み";
+  $("#rvdot").style.background = "#3fbf73"; toast("投稿しました（モック）"); };
+</script></body></html>

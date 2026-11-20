@@ -1,0 +1,76 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>案1 ステップ式｜だんどりー 写真と投稿</title><link rel="icon" href="img/ig-07.webp">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css"><script src="common.js"></script>
+<style>
+.steps{list-style:none;margin:0;padding:8px 20px 28px}
+.st1{position:relative;padding:0 0 22px 46px}
+.st1::before{content:"";position:absolute;left:15px;top:34px;bottom:0;width:2px;background:var(--line)}
+.st1:last-child::before{display:none}
+.no{position:absolute;left:0;top:0;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;background:var(--noneBg);color:var(--none)}
+.st1.done .no{background:var(--doneBg);color:var(--done)}
+.st1.now .no{background:var(--red);color:#fff}
+.hd{display:flex;justify-content:space-between;align-items:center;min-height:32px;gap:8px}
+.hd b{font-size:16px}
+.done .body{display:flex;gap:10px;align-items:center;margin-top:6px}
+.done .body img{width:44px;height:55px;object-fit:cover;border-radius:6px}
+.done .story{width:34px;height:60px}
+.now .card{margin-top:10px;border:1.5px solid var(--ink);border-radius:var(--r);padding:14px}
+.kv{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.kv:last-of-type{border-bottom:0}
+.kv .k{font-size:13px;color:var(--sub);width:34px;flex:none}
+.kv .v{flex:1;font-size:14px;min-width:0}
+.kv img{width:48px;height:60px;object-fit:cover;border-radius:6px;flex:none}
+.chk{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--line);font-size:15px}
+.chk input{width:22px;height:22px;accent-color:var(--red)}
+.chk .pill{margin-left:auto}
+</style></head><body><div class="app">
+<div class="mockbar"><span>案1 ステップ式</span><a href="./">← 5案のボードへ</a></div>
+<div class="guest"><p class="nm">Michaela さん</p><p class="sub">11/19（水） Airbnb ・ 2名 ・ ★5 レビュー到着</p></div>
+<div class="pad" style="padding-bottom:8px"><p class="h2">写真と投稿</p><p class="muted" style="margin:2px 0 0">上から順に。いまは ③ です。</p></div>
+<ol class="steps">
+  <li class="st1 done"><span class="no">✓</span>
+    <div class="hd"><b>フィード（写真8枚）</b><span class="pill done">投稿済み</span></div>
+    <div class="body"><img src="img/ig-00-collage.webp" alt=""><img src="img/ig-01.webp" alt=""><img src="img/ig-02.webp" alt=""><span class="muted">11/19 17:41</span></div>
+  </li>
+  <li class="st1 done"><span class="no">✓</span>
+    <div class="hd"><b>ストーリー</b><span class="pill done">投稿済み</span></div>
+    <div class="body"><img class="story" src="img/story.webp" alt=""><span class="muted">日付を大きく ・ 11/19 17:41</span><button class="link" style="margin-left:auto" data-open="ss">直す</button></div>
+  </li>
+  <li class="st1 now" id="s3"><span class="no">3</span>
+    <div class="hd"><b>レビューストーリー</b><span class="pill none" id="p3">未作成</span></div>
+    <div class="card">
+      <div id="pv" style="display:none;margin-bottom:12px"></div>
+      <div class="kv"><span class="k">写真</span><img class="rvph" src="img/ig-03.webp" alt=""><span class="v">ラーメン屋の2人</span><button class="link" data-open="ps">替える</button></div>
+      <div class="kv"><span class="k">文</span><span class="v" style="font-family:Georgia,serif">“He customized the perfect day for my husband and I…”</span><button class="link" data-open="qs">直す</button></div>
+      <p class="muted" style="margin:4px 0 12px">Airbnb ★5 から名前を抜いて入れてあります。</p>
+      <button class="btn" id="mk">作る</button>
+    </div>
+  </li>
+  <li class="st1" id="s4"><span class="no">4</span>
+    <div class="hd"><b>投稿する</b></div>
+    <label class="chk"><input type="checkbox" disabled>フィード<span class="pill done">済</span></label>
+    <label class="chk"><input type="checkbox" disabled>ストーリー<span class="pill done">済</span></label>
+    <label class="chk"><input type="checkbox" id="c3" disabled>レビューストーリー<span class="pill none" id="p4">未作成</span></label>
+    <div style="height:14px"></div>
+    <button class="btn" id="go" disabled>投稿する</button>
+    <button class="link" style="display:block;margin:6px auto 0">投稿せずに下見する</button>
+  </li>
+</ol></div>
+<script>
+photoSheet("ps", ".rvph-bg"); quoteSheet("qs"); storySheet("ss");
+$("#ps").addEventListener("click", e => { const i = e.target.closest(".picks img"); if(i) $(".rvph").src = i.src; });
+$("#mk").onclick = function(){
+  this.textContent = "作っています…"; this.disabled = true;
+  setTimeout(() => {
+    $("#pv").innerHTML = rvHTML(); $("#pv").style.display = "block"; $("#pv .rv").style.width = "60%"; $("#pv .rv").style.margin = "0 auto";
+    $("#pv .rv").style.backgroundImage = `url(${$(".rvph").src})`;
+    this.textContent = "作り直す"; this.className = "btn ghost"; this.disabled = false;
+    $("#p3").className = "pill todo"; $("#p3").textContent = "投稿待ち";
+    $("#p4").className = "pill todo"; $("#p4").textContent = "投稿待ち";
+    $("#c3").disabled = false; $("#c3").checked = true; $("#go").disabled = false; $("#go").textContent = "1件を投稿する";
+    $("#s3 .no").textContent = "✓"; $("#s4").classList.add("now");
+    toast("できました。④で投稿できます");
+  }, 900);
+};
+$("#go").onclick = () => toast("確認ダイアログ → 投稿（モック）");
+</script></body></html>

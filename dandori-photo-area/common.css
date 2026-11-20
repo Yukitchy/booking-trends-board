@@ -1,0 +1,53 @@
+*{box-sizing:border-box}
+html,body{margin:0;overflow-x:clip}
+body{font-family:"Noto Sans JP",-apple-system,sans-serif;color:#141414;background:#f4f4f2;line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased}
+:root{--red:#E60012;--ink:#141414;--sub:#6b6b6b;--line:#e3e3e0;--done:#1f8a4c;--doneBg:#e8f4ec;--todo:#E60012;--todoBg:#fdecec;--none:#8a8a8a;--noneBg:#efefed;--r:14px}
+.app{max-width:390px;margin:0 auto;background:#fff;min-height:100vh}
+.mockbar{display:flex;justify-content:space-between;align-items:center;background:#141414;color:#fff;font-size:12px;padding:8px 16px}
+.mockbar a{color:#fff}
+.guest{padding:16px 20px 12px;border-bottom:1px solid var(--line)}
+.guest .nm{font-size:20px;font-weight:900;margin:0}
+.guest .sub{font-size:13px;color:var(--sub);margin:2px 0 0}
+.h2{font-size:17px;font-weight:900;margin:0}
+.pad{padding:20px}
+/* 状態ピル */
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:800;padding:3px 10px;border-radius:999px;white-space:nowrap}
+.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.pill.done{color:var(--done);background:var(--doneBg)}
+.pill.todo{color:var(--todo);background:var(--todoBg)}
+.pill.none{color:var(--none);background:var(--noneBg)}
+/* ボタン */
+.btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:52px;border:0;border-radius:12px;font:inherit;font-size:16px;font-weight:800;cursor:pointer;background:var(--red);color:#fff;text-decoration:none}
+.btn.ghost{background:#fff;color:var(--ink);border:1.5px solid var(--ink)}
+.btn.quiet{background:#f1f1ef;color:var(--ink)}
+.btn:disabled{opacity:.45;cursor:default}
+.link{background:none;border:0;font:inherit;font-size:14px;font-weight:700;color:var(--ink);text-decoration:underline;text-underline-offset:3px;padding:8px 0;cursor:pointer}
+.row{display:flex;gap:10px;align-items:center}
+.muted{color:var(--sub);font-size:13px}
+/* 画像 */
+.ph{display:block;width:100%;height:auto;border-radius:10px;background:#ddd}
+.story{aspect-ratio:9/16;object-fit:cover}
+/* レビューストーリー見本（実物は story-review.jpg） */
+.rv{position:relative;aspect-ratio:9/16;border-radius:10px;overflow:hidden;background:#222 url(img/ig-03.webp) center/cover;color:#fff}
+.rv::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.78) 100%)}
+.rv .q{position:absolute;left:9%;right:9%;bottom:15%;z-index:1;font-family:Georgia,serif;font-size:var(--qs,15px);line-height:1.35}
+.rv .q::before{content:"“";display:block;font-size:2.4em;line-height:.6;color:var(--red)}
+.rv .st{position:absolute;left:9%;bottom:7%;z-index:1;font-size:calc(var(--qs,15px)*.62);letter-spacing:.12em;font-weight:800}
+.rv .st b{color:#ffcf3a;letter-spacing:.05em}
+.rv.empty{background:#f1f1ef;color:var(--sub);display:flex;align-items:center;justify-content:center;font-size:13px;text-align:center}
+.rv.empty::after{display:none}
+.tag{position:absolute;top:8px;left:8px;z-index:2;background:rgba(255,255,255,.92);color:#141414;font-size:12px;font-weight:800;padding:2px 8px;border-radius:6px}
+/* シート */
+.sheet{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:flex-end;justify-content:center;z-index:50}
+.sheet.on{display:flex}
+.sheet>div{background:#fff;width:100%;max-width:390px;border-radius:18px 18px 0 0;padding:20px 20px 28px;max-height:85vh;overflow:auto}
+.picks{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.picks img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:8px;border:3px solid transparent;cursor:pointer}
+.picks img.on{border-color:var(--red)}
+.shapes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.shape{border:2px solid var(--line);border-radius:12px;padding:8px;text-align:center;font-size:13px;font-weight:700;background:#fff;font-family:inherit;cursor:pointer}
+.shape.on{border-color:var(--red)}
+.shape .ic{display:block;aspect-ratio:9/16;border-radius:6px;background:#eee;margin-bottom:6px;position:relative;overflow:hidden}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#141414;color:#fff;font-size:14px;padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .2s;z-index:60;white-space:nowrap}
+.toast.on{opacity:1}
+textarea{width:100%;font:inherit;font-size:15px;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;min-height:96px}

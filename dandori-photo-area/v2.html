@@ -1,0 +1,67 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>案2 投稿物カード式｜だんどりー 写真と投稿</title><link rel="icon" href="img/ig-07.webp">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css"><script src="common.js"></script>
+<style>
+.app{background:#f4f4f2}
+.guest{background:#fff}
+.cards{padding:16px;display:grid;gap:14px}
+.cd{background:#fff;border-radius:var(--r);padding:14px;display:grid;grid-template-columns:96px 1fr;gap:14px;box-shadow:0 1px 0 var(--line)}
+.cd.todo{outline:2px solid var(--red)}
+.th{width:96px;border-radius:8px;overflow:hidden}
+.th img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}
+.th .story,.th .rv{aspect-ratio:9/16}
+.th .rv{--qs:7px;border-radius:8px}
+.mt{display:flex;flex-direction:column;gap:6px;min-width:0}
+.mt b{font-size:17px}
+.mt .btn{margin-top:auto;min-height:46px;font-size:15px}
+.mt .link{padding:0;align-self:flex-start;font-size:13px}
+</style></head><body><div class="app">
+<div class="mockbar"><span>案2 投稿物カード式</span><a href="./">← 5案のボードへ</a></div>
+<div class="guest"><p class="nm">Michaela さん</p><p class="sub">11/19（水） Airbnb ・ 2名 ・ ★5 レビュー到着</p></div>
+<div class="pad" style="padding-bottom:0"><p class="h2">写真と投稿</p><p class="muted" style="margin:2px 0 0">1枚のカード＝1つの投稿。押すボタンは各カード1つだけ。</p></div>
+<div class="cards">
+  <div class="cd todo" id="rvcard">
+    <div class="th" id="rvth"><div class="rv empty">まだ<br>ありません</div></div>
+    <div class="mt"><b>レビューストーリー</b><span class="pill none" id="rvp" style="align-self:flex-start">未作成</span>
+      <span class="muted">Airbnb ★5 が届いています</span>
+      <button class="btn" id="rvbtn" data-open="mk">作る</button></div>
+  </div>
+  <div class="cd">
+    <div class="th"><img src="img/ig-00-collage.webp" alt=""></div>
+    <div class="mt"><b>フィード</b><span class="pill done" style="align-self:flex-start">投稿済み</span>
+      <span class="muted">写真8枚 ・ 11/19 17:41</span>
+      <a class="btn ghost" href="https://www.instagram.com/p/Df6rJO3E268/" target="_blank" rel="noopener">インスタで見る</a></div>
+  </div>
+  <div class="cd">
+    <div class="th"><img class="story" src="img/story.webp" alt=""></div>
+    <div class="mt"><b>ストーリー</b><span class="pill done" style="align-self:flex-start">投稿済み</span>
+      <span class="muted">日付を大きく ・ 11/19 17:41</span>
+      <button class="link" data-open="ss">作り直す</button></div>
+  </div>
+</div>
+<p class="muted pad" style="padding-top:0">並び順は「やることがある順」。済んだカードは下へ沈みます。</p>
+</div>
+<div class="sheet" id="mk"><div>
+  <p class="h2" style="margin-bottom:12px">レビューストーリーを作る</p>
+  <div class="row" style="align-items:flex-start;gap:14px">
+    <div style="width:132px;flex:none" id="mkpv"></div>
+    <div style="flex:1">
+      <p style="font-weight:800;margin:0">写真</p><p class="muted" style="margin:0">ラーメン屋の2人</p><button class="link" data-open="ps">替える</button>
+      <p style="font-weight:800;margin:10px 0 0">文</p><p class="muted" style="margin:0">★5 から名前を抜いた2文</p><button class="link" data-open="qs">直す</button>
+    </div>
+  </div>
+  <div style="height:16px"></div>
+  <button class="btn" id="mkgo">これで作る</button>
+</div></div>
+<script>
+photoSheet("ps", "#mkpv .rv, #rvth .rv"); quoteSheet("qs"); storySheet("ss");
+$("#mkpv").innerHTML = rvHTML(); $("#mkpv .rv").style.setProperty("--qs", "9px");
+$("#mkgo").onclick = () => {
+  $("#mk").classList.remove("on");
+  $("#rvth").innerHTML = rvHTML(); $("#rvth .rv").style.backgroundImage = $("#mkpv .rv").style.backgroundImage;
+  $("#rvp").className = "pill todo"; $("#rvp").textContent = "投稿待ち";
+  const b = $("#rvbtn"); b.textContent = "投稿する"; b.removeAttribute("data-open");
+  b.onclick = () => toast("確認ダイアログ → 投稿（モック）");
+  toast("できました");
+};
+</script></body></html>

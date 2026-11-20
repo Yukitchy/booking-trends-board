@@ -1,0 +1,49 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>案3 自動準備型｜だんどりー 写真と投稿</title><link rel="icon" href="img/ig-07.webp">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css"><script src="common.js"></script>
+<style>
+.ready{margin:0 20px;border-radius:var(--r);background:var(--todoBg);padding:18px}
+.ready .lead{font-size:18px;font-weight:900;line-height:1.45;margin:6px 0 14px}
+.ready .rv{width:62%;margin:0 auto;--qs:12px;box-shadow:0 6px 18px rgba(0,0,0,.18)}
+.auto{list-style:none;padding:0;margin:16px 0}
+.auto li{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid rgba(0,0,0,.08);font-size:14px}
+.auto li::before{content:"✓";color:var(--done);font-weight:900}
+.auto li .link{margin-left:auto;padding:0;font-size:13px}
+.others{margin:22px 20px 32px}
+.oth{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
+.oth img{width:40px;height:50px;object-fit:cover;border-radius:6px}
+.oth .story{width:30px;height:52px}
+.oth b{font-size:15px}
+.oth .pill{margin-left:auto}
+</style></head><body><div class="app">
+<div class="mockbar"><span>案3 自動準備型</span><a href="./">← 5案のボードへ</a></div>
+<div class="guest"><p class="nm">Michaela さん</p><p class="sub">11/19（水） Airbnb ・ 2名 ・ ★5 レビュー到着</p></div>
+<div class="pad" style="padding-bottom:12px"><p class="h2">写真と投稿</p></div>
+<div class="ready" id="rd">
+  <span class="pill todo" id="rp">確認待ち</span>
+  <p class="lead" id="lead">★5 レビューが届いたので<br>レビューストーリーを用意しました</p>
+  <div id="pv"></div>
+  <ul class="auto">
+    <li>名前の入った文を抜いて2文に<button class="link" data-open="qs">直す</button></li>
+    <li>2人が笑っている写真を選択<button class="link" data-open="ps">替える</button></li>
+  </ul>
+  <button class="btn" id="go">これで投稿する</button>
+  <button class="link" style="display:block;margin:4px auto 0">投稿せずに下見する</button>
+</div>
+<div class="others">
+  <p style="font-weight:800;margin:0 0 4px">ほかの投稿</p>
+  <div class="oth"><img src="img/ig-00-collage.webp" alt=""><div><b>フィード</b><div class="muted">8枚 ・ 11/19 17:41</div></div><span class="pill done">済</span></div>
+  <div class="oth"><img class="story" src="img/story.webp" alt=""><div><b>ストーリー</b><div class="muted">11/19 17:41</div></div><span class="pill done">済</span></div>
+  <button class="link" data-open="ss" style="font-size:13px">ストーリーを作り直す</button>
+</div>
+<p class="muted pad" style="padding-top:0;border-top:1px solid var(--line)">しくみ：レビューが届いた夜のうちに、文と写真をこちらで仮に入れて画像まで作っておきます。人がやるのは見て投稿するだけです。</p>
+</div>
+<script>
+$("#pv").innerHTML = rvHTML("自動で作成");
+photoSheet("ps", "#pv .rv"); quoteSheet("qs"); storySheet("ss");
+$("#go").onclick = function(){
+  this.textContent = "投稿しています…"; this.disabled = true;
+  setTimeout(() => { $("#rp").className = "pill done"; $("#rp").textContent = "投稿済み";
+    $("#lead").textContent = "レビューストーリーを投稿しました"; this.textContent = "3つとも済みです"; toast("投稿しました（モック）"); }, 900);
+};
+</script></body></html>

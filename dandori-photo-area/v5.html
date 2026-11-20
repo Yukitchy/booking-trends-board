@@ -1,0 +1,61 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>案5 やることリスト型｜だんどりー 写真と投稿</title><link rel="icon" href="img/ig-07.webp">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css"><script src="common.js"></script>
+<style>
+.left{display:flex;align-items:baseline;gap:8px;padding:20px 20px 4px}
+.left b{font-size:44px;font-weight:900;color:var(--red);line-height:1}
+.left span{font-size:16px;font-weight:800}
+.todo{margin:12px 20px;border:2px solid var(--red);border-radius:var(--r);padding:16px}
+.todo .tt{font-size:18px;font-weight:900;margin:0 0 10px}
+.sub{list-style:none;padding:0;margin:0 0 14px}
+.sub li{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--line);font-size:14px}
+.sub li i{width:22px;height:22px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:12px;font-weight:900}
+.sub li.ok i{background:var(--doneBg);color:var(--done)}
+.sub li.ok i::before{content:"✓"}
+.sub li.ng i{border:2px solid var(--red)}
+.sub li.ok{color:var(--sub)}
+.sub li .link{margin-left:auto;padding:0;font-size:13px}
+.sub li.ng{font-weight:800}
+.mini{display:flex;gap:10px;align-items:center;margin-bottom:14px}
+.mini .rv{width:84px;--qs:6px;flex:none}
+details.donebox{margin:18px 20px 32px;border-top:1px solid var(--line)}
+details.donebox summary{padding:14px 0;font-weight:800;color:var(--sub);cursor:pointer}
+.dn{display:flex;align-items:center;gap:10px;padding:8px 0;color:var(--sub);font-size:14px}
+.dn img{width:36px;height:45px;object-fit:cover;border-radius:6px;filter:grayscale(.5)}
+.dn .link{margin-left:auto;font-size:13px;color:var(--sub)}
+.alldone{display:none;text-align:center;padding:30px 20px}
+.alldone b{font-size:22px}
+</style></head><body><div class="app">
+<div class="mockbar"><span>案5 やることリスト型</span><a href="./">← 5案のボードへ</a></div>
+<div class="guest"><p class="nm">Michaela さん</p><p class="sub">11/19（水） Airbnb ・ 2名 ・ ★5 レビュー到着</p></div>
+<div id="list">
+  <div class="left"><b>1</b><span>つ残っています（写真と投稿）</span></div>
+  <div class="todo">
+    <p class="tt">レビューストーリーを出す</p>
+    <div class="mini" id="mini"></div>
+    <ul class="sub">
+      <li class="ok"><i></i>★5 レビューが届いた</li>
+      <li class="ok"><i></i>名前を抜いた文が入った<button class="link" data-open="qs">直す</button></li>
+      <li class="ok"><i></i>写真が入った<button class="link" data-open="ps">替える</button></li>
+      <li class="ng" id="t4"><i></i>画像を作る</li>
+      <li class="ng" id="t5"><i></i>インスタに出す</li>
+    </ul>
+    <button class="btn" id="next">画像を作る</button>
+  </div>
+</div>
+<div class="alldone" id="ad"><b>写真と投稿は全部済みです</b><p class="muted">3つともインスタに出ています。</p></div>
+<details class="donebox"><summary>済んだこと（2）</summary>
+  <div class="dn"><img src="img/ig-00-collage.webp" alt="">フィード 8枚 ・ 11/19<a class="link" href="https://www.instagram.com/p/Df6rJO3E268/" target="_blank" rel="noopener">見る</a></div>
+  <div class="dn"><img src="img/story.webp" alt="" style="width:26px">ストーリー ・ 11/19<button class="link" data-open="ss">作り直す</button></div>
+</details>
+</div>
+<script>
+$("#mini").innerHTML = rvHTML() + `<p class="muted" style="margin:0">いま入っている中身で作ると、こうなります。</p>`;
+photoSheet("ps", "#mini .rv"); quoteSheet("qs"); storySheet("ss");
+let step = 0;
+$("#next").onclick = function(){
+  if(step === 0){ this.textContent = "作っています…"; this.disabled = true;
+    setTimeout(() => { $("#t4").className = "ok"; this.disabled = false; this.textContent = "インスタに出す"; step = 1; toast("できました"); }, 900); }
+  else { $("#list").style.display = "none"; $("#ad").style.display = "block"; $("summary").textContent = "済んだこと（3）"; toast("投稿しました（モック）"); }
+};
+</script></body></html>
