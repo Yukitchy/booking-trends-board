@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2027年 予約予測 — Anime Sensei</title>
+<meta name="description" content="2026年の月別実績をもとにした2027年の予約予測。標準シナリオ190件、控えめシナリオ173件。">
+<meta property="og:title" content="2027年の予約予測">
+<meta property="og:description" content="2026年実績（157件）をもとにした2027年の月別予約予測。標準シナリオ190件・控えめシナリオ173件。">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/forecast.html">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/og-report.jpg">
+<meta property="og:type" content="website">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic UI", "Noto Sans JP", sans-serif;
+    background: #eceff2; color: #1c2430; -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 28px 16px 56px; }
+  .serif { font-family: "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Yu Mincho", "YuMincho", "Noto Serif JP", serif; }
+  svg.chart { width: 100%; height: auto; display: block; }
+  .up { color: #177245; font-weight: 700; } .down { color: #c23b22; font-weight: 700; }
+
+  .report { background: #fff; padding: 48px 52px 40px; box-shadow: 0 1px 10px rgba(20,30,45,.07); border-top: 5px solid #22405c; }
+  .kicker { font-size: 11px; font-weight: 700; letter-spacing: .22em; color: #22405c; }
+  .report h1 { font-size: 32px; font-weight: 600; letter-spacing: .04em; margin: 12px 0 8px; color: #16283d; line-height: 1.3; }
+  .dateline { font-size: 12px; color: #7a8494; border-bottom: 1px solid #d9dee5; padding-bottom: 16px; letter-spacing: .06em; }
+  .lead { font-size: 14.5px; line-height: 2.05; margin: 22px 0 4px; color: #2c3644; }
+  .lead b { color: #22405c; }
+
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 2px solid #22405c; border-bottom: 1px solid #d9dee5; margin: 24px 0 4px; }
+  .kpi { padding: 16px 10px 14px; text-align: center; }
+  .kpi + .kpi { border-left: 1px solid #e4e8ed; }
+  .kpi .n { font-size: 32px; font-weight: 600; color: #16283d; line-height: 1.15; }
+  .kpi .n small { font-size: 14px; margin-left: 2px; }
+  .kpi .t { font-size: 11px; color: #7a8494; margin-top: 4px; letter-spacing: .05em; line-height: 1.5; }
+
+  .report h2 { font-size: 17px; font-weight: 600; color: #16283d; margin: 36px 0 6px; padding-left: 11px; border-left: 4px solid #22405c; line-height: 1.45; }
+  .report h2 .en { font-size: 10.5px; color: #98a2b1; letter-spacing: .18em; margin-left: 8px; font-weight: 700; white-space: nowrap; }
+  .cap { font-size: 12px; color: #7a8494; margin-bottom: 12px; line-height: 1.7; }
+
+  .legend { display: flex; gap: 18px; flex-wrap: wrap; margin: 2px 0 8px; font-size: 12px; color: #39424f; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .legend i { width: 12px; height: 12px; border-radius: 2px; display: inline-block; }
+
+  .findings { list-style: none; margin-top: 4px; }
+  .findings li { display: flex; gap: 10px; font-size: 13.5px; line-height: 1.8; padding: 10px 2px; border-bottom: 1px dotted #ccd3dc; color: #2c3644; }
+  .findings .no { font-weight: 600; flex: none; color: #22405c; font-family: "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Yu Mincho", serif; font-size: 15px; }
+
+  .method { list-style: none; margin-top: 4px; }
+  .method li { font-size: 13.5px; line-height: 1.85; padding: 7px 2px; border-bottom: 1px dotted #ccd3dc; color: #2c3644; }
+  .method b { color: #22405c; }
+
+  table.dt { border-collapse: collapse; width: 100%; font-size: 13px; margin-top: 8px; }
+  table.dt th, table.dt td { text-align: right; white-space: nowrap; padding: 7px 8px; border-bottom: 1px solid #e4e8ed; }
+  table.dt th:first-child, table.dt td:first-child { text-align: left; }
+  table.dt thead th { border-bottom: 2px solid #22405c; color: #39424f; font-size: 11.5px; line-height: 1.5; }
+  table.dt tfoot td { font-weight: 700; border-top: 2px solid #22405c; border-bottom: none; }
+  table.dt td.hl { background: #f2f6fb; font-weight: 700; }
+
+  .src-note { font-size: 11.5px; color: #8a94a1; margin-top: 16px; line-height: 1.8; }
+  .doc-foot { margin-top: 30px; padding-top: 14px; border-top: 1px solid #d9dee5; font-size: 11.5px; color: #8a94a1; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .doc-foot a { color: #2f5aa8; text-decoration: none; }
+
+  @media (max-width: 640px) {
+    .wrap { padding: 16px 10px 44px; }
+    .report { padding: 30px 18px 26px; }
+    .report h1 { font-size: 24px; }
+    .kpis { grid-template-columns: repeat(2, 1fr); }
+    .kpi .n { font-size: 25px; }
+    .kpi:nth-child(3) { border-left: none; }
+    .kpi:nth-child(n+3) { border-top: 1px solid #e4e8ed; }
+    table.dt { font-size: 11px; }
+    table.dt th, table.dt td { padding: 5px 3px; }
+    .report h2 { font-size: 15.5px; margin-top: 28px; }
+  }
+
+  @media print {
+    body { background: #fff; }
+    .wrap { padding: 0; max-width: none; }
+    .report { box-shadow: none; padding: 12px 6px 0; }
+    .kpis, .findings li, table.dt tr { break-inside: avoid; }
+    .report h2 { break-after: avoid; }
+    .doc-foot a { color: #8a94a1; }
+  }
+
+.report { position: relative; }
+.stamp { position: absolute; top: 18px; right: 18px; transform: rotate(-8deg); color: #c0272d; border: 3px double #c0272d; border-radius: 6px; padding: 6px 14px 7px; font-family: serif; font-weight: 700; font-size: 22px; letter-spacing: 0.35em; text-indent: 0.35em; opacity: 0.88; pointer-events: none; }
+@media (max-width: 480px) { .stamp { font-size: 17px; top: 12px; right: 12px; padding: 4px 10px 5px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <article class="report">
+    <div class="stamp">部外秘</div>
+    <div class="kicker">FORECAST — 2027年 予測</div>
+    <h1 class="serif">2027年の予約予測</h1>
+    <div class="dateline">基準データ：2026年1月 – 12月の月別実績（現時点の確定分）／作成：2026年11月</div>
+    <p class="lead">2026年の実績（予約<b>157件</b>・実施<b>125日</b>）に直近の伸び率を当てはめると、2027年は標準シナリオで<b>190件</b>、控えめに見ても<b>173件</b>となる。山は2026年と同じく春（3–4月）と秋（10月）に来る想定で、10月は33件と初めて30件台に乗る計算だ。</p>
+    <div class="kpis">
+      <div class="kpi"><div class="n serif">190<small>件</small></div><div class="t">2027年予測・標準（+21.7%）</div></div>
+      <div class="kpi"><div class="n serif">173<small>件</small></div><div class="t">2027年予測・控えめ（+10%）</div></div>
+      <div class="kpi"><div class="n serif">152<small>日</small></div><div class="t">標準の実施日数目安（稼働率41.6%）</div></div>
+      <div class="kpi"><div class="n serif">10<small>件</small></div><div class="t">年間200件まで（標準との差）</div></div>
+    </div>
+
+    <h2 class="serif">予測の方法<span class="en">METHOD</span></h2>
+    <ul class="method">
+      <li><b>基準</b>：2026年の月別実績（予約数・ツアー実施日数）を土台にする。</li>
+      <li><b>標準シナリオ</b>：各月の2026年実績に、直近の前年比 <b>+21.7%</b>（2025年→2026年の伸び）をそのまま掛ける。</li>
+      <li><b>控えめシナリオ</b>：各月に <b>+10%</b> を掛ける。</li>
+      <li><b>丸め</b>：月ごとの予測は四捨五入で整数化し、年間合計は丸めた月の合計とする。実施日数の目安は、その月の2026年の「実施日数 ÷ 予約数」の比率を予測予約数に掛けて四捨五入した。</li>
+    </ul>
+
+    <h2 class="serif">月別の比較<span class="en">CHART</span></h2>
+    <p class="cap">2026年実績と2027年予測（標準）の月別予約数。</p>
+    <div class="legend"><span><i style="background:#4a6fa5"></i>2026年 実績</span><span><i style="background:#b3402a"></i>2027年 予測・標準</span></div>
+    <svg class="chart" viewBox="0 0 720 300" role="img" aria-label="2026年実績と2027年予測（標準）の月別棒グラフ"><line x1="40" y1="258.0" x2="712" y2="258.0" stroke="#e3e8ee" stroke-width="1"/><text x="35" y="261.5" font-size="10" fill="#8a94a1" text-anchor="end">0</text><line x1="40" y1="189.4" x2="712" y2="189.4" stroke="#e3e8ee" stroke-width="1"/><text x="35" y="192.9" font-size="10" fill="#8a94a1" text-anchor="end">10</text><line x1="40" y1="120.9" x2="712" y2="120.9" stroke="#e3e8ee" stroke-width="1"/><text x="35" y="124.4" font-size="10" fill="#8a94a1" text-anchor="end">20</text><line x1="40" y1="52.3" x2="712" y2="52.3" stroke="#e3e8ee" stroke-width="1"/><text x="35" y="55.8" font-size="10" fill="#8a94a1" text-anchor="end">30</text><rect x="45.0" y="189.4" width="21" height="68.6" fill="#4a6fa5"/><rect x="69.0" y="175.7" width="21" height="82.3" fill="#b3402a"/><text x="55.5" y="185.4" font-size="9.5" fill="#4a6fa5" text-anchor="middle" font-weight="700">10</text><text x="79.5" y="171.7" font-size="9.5" fill="#b3402a" text-anchor="middle" font-weight="700">12</text><text x="68.0" y="276" font-size="10.5" fill="#8a94a1" text-anchor="middle">1月</text><rect x="101.0" y="244.3" width="21" height="13.7" fill="#4a6fa5"/><rect x="125.0" y="244.3" width="21" height="13.7" fill="#b3402a"/><text x="111.5" y="240.3" font-size="9.5" fill="#4a6fa5" text-anchor="middle" font-weight="700">2</text><text x="135.5" y="240.3" font-size="9.5" fill="#b3402a" text-anchor="middle" font-weight="700">2</text><text x="124.0" y="276" font-size="10.5" fill="#8a94a1" text-anchor="middle">2月</text><rect x="157.0" y="114.0" width="21" height="144.0" fill="#4a6fa5"/><rect x="181.0" y="79.7" width="21" height="178.3" fill="#b3402a"/><text x="167.5" y="110.0" font-size="9.5" fill="#4a6fa5" text-anchor="middle" font-weight="700">21</text><text x="191.5" y="75.7" font-size="9.5" fill="#b3402a" text-anchor="middle" font-weight="700">26</text><text x="180.0" y="276" font-size="10.5" fill="#8a94a1" text-anchor="middle">3月</text><rect x="213.0" y="120.9" width="21" height="137.1" fill="#4a6fa5"/><rect x="237.0" y="93.4" width="21" height="164.6" fill="#b3402a"/><text x="223.5" y="116.9" font-size="9.5" fill="#4a6fa5" text-anchor="middle" font-weight="700">20</text><text x="247.5" y="89.4" font-size="9.5" fill="#b3402a" text-anchor="middle" font-weight="700">24</text><text x="236.0" y="276" font-size="10.5" fill="#8a94a1" text-anchor="middle">4月</text><rect x="269.0" y="182.6" width="21" height="75.4" fill="#4a6fa5"/><rect x="293.0" y="168.9" width="21" height="89.1" fill="#b3402a"/><text x="279.5" y="178.6" font-size="9.5" fill="#4a6fa5" text-anchor="middle" font-weight="700">11</text><text x="303.5" y="164.9" font-size="9.5" fill="#b3402a" text-anchor="middle" font-weight="700">13</text><text x="292.0" y="276" font-size="10.5" fill="#8a94a1" text-anchor="middle">5月</text><rect x="325.0" y="162.0" width="21" height="96.0" fill="#4a6fa5"/><rect x="349.0" y="141.4" width="21" height="116.6" fill="#b3402a"/><text x="335.5" y="158.0" font-size="9.5" fill="#4a6fa5" text-anchor="middle" font-weight="700">14</text><text x="359.5" y="137.4" font-size="9.5" fill="#b3402a" text-anchor="middle" font-weight="700">17</text><text x="348.0" y="276" font-size="10.5" fill="#8a94a1" text-anchor="middle">6月</text><rect x="381.0" y="210.0" width="21" height="48.0" fill="#4a6fa5"/><rect x="405.0" y="196.3" width="21" height="61.7" fill="#b3402a"/><text x="391.5" y="206.0" font-size="9.5" fill="#4a6fa5" text-anchor="middle" font-weight="700">7</text><text x="415.5" y="192.3" font-size="9.5" fill="#b3402a" text-anchor="middle" font-weight="700">9</text><text x="404.0" y="276" font-size="10.5" fill="#8a94a1" text-anchor="middle">7月</text><rect x="437.0" y="216.9" width="21" height="41.1" fill="#4a6fa5"/><rect x="461.0" y="210.0" width="21" height="48.0" fill="#b3402a"/><text x="447.5" y="212.9" font-size="9.5" fill="#4a6fa5" text-anchor="middle" font-weight="700">6</text><text x="471.5" y="206.0" font-size="9.5" fill="#b3402a" text-anchor="middle" font-weight="700">7</text><text x="460.0" y="276" font-size="10.5" fill="#8a94a1" text-anchor="middle">8月</text><rect x="493.0" y="196.3" width="21" height="61.7" fill="#4a6fa5"/><rect x="517.0" y="182.6" width="21" height="75.4" fill="#b3402a"/><text x="503.5" y="192.3" font-size="9.5" fill="#4a6fa5" text-anchor="middle" font-weight="700">9</text><text x="527.5" y="178.6" font-size="9.5" fill="#b3402a" text-anchor="middle" font-weight="700">11</text><text x="516.0" y="276" font-size="10.5" fill="#8a94a1" text-anchor="middle">9月</text><rect x="549.0" y="72.9" width="21" height="185.1" fill="#4a6fa5"/><rect x="573.0" y="31.7" width="21" height="226.3" fill="#b3402a"/><text x="559.5" y="68.9" font-size="9.5" fill="#4a6fa5" text-anchor="middle" font-weight="700">27</text><text x="583.5" y="27.7" font-size="9.5" fill="#b3402a" text-anchor="middle" font-weight="700">33</text><text x="572.0" y="276" font-size="10.5" fill="#8a94a1" text-anchor="middle">10月</text><rect x="605.0" y="162.0" width="21" height="96.0" fill="#4a6fa5"/><rect x="629.0" y="141.4" width="21" height="116.6" fill="#b3402a"/><text x="615.5" y="158.0" font-size="9.5" fill="#4a6fa5" text-anchor="middle" font-weight="700">14</text><text x="639.5" y="137.4" font-size="9.5" fill="#b3402a" text-anchor="middle" font-weight="700">17</text><text x="628.0" y="276" font-size="10.5" fill="#8a94a1" text-anchor="middle">11月</text><rect x="661.0" y="148.3" width="21" height="109.7" fill="#4a6fa5"/><rect x="685.0" y="127.7" width="21" height="130.3" fill="#b3402a"/><text x="671.5" y="144.3" font-size="9.5" fill="#4a6fa5" text-anchor="middle" font-weight="700">16</text><text x="695.5" y="123.7" font-size="9.5" fill="#b3402a" text-anchor="middle" font-weight="700">19</text><text x="684.0" y="276" font-size="10.5" fill="#8a94a1" text-anchor="middle">12月</text><line x1="40" y1="258" x2="712" y2="258" stroke="#c8d0da" stroke-width="1"/></svg>
+
+    <h2 class="serif">月別予測<span class="en">DATA</span></h2>
+    <table class="dt"><thead><tr><th>月</th><th>2026実績<br>予約数</th><th>2026実績<br>実施日数</th><th>2027予測・標準<br>予約数</th><th>2027予測・標準<br>実施日数</th><th>2027予測・控えめ<br>予約数</th></tr></thead><tbody><tr><td>1月</td><td>10</td><td>10日</td><td class="hl">12</td><td class="hl">12日</td><td>11</td></tr><tr><td>2月</td><td>2</td><td>2日</td><td class="hl">2</td><td class="hl">2日</td><td>2</td></tr><tr><td>3月</td><td>21</td><td>19日</td><td class="hl">26</td><td class="hl">24日</td><td>23</td></tr><tr><td>4月</td><td>20</td><td>17日</td><td class="hl">24</td><td class="hl">20日</td><td>22</td></tr><tr><td>5月</td><td>11</td><td>10日</td><td class="hl">13</td><td class="hl">12日</td><td>12</td></tr><tr><td>6月</td><td>14</td><td>12日</td><td class="hl">17</td><td class="hl">15日</td><td>15</td></tr><tr><td>7月</td><td>7</td><td>7日</td><td class="hl">9</td><td class="hl">9日</td><td>8</td></tr><tr><td>8月</td><td>6</td><td>5日</td><td class="hl">7</td><td class="hl">6日</td><td>7</td></tr><tr><td>9月</td><td>9</td><td>6日</td><td class="hl">11</td><td class="hl">7日</td><td>10</td></tr><tr><td>10月</td><td>27</td><td>16日</td><td class="hl">33</td><td class="hl">20日</td><td>30</td></tr><tr><td>11月</td><td>14</td><td>10日</td><td class="hl">17</td><td class="hl">12日</td><td>15</td></tr><tr><td>12月</td><td>16</td><td>11日</td><td class="hl">19</td><td class="hl">13日</td><td>18</td></tr></tbody><tfoot><tr><td>年間合計</td><td>157件</td><td>125日</td><td>190件</td><td>152日</td><td>173件</td></tr></tfoot></table>
+    <p class="src-note">出典：予約カレンダーの集計。2026年の数値は現時点の確定分（12月の予約を含む）。2027年の数値はすべて予測であり、実績ではない。</p>
+
+    <h2 class="serif">主な所見<span class="en">FINDINGS</span></h2>
+    <ul class="findings">
+      <li><span class="no">01</span><span>山は春と秋の二つ。標準シナリオでは10月が33件で最大、次いで3月26件・4月24件。2026年の季節パターンがそのまま強まる形になる。</span></li>
+      <li><span class="no">02</span><span>年間200件には標準シナリオ（190件）でもあと10件足りない。ピークの3月・4月・10月で各+3〜4件ずつ上乗せする計算になるが、10月は予測でも実施20日とすでに密度が高い。谷の2月（2件）や8月（7件）など、日数に余白のある月の底上げと組み合わせるのが現実的だ。</span></li>
+      <li><span class="no">03</span><span>標準シナリオの実施日数は152日で、年間稼働率は41.6%まで上がる。2026年の34.2%からさらに7ポイント超の上昇で、1人運営の上限に近づく水準。</span></li>
+      <li><span class="no">04</span><span>これは過去の伸び率を機械的に当てはめた試算であり、達成を約束するものではない。予約の入り方はチャネルや市況で変わるため、四半期ごとに実績と見比べながら前提を更新する前提の数字だ。</span></li>
+    </ul>
+
+    <div class="doc-foot"><span>Anime Sensei — 2027年 予約予測（2026年11月作成）</span><span><a href="report.html">年次レポートへ戻る</a>　｜　<a href="index.html">集計ボードへ戻る</a></span></div>
+  </article>
+</div>
+</body>
+</html>
