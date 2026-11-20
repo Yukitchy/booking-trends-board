@@ -66,6 +66,6 @@ let fs=parseFloat(getComputedStyle(h).fontSize);
 while(h.scrollWidth>avail+0.5&&fs>13){fs-=.5;h.style.fontSize=fs+'px'}
 if(h.scrollWidth>avail+0.5){h.style.whiteSpace='';}});}
 fit();addEventListener('resize',fit);document.fonts&&document.fonts.ready.then(fit);})();
-</script><aside class="navi" aria-label="Guide"><a class="navi-b" href="#book"><span class="navi-k">GUIDE</span><span class="navi-l">New here? </span>Book a trial lesson</a><img class="navi-m" src="mascot-sd.webp" alt="Anime Sensei guide" width="410" height="889"><button class="navi-x" type="button" aria-label="Hide guide">×</button></aside>
+</script><aside class="navi" aria-label="Guide"><a class="navi-b" href="#book"><span class="navi-k">GUIDE</span><span class="navi-l">New here? </span>Book a trial lesson</a><img class="navi-m" src="mascot-sd78.webp" alt="Anime Sensei guide" width="570" height="889"><button class="navi-x" type="button" aria-label="Hide guide">×</button></aside>
 <script>(()=>{const n=document.querySelector('.navi'),b=document.getElementById('book');if(sessionStorage.navi==='x'){n.remove();return}n.querySelector('.navi-x').onclick=()=>{sessionStorage.navi='x';n.remove()};const sp=matchMedia('(max-width:600px)');if(b&&'IntersectionObserver'in window)new IntersectionObserver(e=>n.classList.toggle('off',sp.matches&&e[0].isIntersecting),{threshold:.15}).observe(b)})()</script>
 </body></html>
