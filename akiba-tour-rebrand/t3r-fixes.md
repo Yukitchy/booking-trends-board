@@ -1,7 +1,7 @@
 # t3r（t3修正版）見つけた問題と直し方
 
-- 修正版: https://yukitchy.github.io/booking-trends-board/akiba-tour-rebrand/t3r.html
-- 元のt3: https://yukitchy.github.io/booking-trends-board/akiba-tour-rebrand/t3.html（変更なし）
+- 修正版: [t3r.html](https://yukitchy.github.io/booking-trends-board/akiba-tour-rebrand/t3r.html)
+- 元のt3: [t3.html](https://yukitchy.github.io/booking-trends-board/akiba-tour-rebrand/t3.html)（変更なし）
 - 生成: `_src/build_t3r.py`（build.pyの本文処理をそのまま使い、CSS・ロゴ・ナビゲーターだけ差し替え）／検証: `_src/check_t3r.mjs`
 - 直した件数: **31件**
 
