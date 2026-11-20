@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>予約レポート 2024–2026（磨き案5種）— Anime Sensei</title>
-<meta name="description" content="Anime Sensei ツアー予約の3年間レポート。2024年97件から2026年157件への推移を、年次レポート風に磨いたデザイン5案。">
-<meta property="og:title" content="予約レポート 2024–2026（磨き案5種）">
-<meta property="og:description" content="予約数は3年で1.6倍。2024年97件→2025年129件→2026年157件の推移をレポートページ風に磨いた5案。">
+<title>予約レポート 2024–2026 — Anime Sensei</title>
+<meta name="description" content="Anime Sensei ツアー予約の年次レポート。予約数は3年で1.6倍（2024年97件→2025年129件→2026年157件）。">
+<meta property="og:title" content="予約レポート 2024–2026">
+<meta property="og:description" content="予約数は3年で1.6倍。2024年97件→2025年129件→2026年157件の推移をまとめた年次レポート。">
 <meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/report.html">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/og-report.jpg">
 <meta property="og:type" content="website">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -15,226 +16,77 @@
     font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic UI", "Noto Sans JP", sans-serif;
     background: #eceff2; color: #1c2430; -webkit-font-smoothing: antialiased;
   }
-  .wrap { max-width: 880px; margin: 0 auto; padding: 22px 16px 56px; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 28px 16px 56px; }
   .serif { font-family: "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Yu Mincho", "YuMincho", "Noto Serif JP", serif; }
-
-  header.board-head { margin-bottom: 14px; }
-  header.board-head h1 { font-size: 21px; letter-spacing: .02em; }
-  header.board-head p { font-size: 13px; color: #5b6675; margin-top: 5px; line-height: 1.7; }
-  header.board-head a { color: #2f5aa8; }
-
-  .switcher {
-    display: flex; gap: 6px; flex-wrap: wrap; position: sticky; top: 8px; z-index: 10;
-    background: rgba(236,239,242,.92); backdrop-filter: blur(6px); padding: 6px 0; margin-bottom: 14px;
-  }
-  .switcher button {
-    flex: 1 1 30%; border: 1.5px solid #c3ccd6; background: #fff; color: #1c2430;
-    border-radius: 9px; padding: 7px 4px; font-size: 13.5px; font-weight: 700; cursor: pointer; font-family: inherit;
-  }
-  .switcher button small { display: block; font-size: 10.5px; font-weight: 500; color: #68727f; margin-top: 1px; }
-  .switcher button.active { background: #1c2430; color: #fff; border-color: #1c2430; }
-  .switcher button.active small { color: #b9c2cd; }
-  .variant { display: none; }
-  .variant.active { display: block; }
   svg.chart { width: 100%; height: auto; display: block; }
-  .src-note { font-size: 11.5px; color: #8a94a1; margin-top: 14px; line-height: 1.7; }
-
-  /* ============ 共通部品 ============ */
-  .kicker { font-size: 11px; font-weight: 700; letter-spacing: .22em; }
-  .findings { list-style: none; }
-  .findings li { display: flex; gap: 10px; line-height: 1.75; }
-  .findings .no { font-weight: 800; flex: none; }
-  table.dt { border-collapse: collapse; width: 100%; }
-  table.dt th, table.dt td { text-align: right; white-space: nowrap; }
-  table.dt th:first-child, table.dt td:first-child { text-align: left; }
   .up { color: #177245; font-weight: 700; } .down { color: #c23b22; font-weight: 700; }
 
-  /* ============ 案1 クラシック年次レポート ============ */
-  .r1 { background: #fff; padding: 44px 46px 36px; box-shadow: 0 1px 10px rgba(20,30,45,.07); border-top: 5px solid #22405c; }
-  .r1 .kicker { color: #22405c; }
-  .r1 h2 { font-size: 30px; font-weight: 600; letter-spacing: .04em; margin: 10px 0 6px; color: #16283d; }
-  .r1 .dateline { font-size: 12px; color: #7a8494; border-bottom: 1px solid #d9dee5; padding-bottom: 14px; letter-spacing: .08em; }
-  .r1 .lead { font-size: 14.5px; line-height: 2.0; margin: 20px 0 6px; color: #2c3644; }
-  .r1 .lead b { color: #22405c; }
-  .r1 .kpis { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 2px solid #22405c; border-bottom: 1px solid #d9dee5; margin: 22px 0 6px; }
-  .r1 .kpi { padding: 14px 10px 12px; text-align: center; }
-  .r1 .kpi + .kpi { border-left: 1px solid #e4e8ed; }
-  .r1 .kpi .n { font-size: 30px; font-weight: 600; color: #16283d; }
-  .r1 .kpi .n small { font-size: 14px; margin-left: 2px; }
-  .r1 .kpi .t { font-size: 11px; color: #7a8494; margin-top: 3px; letter-spacing: .06em; }
-  .r1 h3 { font-size: 16px; font-weight: 600; color: #16283d; margin: 28px 0 4px; padding-left: 10px; border-left: 4px solid #22405c; }
-  .r1 h3 .en { font-size: 10.5px; color: #98a2b1; letter-spacing: .18em; margin-left: 8px; font-family: "Hiragino Kaku Gothic ProN", sans-serif; font-weight: 700; }
-  .r1 .cap { font-size: 12px; color: #7a8494; margin-bottom: 10px; line-height: 1.7; }
-  .r1 .findings { margin-top: 6px; }
-  .r1 .findings li { font-size: 13.5px; padding: 9px 2px; border-bottom: 1px dotted #ccd3dc; color: #2c3644; }
-  .r1 .findings .no { color: #22405c; font-family: "Hiragino Mincho ProN", serif; font-size: 15px; }
-  .r1 table.dt { font-size: 13px; margin-top: 8px; }
-  .r1 table.dt th, .r1 table.dt td { padding: 7px 8px; border-bottom: 1px solid #e4e8ed; }
-  .r1 table.dt thead th { border-bottom: 2px solid #22405c; color: #39424f; font-size: 12px; }
-  .r1 table.dt tfoot td { font-weight: 700; border-top: 2px solid #22405c; border-bottom: none; }
-  .r1 td.hl { background: #f2f6fb; font-weight: 700; }
+  .report { background: #fff; padding: 48px 52px 40px; box-shadow: 0 1px 10px rgba(20,30,45,.07); border-top: 5px solid #22405c; }
+  .kicker { font-size: 11px; font-weight: 700; letter-spacing: .22em; color: #22405c; }
+  .report h1 { font-size: 32px; font-weight: 600; letter-spacing: .04em; margin: 12px 0 8px; color: #16283d; line-height: 1.3; }
+  .dateline { font-size: 12px; color: #7a8494; border-bottom: 1px solid #d9dee5; padding-bottom: 16px; letter-spacing: .06em; }
+  .lead { font-size: 14.5px; line-height: 2.05; margin: 22px 0 4px; color: #2c3644; }
+  .lead b { color: #22405c; }
 
-  /* ============ 案2 方眼リファインド ============ */
-  .r2 {
-    padding: 26px 20px 30px; color: #26303c; border-radius: 6px;
-    background-color: #f4f6ee;
-    background-image:
-      linear-gradient(rgba(90,130,180,.10) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(90,130,180,.10) 1px, transparent 1px),
-      linear-gradient(rgba(90,130,180,.20) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(90,130,180,.20) 1px, transparent 1px);
-    background-size: 22px 22px, 22px 22px, 110px 110px, 110px 110px;
-  }
-  .r2 .sheet { background: rgba(255,255,255,.94); border: 1.5px solid #c9d2dc; border-radius: 4px; box-shadow: 0 3px 16px rgba(20,30,45,.10); padding: 30px 30px 26px; }
-  .r2 .kicker { color: #c8401f; }
-  .r2 h2 { font-size: 25px; margin: 8px 0 4px; letter-spacing: .03em; }
-  .r2 .dateline { font-size: 12px; color: #5b6a7a; border-bottom: 2px solid #26303c; padding-bottom: 12px; }
-  .r2 .lead { font-size: 13.5px; line-height: 1.95; margin: 16px 0 4px; }
-  .r2 .lead b { color: #c8401f; }
-  .r2 .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 18px 0 4px; border: 2px solid #26303c; border-radius: 6px; overflow: hidden; background: #fff; }
-  .r2 .kpi { padding: 12px 8px 10px; text-align: center; background: #fff; }
-  .r2 .kpi + .kpi { border-left: 1.5px dashed #b9c4d0; }
-  .r2 .kpi .n { font-size: 27px; font-weight: 800; }
-  .r2 .kpi .n small { font-size: 13px; }
-  .r2 .kpi .n.red { color: #c8401f; }
-  .r2 .kpi .t { font-size: 10.5px; color: #5b6a7a; margin-top: 2px; }
-  .r2 h3 { font-size: 15px; margin: 24px 0 4px; }
-  .r2 h3::before { content: "■"; color: #c8401f; margin-right: 6px; font-size: 12px; }
-  .r2 .cap { font-size: 12px; color: #5b6a7a; margin-bottom: 8px; line-height: 1.7; }
-  .r2 .callout { display: inline-block; border: 1.5px solid #c8401f; color: #a02c12; background: #fff5f1; border-radius: 4px; padding: 6px 11px; font-size: 12.5px; font-weight: 700; margin: 10px 6px 0 0; }
-  .r2 .findings li { font-size: 13.5px; padding: 8px 2px; border-bottom: 1.5px dashed #c3cedb; }
-  .r2 .findings .no { color: #c8401f; }
-  .r2 table.dt { font-size: 12.5px; margin-top: 8px; background: #fff; }
-  .r2 table.dt th, .r2 table.dt td { padding: 6px 7px; border-bottom: 1px solid #dde3ea; }
-  .r2 table.dt thead th { border-bottom: 2px solid #26303c; font-size: 11.5px; color: #39424f; }
-  .r2 table.dt tfoot td { font-weight: 800; border-top: 2px solid #26303c; border-bottom: none; }
-  .r2 td.hl { background: #fff1ec; font-weight: 700; }
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 2px solid #22405c; border-bottom: 1px solid #d9dee5; margin: 24px 0 4px; }
+  .kpi { padding: 16px 10px 14px; text-align: center; }
+  .kpi + .kpi { border-left: 1px solid #e4e8ed; }
+  .kpi .n { font-size: 32px; font-weight: 600; color: #16283d; line-height: 1.15; }
+  .kpi .n small { font-size: 14px; margin-left: 2px; }
+  .kpi .t { font-size: 11px; color: #7a8494; margin-top: 4px; letter-spacing: .05em; line-height: 1.5; }
 
-  /* ============ 案3 ダークレポート ============ */
-  .r3 {
-    background: #17191f; color: #e8e6df; border-radius: 10px; padding: 36px 34px 30px;
-    background-image:
-      linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
-    background-size: 26px 26px;
-    box-shadow: 0 4px 22px rgba(10,12,18,.35);
-  }
-  .r3 .kicker { color: #ffb59f; }
-  .r3 h2 { font-size: 26px; margin: 10px 0 6px; letter-spacing: .03em; color: #fff; }
-  .r3 .dateline { font-size: 12px; color: #9aa0ab; border-bottom: 1px solid #33363f; padding-bottom: 14px; letter-spacing: .06em; }
-  .r3 .lead { font-size: 14px; line-height: 1.95; margin: 18px 0 4px; color: #cfccc2; }
-  .r3 .lead b { color: #ffb59f; }
-  .r3 .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 20px 0 4px; }
-  .r3 .kpi { border: 1px solid #33363f; border-radius: 8px; padding: 14px 10px 11px; text-align: center; background: rgba(255,255,255,.03); }
-  .r3 .kpi .n { font-size: 29px; font-weight: 800; color: #fff; }
-  .r3 .kpi .n small { font-size: 13px; color: #9aa0ab; }
-  .r3 .kpi .n.hot { color: #ff7a59; }
-  .r3 .kpi .t { font-size: 10.5px; color: #9aa0ab; margin-top: 3px; }
-  .r3 h3 { font-size: 15px; margin: 26px 0 4px; color: #fff; }
-  .r3 h3 .en { font-size: 10px; color: #ffb59f; letter-spacing: .2em; margin-left: 8px; }
-  .r3 .cap { font-size: 12px; color: #9aa0ab; margin-bottom: 10px; line-height: 1.7; }
-  .r3 .findings li { font-size: 13.5px; padding: 9px 2px; border-bottom: 1px solid #2b2e36; color: #cfccc2; }
-  .r3 .findings .no { color: #ff7a59; }
-  .r3 table.dt { font-size: 12.5px; margin-top: 8px; }
-  .r3 table.dt th, .r3 table.dt td { padding: 6px 7px; border-bottom: 1px solid #2b2e36; color: #e8e6df; }
-  .r3 table.dt thead th { border-bottom: 2px solid #ffb59f; color: #b9bcc4; font-size: 11.5px; }
-  .r3 table.dt tfoot td { font-weight: 800; border-top: 2px solid #ffb59f; border-bottom: none; }
-  .r3 td.hl { background: rgba(255,122,89,.13); font-weight: 700; }
-  .r3 .up { color: #5fd68b; } .r3 .down { color: #ff8f7a; }
-  .r3 .src-note { color: #6d727d; }
+  .report h2 { font-size: 17px; font-weight: 600; color: #16283d; margin: 36px 0 6px; padding-left: 11px; border-left: 4px solid #22405c; line-height: 1.45; }
+  .report h2 .en { font-size: 10.5px; color: #98a2b1; letter-spacing: .18em; margin-left: 8px; font-weight: 700; white-space: nowrap; }
+  .cap { font-size: 12px; color: #7a8494; margin-bottom: 12px; line-height: 1.7; }
 
-  /* ============ 案4 マガジン編集風 ============ */
-  .r4 { background: #fdfcf8; padding: 34px 36px 30px; box-shadow: 0 1px 10px rgba(20,30,45,.07); border: 1px solid #e6e1d3; }
-  .r4 .kicker { color: #b3402a; }
-  .r4 .topline { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 3px double #1c2430; padding-bottom: 8px; font-size: 11px; letter-spacing: .14em; color: #5b6675; font-weight: 700; }
-  .r4 h2 { font-size: 34px; line-height: 1.3; font-weight: 600; margin: 18px 0 8px; letter-spacing: .02em; }
-  .r4 h2 .accent { color: #b3402a; }
-  .r4 .standfirst { font-size: 14px; line-height: 1.95; color: #39424f; max-width: 620px; }
-  .r4 .hero { display: grid; grid-template-columns: 1.15fr .85fr; gap: 26px; margin: 24px 0 6px; align-items: start; }
-  .r4 .bignum { font-size: 92px; line-height: .95; font-weight: 600; color: #16283d; }
-  .r4 .bignum small { font-size: 26px; }
-  .r4 .bigcap { font-size: 12.5px; color: #5b6675; line-height: 1.8; margin-top: 8px; }
-  .r4 .side-stats { border-top: 2px solid #1c2430; }
-  .r4 .side-stats div { display: flex; justify-content: space-between; align-items: baseline; padding: 9px 2px; border-bottom: 1px solid #ddd6c4; font-size: 12.5px; color: #39424f; }
-  .r4 .side-stats b { font-size: 19px; color: #16283d; }
-  .r4 h3 { font-size: 17px; font-weight: 600; margin: 28px 0 4px; }
-  .r4 h3 .no { color: #b3402a; margin-right: 8px; }
-  .r4 .cap { font-size: 12px; color: #7a8494; margin-bottom: 10px; line-height: 1.7; }
-  .r4 .cols { columns: 2; column-gap: 28px; column-rule: 1px solid #e0dac8; }
-  .r4 .cols p { font-size: 13.5px; line-height: 1.95; margin-bottom: 12px; break-inside: avoid; color: #2c3644; }
-  .r4 .cols p b { color: #b3402a; }
-  .r4 .databox { border: 1.5px solid #1c2430; padding: 16px 16px 8px; margin-top: 10px; background: #fff; }
-  .r4 .databox .db-title { font-size: 11px; font-weight: 700; letter-spacing: .18em; margin-bottom: 6px; }
-  .r4 table.dt { font-size: 12.5px; }
-  .r4 table.dt th, .r4 table.dt td { padding: 6px 7px; border-bottom: 1px solid #e4dfcd; }
-  .r4 table.dt thead th { border-bottom: 2px solid #1c2430; font-size: 11.5px; color: #39424f; }
-  .r4 table.dt tfoot td { font-weight: 700; border-top: 2px solid #1c2430; border-bottom: none; }
-  .r4 td.hl { background: #faf0e8; font-weight: 700; }
+  .legend { display: flex; gap: 18px; flex-wrap: wrap; margin: 2px 0 8px; font-size: 12px; color: #39424f; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .legend i { width: 16px; height: 3px; border-radius: 2px; display: inline-block; }
 
-  /* ============ 案5 スイス・ミニマル ============ */
-  .r5 { background: #fff; padding: 34px 34px 30px; border: 1px solid #111; }
-  .r5 .kicker { color: #e30613; }
-  .r5 h2 { font-size: 27px; font-weight: 700; letter-spacing: .01em; margin: 8px 0 4px; }
-  .r5 .dateline { font-size: 11.5px; color: #666; border-bottom: 3px solid #111; padding-bottom: 12px; }
-  .r5 .sec { display: grid; grid-template-columns: 44px 1fr; gap: 14px; margin-top: 26px; }
-  .r5 .sec .sno { font-size: 13px; font-weight: 700; color: #e30613; padding-top: 3px; }
-  .r5 h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
-  .r5 .cap { font-size: 12px; color: #666; margin-bottom: 10px; line-height: 1.7; }
-  .r5 .lead { font-size: 14px; line-height: 1.9; }
-  .r5 .lead b { box-shadow: inset 0 -0.55em 0 rgba(227,6,19,.16); }
-  .r5 .kpis { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1.5px solid #111; border-bottom: 1.5px solid #111; }
-  .r5 .kpi { padding: 12px 10px 10px; }
-  .r5 .kpi + .kpi { border-left: 1px solid #ddd; }
-  .r5 .kpi .n { font-size: 28px; font-weight: 700; }
-  .r5 .kpi .n small { font-size: 13px; font-weight: 400; }
-  .r5 .kpi .t { font-size: 10.5px; color: #666; margin-top: 2px; }
-  .r5 table.dt { font-size: 12px; }
-  .r5 table.dt th, .r5 table.dt td { padding: 5px 6px; border-bottom: 1px solid #e2e2e2; }
-  .r5 table.dt thead th { border-bottom: 2.5px solid #111; font-size: 11px; }
-  .r5 table.dt tfoot td { font-weight: 700; border-top: 2.5px solid #111; border-bottom: none; }
-  .r5 td.hl { background: #fdeeee; font-weight: 700; }
-  .r5 .findings li { font-size: 13px; padding: 7px 0; border-bottom: 1px solid #e2e2e2; }
-  .r5 .findings .no { color: #e30613; }
+  .findings { list-style: none; margin-top: 4px; }
+  .findings li { display: flex; gap: 10px; font-size: 13.5px; line-height: 1.8; padding: 10px 2px; border-bottom: 1px dotted #ccd3dc; color: #2c3644; }
+  .findings .no { font-weight: 600; flex: none; color: #22405c; font-family: "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Yu Mincho", serif; font-size: 15px; }
+
+  table.dt { border-collapse: collapse; width: 100%; font-size: 13px; margin-top: 8px; }
+  table.dt th, table.dt td { text-align: right; white-space: nowrap; padding: 7px 8px; border-bottom: 1px solid #e4e8ed; }
+  table.dt th:first-child, table.dt td:first-child { text-align: left; }
+  table.dt thead th { border-bottom: 2px solid #22405c; color: #39424f; font-size: 12px; }
+  table.dt tfoot td { font-weight: 700; border-top: 2px solid #22405c; border-bottom: none; }
+  table.dt td.hl { background: #f2f6fb; font-weight: 700; }
+
+  .src-note { font-size: 11.5px; color: #8a94a1; margin-top: 16px; line-height: 1.8; }
+  .doc-foot { margin-top: 30px; padding-top: 14px; border-top: 1px solid #d9dee5; font-size: 11.5px; color: #8a94a1; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .doc-foot a { color: #2f5aa8; text-decoration: none; }
 
   @media (max-width: 640px) {
     .wrap { padding: 16px 10px 44px; }
-    .r1 { padding: 28px 18px 24px; } .r1 h2 { font-size: 23px; }
-    .r1 .kpis, .r2 .kpis, .r3 .kpis, .r5 .kpis { grid-template-columns: repeat(2, 1fr); }
-    .r1 .kpi .n { font-size: 24px; } .r2 .kpi .n { font-size: 22px; } .r3 .kpi .n { font-size: 23px; } .r5 .kpi .n { font-size: 22px; }
-    .r2 { padding: 14px 8px 18px; } .r2 .sheet { padding: 20px 14px 18px; } .r2 h2 { font-size: 20px; }
-    .r3 { padding: 26px 16px 22px; } .r3 h2 { font-size: 21px; }
-    .r4 { padding: 24px 16px 22px; } .r4 h2 { font-size: 25px; }
-    .r4 .hero { grid-template-columns: 1fr; gap: 14px; } .r4 .bignum { font-size: 64px; }
-    .r4 .cols { columns: 1; }
-    .r5 { padding: 24px 14px 20px; } .r5 h2 { font-size: 21px; }
-    .r5 .sec { grid-template-columns: 30px 1fr; gap: 8px; }
-    table.dt { font-size: 11px !important; }
-    table.dt th, table.dt td { padding: 5px 3px !important; }
-    .switcher button { flex: 1 1 28%; font-size: 12.5px; }
-    header.board-head h1 { font-size: 18px; }
+    .report { padding: 30px 18px 26px; }
+    .report h1 { font-size: 24px; }
+    .kpis { grid-template-columns: repeat(2, 1fr); }
+    .kpi .n { font-size: 25px; }
+    .kpi:nth-child(3) { border-left: none; }
+    .kpi:nth-child(n+3) { border-top: 1px solid #e4e8ed; }
+    table.dt { font-size: 11px; }
+    table.dt th, table.dt td { padding: 5px 3px; }
+    .report h2 { font-size: 15.5px; margin-top: 28px; }
+  }
+
+  @media print {
+    body { background: #fff; }
+    .wrap { padding: 0; max-width: none; }
+    .report { box-shadow: none; padding: 12px 6px 0; }
+    .kpis, .findings li, table.dt tr { break-inside: avoid; }
+    .report h2 { break-after: avoid; }
+    .doc-foot a { color: #8a94a1; }
   }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header class="board-head">
-    <h1>予約レポート 2024–2026（磨き案）</h1>
-    <p>前回の案5（方眼紙ノート）を、年次レポートの体裁に磨いた5案です。番号で選んでください。元ボードは<a href="index.html">こちら</a>。</p>
-  </header>
-
-  <nav class="switcher" id="switcher">
-    <button data-v="r1" class="active">案1<small>年次レポート</small></button>
-    <button data-v="r2">案2<small>方眼リファインド</small></button>
-    <button data-v="r3">案3<small>ダークレポート</small></button>
-    <button data-v="r4">案4<small>マガジン</small></button>
-    <button data-v="r5">案5<small>スイス式</small></button>
-  </nav>
-
-  <!-- ================= 案1 年次レポート ================= -->
-  <section class="variant r1 active" id="r1">
+  <article class="report">
     <div class="kicker">ANNUAL REPORT — 年次レポート</div>
-    <h2 class="serif">ツアー予約の3年間</h2>
-    <div class="dateline">対象期間：2024年1月 – 2026年12月（2026年は現時点の確定分）　／　Anime Sensei</div>
+    <h1 class="serif">ツアー予約の3年間</h1>
+    <div class="dateline">対象期間：2024年1月 – 2026年12月（2026年は現時点の確定分）</div>
     <p class="lead">予約数は3年連続で増え、<b>2024年の97件から2026年は157件</b>へ、<b>1.6倍</b>になった。3年間の累計は<b>383件</b>、ツアー実施は<b>334日</b>。伸びを支えたのは春（3–4月）と秋（10–11月）の山で、2026年10月は27件と過去最多を記録した。一方で2月は毎年低調で、冬場の底上げが次の課題として残る。</p>
     <div class="kpis">
       <div class="kpi"><div class="n serif">383<small>件</small></div><div class="t">3年間の総予約数</div></div>
@@ -242,290 +94,30 @@
       <div class="kpi"><div class="n serif">34.2<small>%</small></div><div class="t">2026年の年間稼働率（実施125日）</div></div>
       <div class="kpi"><div class="n serif">27<small>件</small></div><div class="t">最多月（2026年10月）</div></div>
     </div>
-    <h3 class="serif">累積予約数の推移<span class="en">CUMULATIVE</span></h3>
-    <p class="cap">各年の予約が月ごとに積み上がる速さの比較。2026年（赤）は3月時点で前年のペースを大きく上回った。</p>
-    <div id="r1-chart"></div>
-    <h3 class="serif">主な所見<span class="en">FINDINGS</span></h3>
-    <ul class="findings" id="r1-findings"></ul>
-    <h3 class="serif">月別予約数と前年比<span class="en">DATA</span></h3>
-    <div id="r1-table"></div>
+
+    <h2 class="serif">累積予約数の推移<span class="en">CUMULATIVE</span></h2>
+    <p class="cap">各年の予約が月ごとに積み上がる速さの比較。2026年は3月時点で前年のペースを大きく上回った。</p>
+    <div class="legend"><span><i style="background:#9db2c8"></i>2024年</span><span><i style="background:#4a6fa5"></i>2025年</span><span><i style="background:#b3402a"></i>2026年</span></div>
+    <svg class="chart" viewBox="0 0 720 280" role="img" aria-label="年ごとの累積予約数の折れ線グラフ"><line x1="34" y1="254.0" x2="676" y2="254.0" stroke="#e3e8ee" stroke-width="1"/><text x="29" y="257.5" font-size="10" fill="#8a94a1" text-anchor="end">0</text><line x1="34" y1="194.0" x2="676" y2="194.0" stroke="#e3e8ee" stroke-width="1"/><text x="29" y="197.5" font-size="10" fill="#8a94a1" text-anchor="end">40</text><line x1="34" y1="134.0" x2="676" y2="134.0" stroke="#e3e8ee" stroke-width="1"/><text x="29" y="137.5" font-size="10" fill="#8a94a1" text-anchor="end">80</text><line x1="34" y1="74.0" x2="676" y2="74.0" stroke="#e3e8ee" stroke-width="1"/><text x="29" y="77.5" font-size="10" fill="#8a94a1" text-anchor="end">120</text><line x1="34" y1="14.0" x2="676" y2="14.0" stroke="#e3e8ee" stroke-width="1"/><text x="29" y="17.5" font-size="10" fill="#8a94a1" text-anchor="end">160</text><polyline points="34.0,243.5 92.4,239.0 150.7,222.5 209.1,216.5 267.5,197.0 325.8,188.0 384.2,171.5 442.5,162.5 500.9,150.5 559.3,135.5 617.6,126.5 676.0,108.5" fill="none" stroke="#9db2c8" stroke-width="2.5" stroke-linejoin="round"/><circle cx="34.0" cy="243.5" r="2.6" fill="#9db2c8"/><circle cx="92.4" cy="239.0" r="2.6" fill="#9db2c8"/><circle cx="150.7" cy="222.5" r="2.6" fill="#9db2c8"/><circle cx="209.1" cy="216.5" r="2.6" fill="#9db2c8"/><circle cx="267.5" cy="197.0" r="2.6" fill="#9db2c8"/><circle cx="325.8" cy="188.0" r="2.6" fill="#9db2c8"/><circle cx="384.2" cy="171.5" r="2.6" fill="#9db2c8"/><circle cx="442.5" cy="162.5" r="2.6" fill="#9db2c8"/><circle cx="500.9" cy="150.5" r="2.6" fill="#9db2c8"/><circle cx="559.3" cy="135.5" r="2.6" fill="#9db2c8"/><circle cx="617.6" cy="126.5" r="2.6" fill="#9db2c8"/><circle cx="676.0" cy="108.5" r="2.6" fill="#9db2c8"/><text x="684.0" y="112.5" font-size="13" font-weight="700" fill="#9db2c8">97</text><polyline points="34.0,245.0 92.4,245.0 150.7,230.0 209.1,204.5 267.5,183.5 325.8,165.5 384.2,141.5 442.5,131.0 500.9,116.0 559.3,101.0 617.6,69.5 676.0,60.5" fill="none" stroke="#4a6fa5" stroke-width="2.5" stroke-linejoin="round"/><circle cx="34.0" cy="245.0" r="2.6" fill="#4a6fa5"/><circle cx="92.4" cy="245.0" r="2.6" fill="#4a6fa5"/><circle cx="150.7" cy="230.0" r="2.6" fill="#4a6fa5"/><circle cx="209.1" cy="204.5" r="2.6" fill="#4a6fa5"/><circle cx="267.5" cy="183.5" r="2.6" fill="#4a6fa5"/><circle cx="325.8" cy="165.5" r="2.6" fill="#4a6fa5"/><circle cx="384.2" cy="141.5" r="2.6" fill="#4a6fa5"/><circle cx="442.5" cy="131.0" r="2.6" fill="#4a6fa5"/><circle cx="500.9" cy="116.0" r="2.6" fill="#4a6fa5"/><circle cx="559.3" cy="101.0" r="2.6" fill="#4a6fa5"/><circle cx="617.6" cy="69.5" r="2.6" fill="#4a6fa5"/><circle cx="676.0" cy="60.5" r="2.6" fill="#4a6fa5"/><text x="684.0" y="64.5" font-size="13" font-weight="700" fill="#4a6fa5">129</text><polyline points="34.0,239.0 92.4,236.0 150.7,204.5 209.1,174.5 267.5,158.0 325.8,137.0 384.2,126.5 442.5,117.5 500.9,104.0 559.3,63.5 617.6,42.5 676.0,18.5" fill="none" stroke="#b3402a" stroke-width="2.5" stroke-linejoin="round"/><circle cx="34.0" cy="239.0" r="2.6" fill="#b3402a"/><circle cx="92.4" cy="236.0" r="2.6" fill="#b3402a"/><circle cx="150.7" cy="204.5" r="2.6" fill="#b3402a"/><circle cx="209.1" cy="174.5" r="2.6" fill="#b3402a"/><circle cx="267.5" cy="158.0" r="2.6" fill="#b3402a"/><circle cx="325.8" cy="137.0" r="2.6" fill="#b3402a"/><circle cx="384.2" cy="126.5" r="2.6" fill="#b3402a"/><circle cx="442.5" cy="117.5" r="2.6" fill="#b3402a"/><circle cx="500.9" cy="104.0" r="2.6" fill="#b3402a"/><circle cx="559.3" cy="63.5" r="2.6" fill="#b3402a"/><circle cx="617.6" cy="42.5" r="2.6" fill="#b3402a"/><circle cx="676.0" cy="18.5" r="2.6" fill="#b3402a"/><text x="684.0" y="22.5" font-size="13" font-weight="700" fill="#b3402a">157</text><text x="34.0" y="272" font-size="10.5" fill="#8a94a1" text-anchor="middle">1月</text><text x="92.4" y="272" font-size="10.5" fill="#8a94a1" text-anchor="middle">2月</text><text x="150.7" y="272" font-size="10.5" fill="#8a94a1" text-anchor="middle">3月</text><text x="209.1" y="272" font-size="10.5" fill="#8a94a1" text-anchor="middle">4月</text><text x="267.5" y="272" font-size="10.5" fill="#8a94a1" text-anchor="middle">5月</text><text x="325.8" y="272" font-size="10.5" fill="#8a94a1" text-anchor="middle">6月</text><text x="384.2" y="272" font-size="10.5" fill="#8a94a1" text-anchor="middle">7月</text><text x="442.5" y="272" font-size="10.5" fill="#8a94a1" text-anchor="middle">8月</text><text x="500.9" y="272" font-size="10.5" fill="#8a94a1" text-anchor="middle">9月</text><text x="559.3" y="272" font-size="10.5" fill="#8a94a1" text-anchor="middle">10月</text><text x="617.6" y="272" font-size="10.5" fill="#8a94a1" text-anchor="middle">11月</text><text x="676.0" y="272" font-size="10.5" fill="#8a94a1" text-anchor="middle">12月</text></svg>
+
+    <h2 class="serif">主な所見<span class="en">FINDINGS</span></h2>
+    <ul class="findings">
+      <li><span class="no">01</span><span>予約数は3年連続で増加。97件 → 129件 → 157件で、前年比は +33.0%（2025年）、+21.7%（2026年）。</span></li>
+      <li><span class="no">02</span><span>山は春と秋。2026年は3月21件・4月20件、10月は27件で3年間の最多月になった。</span></li>
+      <li><span class="no">03</span><span>稼働率は26.5% → 30.7% → 34.2%と上昇。2026年3月は61.3%で過去最高。</span></li>
+      <li><span class="no">04</span><span>1日あたりの予約数は1.00件 → 1.15件 → 1.26件。1日に複数件入る日が定着した。</span></li>
+      <li><span class="no">05</span><span>2月は毎年低調（2025年は0件）。冬場の底上げが次の課題。</span></li>
+    </ul>
+
+    <h2 class="serif">年別サマリー<span class="en">SUMMARY</span></h2>
+    <table class="dt"><thead><tr><th>年</th><th>予約数</th><th>前年比</th><th>ツアー実施日数</th><th>年間稼働率</th></tr></thead><tbody><tr><td>2024年</td><td>97件</td><td>—</td><td>97日</td><td>26.5%</td></tr><tr><td>2025年</td><td>129件</td><td><span class="up">+33.0%</span></td><td>112日</td><td>30.7%</td></tr><tr><td>2026年</td><td class="hl">157件</td><td><span class="up">+21.7%</span></td><td>125日</td><td>34.2%</td></tr></tbody><tfoot><tr><td>3年間</td><td>383件</td><td>—</td><td>334日</td><td>30.5%</td></tr></tfoot></table>
+
+    <h2 class="serif">月別予約数と前年比<span class="en">DATA</span></h2>
+    <table class="dt"><thead><tr><th>月</th><th>2024</th><th>2025</th><th>前年比</th><th>2026</th><th>前年比</th></tr></thead><tbody><tr><td>1月</td><td>7</td><td>6</td><td><span class="down">-14.3%</span></td><td class="hl">10</td><td><span class="up">+66.7%</span></td></tr><tr><td>2月</td><td>3</td><td>0</td><td><span class="down">-100.0%</span></td><td class="hl">2</td><td>—</td></tr><tr><td>3月</td><td>11</td><td>10</td><td><span class="down">-9.1%</span></td><td class="hl">21</td><td><span class="up">+110.0%</span></td></tr><tr><td>4月</td><td>4</td><td>17</td><td><span class="up">+325.0%</span></td><td class="hl">20</td><td><span class="up">+17.6%</span></td></tr><tr><td>5月</td><td>13</td><td>14</td><td><span class="up">+7.7%</span></td><td class="hl">11</td><td><span class="down">-21.4%</span></td></tr><tr><td>6月</td><td>6</td><td>12</td><td><span class="up">+100.0%</span></td><td class="hl">14</td><td><span class="up">+16.7%</span></td></tr><tr><td>7月</td><td>11</td><td>16</td><td><span class="up">+45.5%</span></td><td class="hl">7</td><td><span class="down">-56.2%</span></td></tr><tr><td>8月</td><td>6</td><td>7</td><td><span class="up">+16.7%</span></td><td class="hl">6</td><td><span class="down">-14.3%</span></td></tr><tr><td>9月</td><td>8</td><td>10</td><td><span class="up">+25.0%</span></td><td class="hl">9</td><td><span class="down">-10.0%</span></td></tr><tr><td>10月</td><td>10</td><td>10</td><td><span class="">0.0%</span></td><td class="hl">27</td><td><span class="up">+170.0%</span></td></tr><tr><td>11月</td><td>6</td><td>21</td><td><span class="up">+250.0%</span></td><td class="hl">14</td><td><span class="down">-33.3%</span></td></tr><tr><td>12月</td><td>12</td><td>6</td><td><span class="down">-50.0%</span></td><td class="hl">16</td><td><span class="up">+166.7%</span></td></tr></tbody><tfoot><tr><td>合計</td><td>97</td><td>129</td><td><span class="up">+33.0%</span></td><td>157</td><td><span class="up">+21.7%</span></td></tr></tfoot></table>
     <p class="src-note">出典：予約カレンダーの集計。稼働率＝ツアー実施日数 ÷ その期間の日数。2026年は現時点の確定分（12月の予約を含む）。</p>
-  </section>
 
-  <!-- ================= 案2 方眼リファインド ================= -->
-  <section class="variant r2" id="r2">
-    <div class="sheet">
-      <div class="kicker">FIELD REPORT — 観測記録</div>
-      <h2>予約の観測レポート</h2>
-      <div class="dateline">2024年1月 – 2026年12月 ／ 2026年は現時点の確定分（12月の予約を含む）</div>
-      <p class="lead">方眼ノートに書き溜めた3年分の予約記録を、レポートの形に清書した。予約数は<b>97件 → 129件 → 157件</b>と3年連続で増え、<b>1.6倍</b>に。稼働率も26.5%から<b>34.2%</b>へ上がった。山は春と秋、谷は2月——傾向ははっきりしている。</p>
-      <div class="kpis">
-        <div class="kpi"><div class="n">383<small>件</small></div><div class="t">3年間の総予約数</div></div>
-        <div class="kpi"><div class="n red">157<small>件</small></div><div class="t">2026年（前年比 +21.7%）</div></div>
-        <div class="kpi"><div class="n">34.2<small>%</small></div><div class="t">2026年の年間稼働率</div></div>
-        <div class="kpi"><div class="n red">27<small>件</small></div><div class="t">最多月 2026年10月</div></div>
-      </div>
-      <h3>月別 予約数（3年重ね）</h3>
-      <p class="cap">月ごとの予約数。2026年（赤）は3月・4月と10月に大きな山がある。</p>
-      <div id="r2-chart"></div>
-      <div>
-        <span class="callout">最多月は2026年10月の27件</span>
-        <span class="callout">2026年3月の稼働率61.3%が過去最高</span>
-        <span class="callout">2月は毎年ヒマ（2025年は0件）</span>
-      </div>
-      <h3>所見</h3>
-      <ul class="findings" id="r2-findings"></ul>
-      <h3>月別データ（予約数と前年比）</h3>
-      <div id="r2-table"></div>
-      <p class="src-note">出典：予約カレンダーの集計。稼働率＝ツアー実施日数 ÷ その月の日数。</p>
-    </div>
-  </section>
-
-  <!-- ================= 案3 ダークレポート ================= -->
-  <section class="variant r3" id="r3">
-    <div class="kicker">ANNUAL MONITOR — 年次モニター</div>
-    <h2>予約モニター 2024–2026</h2>
-    <div class="dateline">BOOKINGS 97 → 129 → 157 ／ 2026年は現時点の確定分</div>
-    <p class="lead">予約数は3年で<b>1.6倍</b>。2026年は<b>157件</b>に達し、稼働率は<b>34.2%</b>まで上がった。ピークは2026年10月の27件。春と秋に山、2月に谷という季節の形が、3年分のデータではっきり見える。</p>
-    <div class="kpis">
-      <div class="kpi"><div class="n">383<small>件</small></div><div class="t">3年間の総予約数</div></div>
-      <div class="kpi"><div class="n hot">157<small>件</small></div><div class="t">2026年（前年比 +21.7%）</div></div>
-      <div class="kpi"><div class="n">34.2<small>%</small></div><div class="t">2026年の年間稼働率</div></div>
-      <div class="kpi"><div class="n hot">61.3<small>%</small></div><div class="t">最高の月稼働率（2026年3月）</div></div>
-    </div>
-    <h3>月別 予約数<span class="en">MONTHLY</span></h3>
-    <p class="cap">グレーが2024年、ブルーが2025年、オレンジが2026年。</p>
-    <div id="r3-chart"></div>
-    <h3>累積の伸び<span class="en">CUMULATIVE</span></h3>
-    <p class="cap">年内の累積予約数。右端の数字が各年の到達点。</p>
-    <div id="r3-chart2"></div>
-    <h3>所見</h3>
-    <ul class="findings" id="r3-findings"></ul>
-    <h3>月別データ</h3>
-    <div id="r3-table"></div>
-    <p class="src-note">出典：予約カレンダーの集計。2026年は現時点の確定分（12月の予約を含む）。</p>
-  </section>
-
-  <!-- ================= 案4 マガジン ================= -->
-  <section class="variant r4" id="r4">
-    <div class="topline"><span>ANIME SENSEI — DATA FEATURE</span><span>2024–2026</span></div>
-    <div class="kicker" style="margin-top:16px;">数字で読む特集</div>
-    <h2 class="serif">予約、3年で<span class="accent">1.6倍</span></h2>
-    <p class="standfirst">小さなツアー事業の予約帳を3年分めくると、成長の形が見えてくる。予約数は97件から157件へ。春と秋に山が立ち、1日に複数件入る日が当たり前になった。データが語る3年間の記録。</p>
-    <div class="hero">
-      <div>
-        <div class="bignum serif">157<small>件</small></div>
-        <div class="bigcap">2026年の予約数。前年比 +21.7%、2024年比では +61.9%。年末の確定分まで含んだ、現時点の到達点である。</div>
-      </div>
-      <div class="side-stats">
-        <div><span>3年間の総予約数</span><b>383件</b></div>
-        <div><span>ツアー実施日数（3年）</span><b>334日</b></div>
-        <div><span>2026年の年間稼働率</span><b>34.2%</b></div>
-        <div><span>最多月（2026年10月）</span><b>27件</b></div>
-        <div><span>1日あたり予約数（2026年）</span><b>1.26件</b></div>
-      </div>
-    </div>
-    <h3 class="serif"><span class="no">01</span>月別の山と谷</h3>
-    <p class="cap">月別予約数の3年比較。2026年（赤）の10月が突出している。</p>
-    <div id="r4-chart"></div>
-    <h3 class="serif"><span class="no">02</span>読み解く</h3>
-    <div class="cols">
-      <p><b>春と秋に山が立つ。</b>2026年は3月21件・4月20件と春に大きな山ができ、10月には27件で3年間の最多を記録した。桜と紅葉の季節に予約が集中する構図は、年を追うごとに強まっている。</p>
-      <p><b>稼働率も一段上がった。</b>年間の稼働率は26.5%（2024年）から34.2%（2026年）へ。とくに2026年3月は19日実施で61.3%と、3年間で最も忙しい月になった。</p>
-      <p><b>1日に複数件が定着した。</b>実施日あたりの予約数は1.00件から1.26件へ。2025年11月は13日の実施で21件が入った。回転の速さが伸びを支えている。</p>
-      <p><b>残る課題は2月。</b>3年間とも2月は一桁で、2025年は0件だった。冬場の底上げが、次の3年のテーマになる。</p>
-    </div>
-    <div class="databox">
-      <div class="db-title">DATA — 月別予約数と前年比</div>
-      <div id="r4-table"></div>
-    </div>
-    <p class="src-note">出典：予約カレンダーの集計。2026年は現時点の確定分（12月の予約を含む）。</p>
-  </section>
-
-  <!-- ================= 案5 スイス・ミニマル ================= -->
-  <section class="variant r5" id="r5">
-    <div class="kicker">REPORT — BOOKING DATA</div>
-    <h2>予約データ報告 2024–2026</h2>
-    <div class="dateline">対象：Anime Sensei ツアー予約 ／ 2026年は現時点の確定分（12月の予約を含む）</div>
-
-    <div class="sec">
-      <div class="sno">01</div>
-      <div>
-        <h3>概要</h3>
-        <p class="lead">予約数は<b>97件（2024年）→ 129件（2025年）→ 157件（2026年）</b>。3年で<b>1.6倍</b>に増え、累計は383件。稼働率は26.5%から34.2%へ上昇した。</p>
-        <div class="kpis" style="margin-top:14px;">
-          <div class="kpi"><div class="n">383<small>件</small></div><div class="t">総予約数（3年）</div></div>
-          <div class="kpi"><div class="n">157<small>件</small></div><div class="t">2026年予約数</div></div>
-          <div class="kpi"><div class="n">+21.7<small>%</small></div><div class="t">2026年 前年比</div></div>
-          <div class="kpi"><div class="n">34.2<small>%</small></div><div class="t">2026年 年間稼働率</div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="sec">
-      <div class="sno">02</div>
-      <div>
-        <h3>推移</h3>
-        <p class="cap">月別予約数。黒が2024年、グレーが2025年、赤が2026年。</p>
-        <div id="r5-chart"></div>
-      </div>
-    </div>
-
-    <div class="sec">
-      <div class="sno">03</div>
-      <div>
-        <h3>月別データ</h3>
-        <p class="cap">予約数と前年比。</p>
-        <div id="r5-table"></div>
-        <p class="cap" style="margin-top:16px;">ツアー実施日数と稼働率。</p>
-        <div id="r5-table2"></div>
-      </div>
-    </div>
-
-    <div class="sec">
-      <div class="sno">04</div>
-      <div>
-        <h3>所見</h3>
-        <ul class="findings" id="r5-findings"></ul>
-      </div>
-    </div>
-    <p class="src-note">出典：予約カレンダーの集計。稼働率＝ツアー実施日数 ÷ その月の日数。</p>
-  </section>
+    <div class="doc-foot"><span>Anime Sensei — 年次レポート（2026年11月作成）</span><a href="index.html">集計ボードへ戻る</a></div>
+  </article>
 </div>
-
-<script>
-const RAW = {
-  2024: [[7,7,31],[3,3,29],[11,11,31],[4,4,30],[13,13,31],[6,6,30],[11,11,31],[6,6,31],[8,8,30],[10,10,31],[6,6,30],[12,12,31]],
-  2025: [[6,6,31],[0,0,28],[10,10,31],[17,16,30],[14,12,31],[12,11,30],[16,13,31],[7,7,31],[10,9,30],[10,10,31],[21,13,30],[6,5,31]],
-  2026: [[10,10,31],[2,2,28],[21,19,31],[20,17,30],[11,10,31],[14,12,30],[7,7,31],[6,5,31],[9,6,30],[27,16,31],[14,10,30],[16,11,31]]
-};
-const YEARS = [2024, 2025, 2026];
-const D = {};
-YEARS.forEach(y => { D[y] = RAW[y].map(([b, d, dim]) => ({ b, d, dim, r: Math.round(d / dim * 1000) / 10 })); });
-const TOT = {};
-YEARS.forEach(y => {
-  TOT[y] = { b: D[y].reduce((s, m) => s + m.b, 0), d: D[y].reduce((s, m) => s + m.d, 0), dim: D[y].reduce((s, m) => s + m.dim, 0) };
-  TOT[y].r = Math.round(TOT[y].d / TOT[y].dim * 1000) / 10;
-});
-
-/* ---- grouped monthly bars (parameterized palette) ---- */
-function groupedSVG(cols, grid, text) {
-  const W = 720, H = 290, pL = 30, pB = 26, pT = 16;
-  const plotW = W - pL - 8, plotH = H - pT - pB;
-  const dataMax = Math.max(...YEARS.flatMap(y => D[y].map(m => m.b)));
-  const niceMax = Math.ceil(dataMax / 10) * 10;
-  const gw = plotW / 12, bw = (gw - 12) / 3;
-  let s = `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img">`;
-  for (let g = 0; g <= niceMax; g += 10) {
-    const y = pT + plotH - (g / niceMax) * plotH;
-    s += `<line x1="${pL}" y1="${y}" x2="${W - 8}" y2="${y}" stroke="${grid}" stroke-width="1"/>`;
-    s += `<text x="${pL - 5}" y="${y + 3.5}" font-size="10" fill="${text}" text-anchor="end">${g}</text>`;
-  }
-  for (let m = 0; m < 12; m++) {
-    YEARS.forEach((y, yi) => {
-      const v = D[y][m].b;
-      const h = (v / niceMax) * plotH;
-      const x = pL + m * gw + 6 + yi * bw;
-      const yy = pT + plotH - h;
-      s += `<rect x="${x.toFixed(1)}" y="${yy.toFixed(1)}" width="${bw.toFixed(1)}" height="${Math.max(h, v ? 2 : 0).toFixed(1)}" rx="2" fill="${cols[y]}"/>`;
-      if (v > 0) s += `<text x="${(x + bw / 2).toFixed(1)}" y="${(yy - 3).toFixed(1)}" font-size="9" fill="${text}" text-anchor="middle">${v}</text>`;
-    });
-    s += `<text x="${(pL + m * gw + gw / 2).toFixed(1)}" y="${H - 8}" font-size="10.5" fill="${text}" text-anchor="middle">${m + 1}月</text>`;
-  }
-  return s + "</svg>";
-}
-
-/* ---- cumulative line (parameterized palette) ---- */
-function cumSVG(cols, grid, text) {
-  const W = 720, H = 280, pL = 34, pB = 26, pT = 14, pR = 44;
-  const plotW = W - pL - pR, plotH = H - pT - pB;
-  const niceMax = 160;
-  let s = `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img">`;
-  for (let g = 0; g <= niceMax; g += 40) {
-    const y = pT + plotH - (g / niceMax) * plotH;
-    s += `<line x1="${pL}" y1="${y}" x2="${W - pR}" y2="${y}" stroke="${grid}" stroke-width="1"/>`;
-    s += `<text x="${pL - 5}" y="${y + 3.5}" font-size="10" fill="${text}" text-anchor="end">${g}</text>`;
-  }
-  YEARS.forEach(y => {
-    let cum = 0; const pts = [];
-    for (let m = 0; m < 12; m++) {
-      cum += D[y][m].b;
-      pts.push([pL + (m / 11) * plotW, pT + plotH - (cum / niceMax) * plotH, cum]);
-    }
-    s += `<polyline points="${pts.map(p => p[0].toFixed(1) + "," + p[1].toFixed(1)).join(" ")}" fill="none" stroke="${cols[y]}" stroke-width="2.5" stroke-linejoin="round"/>`;
-    pts.forEach(p => { s += `<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="2.6" fill="${cols[y]}"/>`; });
-    const last = pts[11];
-    s += `<text x="${(last[0] + 8).toFixed(1)}" y="${(last[1] + 4).toFixed(1)}" font-size="13" font-weight="700" fill="${cols[y]}">${last[2]}</text>`;
-    for (let m = 0; m < 12; m++) s += `<text x="${pts[m][0].toFixed(1)}" y="${H - 8}" font-size="10.5" fill="${text}" text-anchor="middle">${m + 1}月</text>`;
-  });
-  return s + "</svg>";
-}
-
-/* ---- tables ---- */
-function yoyCell(cur, prev) {
-  if (prev === 0) return cur === 0 ? "±0%" : "—";
-  const v = Math.round((cur - prev) / prev * 1000) / 10;
-  const cls = v > 0 ? "up" : v < 0 ? "down" : "";
-  return `<span class="${cls}">${v > 0 ? "+" : ""}${v.toFixed(1)}%</span>`;
-}
-function yoyTable() {
-  let t = `<table class="dt"><thead><tr><th>月</th><th>2024</th><th>2025</th><th>前年比</th><th>2026</th><th>前年比</th></tr></thead><tbody>`;
-  for (let m = 0; m < 12; m++) {
-    t += `<tr><td>${m + 1}月</td><td>${D[2024][m].b}</td><td>${D[2025][m].b}</td><td>${yoyCell(D[2025][m].b, D[2024][m].b)}</td><td class="hl">${D[2026][m].b}</td><td>${yoyCell(D[2026][m].b, D[2025][m].b)}</td></tr>`;
-  }
-  t += `</tbody><tfoot><tr><td>合計</td><td>${TOT[2024].b}</td><td>${TOT[2025].b}</td><td>${yoyCell(TOT[2025].b, TOT[2024].b)}</td><td>${TOT[2026].b}</td><td>${yoyCell(TOT[2026].b, TOT[2025].b)}</td></tr></tfoot></table>`;
-  return t;
-}
-function daysTable() {
-  let t = `<table class="dt"><thead><tr><th>月</th><th>24日数</th><th>25日数</th><th>26日数</th><th>24稼働率</th><th>25稼働率</th><th>26稼働率</th></tr></thead><tbody>`;
-  for (let m = 0; m < 12; m++) {
-    t += `<tr><td>${m + 1}月</td><td>${D[2024][m].d}</td><td>${D[2025][m].d}</td><td>${D[2026][m].d}</td><td>${D[2024][m].r}%</td><td>${D[2025][m].r}%</td><td class="hl">${D[2026][m].r}%</td></tr>`;
-  }
-  t += `</tbody><tfoot><tr><td>合計</td><td>${TOT[2024].d}</td><td>${TOT[2025].d}</td><td>${TOT[2026].d}</td><td>${TOT[2024].r}%</td><td>${TOT[2025].r}%</td><td>${TOT[2026].r}%</td></tr></tfoot></table>`;
-  return t;
-}
-
-/* ---- findings (shared) ---- */
-const FINDINGS = [
-  "予約数は3年連続で増加。97件 → 129件 → 157件で、前年比は +33.0%（2025年）、+21.7%（2026年）。",
-  "山は春と秋。2026年は3月21件・4月20件、10月は27件で3年間の最多月になった。",
-  "稼働率は26.5% → 30.7% → 34.2%と上昇。2026年3月は61.3%で過去最高。",
-  "1日あたりの予約数は1.00件 → 1.15件 → 1.26件。1日に複数件入る日が定着した。",
-  "2月は毎年低調（2025年は0件）。冬場の底上げが次の課題。"
-];
-const findingsHTML = FINDINGS.map((f, i) => `<li><span class="no">${String(i + 1).padStart(2, "0")}</span><span>${f}</span></li>`).join("");
-
-/* ---- render ---- */
-document.getElementById("r1-chart").innerHTML = cumSVG({ 2024: "#9db2c8", 2025: "#4a6fa5", 2026: "#b3402a" }, "#e3e8ee", "#8a94a1");
-document.getElementById("r1-findings").innerHTML = findingsHTML;
-document.getElementById("r1-table").innerHTML = yoyTable();
-
-document.getElementById("r2-chart").innerHTML = groupedSVG({ 2024: "#b9c8d8", 2025: "#5b84c4", 2026: "#d8401f" }, "#dfe5ec", "#7c8a99");
-document.getElementById("r2-findings").innerHTML = findingsHTML;
-document.getElementById("r2-table").innerHTML = yoyTable();
-
-document.getElementById("r3-chart").innerHTML = groupedSVG({ 2024: "#6d727d", 2025: "#5b9bd5", 2026: "#ff7a59" }, "#2b2e36", "#9aa0ab");
-document.getElementById("r3-chart2").innerHTML = cumSVG({ 2024: "#6d727d", 2025: "#5b9bd5", 2026: "#ff7a59" }, "#2b2e36", "#9aa0ab");
-document.getElementById("r3-findings").innerHTML = findingsHTML;
-document.getElementById("r3-table").innerHTML = yoyTable();
-
-document.getElementById("r4-chart").innerHTML = groupedSVG({ 2024: "#c9bfa5", 2025: "#5a6e84", 2026: "#b3402a" }, "#e8e2cf", "#8a7c62");
-document.getElementById("r4-table").innerHTML = yoyTable();
-
-document.getElementById("r5-chart").innerHTML = groupedSVG({ 2024: "#111111", 2025: "#b5b5b5", 2026: "#e30613" }, "#e2e2e2", "#666666");
-document.getElementById("r5-table").innerHTML = yoyTable();
-document.getElementById("r5-table2").innerHTML = daysTable();
-document.getElementById("r5-findings").innerHTML = findingsHTML;
-
-/* ---- switcher ---- */
-const btns = document.querySelectorAll("#switcher button");
-function activate(id) {
-  document.querySelectorAll(".variant").forEach(v => v.classList.toggle("active", v.id === id));
-  btns.forEach(b => b.classList.toggle("active", b.dataset.v === id));
-}
-btns.forEach(b => b.addEventListener("click", () => { activate(b.dataset.v); history.replaceState(null, "", "#" + b.dataset.v); }));
-const h = location.hash.replace("#", "");
-if (["r1", "r2", "r3", "r4", "r5"].includes(h)) activate(h);
-</script>
 </body>
 </html>
