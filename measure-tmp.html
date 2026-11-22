@@ -1,0 +1,27 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>measure</title></head>
+<body style="margin:0;padding:0">
+<iframe id="f" style="border:0;display:block" height="700"></iframe>
+<pre id="out">pending</pre>
+<script>
+var W = parseInt(new URLSearchParams(location.search).get('w')||'390',10);
+var f = document.getElementById('f');
+f.width = W;
+f.src = 'https://yukitchy.github.io/booking-trends-board/wifi-map/?v=cb16b63';
+f.onload = function(){ setTimeout(function(){
+  try {
+    var d = f.contentDocument;
+    var help = d.getElementById('btn-help').getBoundingClientRect();
+    var pin = d.getElementById('btn-locate').getBoundingClientRect();
+    var bar = d.querySelector('.slimbar').getBoundingClientRect();
+    var logo = d.querySelector('.logo-img').getBoundingClientRect();
+    var add = d.getElementById('btn-add').getBoundingClientRect();
+    var els = ['btn-help','btn-locate','sort-dist','power-only','btn-add'].map(function(id){var e=d.getElementById(id); return e? Math.round(e.getBoundingClientRect().top):-1;});
+    var res = {vw:W, scrollW:d.documentElement.scrollWidth, clientW:d.documentElement.clientWidth,
+      barH:Math.round(bar.height*10)/10, logoW:Math.round(logo.width*10)/10,
+      helpLeft:Math.round(help.left*10)/10, helpRight:Math.round(help.right*10)/10,
+      pinLeft:Math.round(pin.left*10)/10, gapPinMinusHelp:Math.round((pin.left-help.right)*10)/10,
+      tops:els, addRight:Math.round(add.right*10)/10};
+    document.getElementById('out').textContent = 'MEASURE ' + JSON.stringify(res);
+  } catch(e){ document.getElementById('out').textContent = 'ERR ' + e.message; }
+}, 2500); };
+</script></body></html>
