@@ -35,13 +35,19 @@ d.ellipse([cx - 26, cy - 26, cx + 26, cy + 26], fill=ACCENT)
 # Accent underline
 d.rectangle([cx - 150, cy + 62, cx + 150, cy + 72], fill=(226, 57, 46))
 
-# Title / subtitle, right side
-f_title = font(96)
-d.text((560, 190), "実測Wi-Fiマップ", font=f_title, fill=(255, 255, 255))
+# Title / subtitle, right side (auto-fit so the title never clips)
+TITLE = "実測Wi-Fiマップ"
+size = 96
+while size > 40:
+    f_title = font(size)
+    if d.textlength(TITLE, font=f_title) <= W - 550 - 36:
+        break
+    size -= 4
+d.text((550, 190), TITLE, font=f_title, fill=(255, 255, 255))
 f_sub = font(37)
-d.text((564, 322), "近くて速いWi-Fiを、実測だけで選ぶ", font=f_sub, fill=(169, 182, 218))
+d.text((554, 322), "近くて速いWi-Fiを、実測だけで選ぶ", font=f_sub, fill=(169, 182, 218))
 f_foot = font(28)
-d.text((564, 392), "秋葉原 ・ 錦糸町 — measured spots only", font=f_foot, fill=(120, 134, 170))
+d.text((554, 392), "秋葉原 ・ 錦糸町 — measured spots only", font=f_foot, fill=(120, 134, 170))
 
 img.save(os.path.join(BASE, "og.jpg"), quality=88)
 print("wrote", os.path.join(BASE, "og.jpg"), img.size)
