@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="470" viewBox="0 0 960 470" font-family="'Noto Sans CJK JP','Hiragino Sans',sans-serif">
+  <rect x="0" y="0" width="960" height="470" fill="#ffffff"/>
+  <text x="30" y="42" font-size="24" font-weight="bold" fill="#1e293b">秋田民泊計画の流れ（こばさん）</text>
+  <text x="30" y="70" font-size="14" fill="#64748b">宿泊は集客の入口、本命は体験ツアー。初期費用ほぼゼロで始められる点が強み</text>
+
+  <defs>
+    <marker id="arw3" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#475569"/>
+    </marker>
+  </defs>
+
+  <!-- steps -->
+  <g font-size="13" fill="#334155">
+    <rect x="20" y="110" width="168" height="150" rx="12" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+    <text x="104" y="140" font-size="16" font-weight="bold" fill="#15803d" text-anchor="middle">1. 譲受（済）</text>
+    <text x="104" y="168" text-anchor="middle">築40〜50年の</text>
+    <text x="104" y="188" text-anchor="middle">2階建て6DKを</text>
+    <text x="104" y="208" text-anchor="middle">無償で譲受</text>
+    <text x="104" y="234" text-anchor="middle">自宅から車15分</text>
+
+    <rect x="208" y="110" width="168" height="150" rx="12" fill="#f8fafc" stroke="#64748b" stroke-width="2"/>
+    <text x="292" y="140" font-size="16" font-weight="bold" fill="#334155" text-anchor="middle">2. 整備と改装</text>
+    <text x="292" y="168" text-anchor="middle">水回りだけ清潔に</text>
+    <text x="292" y="188" text-anchor="middle">6LDK化</text>
+    <text x="292" y="208" text-anchor="middle">部屋は現状維持で</text>
+    <text x="292" y="234" text-anchor="middle">「昭和」を残す</text>
+
+    <rect x="396" y="110" width="168" height="150" rx="12" fill="#f8fafc" stroke="#64748b" stroke-width="2"/>
+    <text x="480" y="140" font-size="16" font-weight="bold" fill="#334155" text-anchor="middle">3. 開業前の仕込み</text>
+    <text x="480" y="168" text-anchor="middle">近くの競合に</text>
+    <text x="480" y="188" text-anchor="middle">実際に泊まる</text>
+    <text x="480" y="208" text-anchor="middle">安い価格で始めて</text>
+    <text x="480" y="234" text-anchor="middle">レビューを稼ぐ</text>
+
+    <rect x="584" y="110" width="168" height="150" rx="12" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="668" y="140" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">4. 春ごろ開業</text>
+    <text x="668" y="168" text-anchor="middle">テーマは</text>
+    <text x="668" y="188" text-anchor="middle">「昭和とビール」</text>
+    <text x="668" y="208" text-anchor="middle">半分住む</text>
+    <text x="668" y="234" text-anchor="middle">住居型で運営</text>
+
+    <rect x="772" y="110" width="168" height="150" rx="12" fill="#fff7ed" stroke="#ea580c" stroke-width="2.5"/>
+    <text x="856" y="140" font-size="16" font-weight="bold" fill="#c2410c" text-anchor="middle">5. 体験が本命</text>
+    <text x="856" y="168" text-anchor="middle">花火のます席と</text>
+    <text x="856" y="188" text-anchor="middle">自家製の枝豆</text>
+    <text x="856" y="208" text-anchor="middle">DIY・解体の体験</text>
+    <text x="856" y="234" text-anchor="middle">数万円のプラン</text>
+  </g>
+
+  <line x1="190" y1="185" x2="204" y2="185" stroke="#475569" stroke-width="2.5" marker-end="url(#arw3)"/>
+  <line x1="378" y1="185" x2="392" y2="185" stroke="#475569" stroke-width="2.5" marker-end="url(#arw3)"/>
+  <line x1="566" y1="185" x2="580" y2="185" stroke="#475569" stroke-width="2.5" marker-end="url(#arw3)"/>
+  <line x1="754" y1="185" x2="768" y2="185" stroke="#475569" stroke-width="2.5" marker-end="url(#arw3)"/>
+
+  <!-- 180 day box -->
+  <rect x="20" y="295" width="920" height="140" rx="12" fill="#fefce8" stroke="#ca8a04" stroke-width="2"/>
+  <text x="45" y="330" font-size="17" font-weight="bold" fill="#854d0e">★ 180日制限の位置づけ（民泊新法＝住宅宿泊事業法）</text>
+  <text x="45" y="360" font-size="14.5" fill="#334155">・旅館業の許可がない民泊新法では、営業は年間180日まで。届出住宅ごとに数える</text>
+  <text x="45" y="386" font-size="14.5" fill="#334155">・1人1泊で数えるゲストハウス型（二段ベッドで1泊4〜5千円）はすぐ上限に届く → 6部屋あるなら個室貸しか1棟貸しが向く</text>
+  <text x="45" y="412" font-size="14.5" fill="#334155">・管理者の駆けつけ要件（10分程度の自治体もある）は秋田の条件を確認すること。物件まで車15分は際どい</text>
+</svg>

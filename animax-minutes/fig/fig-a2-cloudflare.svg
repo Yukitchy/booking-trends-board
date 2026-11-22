@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" font-family="'Noto Sans CJK JP','Hiragino Sans',sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+  <text x="30" y="42" font-size="24" font-weight="bold" fill="#1e293b">Cloudflare：静的な置き場とプログラムを動かす場所</text>
+  <text x="30" y="70" font-size="14" fill="#64748b">同じ Cloudflare でも、置き場と実行環境では流儀が違う（本図は会話内容と一般的な仕組みからの整理。詰まりの原因そのものは未特定）</text>
+
+  <!-- Pages panel -->
+  <rect x="25" y="95" width="445" height="330" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="247" y="138" font-size="21" font-weight="bold" fill="#1d4ed8" text-anchor="middle">Pages ＝ 静的な置き場</text>
+  <text x="50" y="178" font-size="15" fill="#1e293b">・ファイルや写真、ページを置いて公開する場所</text>
+  <text x="50" y="208" font-size="15" fill="#1e293b">・置けばそのまま動く。無料枠が最も得意な使い方</text>
+  <text x="50" y="238" font-size="15" fill="#1e293b">・プログラムの常時実行はしない</text>
+  <rect x="45" y="262" width="405" height="92" rx="10" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="65" y="292" font-size="15" font-weight="bold" fill="#1d4ed8">ユウキの用途</text>
+  <text x="65" y="318" font-size="14" fill="#334155">ツアー写真のアルバム公開と共有URLの置き場</text>
+  <text x="65" y="340" font-size="14" fill="#334155">→ 課金なし（ドメイン代のみ）で使えている</text>
+  <text x="247" y="398" font-size="26" font-weight="bold" fill="#2563eb" text-anchor="middle">○ 使えている</text>
+
+  <!-- Workers panel -->
+  <rect x="490" y="95" width="445" height="330" rx="14" fill="#fff7ed" stroke="#ea580c" stroke-width="2.5"/>
+  <text x="712" y="138" font-size="21" font-weight="bold" fill="#c2410c" text-anchor="middle">Workers ＝ 動かす場所</text>
+  <text x="515" y="178" font-size="15" fill="#1e293b">・処理そのものを実行する環境</text>
+  <text x="515" y="208" font-size="15" fill="#1e293b">・定期実行や外部API連携はこちら側の作法</text>
+  <text x="515" y="238" font-size="15" fill="#1e293b">・「置いて動かす」レンタルサーバーの感覚とは違う</text>
+  <rect x="510" y="262" width="405" height="92" rx="10" fill="#ffffff" stroke="#fdba74" stroke-width="1.5"/>
+  <text x="530" y="292" font-size="15" font-weight="bold" fill="#c2410c">こばさんの用途</text>
+  <text x="530" y="318" font-size="14" fill="#334155">SNS自動投稿ツールの置き場（Xサーバーに残留）</text>
+  <text x="530" y="340" font-size="14" fill="#334155">→ Xサーバー流のままでは動かず詰まっている</text>
+  <text x="712" y="398" font-size="26" font-weight="bold" fill="#ea580c" text-anchor="middle">△ 作り替えが必要</text>
+
+  <!-- bottom conclusion -->
+  <rect x="25" y="445" width="910" height="72" rx="10" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="480" y="476" font-size="15.5" font-weight="bold" fill="#b91c1c" text-anchor="middle">★ 見立て：「できない」のではなく用途の置き場所が違う。まず「公開する部分」と「処理を動かす部分」を分けて考える</text>
+  <text x="480" y="500" font-size="13" fill="#7f1d1d" text-anchor="middle">※ 原因の最終確定には、こばさんの自動投稿ツールの構成確認が必要</text>
+</svg>

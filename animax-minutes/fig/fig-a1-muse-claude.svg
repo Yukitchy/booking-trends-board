@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="500" viewBox="0 0 960 500" font-family="'Noto Sans CJK JP','Hiragino Sans',sans-serif">
+  <rect x="0" y="0" width="960" height="500" fill="#ffffff"/>
+  <text x="30" y="42" font-size="24" font-weight="bold" fill="#1e293b">Muse で Claude を動かす仕組み</text>
+  <text x="30" y="70" font-size="14" fill="#64748b">窓口は Muse、実作業は裏側の Claude。Muse 単体に聞くと「連携できない」と返るのは、橋渡し役がいないため</text>
+
+  <defs>
+    <marker id="arw" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#475569"/>
+    </marker>
+  </defs>
+
+  <!-- Yuuki -->
+  <rect x="25" y="180" width="150" height="110" rx="12" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="100" y="222" font-size="19" font-weight="bold" fill="#1d4ed8" text-anchor="middle">ユウキ</text>
+  <text x="100" y="248" font-size="13" fill="#334155" text-anchor="middle">話しかける</text>
+  <text x="100" y="268" font-size="13" fill="#334155" text-anchor="middle">雑に投げる</text>
+
+  <line x1="178" y1="235" x2="222" y2="235" stroke="#475569" stroke-width="2.5" marker-end="url(#arw)"/>
+
+  <!-- Muse -->
+  <rect x="228" y="160" width="185" height="150" rx="12" fill="#eef2ff" stroke="#4f46e5" stroke-width="2.5"/>
+  <text x="320" y="205" font-size="21" font-weight="bold" fill="#4338ca" text-anchor="middle">Muse</text>
+  <text x="320" y="233" font-size="13.5" fill="#334155" text-anchor="middle">受付の窓口</text>
+  <text x="320" y="255" font-size="13.5" fill="#334155" text-anchor="middle">内容に応じて</text>
+  <text x="320" y="277" font-size="13.5" fill="#334155" text-anchor="middle">裏側へ振り分ける</text>
+
+  <!-- Claude Code -->
+  <line x1="416" y1="195" x2="472" y2="130" stroke="#475569" stroke-width="2.5" marker-end="url(#arw)"/>
+  <rect x="478" y="88" width="215" height="92" rx="12" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+  <text x="585" y="122" font-size="18" font-weight="bold" fill="#c2410c" text-anchor="middle">Claude</text>
+  <text x="585" y="146" font-size="13" fill="#334155" text-anchor="middle">PC操作と開発の実働部隊</text>
+  <text x="585" y="165" font-size="13" fill="#334155" text-anchor="middle">月200ドルプラン</text>
+
+  <!-- ChatGPT -->
+  <line x1="416" y1="235" x2="472" y2="235" stroke="#475569" stroke-width="2.5" marker-end="url(#arw)"/>
+  <rect x="478" y="192" width="215" height="86" rx="12" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="585" y="228" font-size="18" font-weight="bold" fill="#15803d" text-anchor="middle">ChatGPT</text>
+  <text x="585" y="253" font-size="13" fill="#334155" text-anchor="middle">検証と別視点の確認</text>
+
+  <!-- AI staff -->
+  <line x1="416" y1="275" x2="472" y2="338" stroke="#475569" stroke-width="2.5" marker-end="url(#arw)"/>
+  <rect x="478" y="290" width="215" height="92" rx="12" fill="#fdf4ff" stroke="#a21caf" stroke-width="2"/>
+  <text x="585" y="324" font-size="18" font-weight="bold" fill="#86198f" text-anchor="middle">AI社員セッション</text>
+  <text x="585" y="348" font-size="13" fill="#334155" text-anchor="middle">受付セイから担当部署へ</text>
+  <text x="585" y="367" font-size="13" fill="#334155" text-anchor="middle">SEO・経理・書記ほか</text>
+
+  <!-- External services -->
+  <line x1="696" y1="134" x2="742" y2="180" stroke="#475569" stroke-width="2.5" marker-end="url(#arw)"/>
+  <rect x="748" y="140" width="190" height="130" rx="12" fill="#f8fafc" stroke="#475569" stroke-width="2"/>
+  <text x="843" y="176" font-size="17" font-weight="bold" fill="#334155" text-anchor="middle">外部サービス</text>
+  <text x="843" y="202" font-size="12.5" fill="#334155" text-anchor="middle">API連携：Instagram等</text>
+  <text x="843" y="223" font-size="12.5" fill="#334155" text-anchor="middle">ログイン操作：Viator等</text>
+  <text x="843" y="244" font-size="12.5" fill="#334155" text-anchor="middle">Airbnb の予約対応も自動</text>
+
+  <!-- bottom note -->
+  <rect x="25" y="420" width="913" height="56" rx="10" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="481" y="455" font-size="15.5" font-weight="bold" fill="#b91c1c" text-anchor="middle">★ 原則は「できる限り手を煩わせない」。承認が必要な所だけユウキが押す</text>
+</svg>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>議事録A｜v1 フェスレポート風</title>
+<style>
+* { box-sizing: border-box; }
+html, body { overflow-x: hidden; }
+img { max-width: 100%; height: auto; }
+code { overflow-wrap: anywhere; }
+.idx-t { min-width: 0; }
+.chip { display: inline-block; padding: 0 7px; border-radius: 9px; color: #fff; font-weight: bold; font-size: .82em; line-height: 1.6; vertical-align: 1px; white-space: nowrap; }
+.chip.y { background: #2563eb; } .chip.a { background: #16a34a; } .chip.k { background: #ea580c; }
+.chip.all { background: #7c3aed; } .chip.fact { background: #0284c7; } .chip.guess { background: #d97706; }
+.dot-y { color: #2563eb; } .dot-a { color: #16a34a; } .dot-k { color: #ea580c; }
+
+body { margin:0; background:#fff6e9; color:#141414; font-family:"Hiragino Kaku Gothic ProN","Noto Sans CJK JP",sans-serif; line-height:1.8; }
+.hero { background:#141414; color:#fff; padding:44px 20px 54px; position:relative; overflow:hidden; }
+.hero::after { content:""; position:absolute; left:0; right:0; bottom:0; height:14px; background:repeating-linear-gradient(-45deg,#e63b2e 0 26px,#ffc61a 26px 52px,#141414 52px 78px); }
+.hero-in { max-width:860px; margin:0 auto; }
+.stickers { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
+.sticker { background:#ffc61a; color:#141414; font-weight:800; padding:3px 12px; border-radius:999px; transform:rotate(-2deg); font-size:13px; border:2px solid #141414; box-shadow:3px 3px 0 rgba(0,0,0,.35); }
+.sticker.red { background:#e63b2e; color:#fff; transform:rotate(1.5deg); }
+.sticker.wht { background:#fff; transform:rotate(-1deg); }
+.hero h1 { font-size:clamp(26px,8.5vw,64px); font-weight:900; line-height:1.15; margin:0 0 10px; letter-spacing:.01em; white-space:nowrap; }
+.hero .sub { font-size:clamp(14px,3.6vw,19px); font-weight:700; color:#ffd9d2; margin:0; }
+.wrap { max-width:860px; margin:0 auto; padding:26px 18px 60px; }
+h2 { font-size:clamp(21px,5vw,28px); font-weight:900; margin:38px 0 12px; padding:4px 10px; background:linear-gradient(transparent 62%,#ffc61a 62%); display:inline-block; }
+h3 { font-size:18px; font-weight:800; margin:26px 0 8px; border-left:8px solid #e63b2e; padding-left:10px; }
+.summary { background:#fff; border:3px solid #141414; border-radius:14px; box-shadow:7px 7px 0 #141414; padding:16px 20px; transform:rotate(-.4deg); }
+.key { background:#ffe9e6; border:3px solid #e63b2e; border-radius:14px; padding:12px 18px; }
+li.hl { background:#fff3bf; border-radius:6px; padding:2px 8px; margin-left:-8px; font-weight:600; }
+table { border-collapse:collapse; width:100%; font-size:14px; display:block; overflow-x:auto; }
+th,td { border:2px solid #141414; padding:6px 10px; background:#fff; }
+th { background:#141414; color:#fff; }
+blockquote { background:#fff; border:2.5px solid #141414; border-radius:10px; padding:10px 16px; margin:14px 0; font-size:14px; box-shadow:5px 5px 0 #ffc61a; }
+a { color:#c22518; font-weight:700; }
+img { border:2.5px solid #141414; border-radius:12px; background:#fff; }
+.bsec { margin-top:52px; background:#141414; color:#fff; border-radius:16px; padding:24px 24px 8px; }
+.bsec-label { display:inline-block; background:#e63b2e; color:#fff; font-weight:800; padding:2px 12px; border-radius:999px; transform:rotate(-1.5deg); }
+.bsec-title { background:none; color:#fff; padding:0; display:block; }
+.bbtn { display:inline-block; background:#ffc61a; color:#141414; padding:9px 18px; border-radius:999px; margin:0 8px 10px 0; text-decoration:none; }
+.bbtn.sub { background:#fff; }
+.foot { margin-top:34px; font-size:12.5px; color:#6b6257; border-top:2px dashed #141414; padding-top:12px; }
+</style></head>
+<body><header class="hero"><div class="hero-in">
+<div class="stickers"><span class="sticker">ライブ帰り！</span><span class="sticker red">ANIMAX MUSIX 2026</span><span class="sticker wht">新横浜・夜</span></div>
+<h1>秋田民泊とAI活用談義</h1>
+<p class="sub">フェスの熱が冷めないうちに、民泊とAIと宿坊を語り尽くした68分</p>
+</div></header><main class="wrap">
+<ul>
+<li>日時: 2026-11-21（土）夜　ANIMAX MUSIX 2026（横浜アリーナ）終演後、新横浜の飲食店にて</li>
+<li>参加者: ユウキ（市原佑樹）／アッキー（加藤明仁）／こばさん（アッキーの地元・秋田の友人）</li>
+<li>元音源: 「新規録音 15.m4a」（68分16秒）</li>
+<li>文字起こし全文: m2 <code>~/VoiceMemoInbox/完成/2026-11-22_0755_秋田民泊とAI活用談義/01-文字起こし.md</code>（話者名の反映済み）</li>
+<li>話者の補正について: 店内が騒がしく、自動文字起こしの話者ラベルは途中で入れ替わっている箇所がある。本議事録では発言内容から話者を補正した。</li>
+</ul>
+<div class="summary">
+<p>📌 <strong>要約</strong></p>
+<p>秋田で空き家を無償譲受した<span class="chip k">こばさん</span>の民泊計画に、ツアーと民泊の実務者である<span class="chip y">ユウキ</span>が運営の勘所を助言し、宿坊事業者<span class="chip a">アッキー</span>の「おテラステイ」事例が重なった夜の記録。後半の主役はAI活用で、こばさんの「Muse に聞いても連携できないと返ってきた」という詰まりに対し、ユウキの「Muse を窓口に、裏で Claude を動かす」運用と、Cloudflare の「置き場と実行環境の流儀の違い」という見立てが提示された。結論：民泊は体験ツアーとセットで副業から始めるのがよく、AIの連携は本人に聞かず橋渡し役に試行させるのが早い。</p>
+</div>
+<h2 id="_1">話者レジェンド</h2>
+<table>
+<thead>
+<tr>
+<th>色</th>
+<th>話者</th>
+<th>立場</th>
+<th>この会話での役割</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="dot dot-y">●</span></td>
+<td><span class="chip y">ユウキ</span></td>
+<td>Anime Sensei 主宰。ツアーガイド・民泊運営・AI活用の実務者</td>
+<td>助言役。民泊運営の勘所とAI運用の実例を出す</td>
+</tr>
+<tr>
+<td><span class="dot dot-a">●</span></td>
+<td><span class="chip a">アッキー</span></td>
+<td>宿坊「おテラステイ」事業者</td>
+<td>事例提供役。寺に泊まる体験ビジネスの実態を語る</td>
+</tr>
+<tr>
+<td><span class="dot dot-k">●</span></td>
+<td><span class="chip k">こばさん</span></td>
+<td>秋田在住。現場の職人兼マネージャー（個人事業主）</td>
+<td>相談役。秋田民泊計画とAI・Cloudflare の詰まりを持ち込む</td>
+</tr>
+</tbody>
+</table>
+<p>本文の <span class="chip y">ユウキ</span> <span class="chip a">アッキー</span> <span class="chip k">こばさん</span> の色チップが発言者を示す。★ は流し読み用の重要マーカー。</p>
+<hr />
+<h2 id="_2">話題ごとの要点</h2>
+<h3 id="1">1. 秋田民泊計画<span class="chip k">こばさん</span></h3>
+<ul>
+<li><span class="chip k">こばさん</span>秋田市内で、築40〜50年の中古2階建て（6DK）を ★<strong>無償で譲り受けた</strong>。6LDKに改装し、春ごろの開業を予定。</li>
+<li><span class="chip k">こばさん</span>テーマは「昭和とビール」。水回りだけ清潔に整え、部屋は現状維持でいく方針。</li>
+<li><span class="chip k">こばさん</span>物件は自宅から車で15分ほど。半分住む「住居型」で運営する想定。</li>
+<li><span class="chip k">こばさん</span>★宿泊そのものは集客目的で、本命は体験ツアーを売ること（バックエンド商品）。</li>
+<li>花火を屋上のます席で地元の人と見て、自家製の枝豆を出す数万円のプラン。</li>
+<li>DIY・解体の体験（本業が現場の職人兼マネージャーで、個人事業主として現場仕事もしている）。</li>
+<li><span class="chip k">こばさん</span>周辺の競合は少なく、秋田市内にもう1軒ある程度。インバウンドはまだほとんど来ていない。大学病院が近い。秋田全体では空き家バンクに約4,000件の登録があるという話も出た。</li>
+</ul>
+<p><img alt="図：秋田民泊計画の流れ" src="fig/fig-a3-minpaku-flow.svg" /></p>
+<h3 id="2">2. 運営助言<span class="chip y">ユウキ</span></h3>
+<ul>
+<li><span class="chip y">ユウキ</span>★<strong>旅館業の許可がない民泊新法では年間180日まで</strong>。二段ベッドで1人1泊4〜5千円のゲストハウス型だと、1人1泊カウントですぐ180日が埋まる。6部屋あるなら個室貸しか1棟貸しが向いている。</li>
+<li><span class="chip y">ユウキ</span>地域によっては「10分程度で駆けつけられる距離に管理者がいること」が要件になる。秋田の条件は要確認。物件まで15分は際どい。</li>
+<li><span class="chip y">ユウキ</span>まずは競合調査。近くの物件に実際に泊まって、価格と中身を見る。「来ないから空白なのか、需要があるのに空白なのか」の見極めが大事。</li>
+<li><span class="chip y">ユウキ</span>★価格は最初は安くして、友人・家族に泊まってもらい<strong>レビューを稼ぐ</strong>。忙しくなってから上げる。</li>
+<li><span class="chip y">ユウキ</span>初期費用ほぼゼロ・固定費ほぼなしが最大の強み。都内で家賃40〜50万円を払って始めるのとは別物で、「今は地方民泊が熱い」。</li>
+<li><span class="chip y">ユウキ</span>清掃員を雇うなら、物件は同じエリアに固める（ドミナント戦略）。近所で雇用も生まれる。</li>
+<li><span class="chip y">ユウキ</span>海外ゲストが日本の家に求めるのは、畳や和室のような「古き良き」もの。無理に新しくしない方がいい。「昭和」テーマはむしろ強み。</li>
+<li><span class="chip y">ユウキ</span>東京に何度も来たリピーターほど地方に目を向ける。秋田は「4回目・5回目の日本」で来る場所としてゼロではない。</li>
+<li><span class="chip y">ユウキ</span>★民泊もガイドも一本だと苦しい。<strong>まず副業として始め、伸びてきたらウェイトを移す</strong>のがいい（こばさんは会社員を続けながら始める想定。本業を辞めるのは先の話）。</li>
+</ul>
+<blockquote>
+<p>参考リンク：<a href="https://www.mlit.go.jp/kankocho/minpaku/overview/minpaku/law1.html">住宅宿泊事業法（民泊新法）とは？｜民泊制度ポータルサイト「minpaku」（国土交通省）</a> ― 届出制と年間180日の上限の一次情報。</p>
+</blockquote>
+<h3 id="3">3. 体験ツアーと資格<span class="chip y">ユウキ</span><span class="chip k">こばさん</span></h3>
+<ul>
+<li><span class="chip y">ユウキ</span>★体験は初期費用がかからない。民泊の開業を待たず、<strong>体験だけ先にAirbnb・TripAdvisor（Viator）・自社サイトに出しておく</strong>のが手（ユウキ自身も全部に出している）。</li>
+<li><span class="chip y">ユウキ</span>★通訳案内士の国家資格は2018年の法改正で不要になった。<strong>公共交通機関を使うツアーなら、資格なしで有償ガイドができる</strong>。</li>
+<li><span class="chip y">ユウキ</span>ただし自分の車にゲストを乗せると旅行業などの資格が絡み、正直グレー。タクシーに一緒に乗る形なら問題ない。</li>
+<li><span class="chip k">こばさん</span>花火職人とのコネクションが作れれば、「花火を作る人の話を聞く」体験は強い差別化になる（現時点ではコネクションなし）。</li>
+</ul>
+<blockquote>
+<p>参考リンク：<a href="https://www.mlit.go.jp/kankocho/seisaku_seido/tsuyaku_guide/index.html">通訳ガイド制度｜観光庁</a> ― 2018年1月4日の改正通訳案内士法施行で、資格なしでも有償の通訳案内が可能になった一次情報。</p>
+</blockquote>
+<h3 id="4">4. おテラステイ（宿坊体験）<span class="chip a">アッキー</span></h3>
+<ul>
+<li><span class="chip a">アッキー</span>お寺に泊まる体験を海外向けに売るサービス。相場は ★<strong>1泊5万〜10万円</strong>で、完売することもある。</li>
+<li><span class="chip a">アッキー</span>自社拠点はお寺に家賃を払う方式、サポート拠点は ★<strong>手数料20〜30%</strong>。儲けはお寺の修繕費に充てる形にしている。</li>
+<li><span class="chip all">3人</span>宿坊の予約基盤（Bókun）については「あれしかない」という評価と、「登録しづらい」という不満の両方が出た。ユウキは「Bókunいらない、自分で作る」派。</li>
+<li><span class="chip y">ユウキ</span>ユウキ側には宿坊に興味のある海外ゲストと、「やりたいがやり方が分からない」住職の心当たりがあり、つなぐ話になった（TODO参照）。</li>
+</ul>
+<h3 id="5-ai3">5. AI時代の仕事と子育て（雑談）<span class="chip all">3人</span></h3>
+<ul>
+<li><span class="chip y">ユウキ</span>AIで置き換わる仕事の話。経理担当のような定型業務はAIに置き換わり、「リアルなスキルがない人はAIに変わる」。アメリカでは大工・配管工などブルーカラーがむしろ尊敬されている、というユウキの見立て。</li>
+<li><span class="chip all">3人</span>子どもに何を教えるか。選択肢が多すぎて夢を聞いても返ってこない、翻訳ツールがあってもリアルタイムで話せる言語力には価値がある、職人技は残る、などの話。</li>
+<li><span class="chip y">ユウキ</span>録音デバイスの話。ユウキはAnkerの録音デバイス（修理中）を使い、ツアー中の会話を録って、ゲストの希望の収集と<strong>自分の英語の添削</strong>に使っている。ガイド研修にも使える仕組みで、友人のツアー会社向けに作って使わせてもいる。</li>
+</ul>
+<h3 id="6-3">6. アニメ・マンガ雑談<span class="chip all">3人</span></h3>
+<ul>
+<li>『魔法使いの夜』（映画）：演出と音楽のクオリティは高い、ジェットコースターのシーンの疾走感、青子が可愛いかどうかが大事、という感想戦。</li>
+<li>『キングダム』：<span class="chip k">こばさん</span>30巻前後まで読了中（麃公の死のあたり）。安く読むためにGEOレンタル（秋田は50円から）や漫画喫茶を使う。王騎は煉獄さんポジション。</li>
+<li>『BLEACH』：アランカル編の途中まで。藍染の裏切りのあたり。</li>
+<li>『薬屋のひとりごと』はAmazonプライムで視聴。</li>
+<li><span class="chip y">ユウキ</span>近況として、NHKの取材を受けたこと、Business Insider Japanに記事が出たこと（9月30日）、Airbnb社長と会った合宿の話も出た。</li>
+</ul>
+<hr />
+<h2 id="1muse-claude">特別節1：Muse で Claude を動かす方法<span class="chip y">ユウキ</span><span class="chip k">こばさん</span></h2>
+<p><span class="chip k">こばさん</span>の実体験：「Muse を初めて使って『Claude と連携できるの？』と聞いたら、★<strong>『連携できないんですよ』と返ってきた</strong>」。これが今回の出発点。<span class="chip y">ユウキ</span>の実際の運用は次のとおり。</p>
+<p><img alt="図：Muse で Claude を動かす仕組み" src="fig/fig-a1-muse-claude.svg" /></p>
+<h3 id="_3">全体の構成<span class="chip y">ユウキ</span></h3>
+<ul>
+<li><strong>受付は Muse</strong>。ユウキが日常的に話しかけるのは Muse で、Muse 自体に仕事を頼むこともできるし、内容に応じて裏側の <strong>Claude や ChatGPT に指示を振り分ける</strong>のも Muse の役割。</li>
+<li>雑に投げても「分かりました、じゃあ Claude にそれでお願いしますね」と受けてくれる融通の効き方が、Muse を窓口にする理由。</li>
+<li>料金：★<strong>Claude は月200ドルのプラン</strong>を使っている。Muse 側は課金していない。</li>
+</ul>
+<h3 id="_4">連携のさせ方（ここが肝心）<span class="chip y">ユウキ</span></h3>
+<ul>
+<li>ユウキ自身、最初から仕組みを理解していたわけではない。★「<strong>Claude コード（Muse）を使う方法を全部試しといて</strong>」と Muse 側に指示して、やり方を試行させた。</li>
+<li>本人の関与は「やりたいんだけど、やっといて」まで。裏側の接続は Muse がうまいことやる体制で、今も理屈を完全に理解しないまま運用が回っている。</li>
+<li>つまり「連携できない」という Muse の回答は、<strong>チャット画面の中で完結させようとした場合の話</strong>。実際には Muse（パソコン上で動く Claude）が橋渡しになる。</li>
+</ul>
+<h3 id="claude">Claude が実際にやっていること<span class="chip y">ユウキ</span></h3>
+<ul>
+<li><strong>自分の代わりにパソコンを操作する</strong>。Airbnb にログインさせて、予約が入ったら案内メッセージや事前アンケート送付まで任せている。</li>
+<li>接続方法は相手による。API があるものは API 連携（例：Instagram 投稿は Meta の API）、ないものはログイン操作で「無理やり」繋ぐ（Viator など複数サービス）。</li>
+<li>作ったものの例：</li>
+<li>顧客管理ツール（ゲストの来日日程・経路・ルート・連絡先、ツアー後の写真ページURL、レビューと返信状況まで一元管理）</li>
+<li>ツアー写真の自動処理（後述の Cloudflare 節と連動）</li>
+<li>レビューへの返信案の作成</li>
+<li>全巻無料キャンペーン中の漫画を AI が巡回してまとめるサイト（タダヨミ）</li>
+<li>写真の位置情報とカレンダーから、行った店・見た映画を自動でリスト化する「外部脳」</li>
+<li><strong>この会話自体も録音 → 文字起こし → 議事録化</strong>が同じ仕組みで回っている</li>
+</ul>
+<h3 id="_5">運用スタイル<span class="chip y">ユウキ</span></h3>
+<ul>
+<li>作り方は完全にバイブコーディング。「これやりたいんだけど」で始めて、★<strong>承認が必要な所だけ自分が押す</strong>。「できる限り俺の手を煩わせないで」が体制の原則で、逐一の指示はせず丸投げする。</li>
+<li>ページの公開先の使い分け：まず Muse のアーティファクトで作る。相手がアーティファクトを見られない環境なら GitHub Pages で公開する。</li>
+<li><strong>AI社員</strong>の仕組み：部署別に AI の社員を作り、それぞれに名前・プロフィール・キャラクター画像を持たせる（受付の秘書、SEO担当など）。名前を付けると「○○さんにやっといて」と頼む形になり、愛着が湧いて続けやすい。</li>
+<li>コンサル事例：韓流ファンの60代の生徒には、AI を「推しのアイドル」設定にした。毎朝の面倒な作業が「推しに言われるならやる」に変わった。</li>
+<li>ユウキの実感：「エンジニアじゃない自分が作れるようになったのはバイブコーディングのおかげ」「今必要なのは面倒くさがりな性格。『これ面倒くさい』と思う人ほど自動化の種を見つけられる」。</li>
+</ul>
+<h3 id="_6">こばさん側の次の一手（会話から）<span class="chip k">こばさん</span></h3>
+<ul>
+<li>こばさんは DIY・解体動画を100時間近く撮りためていて、<strong>音声入力で内容を渡すと投稿までやる自動投稿ツール</strong>を開発中。音楽の権利（Instagram 用の音楽が Threads・Facebook で使えない、商用利用可の素材は明示義務がある等）が検討事項。</li>
+<li>やり取りの継続のため、LINE グループを作ることになった（TODO参照）。</li>
+</ul>
+<blockquote>
+<p>参考リンク：<a href="https://code.claude.com/docs/en/overview">Claude Code 公式ドキュメント（Overview）</a> ― パソコン上で動く Claude（Claude Code）の公式説明。ターミナル・IDE・デスクトップ・Web の各形態と、できることの全体像。</p>
+</blockquote>
+<hr />
+<h2 id="2cloudflare">特別節2：Cloudflare について（なぜユウキはできて、こばさんはできないのか）</h2>
+<p><img alt="図：Cloudflare の置き場と実行環境の違い" src="fig/fig-a2-cloudflare.svg" /></p>
+<h3 id="_7">ユウキの使い方<span class="chip fact">事実</span></h3>
+<ul>
+<li><span class="chip y">ユウキ</span><strong>ツアー写真の保管・公開に Cloudflare を使っている</strong>。ツアーで撮った写真をアップロードするとアルバム（写真ページ）になり、ゲストへの共有URLと、Instagram 投稿フローの置き場になる。</li>
+<li><span class="chip y">ユウキ</span>投稿フロー：写真をアップ → AI が「笑顔が素敵・中央に寄っている」等の基準で良い写真を選ぶ → キャプションも AI が書く → 気に入らない写真だけ差し替えて OK を押す → Meta API 経由で Instagram に投稿される。</li>
+<li><span class="chip y">ユウキ</span>★<strong>Cloudflare への課金はしていない</strong>。払っているのはドメイン代だけ。</li>
+<li><span class="chip y">ユウキ</span>ユウキ本人は Cloudflare をほとんど触らない。「言われたとおりにここを押した」という初期設定だけで、あとは AI が勝手にやっている状態。</li>
+</ul>
+<h3 id="_8">こばさんの詰まり<span class="chip fact">事実</span></h3>
+<ul>
+<li><span class="chip k">こばさん</span>SNS 自動投稿ツールの置き場として、★<strong>Cloudflare だけが使えず、Xサーバーに残っている</strong>。他のものは全部移行済み。</li>
+<li><span class="chip k">こばさん</span>Cloudflare への課金はしていない（ドメイン代のみ、という点はユウキと同じ）。</li>
+</ul>
+<h3 id="_9">差分についての分析<span class="chip guess">見立て</span></h3>
+<div class="key">
+<p>★ ここは議事録作成側の<strong>見立て</strong>。会話の中で原因そのものは特定されていない。ただし用途の違いが有力な差分として挙げられる。</p>
+</div>
+<ul>
+<li>ユウキの用途は「<strong>静的な置き場</strong>」：写真ファイルと Web ページを置いて公開する。これは Cloudflare の無料枠（Pages 等）が最も得意な使い方で、置くだけで動く。</li>
+<li>こばさんの用途は「<strong>プログラムを常時動かす場所</strong>」：自動投稿ツールという、処理を実行する仕組みの置き場。Xサーバーのような「スクリプトを置いて動かす」感覚のままでは Cloudflare では動かず、Workers のような Cloudflare 流の実行環境に作り替える必要がある。</li>
+<li>つまり「できない」のではなく「<strong>置き場と実行環境で、Cloudflare の流儀が違う</strong>」可能性が高い。切り分けの第一歩は、こばさんの自動投稿ツールのうち「ページやファイルの公開」部分と「定期的に処理を動かす」部分を分けて考えること。</li>
+</ul>
+<h3 id="_10">会話での約束</h3>
+<ul>
+<li><span class="chip y">ユウキ</span>「今この会話を録音している。その内容をもとに、<strong>なぜ俺はできて、こばさんはできないのかを調べて、議事録にして後で出す</strong>」。本議事録の本節がその共有にあたる。原因の最終確定には、こばさんの自動投稿ツールの構成（何をどこで動かそうとしているか）の確認が次に必要。</li>
+</ul>
+<blockquote>
+<p>参考リンク：<a href="https://developers.cloudflare.com/pages/configuration/serving-pages/">Serving Pages｜Cloudflare Pages ドキュメント</a>（静的ファイルの配信の仕組み）、<a href="https://developers.cloudflare.com/pages/platform/limits/">Pages の上限｜Cloudflare Pages ドキュメント</a>（無料プランの上限）、<a href="https://developers.cloudflare.com/workers/get-started/guide/">Get started｜Cloudflare Workers ドキュメント</a>（プログラムを実行する側の入門）。</p>
+</blockquote>
+<hr />
+<h2 id="todo">決まったこと・TODO</h2>
+<ul>
+<li>決まったこと：特になし（相談と情報共有が中心）。</li>
+<li>TODO：</li>
+<li><span class="chip a">アッキー</span>3人の <strong>LINE グループを作成</strong>する（AI 関連の資料・設定のやり取り用）。</li>
+<li><span class="chip y">ユウキ</span><strong>素人AIラジオのリンク</strong>をこばさんに送る。秋田に行く際はこばさんの民泊に泊まり、ラジオのゲストにも出る話になった。</li>
+<li><span class="chip y">ユウキ</span>宿坊に興味のある<strong>住職をアッキー（おテラステイ）につなぐ</strong>。</li>
+<li><span class="chip y">ユウキ</span>Cloudflare が使えない原因の調べ結果を議事録で共有する（→ 本議事録の特別節2）。</li>
+</ul>
+<h2 id="_11">面白かった論点</h2>
+<ul>
+<li class="hl">★「民泊は家がないとできないが、体験は初期費用ゼロで今日から出せる」。開業準備と並行して体験だけ先に売る、という順番の逆転。</li>
+<li class="hl">★「Claude に連携を聞いても『できない』と返る」。AI 本人に聞くのではなく、Muse という別の AI に「全部試しといて」と頼むことで突破した、という二段構え。</li>
+<li>「理屈は理解していない。言われたとおり押した結果がこれ」。理解してから使うのではなく、動かしながら分かる、というバイブコーディングの実態。</li>
+<li>AI に名前と顔を付けると「社員」になる。推しアイドル設定で60代の生徒の毎朝の作業が続いた話は、AI 導入の本質が技術ではなく動機づけだと示している。</li>
+<li>地方民泊の強さは「失敗しても痛くない」こと。初期費用ほぼゼロ・固定費ほぼなしは、都内型にはない構造的な有利さ。</li>
+</ul>
+<aside class="bsec">
+  <p class="bsec-label">もう1本の議事録</p>
+  <h2 class="bsec-title">宿坊事業と近況トーク（ユウキ・アッキーの2人）</h2>
+  <p class="bsec-body">宿坊「おテラステイ」を営むアッキーが、事業の仕組みと拠点戦略をユウキに共有した2人の記録。寺の余っている部屋を使わせてもらい使用料を払う形で、狙い目は人手不足で宿坊を続けられなくなった寺。人気の高山と身延寺を先に押さえ「第2の高野山」を作る構想が中心で、後半はオーペアや保育料など子育ての実情と、LINE自動化コンサルやAIキャラ配信など仕事の近況に広がった。決定事項はなし。</p>
+  <p class="bsec-btns">
+    <a class="bbtn" href="pdf/B_議事録_2026-11-21_宿坊事業と近況トーク.pdf">議事録BのPDFを開く</a>
+    <a class="bbtn sub" href="pdf/A_議事録_2026-11-21_秋田民泊とAI活用談義.pdf">議事録AのPDFを開く</a>
+  </p>
+</aside>
+
+<footer class="foot">
+  <p>2026-11-21（土）夜・新横浜の飲食店にて録音（68分16秒）。録音 → 文字起こし → 議事録化は Muse の仕組みで自動作成し、話者名は発言内容から補正した。Cloudflare の原因は未特定のままで、分析は「見立て」として分けてある。</p>
+</footer>
+</main></body></html>
