@@ -100,7 +100,7 @@ div.ph-top{height:88px;}
 
 .topbar .controls{flex-wrap:nowrap; gap:6px;}
 .ibtn{width:38px; height:38px; flex:none; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:17px; padding:0; line-height:1;}
-.ibtn.add{background:var(--ink); border-color:var(--ink); color:#fff; font-size:21px; font-weight:900;}
+.ibtn.add{background:var(--ink); border:2px solid #fff; color:#fff; font-size:21px; font-weight:900;}
 .seg{display:inline-flex; flex:none; background:#eef4ee; border:1px solid var(--line); border-radius:999px; padding:2px; gap:2px;}
 .seg button{border:none; background:transparent; border-radius:999px; height:32px; padding:0 11px; font-size:12.5px; white-space:nowrap;}
 .seg button.on{background:var(--grn); color:#06130a;}
@@ -116,7 +116,7 @@ div.ph-top{height:88px;}
 .rchk input{position:absolute; opacity:0; width:1px; height:1px; margin:0;}
 .rchk:has(input:checked){background:var(--grn); border-color:var(--grn);}
 
-.slimbar{position:fixed; top:0; left:0; right:0; z-index:1200; background:rgba(255,255,255,.97); border-bottom:1px solid var(--line); padding:7px 10px; display:flex; align-items:center; gap:8px; box-shadow:0 3px 12px rgba(16,20,16,.08);}
+.slimbar{position:fixed; top:0; left:0; right:0; z-index:1200; background:#101410; border-bottom:1px solid rgba(255,255,255,.18); padding:7px 10px; display:flex; align-items:center; gap:8px; box-shadow:0 3px 12px rgba(16,20,16,.08);}
 .stitle{font-size:15px; font-weight:900; white-space:nowrap;}
 .stitle .sig{color:var(--deep); margin-right:4px;}
 .slimbar .controls{margin-left:auto; flex-wrap:nowrap; gap:5px;}
@@ -161,13 +161,31 @@ div.ph-side{height:100%;}
 .logo-img{height:auto; width:84px;}
 #btn-center{top:58px; width:40px; height:40px;}
 }
+#btn-help{font-weight:900;}
+#help-overlay{position:fixed; inset:0; z-index:2000; background:rgba(16,20,16,.45); display:flex; align-items:center; justify-content:center; padding:18px;}
+#help-overlay[hidden]{display:none;}
+.help-modal{position:relative; background:#fff; border:1px solid var(--line); border-radius:16px; box-shadow:0 12px 40px rgba(16,20,16,.25); width:100%; max-width:420px; max-height:82dvh; overflow-y:auto; padding:20px 18px 16px;}
+.help-modal h2{font-size:16px; font-weight:900;}
+.help-modal h3{font-size:13.5px; font-weight:800; color:var(--deep); margin:13px 0 3px;}
+.help-modal p{font-size:13px; line-height:1.65; color:#2c362d;}
+#help-close{position:absolute; top:8px; right:8px; width:32px; height:32px; border-radius:50%; padding:0; font-size:15px; line-height:1; display:flex; align-items:center; justify-content:center;}
+@media (max-width:480px){
+.logo-img{height:17px;}
+.slimbar .seg button{padding:0 7px;}
+}
+@media (max-width:340px){
+.logo-img{height:auto; width:62px;}
+.slimbar .seg button{padding:0 5px;}
+.slimbar .controls{gap:4px;}
+}
 </style>
 </head>
 <body>
 <div id="map"></div>
 <button id="btn-center" type="button" title="現在地を中心に表示" aria-label="現在地を中心に表示"><svg viewBox="0 0 24 24" fill="none" stroke="#101410" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="6.5"/><circle cx="12" cy="12" r="1.6" fill="#16c95c" stroke="none"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3"/></svg></button>
 <div class="slimbar map-anchor">
-<span class="logo-slot"><img class="logo-img" src="logo.png" alt="ワイスピ"></span>
+<span class="logo-slot"><img class="logo-img" src="logo-white.png" alt="ワイスピ"></span>
+<button id="btn-help" class="ibtn" type="button" title="このサイトについて" aria-label="このサイトについて">？</button>
 <div class="controls">
 <button id="btn-locate" class="ibtn" type="button" title="現在地" aria-label="現在地">📍</button>
 <div class="seg"><button id="sort-dist" type="button" class="on">近い順</button><button id="sort-speed" type="button">速い順</button></div>
@@ -181,6 +199,18 @@ div.ph-side{height:100%;}
 <button type="button" id="btn-export-json">自分の追加をJSONでダウンロード</button>
 </div>
 <div id="toast" hidden></div>
+<div id="help-overlay" hidden>
+<div class="help-modal" role="dialog" aria-modal="true" aria-labelledby="help-title">
+<button id="help-close" type="button" aria-label="閉じる">×</button>
+<h2 id="help-title">ワイスピについて</h2>
+<h3>ワイスピとは</h3>
+<p>実際に測った Wi-Fi スポットだけを載せる実測マップ。載っている速度はすべて実測値で、未計測の店は「未計測」と表示される。</p>
+<h3>使い方</h3>
+<p>近い順／速い順の並び替えと、電源ありの絞り込みができる。ピンをタップすると SSID とパスワードが見られる。</p>
+<h3>スポットの追加</h3>
+<p>右上の＋から、自分で測って追加できる。追加したスポットは端末に保存され、送ると恒久的に掲載される。</p>
+</div>
+</div>
 <div class="panel" id="add-panel" hidden>
 <h2>今いる場所のWi-Fiを追加</h2>
 <p class="hint">接続中の SSID とパスワードはブラウザから自動で取れないため手入力。位置情報は自動で入り、速度は下りのみページ内で簡易計測できる。追加分はこの端末に保存される（恒久化はカードの「コピー」を Muse に送る）。</p>
@@ -589,6 +619,10 @@ if (done) done(null);
 }
 
 document.getElementById('btn-locate').addEventListener('click', function(){ locate();});
+var helpOverlay = document.getElementById('help-overlay');
+document.getElementById('btn-help').addEventListener('click', function(){ helpOverlay.hidden = false;});
+document.getElementById('help-close').addEventListener('click', function(){ helpOverlay.hidden = true;});
+helpOverlay.addEventListener('click', function(e){ if (e.target === helpOverlay) helpOverlay.hidden = true;});
 document.getElementById('btn-center').addEventListener('click', function(){
 if (userPos){ map.setView([userPos.lat, userPos.lng], Math.max(map.getZoom(), 16));}
 else { locate(function(pos){ if (pos) map.setView([pos.lat, pos.lng], 16);});}
