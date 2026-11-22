@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>実測Wi-Fiマップ｜近くて速いWi-Fiを実測だけで選ぶ</title>
+<meta name="description" content="自分が実測したWi-Fiスポットだけを載せる個人用マップ。現在地から近い順・速い順に並び替えて、歩きながら即決するための道具。未計測の場所は「未計測」と正直に表示する。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="実測Wi-Fiマップ">
+<meta property="og:description" content="近くて速いWi-Fiを、実測だけで選ぶ。自分専用のWi-Fiスポットマップ。">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/wifi-map/">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/wifi-map/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>📶</text></svg>">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+  :root{
+    --bg:#0a0f1e; --panel:#121a30; --panel2:#0e1526; --line:#26335a;
+    --txt:#eef2ff; --sub:#a9b6da; --accent:#38bdf8;
+    --fast:#22c55e; --mid:#f59e0b; --slow:#ef4444; --none:#9ca3af;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{max-width:100%; overflow-x:hidden;}
+  body{background:var(--bg); color:var(--txt); font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif; line-height:1.6;}
+  .wrap{max-width:880px; margin:0 auto; padding:0 14px 60px;}
+  header{padding:26px 0 6px;}
+  h1{font-size:clamp(21px,6.4vw,34px); font-weight:900; white-space:nowrap; letter-spacing:.02em;}
+  h1 .sig{color:var(--accent);}
+  .lead{color:var(--sub); font-size:13.5px; margin-top:6px;}
+  .controls{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:16px 0 10px;}
+  button{font:inherit; cursor:pointer; border:1px solid var(--line); background:var(--panel); color:var(--txt); border-radius:999px; padding:8px 16px; font-size:14px; font-weight:700;}
+  button.on{background:var(--accent); border-color:var(--accent); color:#06283d;}
+  button:active{transform:scale(.97);}
+  .chk{display:inline-flex; align-items:center; gap:6px; font-size:14px; color:var(--sub); border:1px solid var(--line); background:var(--panel); border-radius:999px; padding:8px 14px; cursor:pointer;}
+  .chk input{accent-color:var(--accent); width:16px; height:16px;}
+  #status{font-size:13px; color:var(--sub); min-height:1.4em; margin:2px 0 8px;}
+  #map{width:100%; height:46vh; min-height:280px; border-radius:16px; border:1px solid var(--line); z-index:0;}
+  .legend{display:flex; flex-wrap:wrap; gap:6px 14px; font-size:12.5px; color:var(--sub); margin:10px 2px 4px;}
+  .legend .dot{display:inline-block; width:11px; height:11px; border-radius:50%; margin-right:5px; vertical-align:-1px; border:2px solid #fff2;}
+  .pin{border-radius:50%; border:2.5px solid #fff; box-shadow:0 1px 6px #0009;}
+  .cards{display:flex; flex-direction:column; gap:10px; margin-top:12px;}
+  .card{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:13px 15px; cursor:pointer;}
+  .card:active{background:var(--panel2);}
+  .card .row1{display:flex; align-items:baseline; gap:8px; flex-wrap:wrap;}
+  .card .name{font-weight:800; font-size:16px;}
+  .chip{font-size:11.5px; font-weight:700; color:#06283d; background:var(--accent); border-radius:999px; padding:1px 9px; white-space:nowrap;}
+  .dist{margin-left:auto; font-size:13px; color:var(--accent); font-weight:700; white-space:nowrap;}
+  .meta{font-size:13.5px; color:var(--sub); margin-top:5px; overflow-wrap:anywhere;}
+  .meta b{color:var(--txt);}
+  .speed{display:inline-block; font-weight:800; border-radius:8px; padding:0 8px; margin-right:6px; font-size:13px; color:#0b0f1e;}
+  .speed.fast{background:var(--fast);} .speed.mid{background:var(--mid);}
+  .speed.slow{background:var(--slow);} .speed.none{background:var(--none);}
+  .note{font-size:13px; color:var(--sub); margin-top:5px;}
+  .gmap{display:inline-block; margin-top:8px; font-size:13.5px; font-weight:700; color:var(--accent); text-decoration:none; border:1px solid var(--line); border-radius:999px; padding:5px 13px;}
+  footer{margin-top:26px; font-size:12.5px; color:var(--sub);}
+  .leaflet-popup-content{font-family:inherit; font-size:13.5px; line-height:1.55;}
+  .leaflet-popup-content .pn{font-weight:800; font-size:14.5px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1><span class="sig">📶</span> 実測Wi-Fiマップ</h1>
+    <p class="lead">載っているのは自分が実測したスポットだけ。速度は実測値のみ表示し、まだ測っていない場所は「未計測」と正直に出す。歩きながら、近くて速い一軒を即決するための道具。</p>
+  </header>
+
+  <div class="controls">
+    <button id="btn-locate" type="button">📍 現在地を使う</button>
+    <button id="sort-dist" type="button" class="on">近い順</button>
+    <button id="sort-speed" type="button">速い順</button>
+    <label class="chk"><input type="checkbox" id="power-only"> 🔌 電源ありのみ</label>
+  </div>
+  <p id="status">現在地を使うと、距離順に並び替えて各カードに距離を出す。</p>
+
+  <div id="map"></div>
+  <div class="legend">
+    <span><span class="dot" style="background:var(--fast)"></span>速い（下り50Mbps以上）</span>
+    <span><span class="dot" style="background:var(--mid)"></span>普通（20〜50）</span>
+    <span><span class="dot" style="background:var(--slow)"></span>遅い（20未満）</span>
+    <span><span class="dot" style="background:var(--none)"></span>未計測</span>
+  </div>
+
+  <div class="cards" id="cards"></div>
+
+  <footer>
+    <p>データは spots.js に1レコード足すだけで増やせる。実測したら down / up / measured_on を埋める。推測の数字は入れない。</p>
+  </footer>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="spots.js"></script>
+<script>
+(function(){
+  var userPos = null;        // {lat, lng}
+  var sortMode = 'dist';     // 'dist' | 'speed'
+  var markers = {};          // name -> marker
+
+  function band(down){
+    if (down === null || down === undefined) return 'none';
+    if (down >= 50) return 'fast';
+    if (down >= 20) return 'mid';
+    return 'slow';
+  }
+  var BANDCOLOR = {fast:'#22c55e', mid:'#f59e0b', slow:'#ef4444', none:'#9ca3af'};
+
+  function haversine(a, b){
+    var R = 6371000, rad = Math.PI/180;
+    var dLat = (b.lat-a.lat)*rad, dLng = (b.lng-a.lng)*rad;
+    var s = Math.sin(dLat/2)*Math.sin(dLat/2) +
+            Math.cos(a.lat*rad)*Math.cos(b.lat*rad)*Math.sin(dLng/2)*Math.sin(dLng/2);
+    return 2*R*Math.asin(Math.sqrt(s));
+  }
+  function fmtDist(m){
+    if (m === null) return '';
+    if (m < 1000) return Math.round(m) + 'm';
+    return (m/1000).toFixed(1) + 'km';
+  }
+
+  var map = L.map('map').setView([35.698, 139.79], 12);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+
+  SPOTS.forEach(function(s){
+    var icon = L.divIcon({
+      className: '',
+      html: '<div class="pin" style="width:20px;height:20px;background:' + BANDCOLOR[band(s.down)] + '"></div>',
+      iconSize: [20,20], iconAnchor: [10,10]
+    });
+    var m = L.marker([s.lat, s.lng], {icon: icon}).addTo(map);
+    var speedTxt = (s.down !== null)
+      ? '下り ' + s.down + ' / 上り ' + s.up + ' Mbps（' + s.measured_on + ' 実測）'
+      : '速度：未計測';
+    m.bindPopup('<span class="pn">' + s.name + '</span><br>' + speedTxt +
+      '<br><a href="' + s.gmap + '" target="_blank" rel="noopener">Googleマップで開く</a>');
+    markers[s.name] = m;
+  });
+  var bounds = L.latLngBounds(SPOTS.map(function(s){ return [s.lat, s.lng]; }));
+  map.fitBounds(bounds.pad(0.08));
+
+  var userMarker = null, userCircle = null;
+
+  function sortedSpots(){
+    var powerOnly = document.getElementById('power-only').checked;
+    var list = SPOTS.filter(function(s){ return !powerOnly || s.power; });
+    list.forEach(function(s){
+      s._dist = userPos ? haversine(userPos, s) : null;
+    });
+    if (sortMode === 'speed'){
+      list.sort(function(a, b){
+        var da = (a.down === null ? -1 : a.down), db = (b.down === null ? -1 : b.down);
+        if (db !== da) return db - da;
+        if (a._dist !== null && b._dist !== null) return a._dist - b._dist;
+        return 0;
+      });
+    } else if (userPos){
+      list.sort(function(a, b){ return a._dist - b._dist; });
+    }
+    return list;
+  }
+
+  function render(){
+    var box = document.getElementById('cards');
+    box.innerHTML = '';
+    sortedSpots().forEach(function(s){
+      var b = band(s.down);
+      var speedHtml = (s.down !== null)
+        ? '<span class="speed ' + b + '">下り ' + s.down + ' Mbps</span>上り ' + s.up + ' Mbps（' + s.measured_on + ' 実測）'
+        : '<span class="speed none">未計測</span>これから測る';
+      var card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML =
+        '<div class="row1"><span class="name">' + s.name + '</span>' +
+        '<span class="chip">' + s.area + '</span>' +
+        (s._dist !== null && s._dist !== undefined ? '<span class="dist">' + fmtDist(s._dist) + '</span>' : '') +
+        '</div>' +
+        '<div class="meta">' + speedHtml + '</div>' +
+        '<div class="meta">' + (s.ssid ? 'SSID：<b>' + s.ssid + '</b>　' : '') + (s.power ? '🔌 電源あり' : '🔌 電源なし・未確認') + '</div>' +
+        (s.note ? '<div class="note">' + s.note + '</div>' : '') +
+        '<a class="gmap" href="' + s.gmap + '" target="_blank" rel="noopener">Googleマップで開く</a>';
+      card.addEventListener('click', function(e){
+        if (e.target.tagName === 'A') return;
+        map.setView([s.lat, s.lng], 16);
+        markers[s.name].openPopup();
+        window.scrollTo({top: 0, behavior: 'smooth'});
+      });
+      box.appendChild(card);
+    });
+    document.getElementById('sort-dist').classList.toggle('on', sortMode === 'dist');
+    document.getElementById('sort-speed').classList.toggle('on', sortMode === 'speed');
+  }
+
+  function locate(done){
+    var st = document.getElementById('status');
+    if (!navigator.geolocation){
+      st.textContent = 'このブラウザでは現在地が取れない。';
+      return;
+    }
+    st.textContent = '現在地を取得中…';
+    navigator.geolocation.getCurrentPosition(function(p){
+      userPos = {lat: p.coords.latitude, lng: p.coords.longitude};
+      if (userMarker) { map.removeLayer(userMarker); map.removeLayer(userCircle); }
+      userMarker = L.marker([userPos.lat, userPos.lng]).addTo(map).bindPopup('現在地');
+      userCircle = L.circle([userPos.lat, userPos.lng], {radius: p.coords.accuracy || 50, color:'#38bdf8', weight:1}).addTo(map);
+      st.textContent = '現在地を取得した。近い順に並び替えた。';
+      render();
+      if (done) done();
+    }, function(err){
+      st.textContent = '現在地を取れなかった（' + err.message + '）。許可を確認してほしい。';
+    }, {enableHighAccuracy: true, timeout: 10000});
+  }
+
+  document.getElementById('btn-locate').addEventListener('click', function(){ locate(); });
+  document.getElementById('sort-dist').addEventListener('click', function(){
+    sortMode = 'dist';
+    if (!userPos) { locate(function(){ render(); }); }
+    render();
+  });
+  document.getElementById('sort-speed').addEventListener('click', function(){
+    sortMode = 'speed'; render();
+  });
+  document.getElementById('power-only').addEventListener('change', render);
+
+  render();
+})();
+</script>
+</body>
+</html>
