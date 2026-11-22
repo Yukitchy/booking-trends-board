@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ワイスピ｜実測Wi-Fiマップ</title>
+<meta name="description" content="ワイスピ — 自分が実測したWi-Fiスポットだけを載せる個人用マップ。近くて速いWi-Fiを実測だけで選ぶ。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ワイスピ｜合体案プレビュー">
+<meta property="og:description" content="リデザイン合体案：上半分は引き出しシート案、下半分は黒バー案のカード。近くて速いWi-Fiを、実測だけで選ぶ。">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/wifi-map/redesign3/">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/wifi-map/redesign3/og.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>📶</text></svg>">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+
+*{box-sizing:border-box; margin:0; padding:0;}
+html,body{max-width:100%; overflow-x:hidden; height:100%;}
+body{background:#fff; color:#101410; font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif; line-height:1.6; overflow:hidden;}
+:root{--ink:#101410; --grn:#16c95c; --neon:#34f27b; --deep:#0b7a38; --pale:#c9f7da; --mint:#8fe8b1; --line:#e2eae3; --gray:#93a196;}
+button{font:inherit; cursor:pointer; border:1px solid var(--line); background:#fff; color:var(--ink); border-radius:999px; padding:7px 13px; font-size:13px; font-weight:700;}
+button.on{background:var(--grn); border-color:var(--grn); color:#06130a;}
+button:active{transform:scale(.97);}
+button:disabled{opacity:.55; cursor:wait;}
+.chk{display:inline-flex; align-items:center; gap:6px; font-size:13px; color:#3c4a3e; border:1px solid var(--line); background:#fff; border-radius:999px; padding:7px 12px; cursor:pointer;}
+.chk input{accent-color:var(--grn); width:16px; height:16px;}
+.controls{display:flex; flex-wrap:wrap; gap:6px; align-items:center;}
+#status{font-size:12px; color:#5c6b5e; min-height:1.3em; margin:6px 0 0;}
+#map{position:fixed; inset:0; height:100dvh; z-index:0; background:#f2f5f2;}
+.legend{display:flex; flex-wrap:wrap; gap:4px 12px; font-size:11.5px; color:#5c6b5e; padding:0 14px;}
+.legend .dot{display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:5px; vertical-align:-1px; border:2px solid #101410;}
+.legend .dot.m{background:var(--mint); border-color:#101410;}
+.legend .dot.s{background:#fff; border-color:var(--grn);}
+.legend .dot.n{background:#fff; border-color:#b9c4ba;}
+.chip{font-size:11px; font-weight:700; color:var(--deep); background:var(--pale); border-radius:999px; padding:1px 9px; white-space:nowrap;}
+.chip.mine{background:#101410; color:var(--neon);}
+.dist{margin-left:auto; font-size:13px; color:var(--deep); font-weight:800; white-space:nowrap;}
+.name{font-weight:800; font-size:15px; line-height:1.4;}
+.meta{font-size:13px; color:#5c6b5e; overflow-wrap:anywhere;}
+.meta b{color:var(--ink);}
+.up{font-size:12.5px; color:#5c6b5e; margin-left:7px;}
+.speed{display:inline-block; font-weight:800; border-radius:8px; padding:1px 9px; font-size:12.5px;}
+.speed.fast{background:var(--grn); color:#06130a;}
+.speed.mid{background:var(--pale); color:#0b5c2c;}
+.speed.slow{background:#fff; border:1.5px solid var(--grn); color:#0b5c2c; padding:0 8px;}
+.speed.none{background:#eef1ee; color:#8a978c;}
+.gmap{display:inline-block; font-size:13px; font-weight:700; color:var(--deep); text-decoration:none;}
+.ph-none{display:flex; align-items:center; justify-content:center; background:#eef4ee; color:#a9b8ab; font-size:22px;}
+.cardbtns{display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;}
+.cardbtns button{font-size:12px; padding:4px 11px;}
+.cardbtns button.danger{color:#101410; border-color:#c9d2c9;}
+.leaflet-popup-content{font-family:inherit; font-size:13.5px; line-height:1.55;}
+.leaflet-popup-content .pn{font-weight:800; font-size:14.5px;}
+.leaflet-control-attribution{font-size:9px; background:rgba(255,255,255,.75) !important;}
+.leaflet-bar a{color:var(--ink);}
+.panel{background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px; box-shadow:0 8px 30px rgba(16,20,16,.14);}
+.panel h2{font-size:16px; font-weight:800;}
+.panel .hint{font-size:12.5px; color:#5c6b5e; margin-top:4px;}
+.f-row{margin:10px 0;}
+.f-row label{display:block; font-size:13px; color:#5c6b5e; margin-bottom:3px;}
+.f-row input[type=text],.f-row input[type=number],.f-row input[type=password],.f-row textarea{width:100%; font:inherit; font-size:15px; color:var(--ink); background:#f7faf7; border:1px solid var(--line); border-radius:9px; padding:8px 10px;}
+.f-2col{display:flex; gap:8px;}
+.f-2col .f-row{flex:1; min-width:0;}
+.pw-wrap{display:flex; gap:6px;}
+.pw-wrap input{flex:1; min-width:0;}
+.pw-wrap button{white-space:nowrap; padding:6px 12px; font-size:13px;}
+.f-btns{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px;}
+#f-speed-status{font-size:13px; color:var(--deep); min-height:1.4em; margin-top:4px;}
+#f-form-status{font-size:13px; color:#5c6b5e; min-height:1.4em; margin-top:8px;}
+#add-panel{position:fixed; left:8px; right:8px; bottom:8px; max-height:82dvh; overflow-y:auto; z-index:1500;}
+[hidden]{display:none !important;}
+.row1{display:flex; align-items:baseline; gap:8px;}
+.meta.sm{font-size:12px;}
+
+.topbar{position:fixed; top:10px; left:10px; right:10px; z-index:1200; background:rgba(255,255,255,.97); border:1px solid var(--line); border-radius:16px; padding:9px 12px; box-shadow:0 4px 18px rgba(16,20,16,.10);}
+.topbar h1{font-size:18px; font-weight:900; white-space:nowrap; display:inline;}
+.tsub{font-size:11px; color:#5c6b5e; margin-left:7px;}
+.topbar .controls{margin-top:7px;}
+.sheet{position:fixed; left:0; right:0; bottom:0; z-index:1100; background:#fff; border-top:1px solid var(--line); border-radius:18px 18px 0 0; box-shadow:0 -6px 24px rgba(16,20,16,.10); padding:6px 0 10px;}
+.handle{width:44px; height:5px; border-radius:99px; background:#101410; opacity:.85; margin:2px auto 6px;}
+.sheet-head{display:flex; align-items:center; gap:8px; padding:0 14px 2px;}
+.sheet-head .cnt{font-size:12.5px; color:#5c6b5e; font-weight:700;}
+.sheet-head button{margin-left:auto; background:var(--ink); color:#fff; border-color:var(--ink); padding:5px 13px; font-size:12.5px;}
+.cards{display:flex; gap:10px; overflow-x:auto; padding:8px 12px 2px; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch;}
+.card{flex:0 0 78vw; max-width:330px; scroll-snap-align:start; background:#fff; border:2px solid var(--ink); border-radius:14px; overflow:hidden; box-shadow:0 6px 18px rgba(16,20,16,.14); cursor:pointer; display:flex; flex-direction:column;}
+.ph-top{width:100%; height:88px; object-fit:cover; display:block;}
+div.ph-top{height:88px;}
+.card .cbody{padding:9px 12px 11px; display:flex; flex-direction:column; gap:3px;}
+.sbar{height:7px; border-radius:99px; background:#eef1ee; overflow:hidden; margin-top:2px;}
+.sbar i{display:block; height:100%; background:linear-gradient(90deg, #0b7a38, var(--grn), var(--neon)); border-radius:99px; box-shadow:0 0 8px rgba(52,242,123,.6);}
+.sheet.open .cards{flex-direction:column; overflow-x:hidden; overflow-y:auto; max-height:48dvh; scroll-snap-type:none; padding-right:12px;}
+.sheet.open .card{flex:none; width:auto; max-width:none;}
+.pin2{width:22px; height:22px; background:#16c95c; border:2.5px solid #101410; border-radius:50% 50% 50% 4px; transform:rotate(-45deg); box-shadow:0 1px 5px rgba(16,20,16,.3); position:relative;}
+.pin2 i{position:absolute; inset:6px; border-radius:50%; background:#fff;}
+#export-row{padding:2px 12px 0;}
+.leaflet-control-zoom{margin-bottom:360px !important;}
+
+.topbar .controls{flex-wrap:nowrap; gap:6px;}
+.ibtn{width:38px; height:38px; flex:none; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:17px; padding:0; line-height:1;}
+.ibtn.add{background:var(--ink); border-color:var(--ink); color:#fff; font-size:21px; font-weight:900;}
+.seg{display:inline-flex; flex:none; background:#eef4ee; border:1px solid var(--line); border-radius:999px; padding:2px; gap:2px;}
+.seg button{border:none; background:transparent; border-radius:999px; height:32px; padding:0 11px; font-size:12.5px; white-space:nowrap;}
+.seg button.on{background:var(--grn); color:#06130a;}
+.topbar .chk{width:38px; height:38px; border-radius:50%; padding:0; justify-content:center; gap:0; flex:none; position:relative; font-size:16px;}
+.topbar .chk input{position:absolute; opacity:0; width:1px; height:1px; margin:0;}
+.topbar .chk:has(input:checked){background:var(--grn); border-color:var(--grn);}
+#toast{position:fixed; top:110px; left:50%; transform:translateX(-50%); z-index:1600; background:#101410; color:#eafff0; font-size:13px; font-weight:700; padding:8px 16px; border-radius:999px; box-shadow:0 6px 20px rgba(16,20,16,.3); max-width:92vw; text-align:center;}
+</style>
+</head>
+
+<body>
+<div id="map"></div>
+<div class="topbar map-anchor">
+<div class="trow"><h1>📶 ワイスピ</h1><span class="tsub">実測Wi-Fiマップ</span></div>
+
+<div class="controls">
+<button id="btn-locate" class="ibtn" type="button" title="現在地" aria-label="現在地">📍</button>
+<div class="seg"><button id="sort-dist" type="button" class="on">近い順</button><button id="sort-speed" type="button">速い順</button></div>
+<label class="chk ibtn" title="電源のみ"><input type="checkbox" id="power-only"><span>🔌</span></label>
+<button id="btn-add" class="ibtn add" type="button" title="スポットを追加" aria-label="スポットを追加">＋</button>
+</div>
+</div>
+<div id="toast" hidden></div>
+<div class="sheet" id="sheet">
+<div class="handle"></div>
+<div class="sheet-head"><span class="cnt" id="sheet-count"></span><button type="button" id="sheet-toggle">一覧を広げる</button></div>
+
+<div class="legend">
+<span><span class="dot" style="background:#16c95c"></span>速い（下り50以上）</span>
+<span><span class="dot m"></span>普通（20〜50）</span>
+<span><span class="dot s"></span>遅い（20未満）</span>
+<span><span class="dot n"></span>未計測</span>
+</div>
+
+<div class="cards" id="cards"></div>
+
+<div class="f-btns" id="export-row" hidden>
+<button type="button" id="btn-export-json">自分の追加をJSONでダウンロード</button>
+</div>
+</div>
+
+<div class="panel" id="add-panel" hidden>
+<h2>今いる場所のWi-Fiを追加</h2>
+<p class="hint">接続中の SSID とパスワードはブラウザから自動で取れないため手入力。位置情報は自動で入り、速度は下りのみページ内で簡易計測できる。追加分はこの端末に保存される（恒久化はカードの「コピー」を Muse に送る）。</p>
+<div class="f-row">
+<label for="f-name">スポット名（必須）</label>
+<input type="text" id="f-name" placeholder="例：猿田彦珈琲 アトレ秋葉原1店" autocomplete="off">
+</div>
+<div class="f-row">
+<label for="f-area">エリア（任意）</label>
+<input type="text" id="f-area" placeholder="例：秋葉原" autocomplete="off">
+</div>
+<div class="f-row">
+<label for="f-ssid">SSID</label>
+<input type="text" id="f-ssid" placeholder="接続中のWi-Fi名" autocomplete="off">
+</div>
+<div class="f-row">
+<label for="f-password">パスワード（任意・なしなら空欄）</label>
+<div class="pw-wrap">
+<input type="password" id="f-password" placeholder="オープンネットワークなら空欄" autocomplete="off">
+<button type="button" id="f-pw-toggle">表示</button>
+</div>
+</div>
+<div class="f-2col">
+<div class="f-row">
+<label for="f-lat">緯度（必須）</label>
+<input type="number" id="f-lat" step="any" inputmode="decimal" placeholder="35.698000">
+</div>
+<div class="f-row">
+<label for="f-lng">経度（必須）</label>
+<input type="number" id="f-lng" step="any" inputmode="decimal" placeholder="139.773000">
+</div>
+</div>
+<div class="f-btns">
+<button type="button" id="f-locate">📍 現在地を入れる</button>
+<button type="button" id="f-measure">⚡ 速度を測る（下りのみ・簡易計測）</button>
+</div>
+<p id="f-speed-status"></p>
+<div class="f-2col">
+<div class="f-row">
+<label for="f-down">下り Mbps（任意）</label>
+<input type="number" id="f-down" step="any" min="0" inputmode="decimal" placeholder="未計測なら空欄">
+</div>
+<div class="f-row">
+<label for="f-up">上り Mbps（任意・手入力）</label>
+<input type="number" id="f-up" step="any" min="0" inputmode="decimal" placeholder="未計測なら空欄">
+</div>
+</div>
+<div class="f-row">
+<label class="chk"><input type="checkbox" id="f-power"> 🔌 電源あり</label>
+</div>
+<div class="f-row">
+<label for="f-note">メモ</label>
+<textarea id="f-note" rows="2" placeholder="席・電源の場所・利用条件など"></textarea>
+</div>
+<div class="f-btns">
+<button type="button" id="f-save" class="on">保存して地図に追加</button>
+<button type="button" id="f-cancel">キャンセル</button>
+</div>
+<p id="f-form-status"></p>
+</div>
+
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="../spots.js"></script>
+<script>
+var PHOTOS = ['../img/sbux-akiba-ekimae.jpg','../img/sbux-atre-akiba.jpg','../img/mcd-akiba.jpg','../img/renoir-akiba.jpg','../img/kaikatsu-akiba.jpg','../img/sarutahiko-atre.jpg','../img/komeda-kinshicho.jpg','../img/doutor-kinshicho.jpg','../img/tullys-kinshicho.jpg'];
+</script>
+<script>
+/* 案ごとの pinFor / buildCards から使う共通ヘルパー（グローバル） */
+function band(down){
+if (down === null || down === undefined) return 'none';
+if (down >= 50) return 'fast';
+if (down >= 20) return 'mid';
+return 'slow';
+}
+function esc(s){
+return String(s === null || s === undefined? '': s)
+.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+.replace(/"/g,'&quot;');
+}
+function fmtDist(m){
+if (m === null) return '';
+if (m < 1000) return Math.round(m) + 'm';
+return (m/1000).toFixed(1) + 'km';
+}
+function gmapUrl(s){
+if (s.gmap) return s.gmap;
+return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(s.name);
+}
+function pwLabel(s){
+if (s.password === '') return '🔓 パスワードなし（オープン）';
+if (typeof s.password === 'string' && s.password) return 'パスワード：<b>' + esc(s.password) + '</b>';
+return '';
+}
+function speedBadge(s){
+var b = band(s.down);
+if (s.down === null || s.down === undefined) return '<span class="speed none">未計測</span>';
+return '<span class="speed ' + b + '">下り ' + s.down + ' Mbps</span><span class="up">上り ' + (s.up === null || s.up === undefined? '—': s.up) + '</span>';
+}
+function metaLine(s){
+var parts = [];
+if (s.ssid) parts.push('SSID：<b>' + esc(s.ssid) + '</b>');
+parts.push(s.power? '🔌 電源あり': '🔌 電源なし・未確認');
+return parts.join('　');
+}
+function distHtml(s){
+return (s._dist !== null && s._dist !== undefined)? '<span class="dist">' + fmtDist(s._dist) + '</span>': '';
+}
+function photoTag(s, cls){
+if (s.photo) return '<img class="' + cls + '" src="' + s.photo + '" alt="" loading="lazy">';
+return '<div class="' + cls + ' ph-none">📶</div>';
+}
+function cardInner(s){
+var pw = pwLabel(s);
+return '<div class="row1"><span class="name">' + esc(s.name) + '</span>' + distHtml(s) + '</div>' +
+'<div class="meta">' + speedBadge(s) + '</div>' +
+'<div class="meta sm">' + metaLine(s) + '</div>' +
+(pw? '<div class="meta sm">' + pw + '</div>': '');
+}
+</script>
+<script>
+
+function pinFor(s){
+var fills = {fast:'#16c95c', mid:'#8fe8b1', slow:'#eafff1', none:'#ffffff'};
+var b = band(s.down);
+return {html:'<div class="pin2" style="background:' + fills[b] + '"><i></i></div>', w:22, h:22, ax:11, ay:19};
+}
+
+
+function buildCards(list){
+var box = document.getElementById('cards');
+box.innerHTML = '';
+var cnt = document.getElementById('sheet-count');
+if (cnt) cnt.textContent = 'スポット ' + list.length + '件';
+list.forEach(function(s){
+var pct = (s.down === null || s.down === undefined)? 0: Math.min(100, Math.round(s.down / 2));
+var inner = photoTag(s, 'ph-top') + '<div class="cbody">' + cardInner(s) +
+'<div class="sbar"><i style="width:' + pct + '%"></i></div></div>';
+box.appendChild(window.__cardShell(s, inner));
+});
+}
+
+
+document.getElementById('sheet-toggle').addEventListener('click', function(){
+var sh = document.getElementById('sheet');
+var open = sh.classList.toggle('open');
+this.textContent = open? '閉じる': '一覧を広げる';
+});
+
+function showToast(msg){
+var t = document.getElementById('toast');
+if (!t) return;
+t.textContent = msg;
+t.hidden = false;
+clearTimeout(window.__toastTimer);
+window.__toastTimer = setTimeout(function(){ t.hidden = true; }, 3600);
+}
+var statusSink = {set textContent(m){ showToast(m); }};
+
+(function(){
+var userPos = null;
+var sortMode = 'dist';
+var markers = {};
+var spotLayer = null;
+var LS_KEY = 'wifimap_my_spots_v1';
+
+function loadMine(){
+try {
+var raw = localStorage.getItem(LS_KEY);
+var arr = raw? JSON.parse(raw): [];
+return Array.isArray(arr)? arr: [];
+} catch(e){ return [];}
+}
+function saveMine(){
+try { localStorage.setItem(LS_KEY, JSON.stringify(mySpots));} catch(e){}
+}
+var mySpots = loadMine();
+mySpots.forEach(function(s){ s.mine = true;});
+
+function allSpots(){
+var base = SPOTS.map(function(s, i){
+var c = Object.assign({}, s); c._key = 's' + i; c.mine = false;
+c.photo = (typeof PHOTOS !== 'undefined' && PHOTOS[i])? PHOTOS[i]: null;
+return c;
+});
+var mine = mySpots.map(function(s, i){
+var c = Object.assign({}, s); c._key = 'm' + (s.id || i); c.mine = true; c.photo = null;
+return c;
+});
+return base.concat(mine);
+}
+
+function band(down){
+if (down === null || down === undefined) return 'none';
+if (down >= 50) return 'fast';
+if (down >= 20) return 'mid';
+return 'slow';
+}
+function esc(s){
+return String(s === null || s === undefined? '': s)
+.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+.replace(/"/g,'&quot;');
+}
+function haversine(a, b){
+var R = 6371000, rad = Math.PI/180;
+var dLat = (b.lat-a.lat)*rad, dLng = (b.lng-a.lng)*rad;
+var s = Math.sin(dLat/2)*Math.sin(dLat/2) +
+Math.cos(a.lat*rad)*Math.cos(b.lat*rad)*Math.sin(dLng/2)*Math.sin(dLng/2);
+return 2*R*Math.asin(Math.sqrt(s));
+}
+function fmtDist(m){
+if (m === null) return '';
+if (m < 1000) return Math.round(m) + 'm';
+return (m/1000).toFixed(1) + 'km';
+}
+function gmapUrl(s){
+if (s.gmap) return s.gmap;
+return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(s.name);
+}
+function speedLabel(s){
+if (s.down === null || s.down === undefined) return null;
+var kind = s.approx? '簡易計測': '実測';
+var up = (s.up === null || s.up === undefined)? '—': s.up;
+return '下り ' + s.down + ' / 上り ' + up + ' Mbps（' + (s.measured_on || '') + ' ' + kind + '）';
+}
+function pwLabel(s){
+if (s.password === '') return '🔓 パスワードなし（オープン）';
+if (typeof s.password === 'string' && s.password) return 'パスワード：<b>' + esc(s.password) + '</b>';
+return '';
+}
+function speedBadge(s){
+var b = band(s.down);
+if (s.down === null || s.down === undefined) return '<span class="speed none">未計測</span>';
+return '<span class="speed ' + b + '">下り ' + s.down + ' Mbps</span><span class="up">上り ' + (s.up === null || s.up === undefined? '—': s.up) + '</span>';
+}
+function metaLine(s){
+var parts = [];
+if (s.ssid) parts.push('SSID：<b>' + esc(s.ssid) + '</b>');
+parts.push(s.power? '🔌 電源あり': '🔌 電源なし・未確認');
+return parts.join('　');
+}
+function distHtml(s){
+return (s._dist !== null && s._dist !== undefined)? '<span class="dist">' + fmtDist(s._dist) + '</span>': '';
+}
+function photoTag(s, cls){
+if (s.photo) return '<img class="' + cls + '" src="' + s.photo + '" alt="" loading="lazy">';
+return '<div class="' + cls + ' ph-none">📶</div>';
+}
+function cardInner(s){
+var pw = pwLabel(s);
+return '<div class="row1"><span class="name">' + esc(s.name) + '</span>' + distHtml(s) + '</div>' +
+'<div class="meta">' + speedBadge(s) + '</div>' +
+'<div class="meta sm">' + metaLine(s) + '</div>' +
+(pw? '<div class="meta sm">' + pw + '</div>': '');
+}
+function recordText(s){
+var pw = (s.password === '')? 'なし（オープン）'
+: (s.password? s.password: '（未登録）');
+var spd = (s.down === null || s.down === undefined)
+? '未計測'
+: '下り ' + s.down + ' Mbps／上り ' + (s.up === null || s.up === undefined? '未計測': s.up + ' Mbps') +
+(s.approx? '（簡易計測 ' + (s.measured_on || '') + '）': '（実測 ' + (s.measured_on || '') + '）');
+return '\n' +
+'店名：' + (s.name || '') + '\n' +
+'エリア：' + (s.area || '') + '\n' +
+'SSID：' + (s.ssid || '') + '\n' +
+'パスワード：' + pw + '\n' +
+'速度：' + spd + '\n' +
+'電源：' + (s.power? 'あり': 'なし・未確認') + '\n' +
+'メモ：' + (s.note || '') + '\n' +
+'緯度経度：' + s.lat + ', ' + s.lng;
+}
+function copyText(txt, btn){
+function done(){
+var old = btn.textContent;
+btn.textContent = 'コピーした ✓';
+setTimeout(function(){ btn.textContent = old;}, 1600);
+}
+if (navigator.clipboard && navigator.clipboard.writeText){
+navigator.clipboard.writeText(txt).then(done, function(){ fallback();});
+} else { fallback();}
+function fallback(){
+var ta = document.createElement('textarea');
+ta.value = txt;
+ta.style.position = 'fixed'; ta.style.opacity = '0';
+document.body.appendChild(ta);
+ta.select();
+try { document.execCommand('copy'); done();} catch(e){}
+document.body.removeChild(ta);
+}
+}
+function cardShell(s, innerHTML){
+var card = document.createElement('div');
+card.className = 'card';
+card.innerHTML = innerHTML;
+if (s.mine){
+var btns = document.createElement('div');
+btns.className = 'cardbtns';
+var cp = document.createElement('button');
+cp.type = 'button'; cp.textContent = '📋 Muse に送る用にコピー';
+cp.addEventListener('click', function(e){ e.stopPropagation(); copyText(recordText(s), cp);});
+var del = document.createElement('button');
+del.type = 'button'; del.className = 'danger'; del.textContent = '削除';
+del.addEventListener('click', function(e){
+e.stopPropagation();
+if (!confirm('「' + s.name + '」を自分の追加から削除する？')) return;
+mySpots = mySpots.filter(function(x){ return String(x.id) !== String(s.id);});
+saveMine();
+render();
+});
+btns.appendChild(cp); btns.appendChild(del);
+card.appendChild(btns);
+}
+card.addEventListener('click', function(e){
+if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') return;
+map.setView([s.lat, s.lng], 16);
+if (!window.NOPOPUP && markers[s._key]) markers[s._key].openPopup();
+if (window.PINCLICK) window.PINCLICK(s);
+});
+return card;
+}
+
+var map = L.map('map', {zoomControl: false}).setView([35.698, 139.79], 12);
+L.control.zoom({position: 'bottomright'}).addTo(map);
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+maxZoom: 16,
+attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+spotLayer = L.layerGroup().addTo(map);
+window.__cardShell = cardShell;
+window.__map = map;
+
+function renderMarkers(list){
+spotLayer.clearLayers();
+markers = {};
+list.forEach(function(s){
+var p = pinFor(s);
+var icon = L.divIcon({className: '', html: p.html, iconSize: [p.w, p.h], iconAnchor: [p.ax, p.ay]});
+var m = L.marker([s.lat, s.lng], {icon: icon}).addTo(spotLayer);
+if (!window.NOPOPUP){
+var sl = speedLabel(s);
+var pw = pwLabel(s);
+m.bindPopup(
+(s.photo? '<img src="' + s.photo + '" style="width:100%;height:92px;object-fit:cover;border-radius:8px;margin-bottom:6px" alt="">': '') +
+'<span class="pn">' + esc(s.name) + '</span>' +
+(s.mine? ' <span class="chip mine">自分の追加</span>': '') +
+'<br>' + (sl? esc(sl): '速度：未計測') +
+(pw? '<br>' + pw: '') +
+(s.note? '<br>' + esc(s.note): '') +
+'<br><a href="' + gmapUrl(s) + '" target="_blank" rel="noopener">Googleマップで開く</a>');
+}
+if (window.PINCLICK){
+m.on('click', function(){ window.PINCLICK(s); });
+}
+markers[s._key] = m;
+});
+}
+
+var userMarker = null, userCircle = null;
+
+function sortedSpots(){
+var powerOnly = document.getElementById('power-only').checked;
+var list = allSpots().filter(function(s){ return !powerOnly || s.power;});
+list.forEach(function(s){
+s._dist = userPos? haversine(userPos, s): null;
+});
+if (sortMode === 'speed'){
+list.sort(function(a, b){
+var da = (a.down === null || a.down === undefined? -1: a.down);
+var db = (b.down === null || b.down === undefined? -1: b.down);
+if (db !== da) return db - da;
+if (a._dist !== null && b._dist !== null) return a._dist - b._dist;
+return 0;
+});
+} else if (userPos){
+list.sort(function(a, b){ return a._dist - b._dist;});
+}
+return list;
+}
+
+function render(){
+var list = sortedSpots();
+renderMarkers(list);
+buildCards(list);
+document.getElementById('sort-dist').classList.toggle('on', sortMode === 'dist');
+document.getElementById('sort-speed').classList.toggle('on', sortMode === 'speed');
+var er = document.getElementById('export-row');
+if (er) er.hidden = mySpots.length === 0;
+}
+
+function locate(done){
+var st = statusSink;
+if (!navigator.geolocation){
+st.textContent = 'このブラウザでは現在地が取れない。';
+return;
+}
+st.textContent = '現在地を取得中…';
+navigator.geolocation.getCurrentPosition(function(p){
+userPos = {lat: p.coords.latitude, lng: p.coords.longitude};
+if (userMarker) { map.removeLayer(userMarker); map.removeLayer(userCircle);}
+userMarker = L.marker([userPos.lat, userPos.lng]).addTo(map).bindPopup('現在地');
+userCircle = L.circle([userPos.lat, userPos.lng], {radius: p.coords.accuracy || 50, color:'#16c95c', weight:2, fillColor:'#34f27b', fillOpacity:.25}).addTo(map);
+st.textContent = '現在地を取得した。近い順に並び替えた。';
+render();
+if (done) done(userPos);
+}, function(err){
+st.textContent = '現在地を取れなかった（' + err.message + '）。許可を確認してほしい。';
+if (done) done(null);
+}, {enableHighAccuracy: true, timeout: 10000});
+}
+
+document.getElementById('btn-locate').addEventListener('click', function(){ locate();});
+document.getElementById('sort-dist').addEventListener('click', function(){
+sortMode = 'dist';
+if (!userPos) { locate(function(){ render();});}
+render();
+});
+document.getElementById('sort-speed').addEventListener('click', function(){
+sortMode = 'speed'; render();
+});
+document.getElementById('power-only').addEventListener('change', render);
+
+/* ---------- 追加フォーム ---------- */
+var panel = document.getElementById('add-panel');
+var measuredApprox = false;
+
+function todayStr(){
+var d = new Date();
+var m = ('0' + (d.getMonth()+1)).slice(-2), day = ('0' + d.getDate()).slice(-2);
+return d.getFullYear() + '-' + m + '-' + day;
+}
+function fillLatLng(pos){
+if (!pos) return;
+document.getElementById('f-lat').value = Math.round(pos.lat*1e6)/1e6;
+document.getElementById('f-lng').value = Math.round(pos.lng*1e6)/1e6;
+}
+function openForm(){
+panel.hidden = false;
+var latEl = document.getElementById('f-lat');
+if (!latEl.value){
+if (userPos) { fillLatLng(userPos);}
+else { locate(function(pos){ fillLatLng(pos);});}
+}
+}
+function closeForm(){ panel.hidden = true; }
+document.getElementById('btn-add').addEventListener('click', function(){
+if (panel.hidden) openForm(); else closeForm();
+});
+document.getElementById('f-cancel').addEventListener('click', closeForm);
+document.getElementById('f-locate').addEventListener('click', function(){
+locate(function(pos){ fillLatLng(pos);});
+});
+document.getElementById('f-pw-toggle').addEventListener('click', function(){
+var inp = document.getElementById('f-password');
+var show = inp.type === 'password';
+inp.type = show? 'text': 'password';
+this.textContent = show? '隠す': '表示';
+});
+
+document.getElementById('f-measure').addEventListener('click', function(){
+var btn = this;
+var st = document.getElementById('f-speed-status');
+btn.disabled = true;
+st.textContent = '計測中…（今つながっている回線の下り速度・簡易計測）';
+var results = [];
+function once(){
+var start = performance.now();
+return fetch('../speed.bin?cb=' + Date.now() + '-' + Math.random(), {cache:'no-store'})
+.then(function(r){
+if (!r.ok) throw new Error('HTTP ' + r.status);
+return r.arrayBuffer();
+})
+.then(function(buf){
+var sec = (performance.now() - start) / 1000;
+if (sec > 0) results.push((buf.byteLength * 8) / sec / 1000000);
+});
+}
+once().then(once).then(once).then(function(){
+results.sort(function(a,b){ return a-b;});
+var med = Math.round(results[1] * 10) / 10;
+document.getElementById('f-down').value = med;
+measuredApprox = true;
+st.textContent = '下り ' + med + ' Mbps（簡易計測・3回の中央値）';
+btn.disabled = false;
+}).catch(function(e){
+st.textContent = '計測に失敗した（' + e.message + '）。下りは手入力でも登録できる。';
+btn.disabled = false;
+});
+});
+
+document.getElementById('f-save').addEventListener('click', function(){
+var st = document.getElementById('f-form-status');
+var name = document.getElementById('f-name').value.trim();
+var lat = parseFloat(document.getElementById('f-lat').value);
+var lng = parseFloat(document.getElementById('f-lng').value);
+if (!name){ st.textContent = 'スポット名を入れてほしい。'; return;}
+if (isNaN(lat) || isNaN(lng)){ st.textContent = '緯度経度を入れてほしい（「現在地を入れる」で自動入力できる）。'; return;}
+var downV = document.getElementById('f-down').value;
+var upV = document.getElementById('f-up').value;
+var down = downV === ''? null: parseFloat(downV);
+var up = upV === ''? null: parseFloat(upV);
+var pwInp = document.getElementById('f-password').value;
+var rec = {
+id: Date.now(),
+name: name,
+area: document.getElementById('f-area').value.trim() || '未分類',
+lat: lat, lng: lng,
+ssid: document.getElementById('f-ssid').value.trim(),
+password: pwInp === ''? '': pwInp,
+down: down, up: up,
+measured_on: (down !== null)? todayStr(): null,
+approx: (down !== null && measuredApprox)? true: false,
+power: document.getElementById('f-power').checked,
+note: document.getElementById('f-note').value.trim(),
+mine: true
+};
+mySpots.push(rec);
+saveMine();
+render();
+closeForm();
+statusSink.textContent =
+'「' + name + '」を追加した（この端末に保存）。恒久化はカードの「Muse に送る用にコピー」をチャットへ貼ってほしい。';
+});
+
+var exBtn = document.getElementById('btn-export-json');
+if (exBtn) exBtn.addEventListener('click', function(){
+var blob = new Blob([JSON.stringify(mySpots, null, 2)], {type:'application/json'});
+var a = document.createElement('a');
+a.href = URL.createObjectURL(blob);
+a.download = 'wifi-my-spots.json';
+document.body.appendChild(a);
+a.click();
+document.body.removeChild(a);
+setTimeout(function(){ URL.revokeObjectURL(a.href);}, 2000);
+});
+
+/* ---------- 初期表示 ---------- */
+var initList = allSpots();
+if (initList.length){
+var bounds = L.latLngBounds(initList.map(function(s){ return [s.lat, s.lng];}));
+map.fitBounds(bounds.pad(0.08));
+}
+render();
+
+/* ---------- URLパラメータ（iOSショートカット連携用） ---------- */
+var q = new URLSearchParams(location.search);
+if (q.has('ssid') || q.has('lat') || q.has('lng') || q.has('name')){
+if (q.get('name')) document.getElementById('f-name').value = q.get('name');
+if (q.get('ssid')) document.getElementById('f-ssid').value = q.get('ssid');
+if (q.get('lat')) document.getElementById('f-lat').value = q.get('lat');
+if (q.get('lng')) document.getElementById('f-lng').value = q.get('lng');
+openForm();
+}
+})();
+</script>
+
+</body>
+</html>
