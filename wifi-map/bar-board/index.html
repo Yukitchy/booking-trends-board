@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ワイスピ 上メニュー カラバリ5案｜実測Wi-Fiマップ</title>
+<meta name="description" content="実測Wi-Fiマップ「ワイスピ」のトップバー（上メニュー）のカラーバリエーション5案。バー背景とロゴ文字色の組み合わせ見比べボード">
+<meta property="og:title" content="ワイスピ 上メニュー カラバリ5案｜実測Wi-Fiマップ">
+<meta property="og:description" content="トップバーの色5案（黒＋白文字／白＋黒文字／緑＋黒文字／緑＋白文字／黒＋緑文字）。番号で選んでください。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/wifi-map/bar-board/">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/wifi-map/bar-board/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans JP", sans-serif;
+    background: #f7f8fa;
+    color: #1a1a1a;
+  }
+  header {
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 28px 20px 22px;
+    text-align: center;
+  }
+  header h1 { font-size: clamp(17px, 5.2vw, 26px); margin: 0 0 8px; letter-spacing: .02em; white-space: nowrap; }
+  header p { margin: 0; color: #555; font-size: 14px; line-height: 1.7; }
+  main {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 24px 16px 48px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(410px, 100%), 1fr));
+    gap: 18px;
+  }
+  .card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .card .head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-bottom: 1px solid #f0f1f3;
+  }
+  .num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 34px;
+    height: 34px;
+    padding: 0 6px;
+    border-radius: 999px;
+    background: #111;
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+    flex: none;
+  }
+  .card .head .ttl { font-weight: 700; font-size: 15px; }
+  .frame {
+    background: #eceef1;
+    padding: 14px 10px;
+    display: flex;
+    justify-content: center;
+  }
+  .frame iframe {
+    width: 390px;
+    max-width: 100%;
+    height: 430px;
+    border: 1px solid #d4d8dc;
+    border-radius: 10px;
+    background: #fff;
+    display: block;
+  }
+  .card .desc {
+    padding: 12px 16px 16px;
+    color: #444;
+    font-size: 13.5px;
+    line-height: 1.7;
+    margin: 0;
+  }
+  footer {
+    text-align: center;
+    color: #888;
+    font-size: 12.5px;
+    padding: 0 16px 36px;
+    line-height: 1.8;
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>ワイスピ 上メニュー カラバリ5案</h1>
+  <p>トップバー（ロゴ＋コントロールが載る帯）の色の組み合わせ5案です。各案とも実際の画面（バー＋地図＋下の横帯ストリップ）で再現しています。<br>ロゴの<strong>緑のスピードラインは全案共通で緑のまま</strong>、変わるのはバー背景とロゴ文字の色です。気に入った案の<strong>番号</strong>を教えてください。</p>
+</header>
+<main>
+  <section class="card">
+    <div class="head"><span class="num">1</span><span class="ttl">黒背景＋白文字</span></div>
+    <div class="frame"><iframe src="v1.html" title="案1 黒背景＋白文字" loading="lazy"></iframe></div>
+    <p class="desc">いま試し中の案。バーはベタ黒（#101410）、ロゴ文字は白。ボタン類は白丸ベースで、黒丸の＋ボタンには白枠を付けて残した。並び替えの決定色は緑のまま。</p>
+  </section>
+  <section class="card">
+    <div class="head"><span class="num">2</span><span class="ttl">白背景＋黒文字（現行）</span></div>
+    <div class="frame"><iframe src="v2.html" title="案2 白背景＋黒文字" loading="lazy"></iframe></div>
+    <p class="desc">今の本番そのまま。白いバーに黒文字ロゴ。地図の明るさと地続きで、いちばん軽く見える形。</p>
+  </section>
+  <section class="card">
+    <div class="head"><span class="num">3</span><span class="ttl">緑背景＋黒文字</span></div>
+    <div class="frame"><iframe src="v3.html" title="案3 緑背景＋黒文字" loading="lazy"></iframe></div>
+    <p class="desc">バーはミントグリーン（#8fe8b1）、ロゴ文字は黒。ロゴの緑ラインは濃いめの緑として残る。並び替えの決定色は緑だと埋もれるので黒に変えた。</p>
+  </section>
+  <section class="card">
+    <div class="head"><span class="num">4</span><span class="ttl">緑背景＋白文字</span></div>
+    <div class="frame"><iframe src="v4.html" title="案4 緑背景＋白文字" loading="lazy"></iframe></div>
+    <p class="desc">バーは深緑（#0b7a38）、ロゴ文字は白。深緑の上に緑のスピードラインが映える。並び替えの決定色は白、電源オンはネオングリーン。</p>
+  </section>
+  <section class="card">
+    <div class="head"><span class="num">5</span><span class="ttl">黒背景＋緑文字</span></div>
+    <div class="frame"><iframe src="v5.html" title="案5 黒背景＋緑文字" loading="lazy"></iframe></div>
+    <p class="desc">バーはベタ黒、ロゴは文字もラインも緑で統一したモノクロ緑バージョン。コントロール類は案1と同じ（＋ボタンは白枠）。</p>
+  </section>
+</main>
+<footer>各案は本番ページの実物モック（バー以外は共通）。本番への反映は選択後。<br>ワイスピ（実測Wi-Fiマップ）上メニュー検討用ボード</footer>
+</body>
+</html>
