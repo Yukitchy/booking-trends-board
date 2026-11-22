@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" font-family="'Hiragino Sans','Noto Sans JP',sans-serif">
+  <rect x="0" y="0" width="960" height="400" rx="18" fill="#0d1226"/>
+
+  <g>
+    <rect x="36" y="40" width="272" height="320" rx="16" fill="#131a36" stroke="#22d3ee" stroke-width="2.5"/>
+    <circle cx="86" cy="96" r="22" fill="#22d3ee"/>
+    <text x="86" y="105" text-anchor="middle" font-size="22" font-weight="bold" fill="#082f49">1</text>
+    <text x="172" y="90" font-size="21" font-weight="bold" fill="#ffffff">Sunshine の起動</text>
+    <text x="172" y="118" font-size="15" fill="#cbd5e1">Mac 側で立ち上がっているか</text>
+    <rect x="60" y="150" width="224" height="86" rx="10" fill="#1b2b52"/>
+    <text x="172" y="186" text-anchor="middle" font-size="16" fill="#e0f2fe">管理画面は Mac の</text>
+    <text x="172" y="212" text-anchor="middle" font-size="16" font-weight="bold" fill="#67e8f9">localhost:47990</text>
+    <text x="172" y="272" font-size="15" fill="#cbd5e1">メニューバー常駐が目印</text>
+    <text x="172" y="300" font-size="15" fill="#cbd5e1">落ちていたら再起動</text>
+    <text x="172" y="328" font-size="15" fill="#cbd5e1">Mac の再起動後も要確認</text>
+  </g>
+
+  <g>
+    <rect x="344" y="40" width="272" height="320" rx="16" fill="#131a36" stroke="#22d3ee" stroke-width="2.5"/>
+    <circle cx="394" cy="96" r="22" fill="#22d3ee"/>
+    <text x="394" y="105" text-anchor="middle" font-size="22" font-weight="bold" fill="#082f49">2</text>
+    <text x="480" y="90" font-size="21" font-weight="bold" fill="#ffffff">macOS の権限</text>
+    <text x="480" y="118" font-size="15" fill="#cbd5e1">外れると映像が出ない</text>
+    <rect x="368" y="150" width="224" height="86" rx="10" fill="#1b2b52"/>
+    <text x="480" y="186" text-anchor="middle" font-size="16" fill="#e0f2fe">画面収録</text>
+    <text x="480" y="212" text-anchor="middle" font-size="16" fill="#e0f2fe">アクセシビリティ</text>
+    <text x="480" y="272" font-size="15" fill="#cbd5e1">設定アプリのプライバシー欄</text>
+    <text x="480" y="300" font-size="15" fill="#cbd5e1">OS更新後に外れることあり</text>
+    <text x="480" y="328" font-size="15" fill="#cbd5e1">付け直したら Sunshine 再起動</text>
+  </g>
+
+  <g>
+    <rect x="652" y="40" width="272" height="320" rx="16" fill="#131a36" stroke="#22d3ee" stroke-width="2.5"/>
+    <circle cx="702" cy="96" r="22" fill="#22d3ee"/>
+    <text x="702" y="105" text-anchor="middle" font-size="22" font-weight="bold" fill="#082f49">3</text>
+    <text x="788" y="90" font-size="21" font-weight="bold" fill="#ffffff">接続先の出方</text>
+    <text x="788" y="118" font-size="15" fill="#cbd5e1">Moonlight の一覧に Mac</text>
+    <rect x="676" y="150" width="224" height="86" rx="10" fill="#1b2b52"/>
+    <text x="788" y="186" text-anchor="middle" font-size="16" fill="#e0f2fe">自宅LAN では自動表示</text>
+    <text x="788" y="212" text-anchor="middle" font-size="16" fill="#e0f2fe">外出先は手動追加</text>
+    <text x="788" y="272" font-size="15" fill="#cbd5e1">Tailscale の IP で追加する</text>
+    <text x="788" y="300" font-size="15" fill="#cbd5e1">出ない時は PIN 再ペアリング</text>
+    <text x="788" y="328" font-size="15" fill="#cbd5e1">同じ LAN で一度つなぐ</text>
+  </g>
+</svg>

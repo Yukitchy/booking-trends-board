@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>G8 Plus セットアップガイド｜iPad mini × Moonlight × Mac</title>
+<meta name="description" content="GameSir G8 Plus を iPad mini に付けて Moonlight と Mac の Sunshine で使うための図解チュートリアル。モード切替・ペアリング・推奨設定・正直な制約まで。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="G8 Plus セットアップガイド">
+<meta property="og:description" content="iPad mini に挟んで Moonlight で Mac を触る。図解たっぷりのチュートリアルと正直な制約メモ。">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/g8plus-guide/">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/g8plus-guide/og1.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🎮</text></svg>">
+<style>
+  :root{
+    --bg:#070a18; --panel:#101731; --panel2:#131a36; --line:#263157;
+    --txt:#eef2ff; --sub:#b8c2e0; --cyan:#22d3ee; --pink:#f472b6;
+    --yellow:#facc15; --red:#f87171; --green:#4ade80;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg); color:var(--txt); font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif; line-height:1.75; overflow-x:hidden;}
+  .wrap{max-width:880px; margin:0 auto; padding:0 18px 80px;}
+  img.fig{width:100%; height:auto; display:block; border-radius:18px; margin:14px 0 6px;}
+  .cap{font-size:13px; color:var(--sub); text-align:center; margin-bottom:10px;}
+
+  header{padding:52px 0 10px; text-align:center;}
+  .badge{display:inline-block; background:linear-gradient(90deg,var(--cyan),var(--pink)); color:#0b0f22; font-weight:800; font-size:13px; letter-spacing:.14em; padding:5px 16px; border-radius:999px;}
+  h1{font-size:clamp(24px,8.4vw,54px); line-height:1.2; font-weight:900; margin:18px 0 10px; white-space:nowrap;}
+  h1 .grad{background:linear-gradient(90deg,var(--cyan),var(--pink)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .lead{color:var(--sub); font-size:clamp(14px,3.9vw,17px); max-width:640px; margin:0 auto;}
+
+  section{margin-top:56px;}
+  .step-head{display:flex; align-items:center; gap:14px; margin-bottom:8px;}
+  .step-no{flex:0 0 auto; width:52px; height:52px; border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:24px; font-weight:900; background:linear-gradient(135deg,var(--cyan),#0ea5b7); color:#06202b;}
+  .step-no.pink{background:linear-gradient(135deg,var(--pink),#db2777); color:#2b0616;}
+  .step-no.yellow{background:linear-gradient(135deg,var(--yellow),#eab308); color:#2b2006;}
+  h2{font-size:clamp(21px,5.6vw,30px); font-weight:900; line-height:1.3; white-space:nowrap;}
+  h3{font-size:18px; font-weight:800; margin:22px 0 8px;}
+  p{color:#dbe4ff; font-size:15.5px; margin:8px 0;}
+  .sub{color:var(--sub); font-size:14px;}
+  ul{margin:8px 0 8px 1.2em; color:#dbe4ff; font-size:15.5px;}
+  li{margin:4px 0;}
+  strong{color:#fff;}
+  .hl-c{color:var(--cyan); font-weight:800;}
+  .hl-p{color:var(--pink); font-weight:800;}
+  .hl-y{color:var(--yellow); font-weight:800;}
+
+  .warn{margin-top:34px; border:3px solid var(--red); background:linear-gradient(180deg,#2a0f1e,#1c0b18); border-radius:20px; padding:22px 20px;}
+  .warn h2{color:#fecaca; white-space:normal;}
+  .warn .star{color:var(--yellow);}
+  .warn p{color:#ffe4e6;}
+
+  table{width:100%; border-collapse:collapse; margin:14px 0; font-size:15px;}
+  th,td{border:1px solid var(--line); padding:10px 12px; text-align:left; vertical-align:top;}
+  th{background:var(--panel2); color:#fff; white-space:nowrap;}
+  td{background:var(--panel);}
+  .ok{color:var(--green); font-weight:900; font-size:18px; text-align:center;}
+  .ng{color:var(--red); font-weight:900; font-size:18px; text-align:center;}
+  td.c{white-space:nowrap;}
+
+  .cards{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px;}
+  .card{background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:16px;}
+  .card h3{margin-top:0; font-size:16.5px;}
+  .card p{font-size:14.5px; color:var(--sub);}
+  @media (max-width:640px){ .cards{grid-template-columns:1fr;} }
+
+  .point{background:var(--panel); border-left:6px solid var(--cyan); border-radius:10px; padding:12px 16px; margin:14px 0;}
+  .point p{margin:2px 0;}
+  .point.pink{border-left-color:var(--pink);}
+  .point.yellow{border-left-color:var(--yellow);}
+
+  .src{font-size:13.5px; color:var(--sub);}
+  .src a{color:var(--cyan); word-break:break-all;}
+  footer{margin-top:70px; text-align:center; color:var(--sub); font-size:13px;}
+  .toc{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:22px;}
+  .toc a{color:var(--txt); text-decoration:none; background:var(--panel2); border:1px solid var(--line); padding:6px 14px; border-radius:999px; font-size:13.5px; font-weight:700;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <span class="badge">TUTORIAL ＆ SETTINGS</span>
+  <h1><span class="grad">G8 Plus</span> セットアップ</h1>
+  <p class="lead">GameSir G8 Plus を iPad mini に挟み、Moonlight で自宅の Mac（m2）を触るための図解ガイド。取り付け・モード切替・ペアリング・推奨設定・つまずき対処まで。</p>
+  <nav class="toc">
+    <a href="#layout">ボタンの顔つき</a>
+    <a href="#mode">モード切替</a>
+    <a href="#attach">取り付け</a>
+    <a href="#pairing">ペアリング</a>
+    <a href="#moonlight">Moonlight設定</a>
+    <a href="#sunshine">Sunshine確認</a>
+    <a href="#honest">正直な制約</a>
+    <a href="#trouble">困ったとき</a>
+  </nav>
+</header>
+
+<img class="fig" src="fig/fig-flow.svg" alt="全体像の流れ図">
+<p class="cap">図1 全体像。映像とタッチ操作は往復できる。パッド入力だけ Mac 側に受け口がない</p>
+
+<div class="warn">
+  <h2><span class="star">★</span> 先に正直な結論</h2>
+  <p>macOS 版 Sunshine には<strong>仮想ゲームパッドがない</strong>ため、現状 Moonlight 経由では <strong>G8 Plus の入力は Mac に届かない</strong>（実測済みの制約で設定ミスではない）。Mac の画面表示とタッチ操作は問題なく使える。G8 Plus は iPad のネイティブゲームではそのまま使える。詳しくは下の「正直な制約」へ。</p>
+</div>
+
+<section>
+  <div class="step-head"><div class="step-no yellow">!</div><h2>このガイドの前提</h2></div>
+  <ul>
+    <li>手元側：<strong>iPad mini</strong>（長さ約195mm）＋ <strong>GameSir G8 Plus</strong>（Bluetooth 版）</li>
+    <li>母艦側：<strong>Mac（m2）</strong>。Sunshine 導入済み・iPad とのペアリング済み</li>
+    <li>G8 Plus の対応デバイス長は <strong>120〜215mm</strong>。iPad mini は範囲内</li>
+    <li>スティックとトリガーは Hall Effect 式。6軸ジャイロと振動モーターと背面ボタン2つ搭載</li>
+  </ul>
+</section>
+
+<section id="layout">
+  <div class="step-head"><div class="step-no">1</div><h2>ボタンの顔つき</h2></div>
+  <img class="fig" src="fig/fig-layout.svg" alt="G8 Plus ボタン配置図">
+  <p class="cap">図2 ボタン配置の模式図。実物と細部は異なる</p>
+  <p>中央の <span class="hl-y">Home（サークル）ボタン</span>が心臓部。電源とモード切替と状態表示を兼ねていて、LED の色でいまのモードが分かる。ABXY ボタンは磁石式で物理的に入れ替え可能。スティックキャップも交換式。</p>
+  <div class="point">
+    <p><strong>覚えるのは3つだけ。</strong>サークルボタン（電源とモード）、M ボタン、背面の L4／R4。残りは普通のコントローラーと同じ顔つき。</p>
+  </div>
+</section>
+
+<section id="mode">
+  <div class="step-head"><div class="step-no">2</div><h2>モード切替の仕組み</h2></div>
+  <img class="fig" src="fig/fig-modes.svg" alt="モード切替図">
+  <p class="cap">図3 モードは4種類。iPad で使うのは DS4 モードだけ</p>
+  <p>G8 Plus は相手に合わせて人格を切り替えるタイプ。動作中に <strong>サークルボタン＋各ボタン</strong>を押すとモードが切り替わり、Home LED の色が変わる。</p>
+  <ul>
+    <li><span class="hl-c">DS4（サークル＋B）</span>：iPad 用はこれ。接続完了後は LED が薄オレンジ点灯に変わる</li>
+    <li>Android（サークル＋A）・Switch（サークル＋X）・G-Touch（サークル＋Y）は今回は使わない</li>
+    <li>LED の色は iPad の「設定 ＞ 一般 ＞ ゲームコントローラ」から変更可能</li>
+  </ul>
+</section>
+
+<section id="attach">
+  <div class="step-head"><div class="step-no pink">3</div><h2>iPad への取り付け</h2></div>
+  <img class="fig" src="fig/fig-attach.svg" alt="取り付け手順図">
+  <p class="cap">図4 取り付けは3ステップ。電源ボタン探しは不要</p>
+  <p>コントローラーを左右に引いて広げ、iPad mini を挟むだけ。<strong>広げると自動で電源オン、畳むと自動で電源オフ</strong>になる作り（G-Touch モード時を除く）。ケースを付けたままだと厚みで挟めないことがあるので、その時はケースを外す。</p>
+</section>
+
+<section id="pairing">
+  <div class="step-head"><div class="step-no pink">4</div><h2>Bluetooth ペアリング</h2></div>
+  <img class="fig" src="fig/fig-pairing.svg" alt="ペアリング手順図">
+  <p class="cap">図5 初回だけの作業。名前の罠に注意</p>
+  <div class="point pink">
+    <p><strong>最大の罠は名前。</strong>DS4 モードの G8 Plus は Bluetooth 一覧に「GameSir」と出ず、<span class="hl-p">DUALSHOCK 4 Wireless Controller</span> という名前で現れる。これが本体。</p>
+  </div>
+  <ul>
+    <li>手順：電源オフの状態で サークル＋B 長押し → LED 青の高速点滅 → iPad の Bluetooth 一覧で DUALSHOCK 4 をタップ → LED が薄オレンジ点灯で完了</li>
+    <li>2回目以降：電源オフの状態で Home を短く押すと自動で再接続される</li>
+    <li>うまく出ない時：iPad 側で既存の登録を削除してからやり直す</li>
+  </ul>
+</section>
+
+<section id="moonlight">
+  <div class="step-head"><div class="step-no">5</div><h2>Moonlight の推奨設定</h2></div>
+  <img class="fig" src="fig/fig-moonlight.svg" alt="Moonlight 設定図">
+  <p class="cap">図6 推奨値の目安。回線と好みに合わせて1項目ずつ調整</p>
+  <table>
+    <tr><th>項目</th><th>推奨の目安</th><th>調整の方向</th></tr>
+    <tr><td class="c">解像度</td><td>1920 × 1080 から開始</td><td>文字が読みにくければ下げる。粗さが気になれば上げる</td></tr>
+    <tr><td class="c">フレームレート</td><td>60 FPS</td><td>据え置きで十分。上げるのは安定してから</td></tr>
+    <tr><td class="c">ビットレート</td><td>20 Mbps 前後（自宅 Wi-Fi）</td><td>カクつきは下げ、粗さは上げ。外出先はさらに低め</td></tr>
+    <tr><td class="c">タッチ操作</td><td>トラックパッド方式</td><td>Mac 操作の正路。なぞりで移動・タップでクリック・2本指でスクロール</td></tr>
+  </table>
+  <p class="sub">解像度とビットレートは Moonlight の設定画面で変更できる。値は回線環境で変わる目安であり、固定の正解ではない。</p>
+  <div class="point">
+    <p><strong>キーボードの出し方。</strong>画面を3本指でタップするとキーボードが出る。文字入力はフリックと音声入力の併用が実用的。</p>
+  </div>
+</section>
+
+<section id="sunshine">
+  <div class="step-head"><div class="step-no">6</div><h2>Sunshine 側の確認</h2></div>
+  <img class="fig" src="fig/fig-sunshine.svg" alt="Sunshine 確認ポイント図">
+  <p class="cap">図7 つながらない時に見る3点。設定変更ではなく状態確認</p>
+  <p>Sunshine は導入とペアリングまで完了済み。日常は触らなくてよい。つながらない時だけ、Mac 側で上の3点を確認する。管理画面は Mac のブラウザで <strong>localhost:47990</strong> を開く（https の警告が出るのは自己署名証明書のためで想定内）。</p>
+</section>
+
+<section id="honest">
+  <div class="warn">
+    <h2><span class="star">★</span> 正直な制約の詳細</h2>
+    <p>2026年11月19日の実測で確定した内容。Sunshine の起動ログに <strong>gamepads.virtualhid-not-available</strong> と出て、ゲームパッド入力の受け口が全種別で無効だった。macOS 版 Sunshine でホスト側のゲームパッド再現には別途有償の Virtual HID Broker が必要と公式の互換表にもある。</p>
+  </div>
+  <table>
+    <tr><th>やりたいこと</th><th>現状</th><th>補足</th></tr>
+    <tr><td>Mac の画面を iPad に表示</td><td class="ok">○</td><td>映像ストリームは接続実測済み</td></tr>
+    <tr><td>タッチで Mac を操作</td><td class="ok">○</td><td>トラックパッド方式が正路。ペン併用も可</td></tr>
+    <tr><td>キーボード入力</td><td class="ok">○</td><td>3本指タップで表示。Bluetooth キーボード併用も可</td></tr>
+    <tr><td>Moonlight 経由でパッド入力を Mac へ</td><td class="ng">×</td><td>Mac 側に仮想ゲームパッドがなく受け口なし</td></tr>
+    <tr><td>スティックでマウスカーソル操作</td><td class="ng">×</td><td>素の Moonlight と Mac の組み合わせでは不可</td></tr>
+    <tr><td>iPad のネイティブゲームで G8 Plus 使用</td><td class="ok">○</td><td>DS4 モードでそのまま使える。本来の主戦場</td></tr>
+    <tr><td>Switch や Android での使用</td><td class="ok">○</td><td>モード切替で対応</td></tr>
+  </table>
+  <h3>打開策の候補</h3>
+  <ul>
+    <li><strong>有償の Virtual HID Broker</strong>：Mac 側に仮想ゲームパッドの受け口を足す道。Sunshine 公式の互換表が示す方法</li>
+    <li><strong>クライアント側の変換レイヤー</strong>：Moonlight をフォークし、パッド入力を iPad 側でマウスとキーに変換して送る道（あしさんの完成形はこちら）</li>
+    <li>どちらも追加作業が要る。当面は「映像＋タッチ＋ペン」で運用し、困りごとの棚卸し後に判断する</li>
+  </ul>
+</section>
+
+<section id="trouble">
+  <div class="step-head"><div class="step-no yellow">?</div><h2>困ったときの対処</h2></div>
+  <div class="cards">
+    <div class="card">
+      <h3>Bluetooth 一覧に出てこない</h3>
+      <p>DS4 モードで起動しているか確認（サークル＋B 長押し・LED 青の高速点滅）。探す名前は DUALSHOCK 4 Wireless Controller。古い登録が残っていたら iPad 側で削除してから再試行。</p>
+    </div>
+    <div class="card">
+      <h3>パッドを触っても Mac が無反応</h3>
+      <p>故障ではなく現状の仕様。macOS 版 Sunshine に仮想ゲームパッドがないため。タッチ操作に切り替える。iPad のゲームで使う分には問題なし。</p>
+    </div>
+    <div class="card">
+      <h3>Moonlight に Mac が出てこない</h3>
+      <p>Mac 側で Sunshine が起動しているか、画面収録とアクセシビリティの権限が付いているかを確認。自宅 LAN で一度つないでから外出先利用に進む。外出先は Tailscale の IP で手動追加。</p>
+    </div>
+    <div class="card">
+      <h3>映像がカクつく・遅れる</h3>
+      <p>ビットレートを下げるのが先。次に解像度。5GHz の Wi-Fi に寄せる。外出先で Tailscale の中継経由になると遅延が増える点も想定内。</p>
+    </div>
+    <div class="card">
+      <h3>コントローラーの電源が入らない</h3>
+      <p>広げた状態で充電する。バッテリーは左右合計 1000mAh。畳むと自動オフになるため、開いたまま置くと減りが早い。</p>
+    </div>
+    <div class="card">
+      <h3>モードが意図せず切り替わる</h3>
+      <p>動作中のサークル＋各ボタンで切り替わる仕様。LED の色で現在のモードを確認し、iPad 用は DS4（接続後 薄オレンジ）に戻す。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h3>参考にした情報源</h3>
+  <p class="src">
+    GameSir G8 Plus 公式マニュアル（モード表・iOS 接続手順・対応長 120〜215mm）／
+    GameSir 公式マニュアル置き場 https://www.gamesir.hk/pages/manuals-gamesir-g8+ ／
+    Sunshine 公式リポジトリと互換表 https://github.com/LizardByte/Sunshine ／
+    Moonlight 公式 Wiki Setup Guide https://github.com/moonlight-stream/moonlight-docs/wiki/Setup-Guide ／
+    ユウキ環境の実測メモ ~/workspace/moonlight-fork/research.md（2026-11-19 Phase 0 実測）
+  </p>
+</section>
+
+<footer>
+  G8 Plus セットアップガイド｜作り手メモは research.md に集約
+</footer>
+
+</div>
+</body>
+</html>

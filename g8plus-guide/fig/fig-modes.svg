@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" font-family="'Hiragino Sans','Noto Sans JP',sans-serif">
+  <rect x="0" y="0" width="960" height="400" rx="18" fill="#0d1226"/>
+  <text x="480" y="52" text-anchor="middle" font-size="23" font-weight="bold" fill="#ffffff">動作中に サークルボタン＋各ボタン で切替</text>
+
+  <!-- DS4 -->
+  <g>
+    <rect x="30" y="80" width="210" height="270" rx="16" fill="#172554" stroke="#38bdf8" stroke-width="4"/>
+    <circle cx="135" cy="140" r="26" fill="#38bdf8"/>
+    <text x="135" y="200" text-anchor="middle" font-size="24" font-weight="bold" fill="#ffffff">DS4</text>
+    <text x="135" y="238" text-anchor="middle" font-size="19" fill="#e0f2fe">サークル ＋ B</text>
+    <text x="135" y="276" text-anchor="middle" font-size="17" fill="#bae6fd">LED 青 → 接続後</text>
+    <text x="135" y="300" text-anchor="middle" font-size="17" fill="#bae6fd">薄オレンジ点灯</text>
+    <rect x="60" y="316" width="150" height="24" rx="12" fill="#38bdf8"/>
+    <text x="135" y="334" text-anchor="middle" font-size="15" font-weight="bold" fill="#082f49">iPad はこれ</text>
+  </g>
+
+  <!-- Android -->
+  <g>
+    <rect x="262" y="80" width="210" height="270" rx="16" fill="#131a36" stroke="#facc15" stroke-width="2.5"/>
+    <circle cx="367" cy="140" r="26" fill="#facc15"/>
+    <text x="367" y="200" text-anchor="middle" font-size="24" font-weight="bold" fill="#ffffff">Android</text>
+    <text x="367" y="238" text-anchor="middle" font-size="19" fill="#e0f2fe">サークル ＋ A</text>
+    <text x="367" y="276" text-anchor="middle" font-size="17" fill="#fef08a">LED 黄</text>
+    <text x="367" y="312" text-anchor="middle" font-size="16" fill="#cbd5e1">Android 8.0 以降</text>
+  </g>
+
+  <!-- Switch -->
+  <g>
+    <rect x="494" y="80" width="210" height="270" rx="16" fill="#131a36" stroke="#f87171" stroke-width="2.5"/>
+    <circle cx="599" cy="140" r="26" fill="#f87171"/>
+    <text x="599" y="200" text-anchor="middle" font-size="24" font-weight="bold" fill="#ffffff">Switch</text>
+    <text x="599" y="238" text-anchor="middle" font-size="19" fill="#e0f2fe">サークル ＋ X</text>
+    <text x="599" y="276" text-anchor="middle" font-size="17" fill="#fecaca">LED 赤</text>
+    <text x="599" y="312" text-anchor="middle" font-size="16" fill="#cbd5e1">Nintendo Switch 用</text>
+  </g>
+
+  <!-- G-Touch -->
+  <g>
+    <rect x="726" y="80" width="210" height="270" rx="16" fill="#131a36" stroke="#2dd4bf" stroke-width="2.5"/>
+    <circle cx="831" cy="140" r="26" fill="#2dd4bf"/>
+    <text x="831" y="200" text-anchor="middle" font-size="24" font-weight="bold" fill="#ffffff">G-Touch</text>
+    <text x="831" y="238" text-anchor="middle" font-size="19" fill="#e0f2fe">サークル ＋ Y</text>
+    <text x="831" y="276" text-anchor="middle" font-size="17" fill="#99f6e4">LED 水色</text>
+    <text x="831" y="312" text-anchor="middle" font-size="16" fill="#cbd5e1">GameSir アプリ用</text>
+  </g>
+</svg>
