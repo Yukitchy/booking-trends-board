@@ -68,6 +68,7 @@ footer{font-size:12px; color:#94a3b8;}
 
 .row1{display:flex; align-items:baseline; gap:8px;}
 .meta.sm{font-size:12px;}
+[hidden]{display:none !important;}
 
 .wrap{max-width:720px; margin:0 auto; padding:22px 14px 48px;}
 h1{font-size:24px; font-weight:900; letter-spacing:.02em; white-space:nowrap;}
@@ -187,15 +188,6 @@ footer{margin-top:24px;}
 <script src="../spots.js"></script>
 <script>
 var PHOTOS = ['../img/sbux-akiba-ekimae.jpg','../img/sbux-atre-akiba.jpg','../img/mcd-akiba.jpg','../img/renoir-akiba.jpg','../img/kaikatsu-akiba.jpg','../img/sarutahiko-atre.jpg','../img/komeda-kinshicho.jpg','../img/doutor-kinshicho.jpg','../img/tullys-kinshicho.jpg'];
-function cardHTML(s, idx){
-
-return '<div class="tilewrap">' + photoTag(s, 'ph-tile') + '<span class="ovl">' + speedBadge(s) + '</span></div>' +
-'<div class="cbody">' +
-'<div class="name">' + esc(s.name) + '</div>' +
-'<div class="meta sm">' + esc(s.area || '') + (s._dist !== null && s._dist !== undefined? ' ・ ' + fmtDist(s._dist): '') + (s.power? ' ・ 🔌 電源': '') + (s.mine? ' ・ 自分の追加': '') + '</div>' +
-'</div>';
-
-}
 </script>
 <script>
 
@@ -289,6 +281,16 @@ return (s._dist !== null && s._dist !== undefined)? '<span class="dist">' + fmtD
 function photoTag(s, cls){
 if (s.photo) return '<img class="' + cls + '" src="' + s.photo + '" alt="" loading="lazy">';
 return '<div class="' + cls + ' ph-none">📶</div>';
+}
+
+function cardHTML(s, idx){
+
+return '<div class="tilewrap">' + photoTag(s, 'ph-tile') + '<span class="ovl">' + speedBadge(s) + '</span></div>' +
+'<div class="cbody">' +
+'<div class="name">' + esc(s.name) + '</div>' +
+'<div class="meta sm">' + esc(s.area || '') + (s._dist !== null && s._dist !== undefined? ' ・ ' + fmtDist(s._dist): '') + (s.power? ' ・ 🔌 電源': '') + (s.mine? ' ・ 自分の追加': '') + '</div>' +
+'</div>';
+
 }
 
 var map = L.map('map').setView([35.698, 139.79], 12);

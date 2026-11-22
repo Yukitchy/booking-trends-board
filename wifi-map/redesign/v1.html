@@ -68,6 +68,7 @@ footer{font-size:12px; color:#94a3b8;}
 
 .row1{display:flex; align-items:baseline; gap:8px;}
 .meta.sm{font-size:12px;}
+[hidden]{display:none !important;}
 
 .wrap{max-width:680px; margin:0 auto; padding:22px 18px 48px;}
 h1{font-size:24px; font-weight:900; letter-spacing:.02em; white-space:nowrap;}
@@ -182,19 +183,6 @@ footer{margin-top:24px;}
 <script src="../spots.js"></script>
 <script>
 var PHOTOS = ['../img/sbux-akiba-ekimae.jpg','../img/sbux-atre-akiba.jpg','../img/mcd-akiba.jpg','../img/renoir-akiba.jpg','../img/kaikatsu-akiba.jpg','../img/sarutahiko-atre.jpg','../img/komeda-kinshicho.jpg','../img/doutor-kinshicho.jpg','../img/tullys-kinshicho.jpg'];
-function cardHTML(s, idx){
-
-var pw = pwLabel(s);
-return photoTag(s, 'ph-side') +
-'<div class="cinfo">' +
-'<div class="row1"><span class="name">' + esc(s.name) + '</span>' + distHtml(s) + '</div>' +
-'<div class="meta">' + speedBadge(s) + '</div>' +
-'<div class="meta"><span class="chip">' + esc(s.area || '未分類') + '</span>' + (s.mine? ' <span class="chip mine">自分の追加</span>': '') + '　' + metaLine(s) + '</div>' +
-(pw? '<div class="meta">' + pw + '</div>': '') +
-'<div class="meta"><a class="gmap" href="' + gmapUrl(s) + '" target="_blank" rel="noopener">Googleマップで開く →</a></div>' +
-'</div>';
-
-}
 </script>
 <script>
 
@@ -288,6 +276,20 @@ return (s._dist !== null && s._dist !== undefined)? '<span class="dist">' + fmtD
 function photoTag(s, cls){
 if (s.photo) return '<img class="' + cls + '" src="' + s.photo + '" alt="" loading="lazy">';
 return '<div class="' + cls + ' ph-none">📶</div>';
+}
+
+function cardHTML(s, idx){
+
+var pw = pwLabel(s);
+return photoTag(s, 'ph-side') +
+'<div class="cinfo">' +
+'<div class="row1"><span class="name">' + esc(s.name) + '</span>' + distHtml(s) + '</div>' +
+'<div class="meta">' + speedBadge(s) + '</div>' +
+'<div class="meta"><span class="chip">' + esc(s.area || '未分類') + '</span>' + (s.mine? ' <span class="chip mine">自分の追加</span>': '') + '　' + metaLine(s) + '</div>' +
+(pw? '<div class="meta">' + pw + '</div>': '') +
+'<div class="meta"><a class="gmap" href="' + gmapUrl(s) + '" target="_blank" rel="noopener">Googleマップで開く →</a></div>' +
+'</div>';
+
 }
 
 var map = L.map('map').setView([35.698, 139.79], 12);
