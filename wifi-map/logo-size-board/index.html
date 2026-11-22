@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ワイスピ ロゴサイズ 5案｜実測Wi-Fiマップ</title>
+<meta name="description" content="実測Wi-Fiマップ「ワイスピ」のトップバーでロゴをもっと大きくする5案。ロゴ幅とバー内バランスの見比べボード">
+<meta property="og:title" content="ワイスピ ロゴサイズ 5案｜実測Wi-Fiマップ">
+<meta property="og:description" content="トップバーのロゴ拡大5案（ロゴ幅 約119〜173px）。番号で選んでください。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/wifi-map/logo-size-board/">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/wifi-map/logo-size-board/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans JP", sans-serif;
+    background: #f7f8fa;
+    color: #1a1a1a;
+  }
+  header {
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 28px 20px 22px;
+    text-align: center;
+  }
+  header h1 { font-size: clamp(17px, 5.2vw, 26px); margin: 0 0 8px; letter-spacing: .02em; white-space: nowrap; }
+  header p { margin: 0; color: #555; font-size: 14px; line-height: 1.7; }
+  main {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 24px 16px 48px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(410px, 100%), 1fr));
+    gap: 18px;
+  }
+  .card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .card .head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-bottom: 1px solid #f0f1f3;
+  }
+  .num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 34px;
+    height: 34px;
+    padding: 0 6px;
+    border-radius: 999px;
+    background: #111;
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+    flex: none;
+  }
+  .card .head .ttl { font-weight: 700; font-size: 15px; }
+  .frame {
+    background: #eceef1;
+    padding: 14px 10px;
+    display: flex;
+    justify-content: center;
+  }
+  .frame iframe {
+    width: 390px;
+    max-width: 100%;
+    height: 430px;
+    border: 1px solid #d4d8dc;
+    border-radius: 10px;
+    background: #fff;
+    display: block;
+  }
+  .card .desc {
+    padding: 12px 16px 16px;
+    color: #444;
+    font-size: 13.5px;
+    line-height: 1.7;
+    margin: 0;
+  }
+  footer {
+    text-align: center;
+    color: #888;
+    font-size: 12.5px;
+    padding: 0 16px 36px;
+    line-height: 1.8;
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>ワイスピ ロゴサイズ 5案</h1>
+  <p>トップバー（黒い帯）の中でロゴをもっと大きくする5案です。各案とも実際の画面（バー＋地図＋下の横帯ストリップ）で再現しています。<br>ロゴ幅はスマホ幅390pxのときの目安です。気に入った案の<strong>番号</strong>を教えてください。</p>
+</header>
+<main>
+  <section class="card">
+    <div class="head"><span class="num">1</span><span class="ttl">ロゴ拡大・軽量（約119px）</span></div>
+    <div class="frame"><iframe src="v1.html" title="案1 ロゴ拡大・軽量" loading="lazy"></iframe></div>
+    <p class="desc">ロゴ幅 約119px（現行は約96px）。バーとボタンはほぼ現行のまま、ロゴだけを一回り大きくした案。</p>
+  </section>
+  <section class="card">
+    <div class="head"><span class="num">2</span><span class="ttl">ロゴ拡大・ボタン少し詰め（約137px）</span></div>
+    <div class="frame"><iframe src="v2.html" title="案2 ロゴ拡大・ボタン少し詰め" loading="lazy"></iframe></div>
+    <p class="desc">ロゴ幅 約137px。ボタンを30pxに少し詰めてロゴを拡大。バー高さは現行のまま。</p>
+  </section>
+  <section class="card">
+    <div class="head"><span class="num">3</span><span class="ttl">バー高く・ロゴ特大（約167px）</span></div>
+    <div class="frame"><iframe src="v3.html" title="案3 バー高く・ロゴ特大" loading="lazy"></iframe></div>
+    <p class="desc">ロゴ幅 約167px。バー自体を高く（約59px）してロゴを大きく入れた案。ボタンは26px。</p>
+  </section>
+  <section class="card">
+    <div class="head"><span class="num">4</span><span class="ttl">ボタン最小・ロゴ占有率（約161px）</span></div>
+    <div class="frame"><iframe src="v4.html" title="案4 ボタン最小・ロゴ占有率" loading="lazy"></iframe></div>
+    <p class="desc">ロゴ幅 約161px。ボタンを最小の26pxまで詰めて、バー内でのロゴの占有率を上げた案。バー高さは現行のまま。</p>
+  </section>
+  <section class="card">
+    <div class="head"><span class="num">5</span><span class="ttl">ロゴ最大・極限（約173px）</span></div>
+    <div class="frame"><iframe src="v5.html" title="案5 ロゴ最大・極限" loading="lazy"></iframe></div>
+    <p class="desc">ロゴ幅 約173px。現行のバー高さのまま入る極限までロゴを拡大した案。ボタンと余白は最小。</p>
+  </section>
+</main>
+<footer>各案は本番ページの実物モック（バー以外は共通）。本番への反映は選択後。<br>ワイスピ（実測Wi-Fiマップ）ロゴサイズ検討用ボード</footer>
+</body>
+</html>
