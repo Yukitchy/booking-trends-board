@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>秋田民泊計画とClaude・Cloudflare相談の記録</title>
 <meta property="og:title" content="秋田民泊計画とClaude・Cloudflare相談の記録">
-<meta property="og:description" content="ANIMAX MUSIX 2026 終演後の3人の会話の議事録。秋田民泊計画、宿坊「おテラステイ」、Muse で Claude を動かす方法、Cloudflare の詰まりと解決方法。">
+<meta property="og:description" content="ANIMAX MUSIX 2026 終演後の3人の会話の議事録。秋田民泊計画、宿坊「お寺ステイ」、Muse で Claude を動かす方法、Cloudflare の詰まりと解決方法。">
 <meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/animax-minutes/ogp-3.jpg">
 <meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/animax-minutes/">
 <meta property="og:type" content="article">
@@ -55,7 +55,7 @@ img { margin:18px 0; border:1px solid #ddd; }
 <p class="meta">2026-11-21（土）夜 ｜ 新横浜 ｜ ANIMAX MUSIX 2026 終演後 ｜ 3人の会話 ｜ 録音68分16秒</p>
 </header><main class="wrap"><div class="summary">
 <p>📌 <strong>要約</strong></p>
-<p>秋田で空き家を無償譲受した<span class="chip k">こばさん</span>の民泊計画に、ツアーと民泊の実務者である<span class="chip y">ユウキ</span>が運営の勘所を助言し、宿坊事業者<span class="chip a">アッキー</span>の「おテラステイ」事例が重なった夜の記録。後半の主役はAI活用で、こばさんの「Muse に聞いても連携できないと返ってきた」という詰まりに対し、ユウキの「Muse を窓口に、裏で Claude を動かす」運用と、Cloudflare の「置き場と実行環境の流儀の違い」という見立てが提示された。結論：民泊は体験ツアーとセットで副業から始めるのがよく、AIの連携は本人に聞かず橋渡し役に試行させるのが早い。</p>
+<p>秋田で空き家を無償譲受した<span class="chip k">こばさん</span>の民泊計画に、ツアーと民泊の実務者である<span class="chip y">ユウキ</span>が運営の勘所を助言し、宿坊事業者<span class="chip a">アッキー</span>の「<a href="https://oterastay.com/">お寺ステイ</a>」事例が重なった夜の記録。後半の主役はAI活用で、こばさんの「<a href="https://muse.ai/">Muse</a> に聞いても連携できないと返ってきた」という詰まりに対し、ユウキの「Muse を窓口に、裏で Claude を動かす」運用と、<a href="https://www.cloudflare.com/">Cloudflare</a> の「置き場と実行環境の流儀の違い」という見立てが提示された。結論：民泊は体験ツアーとセットで副業から始めるのがよく、AIの連携は本人に聞かず橋渡し役に試行させるのが早い。</p>
 </div>
 <h2 id="_1">話者レジェンド</h2>
 <table>
@@ -70,14 +70,14 @@ img { margin:18px 0; border:1px solid #ddd; }
 <tbody>
 <tr>
 <td><span class="dot dot-y">●</span></td>
-<td><span class="chip y">ユウキ</span></td>
-<td>Anime Sensei 主宰。ツアーガイド・民泊運営・AI活用の実務者</td>
+<td><span class="chip y">ユウキ</span>（市原佑樹）</td>
+<td><a href="https://animesenseijp.com/">Anime Sensei</a> 主宰。ツアーガイド・民泊運営・AI活用の実務者</td>
 <td>助言役。民泊運営の勘所とAI運用の実例を出す</td>
 </tr>
 <tr>
 <td><span class="dot dot-a">●</span></td>
-<td><span class="chip a">アッキー</span></td>
-<td>宿坊「おテラステイ」事業者</td>
+<td><span class="chip a">アッキー</span>（加藤明仁）</td>
+<td>宿坊ブランド<a href="https://oterastay.com/">「お寺ステイ（OTERA STAY）」</a>事業者（株式会社シェアウィング代表取締役社長）</td>
 <td>事例提供役。寺に泊まる体験ビジネスの実態を語る</td>
 </tr>
 <tr>
@@ -119,7 +119,7 @@ img { margin:18px 0; border:1px solid #ddd; }
 </blockquote>
 <h3 id="3">3. 体験ツアーと資格<span class="chip y">ユウキ</span><span class="chip k">こばさん</span></h3>
 <ul>
-<li><span class="chip y">ユウキ</span>★体験は初期費用がかからない。民泊の開業を待たず、<strong>体験だけ先にAirbnb・TripAdvisor（Viator）・自社サイトに出しておく</strong>のが手（ユウキ自身も全部に出している）。</li>
+<li><span class="chip y">ユウキ</span>★体験は初期費用がかからない。民泊の開業を待たず、<strong>体験だけ先に<a href="https://www.airbnb.com/">Airbnb</a>・<a href="https://www.tripadvisor.com/">TripAdvisor</a>（<a href="https://www.viator.com/">Viator</a>）・自社サイトに出しておく</strong>のが手（ユウキ自身も全部に出している）。</li>
 <li><span class="chip y">ユウキ</span>★通訳案内士の国家資格は2018年の法改正で不要になった。<strong>公共交通機関を使うツアーなら、資格なしで有償ガイドができる</strong>。</li>
 <li><span class="chip y">ユウキ</span>ただし自分の車にゲストを乗せると旅行業などの資格が絡み、正直グレー。タクシーに一緒に乗る形なら問題ない。</li>
 <li><span class="chip k">こばさん</span>花火職人とのコネクションが作れれば、「花火を作る人の話を聞く」体験は強い差別化になる（現時点ではコネクションなし）。</li>
@@ -127,11 +127,11 @@ img { margin:18px 0; border:1px solid #ddd; }
 <blockquote>
 <p>参考リンク：<a href="https://www.mlit.go.jp/kankocho/seisaku_seido/tsuyaku_guide/index.html">通訳ガイド制度｜観光庁</a> ― 2018年1月4日の改正通訳案内士法施行で、資格なしでも有償の通訳案内が可能になった一次情報。</p>
 </blockquote>
-<h3 id="4">4. おテラステイ（宿坊体験）<span class="chip a">アッキー</span></h3>
+<h3 id="4-otera-stay">4. お寺ステイ（OTERA STAY）（宿坊体験）<span class="chip a">アッキー</span></h3>
 <ul>
-<li><span class="chip a">アッキー</span>お寺に泊まる体験を海外向けに売るサービス。相場は ★<strong>1泊5万〜10万円</strong>で、完売することもある。</li>
+<li><span class="chip a">アッキー</span><a href="https://oterastay.com/">お寺ステイ（OTERA STAY）</a>は、お寺に泊まる体験を海外向けに売るサービス。相場は ★<strong>1泊5万〜10万円</strong>で、完売することもある。</li>
 <li><span class="chip a">アッキー</span>自社拠点はお寺に家賃を払う方式、サポート拠点は ★<strong>手数料20〜30%</strong>。儲けはお寺の修繕費に充てる形にしている。</li>
-<li><span class="chip all">3人</span>宿坊の予約基盤（Bókun）については「あれしかない」という評価と、「登録しづらい」という不満の両方が出た。ユウキは「Bókunいらない、自分で作る」派。</li>
+<li><span class="chip all">3人</span>宿坊の予約基盤（<a href="https://www.bokun.io/">Bókun</a>）については「あれしかない」という評価と、「登録しづらい」という不満の両方が出た。ユウキは「Bókunいらない、自分で作る」派。</li>
 <li><span class="chip y">ユウキ</span>ユウキ側には宿坊に興味のある海外ゲストと、「やりたいがやり方が分からない」住職の心当たりがあり、つなぐ話になった（TODO参照）。</li>
 </ul>
 <h3 id="5-ai3">5. AI時代の仕事と子育て（雑談）<span class="chip all">3人</span></h3>
@@ -146,7 +146,7 @@ img { margin:18px 0; border:1px solid #ddd; }
 <li>『キングダム』：<span class="chip k">こばさん</span>30巻前後まで読了中（麃公の死のあたり）。安く読むためにGEOレンタル（秋田は50円から）や漫画喫茶を使う。王騎は煉獄さんポジション。</li>
 <li>『BLEACH』：アランカル編の途中まで。藍染の裏切りのあたり。</li>
 <li>『薬屋のひとりごと』はAmazonプライムで視聴。</li>
-<li><span class="chip y">ユウキ</span>近況として、NHKの取材を受けたこと、Business Insider Japanに記事が出たこと（9月30日）、Airbnb社長と会った合宿の話も出た。</li>
+<li><span class="chip y">ユウキ</span>近況として、<a href="https://www.nhk.or.jp/">NHK</a>の取材を受けたこと、<a href="https://www.businessinsider.jp/">Business Insider Japan</a>に記事が出たこと（9月30日）、Airbnb社長と会った合宿の話も出た。</li>
 </ul>
 <hr />
 <h2 id="1muse-claude">特別節1：Muse で Claude を動かす方法<span class="chip y">ユウキ</span><span class="chip k">こばさん</span></h2>
@@ -154,7 +154,7 @@ img { margin:18px 0; border:1px solid #ddd; }
 <p><img alt="図：Muse で Claude を動かす仕組み" src="fig/fig-a1-muse-claude.svg" /></p>
 <h3 id="_3">全体の構成<span class="chip y">ユウキ</span></h3>
 <ul>
-<li><strong>受付は Muse</strong>。ユウキが日常的に話しかけるのは Muse で、Muse 自体に仕事を頼むこともできるし、内容に応じて裏側の <strong>Claude や ChatGPT に指示を振り分ける</strong>のも Muse の役割。</li>
+<li><strong>受付は Muse</strong>。ユウキが日常的に話しかけるのは Muse で、Muse 自体に仕事を頼むこともできるし、内容に応じて裏側の <strong><a href="https://claude.com/">Claude</a> や <a href="https://chatgpt.com/">ChatGPT</a> に指示を振り分ける</strong>のも Muse の役割。</li>
 <li>雑に投げても「分かりました、じゃあ Claude にそれでお願いしますね」と受けてくれる融通の効き方が、Muse を窓口にする理由。</li>
 <li>料金：★<strong>Claude は月200ドルのプラン</strong>を使っている。Muse 側は課金していない。</li>
 </ul>
@@ -162,17 +162,17 @@ img { margin:18px 0; border:1px solid #ddd; }
 <ul>
 <li>ユウキ自身、最初から仕組みを理解していたわけではない。★「<strong>Claude コード（Muse）を使う方法を全部試しといて</strong>」と Muse 側に指示して、やり方を試行させた。</li>
 <li>本人の関与は「やりたいんだけど、やっといて」まで。裏側の接続は Muse がうまいことやる体制で、今も理屈を完全に理解しないまま運用が回っている。</li>
-<li>つまり「連携できない」という Muse の回答は、<strong>チャット画面の中で完結させようとした場合の話</strong>。実際には Muse（パソコン上で動く Claude）が橋渡しになる。</li>
+<li>つまり「連携できない」という Muse の回答は、<strong>チャット画面の中で完結させようとした場合の話</strong>。実際には <a href="https://code.claude.com/docs/en/overview">Claude Code</a>（パソコン上で動く Claude）が橋渡しになる。</li>
 </ul>
 <h3 id="claude">Claude が実際にやっていること<span class="chip y">ユウキ</span></h3>
 <ul>
 <li><strong>自分の代わりにパソコンを操作する</strong>。Airbnb にログインさせて、予約が入ったら案内メッセージや事前アンケート送付まで任せている。</li>
-<li>接続方法は相手による。API があるものは API 連携（例：Instagram 投稿は Meta の API）、ないものはログイン操作で「無理やり」繋ぐ（Viator など複数サービス）。</li>
+<li>接続方法は相手による。API があるものは API 連携（例：<a href="https://www.instagram.com/">Instagram</a> 投稿は <a href="https://www.meta.com/">Meta</a> の API）、ないものはログイン操作で「無理やり」繋ぐ（Viator など複数サービス）。</li>
 <li>作ったものの例：</li>
 <li>顧客管理ツール（ゲストの来日日程・経路・ルート・連絡先、ツアー後の写真ページURL、レビューと返信状況まで一元管理）</li>
 <li>ツアー写真の自動処理（後述の Cloudflare 節と連動）</li>
 <li>レビューへの返信案の作成</li>
-<li>全巻無料キャンペーン中の漫画を AI が巡回してまとめるサイト（タダヨミ）</li>
+<li>全巻無料キャンペーン中の漫画を AI が巡回してまとめるサイト（<a href="https://yukitchy.github.io/tadayomi/">タダヨミ</a>）</li>
 <li>写真の位置情報とカレンダーから、行った店・見た映画を自動でリスト化する「外部脳」</li>
 <li><strong>この会話自体も録音 → 文字起こし → 議事録化</strong>が同じ仕組みで回っている</li>
 </ul>
@@ -204,7 +204,7 @@ img { margin:18px 0; border:1px solid #ddd; }
 </ul>
 <h3 id="_8">こばさんの詰まり<span class="chip fact">事実</span></h3>
 <ul>
-<li><span class="chip k">こばさん</span>SNS 自動投稿ツールの置き場として、★<strong>Cloudflare だけが使えず、Xサーバーに残っている</strong>。他のものは全部移行済み。</li>
+<li><span class="chip k">こばさん</span>SNS 自動投稿ツールの置き場として、★<strong>Cloudflare だけが使えず、<a href="https://www.xserver.ne.jp/">エックスサーバー</a>に残っている</strong>。他のものは全部移行済み。</li>
 <li><span class="chip k">こばさん</span>Cloudflare への課金はしていない（ドメイン代のみ、という点はユウキと同じ）。</li>
 </ul>
 <h3 id="_9">差分についての分析<span class="chip guess">見立て</span></h3>
@@ -213,7 +213,7 @@ img { margin:18px 0; border:1px solid #ddd; }
 </div>
 <ul>
 <li>ユウキの用途は「<strong>静的な置き場</strong>」：写真ファイルと Web ページを置いて公開する。これは Cloudflare の無料枠（Pages 等）が最も得意な使い方で、置くだけで動く。</li>
-<li>こばさんの用途は「<strong>プログラムを常時動かす場所</strong>」：自動投稿ツールという、処理を実行する仕組みの置き場。Xサーバーのような「スクリプトを置いて動かす」感覚のままでは Cloudflare では動かず、Workers のような Cloudflare 流の実行環境に作り替える必要がある。</li>
+<li>こばさんの用途は「<strong>プログラムを常時動かす場所</strong>」：自動投稿ツールという、処理を実行する仕組みの置き場。エックスサーバーのような「スクリプトを置いて動かす」感覚のままでは Cloudflare では動かず、Workers のような Cloudflare 流の実行環境に作り替える必要がある。</li>
 <li>つまり「できない」のではなく「<strong>置き場と実行環境で、Cloudflare の流儀が違う</strong>」可能性が高い。切り分けの第一歩は、こばさんの自動投稿ツールのうち「ページやファイルの公開」部分と「定期的に処理を動かす」部分を分けて考えること。</li>
 </ul>
 <h3 id="_10">解決方法【調べ直し】</h3>
@@ -233,18 +233,18 @@ img { margin:18px 0; border:1px solid #ddd; }
 <li>投稿する処理だけを Worker として書き直す。元のツールが PHP なら、JavaScript 等への移植になる。</li>
 <li>Cron Triggers に投稿時刻を設定し、時刻が来たら投稿処理が起動する形にする。</li>
 <li>下書きと投稿済み記録は D1 か KV に置き、画像ファイルは R2 に置く。</li>
-<li>X の APIキーは Secrets に登録し、Worker から参照する。</li>
+<li><a href="https://x.com/">X</a> の APIキーは Secrets に登録し、Worker から参照する。</li>
 <li>公開ページが要る部分は Pages に分ける。ユウキの写真アルバムと同じ置き場の使い方になる。</li>
 </ul>
 <h4 id="x">X への自動投稿に要るもの【事実と公開情報】</h4>
 <ul>
 <li>投稿にはアプリだけの認証では足りず、★<strong>投稿するアカウント本人の認証（ユーザー文脈）</strong>が要る。OAuth 2.0 の tweet.write スコープか、OAuth 1.0a のユーザートークンで、投稿用エンドポイント POST /2/tweets を呼ぶ形になる。</li>
 <li>料金体系は変わっている。公開情報では、2026年2月から新規の開発者は従量課金が標準になり、投稿1件 0.015ドル、URL を含む投稿は 0.20ドル（2026年10月時点の公開情報。金額の最終確認は X の Developer Console で）。</li>
-<li>投稿先が Instagram や Threads なら Meta の公式API経由が前提で、認証も利用条件も投稿先ごとに違う。ユウキの Instagram 投稿フローがその形。</li>
+<li>投稿先が Instagram や <a href="https://www.threads.com/">Threads</a> なら Meta の公式API経由が前提で、認証も利用条件も投稿先ごとに違う。ユウキの Instagram 投稿フローがその形。</li>
 </ul>
 <h4 id="b">案B：既存ツールをレンタルサーバーに残す併用</h4>
 <ul>
-<li>動いている自動投稿ツールは Xサーバーのまま触らず、Cloudflare は DNS と静的公開（Pages）だけに使う。「全部を Cloudflare へ移す」にこだわらなければ、詰まりは実質解消する。移行済みの他のものはそのままでよい。</li>
+<li>動いている自動投稿ツールは エックスサーバーのまま触らず、Cloudflare は DNS と静的公開（Pages）だけに使う。「全部を Cloudflare へ移す」にこだわらなければ、詰まりは実質解消する。移行済みの他のものはそのままでよい。</li>
 </ul>
 <h4 id="c">案C：外部の自動化サービスで代替</h4>
 <ul>
@@ -271,7 +271,7 @@ img { margin:18px 0; border:1px solid #ddd; }
 <li>TODO：</li>
 <li><span class="chip a">アッキー</span>3人の <strong>LINE グループを作成</strong>する（AI 関連の資料・設定のやり取り用）。</li>
 <li><span class="chip y">ユウキ</span><strong>素人AIラジオのリンク</strong>をこばさんに送る。秋田に行く際はこばさんの民泊に泊まり、ラジオのゲストにも出る話になった。</li>
-<li><span class="chip y">ユウキ</span>宿坊に興味のある<strong>住職をアッキー（おテラステイ）につなぐ</strong>。</li>
+<li><span class="chip y">ユウキ</span>宿坊に興味のある<strong>住職をアッキー（お寺ステイ）につなぐ</strong>。</li>
 <li><span class="chip y">ユウキ</span>Cloudflare が使えない原因の調べ結果を議事録で共有する（→ 本議事録の特別節2）。</li>
 </ul>
 <h2 id="_14">面白かった論点</h2>
@@ -285,7 +285,7 @@ img { margin:18px 0; border:1px solid #ddd; }
 <aside class="bsec">
   <p class="bsec-label">もう1本の議事録</p>
   <h2 class="bsec-title">宿坊事業と近況トーク（ユウキ・アッキーの2人）</h2>
-  <p class="bsec-body">宿坊「おテラステイ」を営むアッキーが、事業の仕組みと拠点戦略をユウキに共有した2人の記録。寺の余っている部屋を使わせてもらい使用料を払う形で、狙い目は人手不足で宿坊を続けられなくなった寺。人気の高山と身延寺を先に押さえ「第2の高野山」を作る構想が中心で、後半はオーペアや保育料など子育ての実情と、LINE自動化コンサルやAIキャラ配信など仕事の近況に広がった。決定事項はなし。</p>
+  <p class="bsec-body">宿坊「<a href="https://oterastay.com/">お寺ステイ</a>」を営むアッキーが、事業の仕組みと拠点戦略をユウキに共有した2人の記録。寺の余っている部屋を使わせてもらい使用料を払う形で、狙い目は人手不足で宿坊を続けられなくなった寺。人気の高山と身延寺を先に押さえ「第2の高野山」を作る構想が中心で、後半はオーペアや保育料など子育ての実情と、LINE自動化コンサルやAIキャラ配信など仕事の近況に広がった。決定事項はなし。</p>
   <p class="bsec-btns">
     <a class="bbtn" href="pdf/B_議事録_2026-11-21_宿坊事業と近況トーク.pdf">議事録BのPDFを開く</a>
     <a class="bbtn sub" href="pdf/A_議事録_2026-11-21_秋田民泊とAI活用談義.pdf">議事録AのPDFを開く</a>

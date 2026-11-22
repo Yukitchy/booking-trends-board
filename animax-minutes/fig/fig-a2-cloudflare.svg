@@ -23,8 +23,8 @@
   <text x="515" y="238" font-size="15" fill="#1e293b">・「置いて動かす」レンタルサーバーの感覚とは違う</text>
   <rect x="510" y="262" width="405" height="92" rx="10" fill="#ffffff" stroke="#fdba74" stroke-width="1.5"/>
   <text x="530" y="292" font-size="15" font-weight="bold" fill="#c2410c">こばさんの用途</text>
-  <text x="530" y="318" font-size="14" fill="#334155">SNS自動投稿ツールの置き場（Xサーバーに残留）</text>
-  <text x="530" y="340" font-size="14" fill="#334155">→ Xサーバー流のままでは動かず詰まっている</text>
+  <text x="530" y="318" font-size="14" fill="#334155">SNS自動投稿ツールの置き場（エックスサーバーに残留）</text>
+  <text x="530" y="340" font-size="14" fill="#334155">→ エックスサーバー流のままでは動かず詰まっている</text>
   <text x="712" y="398" font-size="26" font-weight="bold" fill="#ea580c" text-anchor="middle">△ 作り替えが必要</text>
 
   <!-- bottom conclusion -->

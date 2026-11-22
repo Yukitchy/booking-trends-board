@@ -49,7 +49,7 @@
 
   <!-- alternatives band -->
   <rect x="25" y="415" width="910" height="86" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="45" y="446" font-size="15" font-weight="bold" fill="#15803d">代替案B：ツールは Xサーバーに残し、Cloudflare は DNS と静的公開だけに使う（移行にこだわらない実務解）</text>
+  <text x="45" y="446" font-size="15" font-weight="bold" fill="#15803d">代替案B：ツールは エックスサーバーに残し、Cloudflare は DNS と静的公開だけに使う（移行にこだわらない実務解）</text>
   <text x="45" y="476" font-size="15" font-weight="bold" fill="#15803d">代替案C：投稿の実行だけ外部の自動化サービスに任せる（自前で実行環境を持たない形）</text>
 
   <!-- bottom note -->
