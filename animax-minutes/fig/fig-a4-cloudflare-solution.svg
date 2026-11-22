@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="620" viewBox="0 0 960 620" font-family="'Noto Sans CJK JP','Hiragino Sans',sans-serif">
+  <rect x="0" y="0" width="960" height="620" fill="#ffffff"/>
+  <text x="30" y="42" font-size="24" font-weight="bold" fill="#1e293b">解決方法の構成：公開は Pages、定期実行は Workers と Cron</text>
+  <text x="30" y="70" font-size="14" fill="#64748b">ツールを「公開する部分」と「処理を動かす部分」に分ける（一般的な構成の整理。こばさんのツールへの当てはめは構成確認のうえ確定）</text>
+
+  <!-- Pages panel -->
+  <rect x="25" y="95" width="272" height="300" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="161" y="136" font-size="19" font-weight="bold" fill="#1d4ed8" text-anchor="middle">Pages ＝ 公開する部分</text>
+  <text x="48" y="172" font-size="14.5" fill="#1e293b">・投稿文や写真の置き場</text>
+  <text x="48" y="200" font-size="14.5" fill="#1e293b">・公開ページの配信</text>
+  <text x="48" y="228" font-size="14.5" fill="#1e293b">・置けばそのまま動く</text>
+  <rect x="43" y="252" width="236" height="80" rx="10" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="61" y="282" font-size="14" font-weight="bold" fill="#1d4ed8">ユウキの写真アルバムと</text>
+  <text x="61" y="306" font-size="14" fill="#334155">同じ置き場の使い方</text>
+  <text x="161" y="372" font-size="22" font-weight="bold" fill="#2563eb" text-anchor="middle">○ そのまま使える</text>
+
+  <!-- Workers panel -->
+  <rect x="337" y="95" width="330" height="300" rx="14" fill="#fff7ed" stroke="#ea580c" stroke-width="2.5"/>
+  <text x="502" y="136" font-size="19" font-weight="bold" fill="#c2410c" text-anchor="middle">Workers ＝ 処理を動かす部分</text>
+  <rect x="355" y="154" width="294" height="62" rx="10" fill="#ffffff" stroke="#fdba74" stroke-width="1.5"/>
+  <text x="502" y="180" font-size="14.5" font-weight="bold" fill="#c2410c" text-anchor="middle">Cron Triggers（定期実行）</text>
+  <text x="502" y="202" font-size="13" fill="#334155" text-anchor="middle">決まった時刻に Worker を起動する</text>
+  <rect x="355" y="228" width="294" height="62" rx="10" fill="#ffffff" stroke="#fdba74" stroke-width="1.5"/>
+  <text x="502" y="254" font-size="14.5" font-weight="bold" fill="#c2410c" text-anchor="middle">状態の保存：D1 ／ KV ／ R2</text>
+  <text x="502" y="276" font-size="13" fill="#334155" text-anchor="middle">投稿済み記録・下書き・画像の置き場</text>
+  <rect x="355" y="302" width="294" height="62" rx="10" fill="#ffffff" stroke="#fdba74" stroke-width="1.5"/>
+  <text x="502" y="328" font-size="14.5" font-weight="bold" fill="#c2410c" text-anchor="middle">Secrets（鍵の置き場）</text>
+  <text x="502" y="350" font-size="13" fill="#334155" text-anchor="middle">APIキーは暗号化して別置き</text>
+
+  <!-- X panel -->
+  <rect x="707" y="95" width="228" height="300" rx="14" fill="#f8fafc" stroke="#0f172a" stroke-width="2.5"/>
+  <text x="821" y="136" font-size="19" font-weight="bold" fill="#0f172a" text-anchor="middle">X ＝ 投稿先</text>
+  <text x="730" y="172" font-size="14.5" fill="#1e293b">・投稿は公式API経由</text>
+  <text x="730" y="200" font-size="14.5" fill="#1e293b">・アカウント本人の</text>
+  <text x="730" y="224" font-size="14.5" fill="#1e293b">　認証が要る</text>
+  <text x="730" y="252" font-size="14.5" fill="#1e293b">・2026年から新規は</text>
+  <text x="730" y="276" font-size="14.5" fill="#1e293b">　従量課金が標準</text>
+  <rect x="725" y="296" width="192" height="68" rx="10" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="821" y="324" font-size="13.5" fill="#334155" text-anchor="middle">POST /2/tweets</text>
+  <text x="821" y="346" font-size="13" fill="#64748b" text-anchor="middle">投稿用エンドポイント</text>
+
+  <!-- arrows -->
+  <line x1="299" y1="245" x2="333" y2="245" stroke="#475569" stroke-width="3"/>
+  <polygon points="333,245 321,238 321,252" fill="#475569"/>
+  <text x="316" y="228" font-size="12.5" fill="#475569" text-anchor="middle">素材</text>
+  <line x1="669" y1="245" x2="703" y2="245" stroke="#475569" stroke-width="3"/>
+  <polygon points="703,245 691,238 691,252" fill="#475569"/>
+  <text x="686" y="228" font-size="12.5" fill="#475569" text-anchor="middle">投稿</text>
+
+  <!-- alternatives band -->
+  <rect x="25" y="415" width="910" height="86" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="45" y="446" font-size="15" font-weight="bold" fill="#15803d">代替案B：ツールは Xサーバーに残し、Cloudflare は DNS と静的公開だけに使う（移行にこだわらない実務解）</text>
+  <text x="45" y="476" font-size="15" font-weight="bold" fill="#15803d">代替案C：投稿の実行だけ外部の自動化サービスに任せる（自前で実行環境を持たない形）</text>
+
+  <!-- bottom note -->
+  <rect x="25" y="517" width="910" height="80" rx="10" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="480" y="548" font-size="15.5" font-weight="bold" fill="#b91c1c" text-anchor="middle">★ 前提：PHP・常駐・cron のレンタルサーバーの感覚は、そのままでは持ち込めない</text>
+  <text x="480" y="574" font-size="13" fill="#7f1d1d" text-anchor="middle">※ こばさんのツールへの当てはめの最終確定には、言語・実行方式・投稿先・投稿頻度の確認が必要</text>
+</svg>

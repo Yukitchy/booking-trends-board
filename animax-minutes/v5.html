@@ -50,7 +50,7 @@ img { background:#fff; border-radius:6px; }
 <h1>秋田民泊とAI活用談義</h1>
 <p class="sub">ANIMAX MUSIX 2026 の終演後、新横浜の店で始まった3人の長い夜。場面ごとにスクロールで進む記録</p>
 </div></header>
-<nav class="idx"><a class="idx-row" href="#_1"><span class="idx-no">01</span><span class="idx-t">話者レジェンド</span></a><a class="idx-row" href="#_2"><span class="idx-no">02</span><span class="idx-t">話題ごとの要点</span></a><a class="idx-row" href="#1muse-claude"><span class="idx-no">03</span><span class="idx-t">特別節1：Muse で Claude を動かす方法ユウキ こばさん</span></a><a class="idx-row" href="#2cloudflare"><span class="idx-no">04</span><span class="idx-t">特別節2：Cloudflare について（なぜユウキはできて、こばさんはできないのか）</span></a><a class="idx-row" href="#todo"><span class="idx-no">05</span><span class="idx-t">決まったこと・TODO</span></a><a class="idx-row" href="#_11"><span class="idx-no">06</span><span class="idx-t">面白かった論点</span></a></nav><main class="wrap">
+<nav class="idx"><a class="idx-row" href="#_1"><span class="idx-no">01</span><span class="idx-t">話者レジェンド</span></a><a class="idx-row" href="#_2"><span class="idx-no">02</span><span class="idx-t">話題ごとの要点</span></a><a class="idx-row" href="#1muse-claude"><span class="idx-no">03</span><span class="idx-t">特別節1：Muse で Claude を動かす方法ユウキ こばさん</span></a><a class="idx-row" href="#2cloudflare"><span class="idx-no">04</span><span class="idx-t">特別節2：Cloudflare について（なぜユウキはできて、こばさんはできないのか）</span></a><a class="idx-row" href="#todo"><span class="idx-no">05</span><span class="idx-t">決まったこと・TODO</span></a><a class="idx-row" href="#_14"><span class="idx-no">06</span><span class="idx-t">面白かった論点</span></a></nav><main class="wrap">
 <ul>
 <li>日時: 2026-11-21（土）夜　ANIMAX MUSIX 2026（横浜アリーナ）終演後、新横浜の飲食店にて</li>
 <li>参加者: ユウキ（市原佑樹）／アッキー（加藤明仁）／こばさん（アッキーの地元・秋田の友人）</li>
@@ -221,7 +221,48 @@ img { background:#fff; border-radius:6px; }
 <li>こばさんの用途は「<strong>プログラムを常時動かす場所</strong>」：自動投稿ツールという、処理を実行する仕組みの置き場。Xサーバーのような「スクリプトを置いて動かす」感覚のままでは Cloudflare では動かず、Workers のような Cloudflare 流の実行環境に作り替える必要がある。</li>
 <li>つまり「できない」のではなく「<strong>置き場と実行環境で、Cloudflare の流儀が違う</strong>」可能性が高い。切り分けの第一歩は、こばさんの自動投稿ツールのうち「ページやファイルの公開」部分と「定期的に処理を動かす」部分を分けて考えること。</li>
 </ul>
-<h3 id="_10">会話での約束</h3>
+<h3 id="_10">解決方法【調べ直し】</h3>
+<div class="key">
+<p>★ 結論：詰まりの正体は「置き場所の違い」。解決は、ツールを「公開する部分」と「処理を動かす部分」に分け、公開は Pages、定期実行は Workers と Cron Triggers に置くこと。レンタルサーバーの作法（PHP のスクリプトを置いて cron で回す）は、そのままでは Cloudflare に持ち込めない。</p>
+</div>
+<h4 id="_11">レンタルサーバーの作法が動かない理由<span class="chip fact">事実</span></h4>
+<ul>
+<li>Workers の実行環境で公式に案内される言語は JavaScript／TypeScript／Python／Rust が中心で、<strong>PHP は対応言語に入っていない</strong>。PHP 製のツールはそのままでは動かない。</li>
+<li>サーバーに常駐するプログラムも、cron デーモンもない。定期実行は Workers の <strong>Cron Triggers</strong> で「決まった時刻に Worker を起動する」形に作り替えるのが公式の作法（実行時刻は UTC 指定）。</li>
+<li>ローカルファイルへの保存は永続しない。投稿済みの記録や下書きといった状態は、<strong>D1（SQLデータベース）／KV（キーバリュー）／R2（ファイル置き場）</strong>の専用ストレージに置く。</li>
+<li>APIキーなどの秘密情報は、コードや設定ファイルへの直書きではなく、<strong>Secrets</strong>（暗号化されたバインディング）に置くのが公式の作法。</li>
+</ul>
+<p><img alt="図：解決方法の構成" src="fig/fig-a4-cloudflare-solution.svg" /></p>
+<h4 id="aworkers-cron-triggers">案A：Workers と Cron Triggers への作り替え【本命】</h4>
+<ul>
+<li>投稿する処理だけを Worker として書き直す。元のツールが PHP なら、JavaScript 等への移植になる。</li>
+<li>Cron Triggers に投稿時刻を設定し、時刻が来たら投稿処理が起動する形にする。</li>
+<li>下書きと投稿済み記録は D1 か KV に置き、画像ファイルは R2 に置く。</li>
+<li>X の APIキーは Secrets に登録し、Worker から参照する。</li>
+<li>公開ページが要る部分は Pages に分ける。ユウキの写真アルバムと同じ置き場の使い方になる。</li>
+</ul>
+<h4 id="x">X への自動投稿に要るもの【事実と公開情報】</h4>
+<ul>
+<li>投稿にはアプリだけの認証では足りず、★<strong>投稿するアカウント本人の認証（ユーザー文脈）</strong>が要る。OAuth 2.0 の tweet.write スコープか、OAuth 1.0a のユーザートークンで、投稿用エンドポイント POST /2/tweets を呼ぶ形になる。</li>
+<li>料金体系は変わっている。公開情報では、2026年2月から新規の開発者は従量課金が標準になり、投稿1件 0.015ドル、URL を含む投稿は 0.20ドル（2026年10月時点の公開情報。金額の最終確認は X の Developer Console で）。</li>
+<li>投稿先が Instagram や Threads なら Meta の公式API経由が前提で、認証も利用条件も投稿先ごとに違う。ユウキの Instagram 投稿フローがその形。</li>
+</ul>
+<h4 id="b">案B：既存ツールをレンタルサーバーに残す併用</h4>
+<ul>
+<li>動いている自動投稿ツールは Xサーバーのまま触らず、Cloudflare は DNS と静的公開（Pages）だけに使う。「全部を Cloudflare へ移す」にこだわらなければ、詰まりは実質解消する。移行済みの他のものはそのままでよい。</li>
+</ul>
+<h4 id="c">案C：外部の自動化サービスで代替</h4>
+<ul>
+<li>投稿の実行部分だけを、SNS の予約投稿サービスや自動化プラットフォームに任せる手もある。自前で実行環境を持たない分、月額費用とサービス側の仕様変更に引きずられる点は引き受ける形になる。</li>
+</ul>
+<h4 id="_12">確定に必要な確認事項</h4>
+<div class="key">
+<p>★ ここまでは一般論としての解決方法。こばさんのツールへの当てはめの最終確定には、ツールの構成確認が要る。①何の言語で書かれているか ②実行方式（cron か常駐か） ③投稿先（X／Instagram／Threads／Facebook のどれか） ④投稿頻度と画像の有無。この4点が分かれば、案Aの作り替えの量と、案Bで足りるかが決まる。</p>
+</div>
+<blockquote>
+<p>参考リンク：<a href="https://developers.cloudflare.com/workers/configuration/cron-triggers/">Cron Triggers｜Cloudflare Workers ドキュメント</a>（定期実行の正式な作法と UTC 実行の注意）、<a href="https://developers.cloudflare.com/workers/configuration/secrets/">Secrets｜Cloudflare Workers ドキュメント</a>（APIキーの置き場）、<a href="https://developers.cloudflare.com/workers/platform/storage-options/">Choosing a data or storage product｜Cloudflare Workers ドキュメント</a>（D1／KV／R2 の使い分け）。</p>
+</blockquote>
+<h3 id="_13">会話での約束</h3>
 <ul>
 <li><span class="chip y">ユウキ</span>「今この会話を録音している。その内容をもとに、<strong>なぜ俺はできて、こばさんはできないのかを調べて、議事録にして後で出す</strong>」。本議事録の本節がその共有にあたる。原因の最終確定には、こばさんの自動投稿ツールの構成（何をどこで動かそうとしているか）の確認が次に必要。</li>
 </ul>
@@ -238,7 +279,7 @@ img { background:#fff; border-radius:6px; }
 <li><span class="chip y">ユウキ</span>宿坊に興味のある<strong>住職をアッキー（おテラステイ）につなぐ</strong>。</li>
 <li><span class="chip y">ユウキ</span>Cloudflare が使えない原因の調べ結果を議事録で共有する（→ 本議事録の特別節2）。</li>
 </ul>
-</section><section class="scene"><p class="scene-no">SCENE 06</p><h2 id="_11">面白かった論点</h2>
+</section><section class="scene"><p class="scene-no">SCENE 06</p><h2 id="_14">面白かった論点</h2>
 <ul>
 <li class="hl">★「民泊は家がないとできないが、体験は初期費用ゼロで今日から出せる」。開業準備と並行して体験だけ先に売る、という順番の逆転。</li>
 <li class="hl">★「Claude に連携を聞いても『できない』と返る」。AI 本人に聞くのではなく、Muse という別の AI に「全部試しといて」と頼むことで突破した、という二段構え。</li>
