@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daniela's Birthday in Akihabara</title>
+<meta name="description" content="A private Akihabara anime tour for the Robles family, built around Evangelion, Ergo Proxy and Serial Experiments Lain. Sun 6 Dec, 11:00 to 15:00.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Daniela's Birthday in Akihabara">
+<meta property="og:description" content="A private anime tour for Victor, Ines & Daniela — Evangelion, Ergo Proxy and Lain hunting in Akihabara. Sun 6 Dec, 11:00–15:00.">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/robles-akiba-day/">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/robles-akiba-day/ogp1.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='44' fill='%23e60012'/><text x='50' y='66' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>A</text></svg>">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root { --ink:#1c1c1e; --sub:#5a5a5e; --line:#e5e5e8; --accent:#e60012; --chip:#f2f2f5; }
+  body { font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif; color:var(--ink); background:#fff; -webkit-text-size-adjust:100%; }
+  .wrap { max-width:760px; margin:0 auto; padding:0 16px 48px; }
+  /* hero */
+  .hero { position:relative; margin:0 -16px; }
+  .collage { display:grid; grid-template-columns:2fr 1fr; grid-template-rows:1fr 1fr; height:300px; }
+  .collage img { width:100%; height:100%; object-fit:cover; display:block; }
+  .collage .big { grid-row:1 / span 2; }
+  .hero .shade { position:absolute; inset:auto 0 0 0; padding:44px 16px 14px; background:linear-gradient(transparent, rgba(0,0,0,.72)); color:#fff; }
+  .hero .kicker { font-size:11px; letter-spacing:.14em; font-weight:700; opacity:.92; }
+  .hero h1 { font-size:clamp(19px,5.9vw,38px); white-space:nowrap; font-weight:800; margin-top:4px; }
+  .hero .sub { font-size:13px; margin-top:5px; opacity:.95; }
+  /* key points */
+  .keys { margin:20px 0 6px; border:1px solid var(--line); border-radius:14px; overflow:hidden; }
+  .key { display:flex; gap:12px; padding:11px 14px; border-bottom:1px solid var(--line); font-size:14px; line-height:1.45; }
+  .key:last-child { border-bottom:none; }
+  .key .lab { flex:0 0 52px; font-weight:800; font-size:11px; letter-spacing:.08em; color:var(--accent); padding-top:2px; }
+  .key a { color:#0a66c2; text-decoration:none; font-weight:600; }
+  h2 { font-size:19px; font-weight:800; margin:30px 0 6px; }
+  .hint { font-size:12.5px; color:var(--sub); margin-bottom:10px; }
+  /* map */
+  .mapbox { position:relative; border:1px solid var(--line); border-radius:14px; overflow:hidden; background:#fafafa; }
+  .mapbox svg { display:block; width:100%; height:auto; }
+  .pin { position:absolute; transform:translate(-50%,-100%); width:46px; background:#fff; border:1px solid #cfcfd4; border-radius:8px; padding:0; cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,.18); }
+  .pin .no { display:block; background:var(--ink); color:#fff; font-size:10px; font-weight:800; line-height:16px; border-radius:7px 7px 0 0; }
+  .pin img { width:100%; height:30px; object-fit:cover; display:block; border-radius:0 0 7px 7px; }
+  .pin::after { content:""; position:absolute; left:50%; bottom:-6px; transform:translateX(-50%); border:6px solid transparent; border-top-color:#cfcfd4; border-bottom:none; }
+  .pin.meet .no { background:var(--accent); }
+  /* route */
+  .route { list-style:none; margin-top:6px; }
+  .route li { display:flex; gap:12px; padding:9px 0; border-bottom:1px dashed var(--line); font-size:14px; }
+  .route li:last-child { border-bottom:none; }
+  .route .time { flex:0 0 46px; font-weight:800; }
+  .route .what { line-height:1.45; }
+  .route .what span { color:var(--sub); font-size:12.5px; display:block; }
+  /* place cards */
+  .cards { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:8px; }
+  @media (max-width:520px){ .cards { grid-template-columns:1fr; } }
+  .card { border:1px solid var(--line); border-radius:14px; overflow:hidden; background:#fff; }
+  .card.flash { outline:3px solid var(--accent); outline-offset:2px; }
+  .photo { position:relative; }
+  .photo img { width:100%; height:150px; object-fit:cover; display:block; }
+  .mapbtn { position:absolute; top:8px; right:8px; width:34px; height:34px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 6px rgba(0,0,0,.25); text-decoration:none; font-size:17px; }
+  .card .body { padding:10px 12px 12px; }
+  .tag { display:inline-block; background:var(--chip); color:var(--sub); font-size:10.5px; font-weight:700; letter-spacing:.04em; padding:2px 8px; border-radius:99px; }
+  .nameline { display:flex; align-items:baseline; justify-content:space-between; gap:8px; margin-top:6px; }
+  .nameline h3 { font-size:15.5px; font-weight:800; line-height:1.25; }
+  .hours { font-size:11.5px; color:var(--sub); white-space:nowrap; font-weight:600; }
+  .card p { font-size:13px; color:var(--sub); line-height:1.5; margin-top:5px; }
+  /* food tiles */
+  .tiles { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:8px; }
+  @media (max-width:520px){ .tiles { grid-template-columns:1fr 1fr; } }
+  .tile { border:1px solid var(--line); border-radius:12px; overflow:hidden; text-decoration:none; color:var(--ink); background:#fff; }
+  .tile img { width:100%; height:92px; object-fit:cover; display:block; }
+  .tile .tbody { padding:8px 10px 10px; }
+  .tile .tname { font-size:13.5px; font-weight:800; margin-top:5px; line-height:1.3; }
+  .tile .thours { display:inline-block; margin-top:5px; background:var(--chip); font-size:11px; font-weight:700; padding:2px 8px; border-radius:99px; color:var(--sub); }
+  footer { margin-top:34px; font-size:11.5px; color:var(--sub); line-height:1.6; border-top:1px solid var(--line); padding-top:14px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="collage">
+      <img class="big" src="https://yukitchy.github.io/akiba-anime-day-kids/img/hero.jpg" alt="Akihabara at night">
+      <img src="https://yukitchy.github.io/akiba-anime-day-kids/img/radio-kaikan.jpg" alt="Akihabara Radio Kaikan">
+      <img src="https://yukitchy.github.io/akiba-anime-day-kids/img/gachapon.jpg" alt="Capsule toy machines">
+    </div>
+    <div class="shade">
+      <div class="kicker">GUEST GUIDE · AKIHABARA · 8 PLACES</div>
+      <h1>Daniela's Birthday in Akihabara</h1>
+      <div class="sub">Sun 6 Dec · 11:00 to 15:00 · A private tour for Victor, Ines &amp; Daniela</div>
+    </div>
+  </header>
+
+  <section class="keys">
+    <div class="key"><div class="lab">FOR</div><div>Victor, Ines &amp; Daniela — a birthday trip built around Daniela's favourites: <strong>Evangelion</strong>, <strong>Ergo Proxy</strong> and <strong>Serial Experiments Lain</strong>.</div></div>
+    <div class="key"><div class="lab">WHEN</div><div>Sunday 6 December, 11:00 to 15:00. Four hours, at your pace — we can linger where Daniela loves it most.</div></div>
+    <div class="key"><div class="lab">MEET</div><div>Inside <strong>Vie de France, BiTO AKIBA</strong> (1F), right by Akihabara Station. <a href="https://www.google.com/maps/search/?api=1&amp;query=Vie+de+France+BiTO+AKIBA+Akihabara">Open in Google Maps</a> — please use this link, there is another Vie de France on the other side of the station.</div></div>
+    <div class="key"><div class="lab">FIRST</div><div>Radio Kaikan, for Evangelion figures and goods while the day is fresh.</div></div>
+    <div class="key"><div class="lab">THEN</div><div>The vintage hunt: Mandarake and Book Off, where Lain and Ergo Proxy treasures from the 90s and 2000s still turn up.</div></div>
+  </section>
+
+  <h2>The map</h2>
+  <p class="hint">Tap a pin to jump to the place. All eight are a few minutes on foot from the station. The map is a simple sketch, not to scale.</p>
+  <div class="mapbox" id="mapbox">
+    <svg viewBox="0 0 360 300" role="img" aria-label="Sketch map of Akihabara">
+      <rect x="0" y="0" width="360" height="300" fill="#f4f4f2"/>
+      <!-- city blocks -->
+      <g fill="#e3e3de">
+        <rect x="18" y="18" width="86" height="58"/><rect x="118" y="18" width="86" height="58"/>
+        <rect x="18" y="90" width="86" height="58"/><rect x="118" y="90" width="86" height="58"/>
+        <rect x="18" y="162" width="86" height="58"/><rect x="118" y="162" width="86" height="58"/>
+        <rect x="232" y="90" width="52" height="58"/><rect x="232" y="162" width="52" height="58"/>
+        <rect x="298" y="162" width="46" height="58"/>
+      </g>
+      <!-- roads -->
+      <g stroke="#ffffff" stroke-width="10">
+        <line x1="111" y1="0" x2="111" y2="300"/>
+        <line x1="211" y1="0" x2="211" y2="246"/>
+        <line x1="0" y1="83" x2="360" y2="83"/>
+        <line x1="0" y1="155" x2="360" y2="155"/>
+        <line x1="0" y1="227" x2="360" y2="227"/>
+      </g>
+      <!-- Kanda river -->
+      <path d="M0 268 Q 120 256 220 266 T 360 262" stroke="#bcd6e8" stroke-width="12" fill="none"/>
+      <text x="10" y="290" font-size="9" fill="#7a97ab">Kanda River</text>
+      <!-- JR line -->
+      <line x1="252" y1="0" x2="252" y2="252" stroke="#1c1c1e" stroke-width="4"/>
+      <line x1="246" y1="0" x2="246" y2="252" stroke="#1c1c1e" stroke-width="1.4"/>
+      <line x1="258" y1="0" x2="258" y2="252" stroke="#1c1c1e" stroke-width="1.4"/>
+      <!-- station -->
+      <rect x="228" y="196" width="52" height="26" fill="#1c1c1e"/>
+      <text x="254" y="208" font-size="8.5" fill="#fff" text-anchor="middle" font-weight="bold">AKIHABARA</text>
+      <text x="254" y="218" font-size="8.5" fill="#fff" text-anchor="middle">STATION</text>
+      <text x="111" y="14" font-size="9" fill="#8a8a8e" text-anchor="middle">Chuo-dori</text>
+      <text x="330" y="78" font-size="9" fill="#8a8a8e" text-anchor="end">to Ueno</text>
+      <text x="330" y="240" font-size="9" fill="#8a8a8e" text-anchor="end">to Kanda</text>
+    </svg>
+    <button class="pin meet" style="left:70%;top:74%" data-go="meet" aria-label="Meeting point"><span class="no">MEET</span><img src="https://yukitchy.github.io/akiba-anime-day-kids/img/hero.jpg" alt=""></button>
+    <button class="pin" style="left:60%;top:52%" data-go="p1" aria-label="Radio Kaikan"><span class="no">01</span><img src="https://yukitchy.github.io/akiba-anime-day-kids/img/radio-kaikan.jpg" alt=""></button>
+    <button class="pin" style="left:31%;top:26%" data-go="p2" aria-label="Mandarake Complex"><span class="no">02</span><img src="img/mandarake.jpg" alt=""></button>
+    <button class="pin" style="left:44%;top:44%" data-go="p3" aria-label="Trader"><span class="no">03</span><img src="https://yukitchy.github.io/akiba-anime-day-kids/img/trader.jpg" alt=""></button>
+    <button class="pin" style="left:84%;top:44%" data-go="p4" aria-label="Book Off Akihabara Ekimae"><span class="no">04</span><img src="https://yukitchy.github.io/akiba-anime-day-kids/img/book-off.jpg" alt=""></button>
+    <button class="pin" style="left:44%;top:20%" data-go="p5" aria-label="Animate Akihabara"><span class="no">05</span><img src="https://yukitchy.github.io/akiba-anime-day-kids/img/animate.jpg" alt=""></button>
+    <button class="pin" style="left:44%;top:66%" data-go="p6" aria-label="Cospa G-Store Akiba"><span class="no">06</span><img src="https://yukitchy.github.io/akiba-anime-day-kids/img/cospa.jpg" alt=""></button>
+    <button class="pin" style="left:17%;top:52%" data-go="p7" aria-label="Akihabara Gachapon Kaikan"><span class="no">07</span><img src="https://yukitchy.github.io/akiba-anime-day-kids/img/gachapon.jpg" alt=""></button>
+    <button class="pin" style="left:58%;top:33%" data-go="p8" aria-label="GiGO Akihabara"><span class="no">08</span><img src="https://yukitchy.github.io/akiba-anime-day-kids/img/gigo.jpg" alt=""></button>
+  </div>
+
+  <h2>The birthday route</h2>
+  <p class="hint">A model plan — we can change it as we go. Times are approximate.</p>
+  <ul class="route">
+    <li><div class="time">11:00</div><div class="what" id="meet">Meet inside Vie de France, BiTO AKIBA<span>Look for Yuuki near the entrance. Coffee first, if you like.</span></div></li>
+    <li><div class="time">11:10</div><div class="what">01 Radio Kaikan<span>Evangelion figures and goods first, about 40 min</span></div></li>
+    <li><div class="time">11:55</div><div class="what">02 Mandarake Complex<span>The vintage hunt: Lain and Ergo Proxy, about 35 min</span></div></li>
+    <li><div class="time">12:35</div><div class="what">Lunch, only if you want<span>Three ideas below. If you skip it, we stay longer at the shops.</span></div></li>
+    <li><div class="time">13:15</div><div class="what">03 Trader<span>Prize figures at kind prices, about 20 min</span></div></li>
+    <li><div class="time">13:40</div><div class="what">04 Book Off Akihabara Ekimae<span>Second-hand DVDs and manga — more Lain hunting, about 25 min</span></div></li>
+    <li><div class="time">14:10</div><div class="what">05 Animate Akihabara<span>New goods from many series, about 25 min</span></div></li>
+    <li><div class="time">14:40</div><div class="what">07 Gachapon Kaikan<span>Capsule toys to finish, about 15 min</span></div></li>
+    <li><div class="time">15:00</div><div class="what">Finish near Akihabara Station<span>Happy birthday, Daniela!</span></div></li>
+  </ul>
+
+  <h2>Places to visit</h2>
+  <div class="cards">
+    <article class="card" id="p1">
+      <div class="photo"><img src="https://yukitchy.github.io/akiba-anime-day-kids/img/radio-kaikan.jpg" alt="Akihabara Radio Kaikan"><a class="mapbtn" href="https://www.google.com/maps/search/?api=1&amp;query=Akihabara+Radio+Kaikan" aria-label="Open Radio Kaikan in Google Maps">📍</a></div>
+      <div class="body"><span class="tag">FIGURES &amp; GOODS</span>
+        <div class="nameline"><h3>01 · Radio Kaikan</h3><span class="hours">10:00–20:00</span></div>
+        <p>Ten floors of small shops: figures, cards and character goods. The Evangelion shelves here are some of the best in Akihabara — we pick the floors that match Daniela's favourites.</p></div>
+    </article>
+    <article class="card" id="p2">
+      <div class="photo"><img src="img/mandarake.jpg" alt="Mandarake Complex"><a class="mapbtn" href="https://www.google.com/maps/search/?api=1&amp;query=Mandarake+Complex+Akihabara" aria-label="Open Mandarake Complex in Google Maps">📍</a></div>
+      <div class="body"><span class="tag">VINTAGE &amp; RARE</span>
+        <div class="nameline"><h3>02 · Mandarake Complex</h3><span class="hours">12:00–20:00</span></div>
+        <p>Eight floors of second-hand treasure. This is where out-of-print Lain and Ergo Proxy DVDs, art books and goods still surface — the deep-cut stop of the day.</p></div>
+    </article>
+    <article class="card" id="p3">
+      <div class="photo"><img src="https://yukitchy.github.io/akiba-anime-day-kids/img/trader.jpg" alt="Trader"><a class="mapbtn" href="https://www.google.com/maps/search/?api=1&amp;query=Trader+Akihabara+hobby+shop" aria-label="Open Trader in Google Maps">📍</a></div>
+      <div class="body"><span class="tag">PRIZE FIGURES</span>
+        <div class="nameline"><h3>03 · Trader</h3><span class="hours"></span></div>
+        <p>Big and bright, with many prize figures at good prices — a kind place to find an Evangelion figure without the collector markup.</p></div>
+    </article>
+    <article class="card" id="p4">
+      <div class="photo"><img src="https://yukitchy.github.io/akiba-anime-day-kids/img/book-off.jpg" alt="Book Off Akihabara Ekimae"><a class="mapbtn" href="https://www.google.com/maps/search/?api=1&amp;query=BOOKOFF+Akihabara+Ekimae" aria-label="Open Book Off in Google Maps">📍</a></div>
+      <div class="body"><span class="tag">SECOND-HAND MEDIA</span>
+        <div class="nameline"><h3>04 · Book Off Akihabara Ekimae</h3><span class="hours">10:00–22:00</span></div>
+        <p>Second-hand manga, CDs, DVDs and games right by the station. Old anime DVDs — Lain included — often hide here at pocket-money prices.</p></div>
+    </article>
+    <article class="card" id="p5">
+      <div class="photo"><img src="https://yukitchy.github.io/akiba-anime-day-kids/img/animate.jpg" alt="Animate Akihabara"><a class="mapbtn" href="https://www.google.com/maps/search/?api=1&amp;query=Animate+Akihabara" aria-label="Open Animate in Google Maps">📍</a></div>
+      <div class="body"><span class="tag">NEW GOODS</span>
+        <div class="nameline"><h3>05 · Animate Akihabara</h3><span class="hours">10:00–21:00</span></div>
+        <p>Several floors of new anime and manga goods from many series, plus a floor of capsule toys in the Annex building.</p></div>
+    </article>
+    <article class="card" id="p6">
+      <div class="photo"><img src="https://yukitchy.github.io/akiba-anime-day-kids/img/cospa.jpg" alt="Cospa G-Store Akiba"><a class="mapbtn" href="https://www.google.com/maps/search/?api=1&amp;query=Cospa+G-Store+Akiba+Akihabara" aria-label="Open Cospa in Google Maps">📍</a></div>
+      <div class="body"><span class="tag">APPAREL</span>
+        <div class="nameline"><h3>06 · Cospa G-Store Akiba</h3><span class="hours">10:00–20:00</span></div>
+        <p>Character T-shirts, apparel and goods — NERV-style designs included — on the 4th floor of the Onoden main building.</p></div>
+    </article>
+    <article class="card" id="p7">
+      <div class="photo"><img src="https://yukitchy.github.io/akiba-anime-day-kids/img/gachapon.jpg" alt="Akihabara Gachapon Kaikan"><a class="mapbtn" href="https://www.google.com/maps/search/?api=1&amp;query=Akihabara+Gachapon+Kaikan" aria-label="Open Gachapon Kaikan in Google Maps">📍</a></div>
+      <div class="body"><span class="tag">CAPSULE TOYS</span>
+        <div class="nameline"><h3>07 · Akihabara Gachapon Kaikan</h3><span class="hours">Opens 11:00</span></div>
+        <p>Hundreds of capsule toy machines in one shop. A few birthday tries — keep whatever comes out.</p></div>
+    </article>
+    <article class="card" id="p8">
+      <div class="photo"><img src="https://yukitchy.github.io/akiba-anime-day-kids/img/gigo.jpg" alt="GiGO Akihabara"><a class="mapbtn" href="https://www.google.com/maps/search/?api=1&amp;query=GiGO+Akihabara" aria-label="Open GiGO in Google Maps">📍</a></div>
+      <div class="body"><span class="tag">ARCADE</span>
+        <div class="nameline"><h3>08 · GiGO Akihabara</h3><span class="hours">from 10:00</span></div>
+        <p>Crane games and prizes — a good place to play for a while if the group wants a break from shopping.</p></div>
+    </article>
+  </div>
+
+  <h2>If you get hungry</h2>
+  <p class="hint">Tap a tile to open it in Google Maps. Gyukatsu Ichi Ni San is very popular and can have a line — we go only if the line is short.</p>
+  <div class="tiles">
+    <a class="tile" href="https://www.google.com/maps/search/?api=1&amp;query=Menya+Musashi+Bujin+Akihabara">
+      <img src="img/ramen.jpg" alt="Ramen">
+      <div class="tbody"><span class="tag">RAMEN</span><div class="tname">Menya Musashi Bujin</div><span class="thours">11:00–22:00</span></div>
+    </a>
+    <a class="tile" href="https://www.google.com/maps/search/?api=1&amp;query=Gyukatsu+Ichi+Ni+San+Akihabara">
+      <img src="img/gyukatsu.jpg" alt="Beef cutlet set">
+      <div class="tbody"><span class="tag">BEEF CUTLET</span><div class="tname">Gyukatsu Ichi Ni San</div><span class="thours">11:00–22:00</span></div>
+    </a>
+    <a class="tile" href="https://www.google.com/maps/search/?api=1&amp;query=22+Curry+Akihabara">
+      <img src="img/curry.jpg" alt="Japanese curry">
+      <div class="tbody"><span class="tag">ANIME CURRY</span><div class="tname">22 Curry</div><span class="thours">Sun 12:00–20:00</span></div>
+    </a>
+  </div>
+
+  <footer>
+    Photo credits and sources: shop photos from Wikimedia Commons via the Anime Sensei guest-guide library (Animate by Dick Thomas Johnson, CC BY 2.0; Radio Kaikan by Aimaimyi, CC BY-SA 3.0; Trader by Starchild1884, CC BY-SA 3.0; Onoden building for Cospa and Book Off by Tokumeigakarinoaoshima, CC BY-SA 4.0; capsule toys by Steve Nagata, CC BY 2.0; GiGO by BWard 1997, CC BY 4.0; night view by ElHeineken, CC BY 4.0). Mandarake photo via Akihabara Guide Information Map. Food photos show the kind of dish, not the shop itself. Opening hours for Animate, Cospa and Book Off are from their official sites (checked Nov 2026); other hours checked Nov 2026 and can change on the day. Times on the route are approximate and can move on the day. You do not need to buy anything — browsing is half the fun.
+  </footer>
+</div>
+<script>
+  document.querySelectorAll('.pin').forEach(function(p){
+    p.addEventListener('click', function(){
+      var id = p.getAttribute('data-go');
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+      if (el.classList.contains('card')) {
+        el.classList.add('flash');
+        setTimeout(function(){ el.classList.remove('flash'); }, 1600);
+      }
+    });
+  });
+</script>
+</body>
+</html>
