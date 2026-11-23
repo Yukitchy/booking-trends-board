@@ -74,6 +74,20 @@ button:disabled{opacity:.55; cursor:wait;}
 #guess-chips{display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;}
 .guess-chip{font:inherit; font-size:13px; padding:6px 11px; border-radius:999px; border:1px solid #16c95c; background:#eefbf2; color:var(--ink);}
 #guess-status{font-size:12px; color:#5c6b5e; margin-top:6px; min-height:1.3em;}
+.panel{padding:12px;}
+.panel h2{font-size:15px;}
+.panel .hint{font-size:11.5px; line-height:1.45;}
+.f-row{margin:6px 0;}
+.f-row label{font-size:12px; margin-bottom:2px;}
+.f-row input[type=text],.f-row input[type=number],.f-row input[type=password],.f-row textarea{padding:7px 9px;}
+.f-btns{margin-top:8px; gap:6px;}
+.f-btns button{padding:7px 12px; font-size:13.5px;}
+#f-guess{margin-top:2px; padding:5px 11px;}
+#guess-chips{margin-top:6px; gap:5px;}
+.guess-chip{padding:5px 10px; font-size:12.5px;}
+#guess-status{margin-top:4px;}
+#f-speed-status{margin-top:2px; min-height:1.2em; font-size:12.5px;}
+#f-form-status{margin-top:4px;}
 #add-panel{position:fixed; left:8px; right:8px; bottom:8px; max-height:82dvh; overflow-y:auto; z-index:1500;}
 [hidden]{display:none !important;}
 .row1{display:flex; align-items:baseline; gap:8px;}
@@ -239,9 +253,8 @@ div.ph-side{height:100%;}
 </div>
 <div class="panel" id="add-panel" hidden>
 <h2>今いる場所のWi-Fiを追加</h2>
-<a href="shortcuts://run-shortcut?name=%E7%8F%BE%E5%9C%A8%E5%9C%B0%E3%82%92%E5%8F%96%E5%BE%97" style="display:block;text-align:center;background:#101410;color:#fff;border-radius:10px;padding:11px;font-size:14px;font-weight:700;text-decoration:none;margin:4px 0 6px">📶 接続中のWi-Fiで自動入力（ショートカット）</a>
-<p class="hint" style="margin-top:0">iPhoneのショートカット「現在地を取得」が起動し、SSIDと現在地を入れて開き直す</p>
-<p class="hint">接続中の SSID とパスワードはブラウザから自動で取れないため手入力。位置情報は自動で入り、速度は下りのみページ内で簡易計測できる。追加分はこの端末に保存される（恒久化はカードの「コピー」を Muse に送る）。</p>
+<a href="shortcuts://run-shortcut?name=%E7%8F%BE%E5%9C%A8%E5%9C%B0%E3%82%92%E5%8F%96%E5%BE%97" style="display:block;text-align:center;background:#101410;color:#fff;border-radius:10px;padding:8px;font-size:13.5px;font-weight:700;text-decoration:none;margin:2px 0 4px">📶 接続中のWi-Fiで自動入力（ショートカット）</a>
+<p class="hint">SSIDとパスワードは手入力。追加分はこの端末に保存される（恒久化はカードの「コピー」を Muse に送る）。</p>
 <div class="f-row">
 <label for="f-name">スポット名（必須）</label>
 <input type="text" id="f-name" placeholder="例：猿田彦珈琲 アトレ秋葉原1店" autocomplete="off">
@@ -253,6 +266,7 @@ div.ph-side{height:100%;}
 <p id="guess-status"></p>
 </div>
 </div>
+<div class="f-2col">
 <div class="f-row">
 <label for="f-area">エリア（任意）</label>
 <input type="text" id="f-area" placeholder="例：秋葉原" autocomplete="off">
@@ -261,8 +275,9 @@ div.ph-side{height:100%;}
 <label for="f-ssid">SSID</label>
 <input type="text" id="f-ssid" placeholder="接続中のWi-Fi名" autocomplete="off">
 </div>
+</div>
 <div class="f-row">
-<label for="f-password">パスワード（任意・なしなら空欄）</label>
+<label for="f-password">パスワード（任意）</label>
 <div class="pw-wrap">
 <input type="password" id="f-password" placeholder="オープンネットワークなら空欄" autocomplete="off">
 <button type="button" id="f-pw-toggle">表示</button>
@@ -280,7 +295,7 @@ div.ph-side{height:100%;}
 </div>
 <div class="f-btns">
 <button type="button" id="f-locate">📍 現在地を入れる</button>
-<button type="button" id="f-measure">⚡ 速度を測る（下りのみ・簡易計測）</button>
+<button type="button" id="f-measure">⚡ 速度を測る（下りのみ）</button>
 </div>
 <p id="f-speed-status"></p>
 <div class="f-2col">
