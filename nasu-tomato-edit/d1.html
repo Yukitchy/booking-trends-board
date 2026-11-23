@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>案1 カードグリッド型｜ナスとトマト共同編集</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif; background:#f4f4f4; color:#222; -webkit-font-smoothing:antialiased; }
+  header { background:#fff; border-bottom:1px solid #e6e6e6; position:sticky; top:0; z-index:10; }
+  .head-in { max-width:880px; margin:0 auto; padding:12px 16px; }
+  .title-row { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  h1 { font-size:19px; font-weight:800; white-space:nowrap; }
+  h1 .accent { color:#e2492f; }
+  .back { font-size:13px; color:#666; text-decoration:none; white-space:nowrap; }
+  .progress { margin-top:10px; }
+  .progress-meta { display:flex; justify-content:space-between; font-size:12.5px; font-weight:700; color:#444; margin-bottom:5px; }
+  .bar { height:8px; background:#eee; border-radius:99px; overflow:hidden; }
+  .bar i { display:block; height:100%; background:#e2492f; border-radius:99px; transition:width .3s; }
+  .filters { display:flex; gap:8px; margin-top:12px; overflow-x:auto; padding-bottom:2px; }
+  .filters button { border:1px solid #ddd; background:#fff; border-radius:999px; padding:6px 14px; font-size:13px; font-weight:600; color:#444; cursor:pointer; white-space:nowrap; }
+  .filters button.on { background:#222; color:#fff; border-color:#222; }
+  main { max-width:880px; margin:0 auto; padding:16px; }
+  .grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:12px; }
+  @media (min-width:640px){ .grid { grid-template-columns:repeat(3, 1fr); } }
+  @media (min-width:880px){ .grid { grid-template-columns:repeat(4, 1fr); } }
+  .card { background:#fff; border-radius:14px; overflow:hidden; box-shadow:0 1px 4px rgba(0,0,0,.07); display:flex; flex-direction:column; }
+  .thumb { background:#faf7f2; aspect-ratio:1/0.92; display:flex; align-items:center; justify-content:center; padding:10px; }
+  .thumb img { max-width:100%; max-height:100%; object-fit:contain; }
+  .body { padding:10px 12px 12px; display:flex; flex-direction:column; gap:8px; flex:1; }
+  .serifu { font-size:15px; font-weight:800; line-height:1.35; }
+  .row { display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+  .who { font-size:11px; font-weight:700; padding:2px 8px; border-radius:99px; }
+  .who.nasu { background:#ece7f7; color:#5b4a8a; }
+  .who.tomato { background:#fdeae7; color:#c23a24; }
+  .status { font-size:11px; font-weight:800; padding:2px 8px; border-radius:99px; margin-left:auto; }
+  .status.done { background:#e2f4ea; color:#178a50; }
+  .status.wait { background:#fdf3e0; color:#a86f08; }
+  .status.none { background:#eee; color:#777; }
+  .checks { display:flex; gap:6px; margin-top:auto; }
+  .chk { flex:1; border:1.5px solid #ddd; background:#fff; border-radius:9px; padding:6px 2px; font-size:12px; font-weight:700; color:#999; cursor:pointer; }
+  .chk small { display:block; font-size:10px; font-weight:600; }
+  .chk.y-on { border-color:#5b4a8a; background:#5b4a8a; color:#fff; }
+  .chk.r-on { border-color:#e2492f; background:#e2492f; color:#fff; }
+  .cmt { font-size:11.5px; color:#888; }
+  .foot { text-align:center; font-size:12px; color:#999; padding:8px 0 30px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="head-in">
+    <div class="title-row">
+      <h1><span class="accent">ナスとトマト</span> 共同編集</h1>
+      <a class="back" href="index.html">← 案一覧</a>
+    </div>
+    <div class="progress">
+      <div class="progress-meta"><span>確定 <b id="doneCount">12</b> / 40</span><span id="pct">30%</span></div>
+      <div class="bar"><i id="barFill" style="width:30%"></i></div>
+    </div>
+    <div class="filters">
+      <button class="on" data-f="all">すべて</button>
+      <button data-f="wait">確認待ち</button>
+      <button data-f="done">確定</button>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="grid" id="grid"></div>
+  <p class="foot">チェックを押すと状態が変わります（モック）</p>
+</main>
+<script>
+  const BASE_DONE_OTHERS = 7; // 表示12件のうち確定5件を除く、残り28件中の確定数
+  const items = [
+    { n:"01", s:"おはようございます", who:"tomato", y:1, r:1, c:2 },
+    { n:"02", s:"おつぽんぬ", who:"nasu", y:1, r:1, c:1 },
+    { n:"03", s:"おけぽんぬ", who:"tomato", y:1, r:0, c:1 },
+    { n:"04", s:"ぎょいです", who:"nasu", y:1, r:1, c:0 },
+    { n:"05", s:"あざざます", who:"tomato", y:0, r:1, c:2 },
+    { n:"06", s:"ふぁいてぃん", who:"nasu", y:1, r:1, c:0 },
+    { n:"07", s:"やどどぅん", who:"tomato", y:0, r:0, c:1 },
+    { n:"08", s:"押忍", who:"nasu", y:1, r:0, c:0 },
+    { n:"09", s:"ありがとねぃ", who:"tomato", y:1, r:1, c:3 },
+    { n:"10", s:"ないすぅ", who:"nasu", y:0, r:0, c:0 },
+    { n:"11", s:"いいね", who:"tomato", y:0, r:1, c:1 },
+    { n:"12", s:"よき", who:"nasu", y:0, r:0, c:0 }
+  ];
+  const grid = document.getElementById("grid");
+  function statusOf(it){ if(it.y&&it.r) return ["done","確定"]; if(it.y||it.r) return ["wait","確認待ち"]; return ["none","未確認"]; }
+  function render(){
+    grid.innerHTML = "";
+    items.forEach((it, i) => {
+      const [cls, label] = statusOf(it);
+      const el = document.createElement("div");
+      el.className = "card"; el.dataset.st = cls;
+      el.innerHTML =
+        '<div class="thumb"><img src="img/' + it.n + '.png" alt=""></div>' +
+        '<div class="body">' +
+          '<div class="serifu">' + it.s + '</div>' +
+          '<div class="row"><span class="who ' + it.who + '">' + (it.who === "nasu" ? "ナス" : "トマト") + '</span>' +
+          '<span class="status ' + cls + '">' + label + '</span></div>' +
+          '<div class="checks">' +
+            '<button class="chk' + (it.y ? " y-on" : "") + '" data-i="' + i + '" data-k="y">ゆうき<small>' + (it.y ? "確認済み" : "未確認") + '</small></button>' +
+            '<button class="chk' + (it.r ? " r-on" : "") + '" data-i="' + i + '" data-k="r">ゆりっぺ<small>' + (it.r ? "確認済み" : "未確認") + '</small></button>' +
+          '</div>' +
+          (it.c ? '<div class="cmt">コメント ' + it.c + '件</div>' : '<div class="cmt">コメントなし</div>') +
+        '</div>';
+      grid.appendChild(el);
+    });
+    const doneShown = items.filter(it => it.y && it.r).length;
+    const total = BASE_DONE_OTHERS + doneShown;
+    document.getElementById("doneCount").textContent = total;
+    document.getElementById("pct").textContent = Math.round(total / 40 * 100) + "%";
+    document.getElementById("barFill").style.width = (total / 40 * 100) + "%";
+    grid.querySelectorAll(".chk").forEach(b => b.addEventListener("click", () => {
+      const it = items[+b.dataset.i];
+      it[b.dataset.k] = it[b.dataset.k] ? 0 : 1;
+      render(); applyFilter();
+    }));
+  }
+  let curFilter = "all";
+  function applyFilter(){
+    grid.querySelectorAll(".card").forEach(c => {
+      c.style.display = (curFilter === "all" || c.dataset.st === curFilter) ? "" : "none";
+    });
+  }
+  document.querySelectorAll(".filters button").forEach(b => b.addEventListener("click", () => {
+    document.querySelectorAll(".filters button").forEach(x => x.classList.remove("on"));
+    b.classList.add("on"); curFilter = b.dataset.f; applyFilter();
+  }));
+  render();
+</script>
+</body>
+</html>

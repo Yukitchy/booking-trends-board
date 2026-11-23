@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>案5 テーブル型｜ナスとトマト共同編集</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif; background:#fff; color:#1d1d1f; -webkit-font-smoothing:antialiased; }
+  header { border-bottom:2px solid #1d1d1f; }
+  .head-in { max-width:860px; margin:0 auto; padding:14px 16px 12px; }
+  .title-row { display:flex; align-items:center; gap:12px; }
+  h1 { font-size:18px; font-weight:800; white-space:nowrap; }
+  h1 .accent { color:#e2492f; }
+  .back { font-size:13px; color:#666; text-decoration:none; white-space:nowrap; margin-left:auto; }
+  .stats { display:flex; gap:8px; margin-top:11px; flex-wrap:wrap; }
+  .stat { border:1px solid #e2e2e2; border-radius:10px; padding:7px 12px; font-size:12px; font-weight:700; color:#555; }
+  .stat b { font-size:16px; color:#1d1d1f; margin-left:2px; }
+  .stat.done b { color:#178a50; } .stat.wait b { color:#a86f08; }
+  main { max-width:860px; margin:0 auto; padding:0 8px 40px; }
+  table { width:100%; border-collapse:collapse; }
+  th { font-size:11.5px; color:#888; font-weight:700; text-align:left; padding:10px 6px 8px; border-bottom:1.5px solid #e5e5e5; }
+  th.c, td.c { text-align:center; }
+  td { padding:7px 6px; border-bottom:1px solid #efefef; vertical-align:middle; }
+  tr:nth-child(even) td { background:#fafafa; }
+  td img { width:44px; height:44px; object-fit:contain; background:#faf7f2; border-radius:8px; padding:2px; display:block; }
+  .s { font-size:14.5px; font-weight:800; line-height:1.3; }
+  .who { font-size:11px; color:#999; font-weight:600; }
+  .box { width:26px; height:26px; border-radius:8px; border:2px solid #d5d5d5; background:#fff; cursor:pointer; font-size:14px; font-weight:900; color:#fff; line-height:1; padding:0; }
+  .box.y-on { background:#5b4a8a; border-color:#5b4a8a; }
+  .box.r-on { background:#e2492f; border-color:#e2492f; }
+  .st { font-size:11px; font-weight:800; padding:3px 8px; border-radius:99px; white-space:nowrap; }
+  .st.done { background:#e2f4ea; color:#178a50; }
+  .st.wait { background:#fdf3e0; color:#a86f08; }
+  .st.none { background:#eee; color:#777; }
+  .cmt { font-size:12px; color:#888; white-space:nowrap; }
+  .foot { font-size:12px; color:#999; padding:14px 8px 0; }
+  @media (max-width:430px){ .s { font-size:13.5px; } td img { width:38px; height:38px; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="head-in">
+    <div class="title-row">
+      <h1><span class="accent">ナスとトマト</span> 確認リスト</h1>
+      <a class="back" href="index.html">← 案一覧</a>
+    </div>
+    <div class="stats">
+      <span class="stat done">確定<b id="stDone">12</b></span>
+      <span class="stat wait">確認待ち<b id="stWait">11</b></span>
+      <span class="stat">未確認<b id="stNone">17</b></span>
+      <span class="stat">全<b>40</b></span>
+    </div>
+  </div>
+</header>
+<main>
+  <table>
+    <thead>
+      <tr><th style="width:56px"></th><th>セリフ</th><th class="c">ゆうき</th><th class="c">ゆりっぺ</th><th class="c">状態</th><th class="c">コメント</th></tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+  <p class="foot">四角を押すと確認が切り替わります（モック）。両方そろうと確定になります。</p>
+</main>
+<script>
+  // 表示12件以外の28件の内訳（確定7・確認待ち7・未確認14）
+  const OTHERS = { done:7, wait:7, none:14 };
+  const items = [
+    { n:"01", s:"おはようございます", who:"トマト", y:1, r:1, c:2 },
+    { n:"02", s:"おつぽんぬ", who:"ナス", y:1, r:1, c:1 },
+    { n:"03", s:"おけぽんぬ", who:"トマト", y:1, r:0, c:1 },
+    { n:"04", s:"ぎょいです", who:"ナス", y:1, r:1, c:0 },
+    { n:"05", s:"あざざます", who:"トマト", y:0, r:1, c:2 },
+    { n:"06", s:"ふぁいてぃん", who:"ナス", y:1, r:1, c:0 },
+    { n:"07", s:"やどどぅん", who:"トマト", y:0, r:0, c:1 },
+    { n:"08", s:"押忍", who:"ナス", y:1, r:0, c:0 },
+    { n:"09", s:"ありがとねぃ", who:"トマト", y:1, r:1, c:3 },
+    { n:"10", s:"ないすぅ", who:"ナス", y:0, r:0, c:0 },
+    { n:"11", s:"いいね", who:"トマト", y:0, r:1, c:1 },
+    { n:"12", s:"よき", who:"ナス", y:0, r:0, c:0 }
+  ];
+  const tb = document.getElementById("tbody");
+  function stOf(it){ if(it.y&&it.r) return ["done","確定"]; if(it.y||it.r) return ["wait","確認待ち"]; return ["none","未確認"]; }
+  function render(){
+    tb.innerHTML = "";
+    items.forEach((it, i) => {
+      const [cls, label] = stOf(it);
+      const tr = document.createElement("tr");
+      tr.innerHTML =
+        '<td><img src="img/' + it.n + '.png" alt=""></td>' +
+        '<td><span class="s">' + it.s + '</span><br><span class="who">No.' + it.n + ' ・ ' + it.who + '</span></td>' +
+        '<td class="c"><button class="box' + (it.y ? " y-on" : "") + '" data-i="' + i + '" data-k="y">' + (it.y ? "✓" : "") + '</button></td>' +
+        '<td class="c"><button class="box' + (it.r ? " r-on" : "") + '" data-i="' + i + '" data-k="r">' + (it.r ? "✓" : "") + '</button></td>' +
+        '<td class="c"><span class="st ' + cls + '">' + label + '</span></td>' +
+        '<td class="c"><span class="cmt">' + (it.c ? it.c + "件" : "―") + '</span></td>';
+      tb.appendChild(tr);
+    });
+    let d=0, w=0, n=0;
+    items.forEach(it => { const [c] = stOf(it); if(c==="done") d++; else if(c==="wait") w++; else n++; });
+    document.getElementById("stDone").textContent = OTHERS.done + d;
+    document.getElementById("stWait").textContent = OTHERS.wait + w;
+    document.getElementById("stNone").textContent = OTHERS.none + n;
+    tb.querySelectorAll(".box").forEach(b => b.addEventListener("click", () => {
+      const it = items[+b.dataset.i];
+      it[b.dataset.k] = it[b.dataset.k] ? 0 : 1;
+      render();
+    }));
+  }
+  render();
+</script>
+</body>
+</html>

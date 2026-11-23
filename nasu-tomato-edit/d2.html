@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>案2 リスト＋詳細型｜ナスとトマト共同編集</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif; background:#fbfaf8; color:#1d1d1f; -webkit-font-smoothing:antialiased; }
+  header { border-bottom:1px solid #e9e4db; background:#fff; }
+  .head-in { max-width:1020px; margin:0 auto; padding:14px 16px; display:flex; align-items:center; gap:14px; }
+  h1 { font-size:18px; font-weight:800; white-space:nowrap; }
+  h1 .accent { color:#e2492f; }
+  .prog { margin-left:auto; display:flex; align-items:center; gap:10px; }
+  .prog .bar { width:110px; height:7px; background:#eee; border-radius:99px; overflow:hidden; }
+  .prog .bar i { display:block; height:100%; width:30%; background:#e2492f; }
+  .prog span { font-size:12.5px; font-weight:700; color:#444; white-space:nowrap; }
+  .back { font-size:13px; color:#666; text-decoration:none; white-space:nowrap; }
+  .layout { max-width:1020px; margin:0 auto; display:flex; gap:0; align-items:stretch; }
+  aside { width:288px; flex:none; border-right:1px solid #e9e4db; background:#fff; }
+  .item { display:flex; gap:10px; align-items:center; width:100%; padding:9px 12px; border:none; border-bottom:1px solid #f0ece4; background:#fff; cursor:pointer; text-align:left; }
+  .item img { width:46px; height:46px; object-fit:contain; background:#faf7f2; border-radius:9px; padding:2px; flex:none; }
+  .item .s { font-size:14px; font-weight:700; line-height:1.3; }
+  .item .m { font-size:11px; color:#999; margin-top:2px; }
+  .item.sel { background:#fdf3ef; box-shadow:inset 3px 0 0 #e2492f; }
+  .dot { margin-left:auto; font-size:10.5px; font-weight:800; padding:2px 7px; border-radius:99px; flex:none; }
+  .dot.done { background:#e2f4ea; color:#178a50; }
+  .dot.wait { background:#fdf3e0; color:#a86f08; }
+  .dot.none { background:#eee; color:#777; }
+  section { flex:1; padding:20px; min-width:0; }
+  .preview { background:#fff; border:1px solid #eee7db; border-radius:18px; padding:22px; text-align:center; }
+  .preview img { width:min(240px, 60vw); }
+  .preview .cap { font-size:12px; color:#999; margin-top:8px; }
+  .panel { background:#fff; border:1px solid #eee7db; border-radius:18px; padding:18px; margin-top:14px; }
+  .panel h3 { font-size:13px; font-weight:800; color:#888; letter-spacing:.06em; margin-bottom:10px; }
+  .serifu-edit { display:flex; gap:8px; }
+  .serifu-edit input { flex:1; font-size:17px; font-weight:700; padding:11px 13px; border:1.5px solid #ddd; border-radius:11px; min-width:0; }
+  .serifu-edit button { background:#222; color:#fff; border:none; border-radius:11px; padding:0 18px; font-size:14px; font-weight:700; cursor:pointer; }
+  .checks { display:flex; gap:10px; }
+  .chk { flex:1; border-radius:13px; padding:13px 8px; font-size:14px; font-weight:800; cursor:pointer; border:2px solid #e3e3e3; background:#fff; color:#aaa; }
+  .chk small { display:block; font-size:11px; font-weight:600; margin-top:2px; }
+  .chk.y-on { border-color:#5b4a8a; background:#5b4a8a; color:#fff; }
+  .chk.r-on { border-color:#e2492f; background:#e2492f; color:#fff; }
+  .cmt { display:flex; gap:9px; margin-bottom:12px; }
+  .ava { width:30px; height:30px; border-radius:50%; flex:none; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; color:#fff; }
+  .ava.y { background:#5b4a8a; } .ava.r { background:#e2492f; }
+  .bubble { background:#f5f2ec; border-radius:4px 13px 13px 13px; padding:8px 12px; font-size:13.5px; line-height:1.55; }
+  .bubble b { display:block; font-size:11px; color:#888; margin-bottom:1px; }
+  .cmt-form { display:flex; gap:8px; margin-top:4px; }
+  .cmt-form input { flex:1; border:1.5px solid #ddd; border-radius:99px; padding:9px 14px; font-size:13.5px; min-width:0; }
+  .cmt-form button { background:#e2492f; color:#fff; border:none; border-radius:99px; padding:0 16px; font-weight:700; font-size:13px; cursor:pointer; }
+  .empty { font-size:13px; color:#aaa; }
+  @media (max-width:700px){
+    .layout { flex-direction:column; }
+    section { order:-1; padding:14px; }
+    aside { width:100%; border-right:none; }
+    .prog .bar { display:none; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="head-in">
+    <a class="back" href="index.html">← 案一覧</a>
+    <h1><span class="accent">ナスとトマト</span> 共同編集</h1>
+    <div class="prog"><div class="bar"><i></i></div><span>確定 12 / 40</span></div>
+  </div>
+</header>
+<div class="layout">
+  <aside id="list"></aside>
+  <section>
+    <div class="preview">
+      <img id="pvImg" src="img/01.png" alt="">
+      <div class="cap" id="pvCap">No.01 ・ トマト</div>
+    </div>
+    <div class="panel">
+      <h3>セリフ</h3>
+      <div class="serifu-edit">
+        <input id="serifuInput" type="text" value="おはようございます">
+        <button type="button">保存</button>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>2人の確認（両方そろうと確定）</h3>
+      <div class="checks">
+        <button class="chk" id="chkY">ゆうき確認<small>未確認</small></button>
+        <button class="chk" id="chkR">ゆりっぺ確認<small>未確認</small></button>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>コメント</h3>
+      <div id="cmts"></div>
+      <div class="cmt-form">
+        <input type="text" placeholder="コメントを書く">
+        <button type="button">送信</button>
+      </div>
+    </div>
+  </section>
+</div>
+<script>
+  const items = [
+    { n:"01", s:"おはようございます", who:"トマト", y:1, r:1, cmts:[["r","ゆりっぺ","目の大きさ、これでOK！"],["y","ゆうき","ありがとう！確定でいこう"]] },
+    { n:"02", s:"おつぽんぬ", who:"ナス", y:1, r:1, cmts:[["y","ゆうき","定番のやつ"]] },
+    { n:"03", s:"おけぽんぬ", who:"トマト", y:1, r:0, cmts:[["y","ゆうき","顔がもう少し眠そうでもいいかも"]] },
+    { n:"04", s:"ぎょいです", who:"ナス", y:1, r:1, cmts:[] },
+    { n:"05", s:"あざざます", who:"トマト", y:0, r:1, cmts:[["r","ゆりっぺ","ありがとうの最上級って感じで好き"],["y","ゆうき","サンキュー！"]] },
+    { n:"06", s:"ふぁいてぃん", who:"ナス", y:1, r:1, cmts:[] },
+    { n:"07", s:"やどどぅん", who:"トマト", y:0, r:0, cmts:[["r","ゆりっぺ","やどどぅんのポーズ最高"]] },
+    { n:"08", s:"押忍", who:"ナス", y:1, r:0, cmts:[] },
+    { n:"09", s:"ありがとねぃ", who:"トマト", y:1, r:1, cmts:[["y","ゆうき","「ねぃ」の表記はこのままで"],["r","ゆりっぺ","了解！"]] },
+    { n:"10", s:"ないすぅ", who:"ナス", y:0, r:0, cmts:[] },
+    { n:"11", s:"いいね", who:"トマト", y:0, r:1, cmts:[["r","ゆりっぺ","シンプルで使いやすそう"]] },
+    { n:"12", s:"よき", who:"ナス", y:0, r:0, cmts:[] }
+  ];
+  let cur = 0;
+  const list = document.getElementById("list");
+  function st(it){ if(it.y&&it.r) return ["done","確定"]; if(it.y||it.r) return ["wait","確認待ち"]; return ["none","未確認"]; }
+  function renderList(){
+    list.innerHTML = "";
+    items.forEach((it, i) => {
+      const [cls, label] = st(it);
+      const b = document.createElement("button");
+      b.className = "item" + (i === cur ? " sel" : "");
+      b.innerHTML = '<img src="img/' + it.n + '.png" alt=""><span><span class="s">' + it.s + '</span>' +
+        '<span class="m" style="display:block">No.' + it.n + ' ・ ' + it.who + '</span></span>' +
+        '<span class="dot ' + cls + '">' + label + '</span>';
+      b.addEventListener("click", () => { cur = i; renderList(); renderDetail(); });
+      list.appendChild(b);
+    });
+  }
+  function renderDetail(){
+    const it = items[cur];
+    document.getElementById("pvImg").src = "img/" + it.n + ".png";
+    document.getElementById("pvCap").textContent = "No." + it.n + " ・ " + it.who;
+    document.getElementById("serifuInput").value = it.s;
+    const cy = document.getElementById("chkY"), cr = document.getElementById("chkR");
+    cy.className = "chk" + (it.y ? " y-on" : "");
+    cy.innerHTML = "ゆうき確認<small>" + (it.y ? "確認済み" : "未確認") + "</small>";
+    cr.className = "chk" + (it.r ? " r-on" : "");
+    cr.innerHTML = "ゆりっぺ確認<small>" + (it.r ? "確認済み" : "未確認") + "</small>";
+    const box = document.getElementById("cmts");
+    box.innerHTML = it.cmts.length
+      ? it.cmts.map(c => '<div class="cmt"><span class="ava ' + c[0] + '">' + (c[0] === "y" ? "ゆ" : "り") + '</span><span class="bubble"><b>' + c[1] + '</b>' + c[2] + '</span></div>').join("")
+      : '<p class="empty">コメントはまだありません</p>';
+  }
+  document.getElementById("chkY").addEventListener("click", () => { items[cur].y = items[cur].y ? 0 : 1; renderList(); renderDetail(); });
+  document.getElementById("chkR").addEventListener("click", () => { items[cur].r = items[cur].r ? 0 : 1; renderList(); renderDetail(); });
+  renderList(); renderDetail();
+</script>
+</body>
+</html>

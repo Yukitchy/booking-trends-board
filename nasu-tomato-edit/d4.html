@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>案4 チャット風型｜ナスとトマト共同編集</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif; background:#7d9bbd; color:#1d1d1f; -webkit-font-smoothing:antialiased; }
+  header { background:#263746; color:#fff; position:sticky; top:0; z-index:10; }
+  .head-in { max-width:640px; margin:0 auto; padding:11px 14px; display:flex; align-items:center; gap:10px; }
+  .back { color:#cfe0ef; text-decoration:none; font-size:13px; white-space:nowrap; }
+  h1 { font-size:16.5px; font-weight:800; white-space:nowrap; }
+  h1 small { font-size:12px; color:#9fb6cc; font-weight:600; margin-left:5px; }
+  .prog { margin-left:auto; font-size:12px; font-weight:700; background:rgba(255,255,255,.14); padding:4px 10px; border-radius:99px; white-space:nowrap; }
+  .room { max-width:640px; margin:0 auto; padding:16px 12px 90px; }
+  .notice { text-align:center; margin:4px 0 18px; }
+  .notice span { background:rgba(38,55,70,.45); color:#fff; font-size:11.5px; font-weight:600; padding:5px 13px; border-radius:99px; }
+  .msg { display:flex; gap:8px; margin-bottom:6px; }
+  .msg.me { flex-direction:row-reverse; }
+  .ava { width:36px; height:36px; border-radius:50%; flex:none; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:800; color:#fff; }
+  .ava.y { background:#5b4a8a; } .ava.r { background:#e2492f; }
+  .col { max-width:78%; }
+  .name { font-size:11.5px; color:#eaf1f8; font-weight:600; margin-bottom:3px; }
+  .msg.me .name { text-align:right; }
+  .bubble { background:#fff; border-radius:16px; padding:10px; box-shadow:0 1px 2px rgba(0,0,0,.12); }
+  .bubble img { width:150px; max-width:100%; display:block; margin:0 auto; }
+  .bubble .s { font-size:15px; font-weight:800; text-align:center; margin-top:6px; }
+  .bubble.txt { padding:9px 13px; font-size:14px; line-height:1.55; border-radius:16px; }
+  .msg.me .bubble { background:#fef9c3; }
+  .side { display:flex; flex-direction:column; justify-content:flex-end; gap:3px; padding-bottom:2px; }
+  .time { font-size:10px; color:#eaf1f8; }
+  .checks { display:flex; gap:5px; margin:5px 0 16px 44px; flex-wrap:wrap; }
+  .checks.me { justify-content:flex-end; margin:5px 44px 16px 0; }
+  .pill { font-size:11px; font-weight:800; padding:3px 9px; border-radius:99px; background:rgba(255,255,255,.85); color:#999; }
+  .pill.y-on { background:#5b4a8a; color:#fff; }
+  .pill.r-on { background:#e2492f; color:#fff; }
+  .pill.done { background:#178a50; color:#fff; }
+  .react { font-size:11px; font-weight:700; color:#fff; background:rgba(38,55,70,.4); padding:3px 9px; border-radius:99px; }
+  .inputbar { position:fixed; left:0; right:0; bottom:0; background:#f7f7f7; border-top:1px solid #ddd; }
+  .inputbar .in { max-width:640px; margin:0 auto; display:flex; gap:8px; padding:9px 12px calc(9px + env(safe-area-inset-bottom)); }
+  .inputbar input { flex:1; border:1px solid #ddd; border-radius:99px; padding:9px 15px; font-size:14px; min-width:0; background:#fff; }
+  .inputbar button { background:#263746; color:#fff; border:none; border-radius:99px; padding:0 17px; font-weight:700; font-size:13.5px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="head-in">
+    <a class="back" href="index.html">← 案一覧</a>
+    <h1>ナスとトマト制作室<small>2人</small></h1>
+    <span class="prog">確定 12 / 40</span>
+  </div>
+</header>
+<div class="room">
+  <div class="notice"><span>確認が2人そろうと「確定」になります</span></div>
+
+  <div class="msg">
+    <span class="ava r">り</span>
+    <div class="col">
+      <div class="name">ゆりっぺ</div>
+      <div class="bubble"><img src="img/01.png" alt=""><div class="s">おはようございます</div></div>
+    </div>
+    <div class="side"><span class="time">21:04</span></div>
+  </div>
+  <div class="checks">
+    <span class="pill y-on">ゆうき 確認済み</span><span class="pill r-on">ゆりっぺ 確認済み</span><span class="pill done">確定</span>
+  </div>
+
+  <div class="msg me">
+    <span class="ava y">ゆ</span>
+    <div class="col">
+      <div class="name">ゆうき</div>
+      <div class="bubble txt">目の大きさ、これでバッチリだね</div>
+    </div>
+    <div class="side"><span class="time">21:06</span></div>
+  </div>
+  <div class="checks me"><span class="react">ゆりっぺ： いいね</span></div>
+
+  <div class="msg me">
+    <span class="ava y">ゆ</span>
+    <div class="col">
+      <div class="name">ゆうき</div>
+      <div class="bubble"><img src="img/03.png" alt=""><div class="s">おけぽんぬ</div></div>
+    </div>
+    <div class="side"><span class="time">21:12</span></div>
+  </div>
+  <div class="checks me">
+    <span class="pill y-on">ゆうき 確認済み</span><span class="pill">ゆりっぺ 未確認</span>
+  </div>
+
+  <div class="msg">
+    <span class="ava r">り</span>
+    <div class="col">
+      <div class="name">ゆりっぺ</div>
+      <div class="bubble txt">顔がもう少し眠そうでもいいかも？</div>
+    </div>
+    <div class="side"><span class="time">21:15</span></div>
+  </div>
+
+  <div class="msg">
+    <span class="ava r">り</span>
+    <div class="col">
+      <div class="name">ゆりっぺ</div>
+      <div class="bubble"><img src="img/05.png" alt=""><div class="s">あざざます</div></div>
+    </div>
+    <div class="side"><span class="time">21:18</span></div>
+  </div>
+  <div class="checks">
+    <span class="pill">ゆうき 未確認</span><span class="pill r-on">ゆりっぺ 確認済み</span>
+  </div>
+
+  <div class="msg me">
+    <span class="ava y">ゆ</span>
+    <div class="col">
+      <div class="name">ゆうき</div>
+      <div class="bubble"><img src="img/07.png" alt=""><div class="s">やどどぅん</div></div>
+    </div>
+    <div class="side"><span class="time">21:20</span></div>
+  </div>
+  <div class="checks me">
+    <span class="pill">ゆうき 未確認</span><span class="pill">ゆりっぺ 未確認</span><span class="react">ゆりっぺ： ポーズ最高</span>
+  </div>
+
+</div>
+<div class="inputbar">
+  <div class="in">
+    <input type="text" placeholder="メッセージを入力">
+    <button type="button">送信</button>
+  </div>
+</div>
+</body>
+</html>
