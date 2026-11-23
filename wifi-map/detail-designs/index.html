@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ワイスピ 店舗詳細の出し方 5案</title>
+<meta property="og:title" content="ワイスピ 店舗詳細の出し方 5案">
+<meta property="og:description" content="カードを押したときの詳細表示（下画面拡張）の比較ボード">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/wifi-map/detail-designs/og.jpg">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/wifi-map/detail-designs/">
+<style>
+:root{--ink:#101410;--line:#dfe7df;--green:#16c95c;--sub:#5c6b5e}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;background:#eef2ee;color:var(--ink)}
+header{padding:18px 16px 6px}
+h1{font-size:19px;margin:0}
+header p{font-size:13px;color:var(--sub);margin:6px 0 0}
+.grid{display:flex;flex-wrap:wrap;gap:18px;padding:14px 16px 30px}
+.case{width:340px;max-width:100%}
+.case h2{font-size:15px;margin:0 0 4px}
+.case h2 .no{display:inline-block;background:var(--ink);color:#fff;border-radius:6px;padding:1px 8px;margin-right:6px}
+.case .desc{font-size:12px;color:var(--sub);margin:0 0 8px;min-height:2.6em}
+.phone{border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 4px 16px rgba(16,20,16,.08);background:#e8ede8}
+.map{height:170px;background:repeating-linear-gradient(0deg,#eef1ee 0 26px,#e2e8e2 26px 27px),repeating-linear-gradient(90deg,#eef1ee 0 26px,#e2e8e2 26px 27px);position:relative}
+.map.short{height:110px}
+.pin{position:absolute;left:50%;top:52%;transform:translate(-50%,-100%);width:20px;height:20px;background:var(--green);border:2.5px solid var(--ink);border-radius:50% 50% 50% 4px;transform:translate(-50%,-100%) rotate(-45deg)}
+.sheet{background:#fff;border-top:1px solid var(--line);border-radius:16px 16px 0 0;padding:8px 12px 12px;margin-top:-14px;position:relative}
+.handle{width:42px;height:5px;border-radius:99px;background:var(--ink);opacity:.8;margin:0 auto 7px}
+.strip{display:flex;gap:8px}
+.mini{flex:0 0 46%;border:2px solid var(--ink);border-radius:12px;padding:7px 9px;font-size:12px}
+.mini b{font-size:13px}
+.photo{height:86px;border-radius:10px;background:linear-gradient(120deg,#caa27a,#8a6844);color:#fff;display:flex;align-items:flex-end;padding:6px 9px;font-size:11px}
+.photo.tall{height:130px}
+.nm{font-size:15px;font-weight:800;margin:7px 0 2px}
+.meta{font-size:12px;color:var(--sub);line-height:1.55}
+.bar2{height:7px;border-radius:99px;background:#eef1ee;margin:5px 0}
+.bar2 i{display:block;height:100%;width:0;background:var(--green);border-radius:99px}
+.btns{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap}
+.btn{font-size:12px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:6px 11px;background:#fff}
+.btn.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.det{display:flex;gap:10px}
+.det .photo{flex:0 0 38%;height:auto;min-height:92px}
+.x{float:right;color:var(--sub);font-size:14px}
+.full .map{display:none}
+</style>
+</head>
+<body>
+<header>
+<h1>ワイスピ 店舗詳細の出し方 5案</h1>
+<p>カードを押したらピンの上の吹き出しではなく、下側が広がって詳細が出る形の比較。例はコメダ珈琲店 丸井錦糸町店（未計測）。</p>
+</header>
+<div class="grid">
+
+<div class="case">
+<h2><span class="no">1</span>シート拡張型</h2>
+<p class="desc">下の帯がそのまま上に伸びて詳細シートになる。閉じると帯に戻る。今のレイアウトの延長で一番素直。</p>
+<div class="phone">
+<div class="map"><div class="pin"></div></div>
+<div class="sheet">
+<div class="handle"></div>
+<div class="photo">店内写真</div>
+<div class="nm">コメダ珈琲店 丸井錦糸町店 <span class="x">✕</span></div>
+<div class="meta">581m ・ 速度：未計測<br>錦糸町マルイ2F。Wi-Fiは1回60分・再接続可。電源は未確認</div>
+<div class="btns"><span class="btn on">Googleマップで開く</span><span class="btn">⚡ 速度を測る</span></div>
+</div>
+</div>
+</div>
+
+<div class="case">
+<h2><span class="no">2</span>カード内展開型</h2>
+<p class="desc">押したカード自体が帯の中で大きくなる。他のカードは両脇に残るので、次々と見比べやすい。</p>
+<div class="phone">
+<div class="map"><div class="pin"></div></div>
+<div class="sheet">
+<div class="handle"></div>
+<div class="strip">
+<div class="mini" style="flex:0 0 20%;opacity:.55"><b>タリーズ…</b><br>未計測</div>
+<div class="mini" style="flex:1">
+<b>コメダ珈琲店 丸井錦糸町店</b>　581m
+<div class="photo" style="height:56px;margin:6px 0">店内写真</div>
+<div class="meta">速度：未計測<br>錦糸町マルイ2F。Wi-Fiは1回60分・再接続可。電源は未確認</div>
+<div class="btns"><span class="btn on">マップで開く</span></div>
+</div>
+<div class="mini" style="flex:0 0 20%;opacity:.55"><b>猿田彦…</b><br>199 Mbps</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="case">
+<h2><span class="no">3</span>2段シート型</h2>
+<p class="desc">帯の上に詳細シートが一段重なる。地図は上の半分に残るので、場所を見ながら詳細が読める。</p>
+<div class="phone">
+<div class="map short"><div class="pin"></div></div>
+<div class="sheet">
+<div class="handle"></div>
+<div class="nm">コメダ珈琲店 丸井錦糸町店 <span class="x">✕</span></div>
+<div class="det">
+<div class="photo">店内写真</div>
+<div>
+<div class="meta">581m ・ 速度：未計測<br>錦糸町マルイ2F。Wi-Fiは1回60分・再接続可。電源は未確認</div>
+<div class="btns"><span class="btn on">Googleマップで開く</span></div>
+</div>
+</div>
+<div class="strip" style="margin-top:9px">
+<div class="mini"><b>タリーズコーヒー…</b><br>未計測</div>
+<div class="mini"><b>猿田彦珈琲…</b><br>199 Mbps</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="case">
+<h2><span class="no">4</span>全画面型</h2>
+<p class="desc">詳細が画面いっぱいに開く。写真を大きく見せられて情報も全部入る。戻るボタンで地図へ。</p>
+<div class="phone full">
+<div class="sheet" style="margin-top:0;border-radius:0">
+<div class="meta">‹ 地図に戻る</div>
+<div class="photo tall">店内写真（大）</div>
+<div class="nm">コメダ珈琲店 丸井錦糸町店</div>
+<div class="meta">581m ・ 錦糸町<br>速度：未計測</div>
+<div class="bar2"><i></i></div>
+<div class="meta">錦糸町マルイ2F。Wi-Fiは1回60分・再接続可。電源は未確認<br>SSID：—（未登録）</div>
+<div class="btns"><span class="btn on">Googleマップで開く</span><span class="btn">⚡ 速度を測る</span><span class="btn">編集</span></div>
+</div>
+</div>
+</div>
+
+<div class="case">
+<h2><span class="no">5</span>固定バー＋詳細型</h2>
+<p class="desc">帯は店名と距離だけの細いバーに縮み、その上が全部詳細になる。詳細の表示面積が一番広い。</p>
+<div class="phone">
+<div class="map"><div class="pin"></div></div>
+<div class="sheet">
+<div class="det">
+<div class="photo">店内写真</div>
+<div>
+<div class="nm" style="margin-top:0">コメダ珈琲店 丸井錦糸町店</div>
+<div class="meta">速度：未計測<br>錦糸町マルイ2F。Wi-Fiは1回60分・再接続可。電源は未確認</div>
+<div class="btns"><span class="btn on">マップで開く</span><span class="btn">⚡ 計測</span></div>
+</div>
+</div>
+<div style="border-top:1px solid var(--line);margin-top:9px;padding-top:7px;font-size:12.5px"><b>コメダ珈琲店…</b>　581m　▸ 横にスワイプで次の店</div>
+</div>
+</div>
+</div>
+
+</div>
+</body>
+</html>
