@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ワイスピ 場所推測の見せ方 5案</title>
+<meta property="og:title" content="ワイスピ 場所推測の見せ方 5案">
+<meta property="og:description" content="現在地から今いるカフェや場所を推測して出す見せ方の比較ボード">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/wifi-map/guess-designs/og.jpg">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/wifi-map/guess-designs/">
+<style>
+:root{--ink:#101410;--line:#dfe7df;--green:#16c95c;--sub:#5c6b5e}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;background:#eef2ee;color:var(--ink)}
+header{padding:18px 16px 6px}
+h1{font-size:19px;margin:0}
+header p{font-size:13px;color:var(--sub);margin:6px 0 0}
+.grid{display:flex;flex-wrap:wrap;gap:18px;padding:14px 16px 30px}
+.case{width:340px;max-width:100%}
+.case h2{font-size:15px;margin:0 0 4px}
+.case h2 .no{display:inline-block;background:var(--ink);color:#fff;border-radius:6px;padding:1px 8px;margin-right:6px}
+.case .desc{font-size:12px;color:var(--sub);margin:0 0 8px;min-height:2.6em}
+.phone{background:#f4f7f4;border:1px solid var(--line);border-radius:20px;padding:12px;box-shadow:0 4px 16px rgba(16,20,16,.08)}
+.panel{background:#fff;border-radius:14px;padding:14px}
+.panel h3{font-size:16px;margin:0 0 8px}
+label{display:block;font-size:12px;color:var(--sub);margin:10px 0 3px}
+input{width:100%;font:inherit;font-size:14px;color:var(--ink);background:#f7faf7;border:1px solid var(--line);border-radius:9px;padding:8px 10px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{font-size:13px;padding:6px 11px;border-radius:999px;border:1px solid var(--green);background:#eefbf2}
+.note{font-size:11px;color:var(--sub);margin-top:6px}
+.row{display:flex;align-items:center;gap:8px;padding:9px 4px;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:none}
+.row .nm{font-size:14px;font-weight:600}
+.row .dt{margin-left:auto;font-size:12px;color:var(--sub);white-space:nowrap}
+.tag{font-size:10px;background:#eef2ee;border-radius:5px;padding:2px 6px;color:var(--sub);white-space:nowrap}
+.altlinks{font-size:12px;color:var(--sub);margin-top:6px}
+.altlinks b{color:#0a8f3f;font-weight:600}
+.sheet{background:#fff;border-radius:14px 14px 0 0;border:1px solid var(--line);border-bottom:none;padding:12px 14px;margin-top:10px}
+.sheet .bar{width:38px;height:4px;border-radius:2px;background:#cfd8cf;margin:0 auto 8px}
+.mapbox{position:relative;height:150px;border-radius:12px;background:repeating-linear-gradient(0deg,#e7ede7 0 24px,#dfe7df 24px 25px),repeating-linear-gradient(90deg,#e7ede7 0 24px,#dfe7df 24px 25px);overflow:hidden}
+.pin{position:absolute;transform:translate(-50%,-100%);text-align:center}
+.pin .dot{width:14px;height:14px;border-radius:50%;background:var(--green);border:2px solid #fff;margin:0 auto;box-shadow:0 1px 4px rgba(0,0,0,.3)}
+.pin .lb{font-size:10px;background:#fff;border:1px solid var(--line);border-radius:6px;padding:2px 6px;margin-top:2px;white-space:nowrap}
+.pin.sel .dot{background:#e5484d}
+.me{position:absolute;left:50%;top:58%;width:12px;height:12px;border-radius:50%;background:#2f7cf6;border:2px solid #fff;transform:translate(-50%,-50%)}
+</style>
+</head>
+<body>
+<header>
+<h1>ワイスピ「場所の推測」の見せ方 5案</h1>
+<p>追加フォームで、現在地から近い店を候補として出す見せ方の比較。候補の店名はサンプル（自宅近くで実際に取れた店名と仮の距離）。</p>
+</header>
+<div class="grid">
+
+<div class="case">
+<h2><span class="no">1</span>チップ型</h2>
+<p class="desc">スポット名の下に候補チップを並べる。タップで名前が入る。今の実装はこれ。</p>
+<div class="phone"><div class="panel">
+<h3>今いる場所のWi-Fiを追加</h3>
+<label>スポット名（必須）</label>
+<input type="text" placeholder="例：猿田彦珈琲 アトレ秋葉原1店">
+<div class="chips">
+<span class="chip">シロクマカレー + cafe（25m）</span>
+<span class="chip">麺屋 中川會（60m）</span>
+<span class="chip">鉄板焼ダイニングKUNI（85m）</span>
+<span class="chip">肉の川上（110m）</span>
+</div>
+<p class="note">タップでスポット名に入る（近い順）</p>
+</div></div>
+</div>
+
+<div class="case">
+<h2><span class="no">2</span>リスト型</h2>
+<p class="desc">候補を縦リストで出す。店名＋ジャンル＋距離が見やすく、候補が多いとき向き。</p>
+<div class="phone"><div class="panel">
+<h3>今いる場所のWi-Fiを追加</h3>
+<label>スポット名（必須）</label>
+<input type="text" placeholder="タップで下の候補からも選べる">
+<div class="row"><span class="nm">シロクマカレー + cafe</span><span class="tag">カフェ</span><span class="dt">25m</span></div>
+<div class="row"><span class="nm">麺屋 中川會</span><span class="tag">ラーメン</span><span class="dt">60m</span></div>
+<div class="row"><span class="nm">鉄板焼ダイニングKUNI</span><span class="tag">レストラン</span><span class="dt">85m</span></div>
+<div class="row"><span class="nm">肉の川上</span><span class="tag">精肉店</span><span class="dt">110m</span></div>
+</div></div>
+</div>
+
+<div class="case">
+<h2><span class="no">3</span>自動入力型</h2>
+<p class="desc">一番近い候補をスポット名へ自動で入れる。違ったら下の候補リンクで差し替え。入力の手間が最小。</p>
+<div class="phone"><div class="panel">
+<h3>今いる場所のWi-Fiを追加</h3>
+<label>スポット名（必須）</label>
+<input type="text" value="シロクマカレー + cafe">
+<p class="altlinks">現在地から推測して入れた（25m）。ほかの候補：<b>麺屋 中川會</b>・<b>鉄板焼ダイニングKUNI</b>・<b>肉の川上</b></p>
+</div></div>
+</div>
+
+<div class="case">
+<h2><span class="no">4</span>ボトムシート型</h2>
+<p class="desc">「近くの場所を推測」ボタンを押すと下からシートが出て、候補を選ぶ。フォーム本体はすっきり保てる。</p>
+<div class="phone"><div class="panel">
+<h3>今いる場所のWi-Fiを追加</h3>
+<label>スポット名（必須）</label>
+<input type="text" placeholder="例：猿田彦珈琲 アトレ秋葉原1店">
+<div class="sheet">
+<div class="bar"></div>
+<div class="row"><span class="nm">シロクマカレー + cafe</span><span class="dt">25m</span></div>
+<div class="row"><span class="nm">麺屋 中川會</span><span class="dt">60m</span></div>
+<div class="row"><span class="nm">鉄板焼ダイニングKUNI</span><span class="dt">85m</span></div>
+<div class="row"><span class="nm">ここじゃない（手入力する）</span></div>
+</div>
+</div></div>
+</div>
+
+<div class="case">
+<h2><span class="no">5</span>地図ピン型</h2>
+<p class="desc">ミニ地図に候補ピンを立てる。ピンをタップすると名前が入る。場所の位置関係で選べる。</p>
+<div class="phone"><div class="panel">
+<h3>今いる場所のWi-Fiを追加</h3>
+<label>スポット名（必須）</label>
+<input type="text" placeholder="地図のピンをタップで入力">
+<div class="mapbox">
+<div class="me"></div>
+<div class="pin sel" style="left:38%;top:46%"><div class="dot"></div><div class="lb">シロクマカレー + cafe</div></div>
+<div class="pin" style="left:66%;top:30%"><div class="dot"></div><div class="lb">麺屋 中川會</div></div>
+<div class="pin" style="left:74%;top:66%"><div class="dot"></div><div class="lb">鉄板焼ダイニングKUNI</div></div>
+<div class="pin" style="left:22%;top:78%"><div class="dot"></div><div class="lb">肉の川上</div></div>
+</div>
+<p class="note">青丸が現在地。ピンをタップでスポット名に入る</p>
+</div></div>
+</div>
+
+</div>
+</body>
+</html>
