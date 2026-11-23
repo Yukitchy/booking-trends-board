@@ -70,6 +70,10 @@ button:disabled{opacity:.55; cursor:wait;}
 .f-btns{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px;}
 #f-speed-status{font-size:13px; color:var(--deep); min-height:1.4em; margin-top:4px;}
 #f-form-status{font-size:13px; color:#5c6b5e; min-height:1.4em; margin-top:8px;}
+#f-guess{font:inherit; font-size:13px; padding:6px 12px; border-radius:999px; border:1px solid var(--line); background:#fff; color:var(--ink); margin-top:8px;}
+#guess-chips{display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;}
+.guess-chip{font:inherit; font-size:13px; padding:6px 11px; border-radius:999px; border:1px solid #16c95c; background:#eefbf2; color:var(--ink);}
+#guess-status{font-size:12px; color:#5c6b5e; margin-top:6px; min-height:1.3em;}
 #add-panel{position:fixed; left:8px; right:8px; bottom:8px; max-height:82dvh; overflow-y:auto; z-index:1500;}
 [hidden]{display:none !important;}
 .row1{display:flex; align-items:baseline; gap:8px;}
@@ -239,6 +243,13 @@ div.ph-side{height:100%;}
 <div class="f-row">
 <label for="f-name">スポット名（必須）</label>
 <input type="text" id="f-name" placeholder="例：猿田彦珈琲 アトレ秋葉原1店" autocomplete="off">
+</div>
+<div class="f-row">
+<button type="button" id="f-guess">🔍 近くの場所を推測</button>
+<div id="guess-row" hidden>
+<div id="guess-chips"></div>
+<p id="guess-status"></p>
+</div>
 </div>
 <div class="f-row">
 <label for="f-area">エリア（任意）</label>
@@ -672,6 +683,56 @@ function fillLatLng(pos){
 if (!pos) return;
 document.getElementById('f-lat').value = Math.round(pos.lat*1e6)/1e6;
 document.getElementById('f-lng').value = Math.round(pos.lng*1e6)/1e6;
+guessPlaces(pos.lat, pos.lng);
+}
+function guessPlaces(lat, lng){
+var row = document.getElementById('guess-row');
+var chips = document.getElementById('guess-chips');
+var st = document.getElementById('guess-status');
+if (!row) return;
+row.hidden = false;
+chips.innerHTML = '';
+st.textContent = '近くの場所を推測中…';
+var q = '[out:json][timeout:25];(node["amenity"~"^(cafe|restaurant|fast_food|bar|pub|food_court)$"]["name"](around:150,' + lat + ',' + lng + ');node["shop"]["name"](around:150,' + lat + ',' + lng + ');node["tourism"~"^(hotel|hostel)$"]["name"](around:150,' + lat + ',' + lng + ');way["amenity"~"^(cafe|restaurant|fast_food|bar|pub|food_court)$"]["name"](around:150,' + lat + ',' + lng + '););out center 40;';
+fetch('https://overpass-api.de/api/interpreter?data=' + encodeURIComponent(q))
+.then(function(r){ if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+.then(function(j){
+var seen = {}, list = [];
+(j.elements || []).forEach(function(e){
+var name = e.tags && e.tags.name;
+if (!name || seen[name]) return;
+var elat = (e.lat != null)? e.lat : (e.center && e.center.lat);
+var elng = (e.lon != null)? e.lon : (e.center && e.center.lon);
+if (elat == null || elng == null) return;
+seen[name] = 1;
+list.push({name: name, d: haversine({lat: lat, lng: lng}, {lat: elat, lng: elng})});
+});
+list.sort(function(a, b){ return a.d - b.d; });
+list = list.slice(0, 8);
+if (!list.length){ st.textContent = '近くに候補が見つからなかった。スポット名は手入力で。'; return; }
+st.textContent = 'タップでスポット名に入る（近い順）';
+list.forEach(function(it){
+var b = document.createElement('button');
+b.type = 'button';
+b.className = 'guess-chip';
+b.textContent = it.name + '（' + Math.round(it.d) + 'm）';
+b.addEventListener('click', function(){
+document.getElementById('f-name').value = it.name;
+st.textContent = '「' + it.name + '」を入れた。';
+});
+chips.appendChild(b);
+});
+})
+.catch(function(e){ st.textContent = '推測に失敗した（' + e.message + '）。スポット名は手入力で。'; });
+fetch('https://nominatim.openstreetmap.org/reverse?format=jsonv2&zoom=18&accept-language=ja&lat=' + lat + '&lon=' + lng)
+.then(function(r){ return r.json(); })
+.then(function(j){
+var a = (j && j.address) || {};
+var area = a.suburb || a.neighbourhood || a.quarter || a.city_district || '';
+var areaEl = document.getElementById('f-area');
+if (area && areaEl && !areaEl.value) areaEl.value = area;
+})
+.catch(function(){});
 }
 function openForm(){
 panel.hidden = false;
@@ -688,6 +749,12 @@ if (panel.hidden) openForm(); else closeForm();
 document.getElementById('f-cancel').addEventListener('click', closeForm);
 document.getElementById('f-locate').addEventListener('click', function(){
 locate(function(pos){ fillLatLng(pos);});
+});
+document.getElementById('f-guess').addEventListener('click', function(){
+var lat = parseFloat(document.getElementById('f-lat').value);
+var lng = parseFloat(document.getElementById('f-lng').value);
+if (isNaN(lat) || isNaN(lng)){ locate(function(pos){ fillLatLng(pos);}); return; }
+guessPlaces(lat, lng);
 });
 document.getElementById('f-pw-toggle').addEventListener('click', function(){
 var inp = document.getElementById('f-password');
