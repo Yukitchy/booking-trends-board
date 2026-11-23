@@ -685,6 +685,19 @@ document.getElementById('f-lat').value = Math.round(pos.lat*1e6)/1e6;
 document.getElementById('f-lng').value = Math.round(pos.lng*1e6)/1e6;
 guessPlaces(pos.lat, pos.lng);
 }
+function overpassFetch(q){
+var eps = ['https://overpass-api.de/api/interpreter', 'https://overpass.kumi.systems/api/interpreter'];
+function attempt(i){
+return fetch(eps[i] + '?data=' + encodeURIComponent(q)).then(function(r){
+if (!r.ok && i + 1 < eps.length) return attempt(i + 1);
+return r;
+}).catch(function(e){
+if (i + 1 < eps.length) return attempt(i + 1);
+throw e;
+});
+}
+return attempt(0);
+}
 function guessPlaces(lat, lng){
 var row = document.getElementById('guess-row');
 var chips = document.getElementById('guess-chips');
@@ -694,7 +707,7 @@ row.hidden = false;
 chips.innerHTML = '';
 st.textContent = '近くの場所を推測中…';
 var q = '[out:json][timeout:25];(node["amenity"~"^(cafe|restaurant|fast_food|bar|pub|food_court)$"]["name"](around:150,' + lat + ',' + lng + ');node["shop"]["name"](around:150,' + lat + ',' + lng + ');node["tourism"~"^(hotel|hostel)$"]["name"](around:150,' + lat + ',' + lng + ');way["amenity"~"^(cafe|restaurant|fast_food|bar|pub|food_court)$"]["name"](around:150,' + lat + ',' + lng + '););out center 40;';
-fetch('https://overpass-api.de/api/interpreter?data=' + encodeURIComponent(q))
+overpassFetch(q)
 .then(function(r){ if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
 .then(function(j){
 var seen = {}, list = [];
@@ -756,6 +769,23 @@ var lng = parseFloat(document.getElementById('f-lng').value);
 if (isNaN(lat) || isNaN(lng)){ locate(function(pos){ fillLatLng(pos);}); return; }
 guessPlaces(lat, lng);
 });
+
+// URLパラメータで事前入力（iOSショートカットのワンタップ登録用）: ?add=1&ssid=..&lat=..&lng=..&name=..
+(function(){
+var qs = new URLSearchParams(location.search);
+if (!qs.get('add') && !qs.get('ssid')) return;
+openForm();
+var ssid = qs.get('ssid');
+if (ssid) document.getElementById('f-ssid').value = ssid;
+var nm = qs.get('name');
+if (nm) document.getElementById('f-name').value = nm;
+var lat = parseFloat(qs.get('lat')), lng = parseFloat(qs.get('lng'));
+if (!isNaN(lat) && !isNaN(lng)){
+document.getElementById('f-lat').value = lat;
+document.getElementById('f-lng').value = lng;
+guessPlaces(lat, lng);
+}
+})();
 document.getElementById('f-pw-toggle').addEventListener('click', function(){
 var inp = document.getElementById('f-password');
 var show = inp.type === 'password';
