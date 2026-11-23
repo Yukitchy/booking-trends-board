@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ワイスピ 追加フォーム コンパクト化 5案</title>
+<meta property="og:title" content="ワイスピ 追加フォーム コンパクト化 5案">
+<meta property="og:description" content="追加フォームをコンパクトにまとめる見せ方の比較ボード">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/wifi-map/compact-designs/og.jpg">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/wifi-map/compact-designs/">
+<style>
+:root{--ink:#101410;--line:#dfe7df;--green:#16c95c;--sub:#5c6b5e}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;background:#eef2ee;color:var(--ink)}
+header{padding:18px 16px 6px}
+h1{font-size:19px;margin:0}
+header p{font-size:13px;color:var(--sub);margin:6px 0 0}
+.grid{display:flex;flex-wrap:wrap;gap:18px;padding:14px 16px 30px}
+.case{width:340px;max-width:100%}
+.case h2{font-size:15px;margin:0 0 4px}
+.case h2 .no{display:inline-block;background:var(--ink);color:#fff;border-radius:6px;padding:1px 8px;margin-right:6px}
+.case .desc{font-size:12px;color:var(--sub);margin:0 0 8px;min-height:2.6em}
+.phone{background:#f4f7f4;border:1px solid var(--line);border-radius:20px;padding:10px;box-shadow:0 4px 16px rgba(16,20,16,.08)}
+.panel{background:#fff;border-radius:14px;padding:12px}
+.panel h3{font-size:15px;margin:0 0 6px}
+label{display:block;font-size:11px;color:var(--sub);margin:0 0 2px}
+.in{font-size:13px;background:#f7faf7;border:1px solid var(--line);border-radius:8px;padding:6px 8px;margin-bottom:7px;white-space:nowrap;overflow:hidden}
+.in.ph{color:#9db3a0}
+.row2{display:flex;gap:7px}
+.row2>div{flex:1;min-width:0}
+.btn{display:inline-block;font-size:12.5px;font-weight:700;border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 12px}
+.btn.on{background:var(--green);border-color:var(--green);color:#fff}
+.btn.blk{background:var(--ink);color:#fff;border-color:var(--ink);display:block;text-align:center;border-radius:9px}
+.hint{font-size:10.5px;color:var(--sub);margin:2px 0 7px;line-height:1.45}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:7px}
+.chip{font-size:12px;padding:4px 9px;border-radius:999px;border:1px solid var(--green);background:#eefbf2}
+.sum{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
+.sum span{font-size:11.5px;background:#eef2ee;border-radius:7px;padding:4px 8px}
+.fold{border:1px dashed var(--line);border-radius:9px;padding:7px 10px;font-size:12.5px;color:var(--sub);margin-bottom:7px}
+.chk{font-size:13px;border:1px solid var(--line);border-radius:8px;padding:6px 9px;background:#f7faf7;margin-bottom:7px}
+.mini .in{padding:4px 7px;font-size:12.5px;margin-bottom:5px}
+.mini label{display:none}
+</style>
+</head>
+<body>
+<header>
+<h1>ワイスピ 追加フォーム コンパクト化 5案</h1>
+<p>中身はサンプル（自宅Wi-Fiで実際に開いた状態）。縦の長さと情報の出し方の比較。</p>
+</header>
+<div class="grid">
+
+<div class="case">
+<h2><span class="no">1</span>詰め込み型</h2>
+<p class="desc">今の構成のまま、余白と説明文を削って圧縮。エリアとSSIDは横並び。いま仮実装してあるのはこれ。</p>
+<div class="phone"><div class="panel">
+<h3>今いる場所のWi-Fiを追加</h3>
+<div class="btn blk" style="padding:7px">📶 接続中のWi-Fiで自動入力</div>
+<p class="hint">SSIDとパスワードは手入力。追加分はこの端末に保存される。</p>
+<label>スポット名（必須）</label><div class="in ph">例：猿田彦珈琲 アトレ秋葉原1店</div>
+<div class="chips"><span class="chip">自宅（12m）</span><span class="chip">シロクマカレー + cafe（25m）</span></div>
+<div class="row2"><div><label>エリア</label><div class="in">住吉</div></div><div><label>SSID</label><div class="in">Canalpalace2_MLO</div></div></div>
+<label>パスワード（任意）</label><div class="in ph">オープンネットワークなら空欄</div>
+<div class="row2"><div><label>緯度</label><div class="in">35.689935</div></div><div><label>経度</label><div class="in">139.815064</div></div></div>
+<span class="btn">📍 現在地を入れる</span> <span class="btn">⚡ 速度を測る</span>
+<div class="row2" style="margin-top:7px"><div><label>下り Mbps</label><div class="in ph">未計測なら空欄</div></div><div><label>上り Mbps</label><div class="in ph">未計測なら空欄</div></div></div>
+<div class="chk">🔌 電源あり</div>
+<label>メモ</label><div class="in ph">席・電源の場所・利用条件など</div>
+<span class="btn on">保存して地図に追加</span> <span class="btn">キャンセル</span>
+</div></div>
+</div>
+
+<div class="case">
+<h2><span class="no">2</span>2列グリッド型</h2>
+<p class="desc">短い項目を全部2列に並べて縦を半分近くに。情報量はそのまま、密度で攻める。</p>
+<div class="phone"><div class="panel">
+<h3>今いる場所のWi-Fiを追加</h3>
+<div class="btn blk" style="padding:7px">📶 接続中のWi-Fiで自動入力</div>
+<label>スポット名（必須）</label><div class="in ph">例：猿田彦珈琲 アトレ秋葉原1店</div>
+<div class="row2"><div><label>エリア</label><div class="in">住吉</div></div><div><label>SSID</label><div class="in">Canalpalace2_MLO</div></div></div>
+<div class="row2"><div><label>パスワード</label><div class="in ph">なしなら空欄</div></div><div><label>電源</label><div class="chk" style="margin:0">🔌 あり</div></div></div>
+<div class="row2"><div><label>緯度</label><div class="in">35.689935</div></div><div><label>経度</label><div class="in">139.815064</div></div></div>
+<div class="row2"><div><label>下り Mbps</label><div class="in ph">未計測は空欄</div></div><div><label>上り Mbps</label><div class="in ph">未計測は空欄</div></div></div>
+<label>メモ</label><div class="in ph">席・電源の場所など</div>
+<span class="btn">📍 現在地</span> <span class="btn">⚡ 速度計測</span> <span class="btn on">保存</span>
+</div></div>
+</div>
+
+<div class="case">
+<h2><span class="no">3</span>折りたたみ型</h2>
+<p class="desc">必須だけ常時表示。任意項目は「任意項目を開く」の中に畳む。通常の登録は最短で終わる。</p>
+<div class="phone"><div class="panel">
+<h3>今いる場所のWi-Fiを追加</h3>
+<div class="btn blk" style="padding:7px">📶 接続中のWi-Fiで自動入力</div>
+<label>スポット名（必須）</label><div class="in ph">例：猿田彦珈琲 アトレ秋葉原1店</div>
+<div class="chips"><span class="chip">自宅（12m）</span><span class="chip">シロクマカレー + cafe（25m）</span></div>
+<label>SSID</label><div class="in">Canalpalace2_MLO</div>
+<div class="row2"><div><label>緯度</label><div class="in">35.689935</div></div><div><label>経度</label><div class="in">139.815064</div></div></div>
+<div class="fold">▽ 任意項目を開く（エリア・パスワード・速度・電源・メモ）</div>
+<span class="btn on">保存して地図に追加</span> <span class="btn">キャンセル</span>
+</div></div>
+</div>
+
+<div class="case">
+<h2><span class="no">4</span>極小・1画面型</h2>
+<p class="desc">ラベルを消してプレースホルダだけにし、1画面にスクロールなしで収める。速さ最優先。</p>
+<div class="phone"><div class="panel mini">
+<h3>Wi-Fiを追加</h3>
+<div class="btn blk" style="padding:6px">📶 自動入力（ショートカット）</div>
+<div class="in ph">スポット名（必須）</div>
+<div class="chips"><span class="chip">自宅（12m）</span><span class="chip">シロクマカレー（25m）</span></div>
+<div class="row2"><div class="in">住吉</div><div class="in">Canalpalace2_MLO</div></div>
+<div class="in ph">パスワード（任意）</div>
+<div class="row2"><div class="in">35.689935</div><div class="in">139.815064</div></div>
+<div class="row2"><div class="in ph">下り Mbps</div><div class="in ph">上り Mbps</div></div>
+<div class="row2"><div class="chk" style="margin:0">🔌 電源あり</div><div class="in ph" style="margin:0">メモ</div></div>
+<div style="margin-top:6px"><span class="btn">📍</span> <span class="btn">⚡</span> <span class="btn on">保存して追加</span> <span class="btn">✕</span></div>
+</div></div>
+</div>
+
+<div class="case">
+<h2><span class="no">5</span>サマリー型</h2>
+<p class="desc">自動で取れたものは上部にチップで「済」表示し、フォームには手入力が要るものだけ出す。ショートカット経由のとき最速。</p>
+<div class="phone"><div class="panel">
+<h3>今いる場所のWi-Fiを追加</h3>
+<div class="sum"><span>📶 SSID: Canalpalace2_MLO ✓</span><span>📍 現在地 ✓</span><span>🏠 エリア: 住吉 ✓</span></div>
+<label>スポット名（必須）</label><div class="in ph">例：猿田彦珈琲 アトレ秋葉原1店</div>
+<div class="chips"><span class="chip">自宅（12m）</span><span class="chip">シロクマカレー + cafe（25m）</span></div>
+<label>パスワード（任意）</label><div class="in ph">オープンネットワークなら空欄</div>
+<div class="row2"><div><label>下り Mbps</label><div class="in ph">未計測は空欄</div></div><div><label>上り Mbps</label><div class="in ph">未計測は空欄</div></div></div>
+<div class="chk">🔌 電源あり</div>
+<span class="btn">⚡ 速度を測る</span> <span class="btn on">保存して地図に追加</span>
+<p class="hint">済の項目はタップで修正できる</p>
+</div></div>
+</div>
+
+</div>
+</body>
+</html>
