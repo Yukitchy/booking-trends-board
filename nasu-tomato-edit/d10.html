@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>案10 ハート投票型｜ナスとトマト共同編集</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif; background:#f4f4f4; color:#222; -webkit-font-smoothing:antialiased; }
+  header { background:#fff; border-bottom:1px solid #e6e6e6; position:sticky; top:0; z-index:10; }
+  .head-in { max-width:760px; margin:0 auto; padding:12px 16px; }
+  .title-row { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  h1 { font-size:19px; font-weight:800; white-space:nowrap; }
+  h1 .accent { color:#e2492f; }
+  .back { font-size:13px; color:#666; text-decoration:none; white-space:nowrap; }
+  .progress { margin-top:10px; }
+  .progress-meta { display:flex; justify-content:space-between; font-size:12.5px; font-weight:700; color:#444; margin-bottom:5px; }
+  .bar { height:8px; background:#eee; border-radius:99px; overflow:hidden; }
+  .bar i { display:block; height:100%; background:#e2492f; border-radius:99px; transition:width .3s; }
+  main { max-width:760px; margin:0 auto; padding:16px 16px 40px; }
+  .form { background:#fff; border-radius:18px; box-shadow:0 1px 4px rgba(0,0,0,.07); padding:16px; }
+  .form h2 { font-size:16px; font-weight:800; margin-bottom:12px; }
+  .form h2 span { color:#e2492f; }
+  .frow { display:flex; gap:8px; }
+  .frow input { flex:1; min-width:0; border:1.5px solid #ddd; border-radius:11px; padding:11px 12px; font-size:15px; outline:none; }
+  .frow input:focus { border-color:#e2492f; }
+  .seg { display:flex; gap:8px; margin-top:10px; }
+  .seg button { flex:1; border:1.5px solid #ddd; background:#fff; border-radius:11px; padding:9px 4px; font-size:13.5px; font-weight:800; color:#666; cursor:pointer; }
+  .seg button.on-nasu { background:#5b4a8a; border-color:#5b4a8a; color:#fff; }
+  .seg button.on-tomato { background:#e2492f; border-color:#e2492f; color:#fff; }
+  .seg button.on-both { background:#2e7d46; border-color:#2e7d46; color:#fff; }
+  .post { width:100%; margin-top:12px; border:none; background:#e2492f; color:#fff; border-radius:12px; padding:13px; font-size:15.5px; font-weight:800; cursor:pointer; }
+  .sort { display:flex; align-items:center; gap:8px; margin:22px 0 10px; font-size:13px; font-weight:800; color:#555; }
+  .sort .pill { background:#222; color:#fff; border-radius:99px; padding:4px 12px; font-size:12px; }
+  .sort span:last-child { color:#999; font-weight:600; font-size:12px; }
+  .card { background:#fff; border-radius:14px; box-shadow:0 1px 4px rgba(0,0,0,.07); padding:12px; display:flex; gap:12px; margin-bottom:12px; }
+  .thumb { width:72px; height:72px; flex:none; background:#faf7f2; border-radius:10px; display:flex; align-items:center; justify-content:center; padding:6px; }
+  .thumb img { max-width:100%; max-height:100%; object-fit:contain; }
+  .cbody { flex:1; min-width:0; display:flex; flex-direction:column; gap:7px; }
+  .serifu { font-size:16px; font-weight:800; line-height:1.35; }
+  .row { display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+  .who { font-size:11px; font-weight:700; padding:2px 8px; border-radius:99px; }
+  .who.nasu { background:#ece7f7; color:#5b4a8a; }
+  .who.tomato { background:#fdeae7; color:#c23a24; }
+  .who.both { background:#e8f2e9; color:#2e7d46; }
+  .status { font-size:11px; font-weight:800; padding:2px 8px; border-radius:99px; margin-left:auto; }
+  .status.done { background:#e2f4ea; color:#178a50; }
+  .status.wait { background:#fdf3e0; color:#a86f08; }
+  .status.none { background:#eee; color:#777; }
+  .heart-row { display:flex; align-items:center; gap:8px; }
+  .heart { border:1.5px solid #f0c4bb; background:#fff; color:#e2492f; border-radius:999px; padding:6px 14px; font-size:13.5px; font-weight:800; cursor:pointer; }
+  .heart.on { background:#e2492f; border-color:#e2492f; color:#fff; }
+  .heart-who { font-size:11.5px; color:#999; }
+  .checks { display:flex; gap:6px; }
+  .chk { flex:1; border:1.5px solid #ddd; background:#fff; border-radius:9px; padding:6px 2px; font-size:12px; font-weight:700; color:#999; cursor:pointer; }
+  .chk small { display:block; font-size:10px; font-weight:600; }
+  .chk.y-on { border-color:#5b4a8a; background:#5b4a8a; color:#fff; }
+  .chk.r-on { border-color:#e2492f; background:#e2492f; color:#fff; }
+  .foot { text-align:center; font-size:12px; color:#999; padding:10px 0 6px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="head-in">
+    <div class="title-row">
+      <h1><span class="accent">ナスとトマト</span> 共同編集</h1>
+      <a class="back" href="index.html">← 案一覧</a>
+    </div>
+    <div class="progress">
+      <div class="progress-meta"><span>確定 <b id="doneCount">12</b> / 40</span><span id="pct">30%</span></div>
+      <div class="bar"><i id="barFill" style="width:30%"></i></div>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="form">
+    <h2>新しいネタを<span>投稿</span></h2>
+    <div class="frow"><input type="text" id="inp" placeholder="思いついたセリフを入力"></div>
+    <div class="seg">
+      <button id="segNasu">ナス</button>
+      <button id="segTomato" class="on-tomato">トマト</button>
+      <button id="segBoth">2人</button>
+    </div>
+    <button class="post" id="postBtn">投稿する</button>
+  </div>
+  <div class="sort"><span class="pill">♥ ハート順</span><span>人気のネタから並びます</span></div>
+  <div id="feed"></div>
+  <p class="foot">ハートを押すと並び順が変わります（モック）</p>
+</main>
+<script>
+  const BASE_DONE_OTHERS = 7;
+  const whoLabel = { nasu:"ナス", tomato:"トマト", both:"2人" };
+  const items = [
+    { n:"09", s:"ありがとねぃ", who:"tomato", h:5, hw:"ゆうき・ゆりっぺ", y:1, r:1, mine:1 },
+    { n:"29", s:"最高", who:"tomato", h:4, hw:"ゆうき・ゆりっぺ", y:1, r:0, mine:1 },
+    { n:"14", s:"かわいい", who:"nasu", h:4, hw:"ゆりっぺ", y:0, r:1, mine:0 },
+    { n:"16", s:"やばばば", who:"nasu", h:3, hw:"ゆうき", y:1, r:0, mine:1 },
+    { n:"25", s:"うれしい", who:"tomato", h:2, hw:"ゆりっぺ", y:0, r:0, mine:0 },
+    { n:"30", s:"神", who:"nasu", h:1, hw:"", y:0, r:0, mine:0 }
+  ];
+  let cur = "tomato";
+  function setChar(c){
+    cur = c;
+    ["Nasu","Tomato","Both"].forEach(k => document.getElementById("seg" + k).className = "");
+    document.getElementById("seg" + (c === "nasu" ? "Nasu" : c === "tomato" ? "Tomato" : "Both")).className = "on-" + c;
+  }
+  document.getElementById("segNasu").addEventListener("click", () => setChar("nasu"));
+  document.getElementById("segTomato").addEventListener("click", () => setChar("tomato"));
+  document.getElementById("segBoth").addEventListener("click", () => setChar("both"));
+  const feed = document.getElementById("feed");
+  function statusOf(it){ if(it.y&&it.r) return ["done","確定"]; if(it.y||it.r) return ["wait","確認待ち"]; return ["none","未確認"]; }
+  function render(){
+    const sorted = items.map((it, i) => [it, i]).sort((a, b) => b[0].h - a[0].h);
+    feed.innerHTML = "";
+    sorted.forEach(([it, i]) => {
+      const [cls, label] = statusOf(it);
+      const el = document.createElement("div");
+      el.className = "card";
+      el.innerHTML =
+        '<div class="thumb"><img src="img/' + it.n + '.png" alt=""></div>' +
+        '<div class="cbody">' +
+          '<div class="serifu">' + it.s + '</div>' +
+          '<div class="row"><span class="who ' + it.who + '">' + whoLabel[it.who] + '</span>' +
+          '<span class="status ' + cls + '">' + label + '</span></div>' +
+          '<div class="heart-row"><button class="heart' + (it.mine ? " on" : "") + '" data-i="' + i + '">♥ ' + it.h + '</button>' +
+          '<span class="heart-who">' + (it.hw ? it.hw + "がハート" : "まだハートなし") + '</span></div>' +
+          '<div class="checks">' +
+            '<button class="chk' + (it.y ? " y-on" : "") + '" data-i="' + i + '" data-k="y">ゆうき<small>' + (it.y ? "確認済み" : "未確認") + '</small></button>' +
+            '<button class="chk' + (it.r ? " r-on" : "") + '" data-i="' + i + '" data-k="r">ゆりっぺ<small>' + (it.r ? "確認済み" : "未確認") + '</small></button>' +
+          '</div>' +
+        '</div>';
+      feed.appendChild(el);
+    });
+    const total = BASE_DONE_OTHERS + items.filter(it => it.y && it.r).length;
+    document.getElementById("doneCount").textContent = total;
+    document.getElementById("pct").textContent = Math.round(total / 40 * 100) + "%";
+    document.getElementById("barFill").style.width = (total / 40 * 100) + "%";
+    feed.querySelectorAll(".heart").forEach(b => b.addEventListener("click", () => {
+      const it = items[+b.dataset.i];
+      it.mine = it.mine ? 0 : 1;
+      it.h += it.mine ? 1 : -1;
+      render();
+    }));
+    feed.querySelectorAll(".chk").forEach(b => b.addEventListener("click", () => {
+      const it = items[+b.dataset.i];
+      it[b.dataset.k] = it[b.dataset.k] ? 0 : 1;
+      render();
+    }));
+  }
+  document.getElementById("postBtn").addEventListener("click", () => {
+    const v = document.getElementById("inp").value.trim();
+    if (!v) return;
+    items.unshift({ n:"01", s:v, who:cur, h:0, hw:"", y:0, r:0, mine:0 });
+    document.getElementById("inp").value = "";
+    render();
+  });
+  render();
+</script>
+</body>
+</html>

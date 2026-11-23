@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>案8 チャット投稿型｜ナスとトマト共同編集</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif; background:#dfe7ee; color:#222; -webkit-font-smoothing:antialiased; }
+  header { background:#fff; border-bottom:1px solid #e6e6e6; position:sticky; top:0; z-index:10; }
+  .head-in { max-width:680px; margin:0 auto; padding:12px 16px; }
+  .title-row { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  h1 { font-size:19px; font-weight:800; white-space:nowrap; }
+  h1 .accent { color:#e2492f; }
+  .back { font-size:13px; color:#666; text-decoration:none; white-space:nowrap; }
+  .progress { margin-top:10px; }
+  .progress-meta { display:flex; justify-content:space-between; font-size:12.5px; font-weight:700; color:#444; margin-bottom:5px; }
+  .bar { height:8px; background:#eee; border-radius:99px; overflow:hidden; }
+  .bar i { display:block; height:100%; background:#e2492f; border-radius:99px; }
+  main { max-width:680px; margin:0 auto; padding:16px 14px 104px; }
+  .day { text-align:center; font-size:11.5px; color:#fff; background:rgba(0,0,0,.18); border-radius:99px; padding:3px 12px; width:max-content; margin:2px auto 16px; }
+  .msg { display:flex; gap:8px; margin-bottom:14px; align-items:flex-start; }
+  .msg.me { flex-direction:row-reverse; }
+  .ava { width:36px; height:36px; border-radius:50%; flex:none; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; color:#fff; }
+  .ava.r { background:#e2492f; }
+  .ava.y { background:#5b4a8a; }
+  .col { max-width:78%; display:flex; flex-direction:column; gap:5px; }
+  .msg.me .col { align-items:flex-end; }
+  .name { font-size:11px; color:#5a6a78; font-weight:700; }
+  .bubble { background:#fff; border-radius:16px; border-top-left-radius:4px; padding:10px 13px; font-size:15px; line-height:1.5; box-shadow:0 1px 2px rgba(0,0,0,.08); }
+  .msg.me .bubble { background:#5b4a8a; color:#fff; border-radius:16px; border-top-right-radius:4px; }
+  .bubble .stampimg { width:110px; height:110px; object-fit:contain; display:block; }
+  .idea-act { display:flex; gap:6px; flex-wrap:wrap; align-items:center; }
+  .gogo { border:none; background:#e2492f; color:#fff; font-size:12px; font-weight:800; border-radius:99px; padding:6px 12px; cursor:pointer; }
+  .gogo.done { background:#178a50; }
+  .react { border:1px solid #ccd6de; background:#fff; font-size:12px; font-weight:700; border-radius:99px; padding:5px 10px; cursor:pointer; color:#666; }
+  .react.on { border-color:#e2492f; color:#e2492f; background:#fdeae7; }
+  .ck { font-size:11px; font-weight:800; padding:3px 9px; border-radius:99px; background:rgba(255,255,255,.75); color:#999; }
+  .ck.on-y { background:#5b4a8a; color:#fff; }
+  .ck.on-r { background:#e2492f; color:#fff; }
+  .inputbar { position:fixed; left:0; right:0; bottom:0; background:#fff; border-top:1px solid #d5dde4; z-index:20; }
+  .inputbar-in { max-width:680px; margin:0 auto; padding:10px 12px calc(10px + env(safe-area-inset-bottom)); display:flex; gap:8px; align-items:center; }
+  .inputbar input { flex:1; min-width:0; border:1.5px solid #ddd; border-radius:999px; padding:10px 14px; font-size:15px; outline:none; }
+  .inputbar input:focus { border-color:#5b4a8a; }
+  .send { flex:none; border:none; background:#5b4a8a; color:#fff; border-radius:999px; padding:11px 18px; font-size:14px; font-weight:800; cursor:pointer; }
+</style>
+</head>
+<body>
+<header>
+  <div class="head-in">
+    <div class="title-row">
+      <h1><span class="accent">ナスとトマト</span> 共同編集</h1>
+      <a class="back" href="index.html">← 案一覧</a>
+    </div>
+    <div class="progress">
+      <div class="progress-meta"><span>確定 <b>12</b> / 40</span><span>30%</span></div>
+      <div class="bar"><i style="width:30%"></i></div>
+    </div>
+  </div>
+</header>
+<main id="chat">
+  <div class="day">今日</div>
+  <div class="msg">
+    <div class="ava r">ゆ</div>
+    <div class="col">
+      <div class="name">ゆりっぺ</div>
+      <div class="bubble">新しいネタ思いついた！「ごめん今電車」</div>
+      <div class="idea-act">
+        <button class="gogo">作画へ進める</button>
+        <button class="react">♥ 1</button>
+        <span class="ck on-r">ゆりっぺ確認</span><span class="ck">ゆうき確認</span>
+      </div>
+    </div>
+  </div>
+  <div class="msg me">
+    <div class="ava y">ゆ</div>
+    <div class="col">
+      <div class="name">ゆうき</div>
+      <div class="bubble"><img class="stampimg" src="img/12.png" alt=""></div>
+      <div class="idea-act">
+        <button class="react on">♥ 2</button>
+        <span class="ck on-y">ゆうき確認</span><span class="ck on-r">ゆりっぺ確認</span>
+      </div>
+    </div>
+  </div>
+  <div class="msg me">
+    <div class="ava y">ゆ</div>
+    <div class="col">
+      <div class="name">ゆうき</div>
+      <div class="bubble">「よき」は確定でいいと思う</div>
+    </div>
+  </div>
+  <div class="msg">
+    <div class="ava r">ゆ</div>
+    <div class="col">
+      <div class="name">ゆりっぺ</div>
+      <div class="bubble">じゃあ次は「ねむむい」の絵を直したい</div>
+      <div class="idea-act">
+        <button class="gogo done">作画に進行中</button>
+        <button class="react">♥ 0</button>
+      </div>
+    </div>
+  </div>
+</main>
+<div class="inputbar">
+  <div class="inputbar-in">
+    <input id="inp" type="text" placeholder="ネタをメッセージ感覚で送信">
+    <button class="send" id="sendBtn">送信</button>
+  </div>
+</div>
+<script>
+  const chat = document.getElementById("chat");
+  document.querySelectorAll(".gogo").forEach(b => b.addEventListener("click", () => {
+    b.classList.toggle("done");
+    b.textContent = b.classList.contains("done") ? "作画に進行中" : "作画へ進める";
+  }));
+  document.querySelectorAll(".react").forEach(b => b.addEventListener("click", () => {
+    const n = parseInt(b.textContent.replace(/[^0-9]/g, "")) || 0;
+    b.classList.toggle("on");
+    b.textContent = "♥ " + (b.classList.contains("on") ? n + 1 : Math.max(0, n - 1));
+  }));
+  function send(){
+    const v = document.getElementById("inp").value.trim();
+    if (!v) return;
+    const el = document.createElement("div");
+    el.className = "msg me";
+    el.innerHTML = '<div class="ava y">ゆ</div><div class="col"><div class="name">ゆうき</div>' +
+      '<div class="bubble"></div>' +
+      '<div class="idea-act"><button class="gogo">作画へ進める</button><button class="react">♥ 0</button>' +
+      '<span class="ck">ゆうき確認</span><span class="ck">ゆりっぺ確認</span></div></div>';
+    el.querySelector(".bubble").textContent = v;
+    el.querySelector(".gogo").addEventListener("click", ev => {
+      ev.target.classList.toggle("done");
+      ev.target.textContent = ev.target.classList.contains("done") ? "作画に進行中" : "作画へ進める";
+    });
+    el.querySelector(".react").addEventListener("click", ev => {
+      const n = parseInt(ev.target.textContent.replace(/[^0-9]/g, "")) || 0;
+      ev.target.classList.toggle("on");
+      ev.target.textContent = "♥ " + (ev.target.classList.contains("on") ? n + 1 : Math.max(0, n - 1));
+    });
+    chat.appendChild(el);
+    document.getElementById("inp").value = "";
+    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+  }
+  document.getElementById("sendBtn").addEventListener("click", send);
+  document.getElementById("inp").addEventListener("keydown", e => { if (e.key === "Enter") send(); });
+</script>
+</body>
+</html>

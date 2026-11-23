@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>案9 ネタ置き場型｜ナスとトマト共同編集</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif; background:#f4f4f4; color:#222; -webkit-font-smoothing:antialiased; }
+  header { background:#fff; border-bottom:1px solid #e6e6e6; position:sticky; top:0; z-index:10; }
+  .head-in { max-width:760px; margin:0 auto; padding:12px 16px; }
+  .title-row { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  h1 { font-size:19px; font-weight:800; white-space:nowrap; }
+  h1 .accent { color:#e2492f; }
+  .back { font-size:13px; color:#666; text-decoration:none; white-space:nowrap; }
+  .progress { margin-top:10px; }
+  .progress-meta { display:flex; justify-content:space-between; font-size:12.5px; font-weight:700; color:#444; margin-bottom:5px; }
+  .bar { height:8px; background:#eee; border-radius:99px; overflow:hidden; }
+  .bar i { display:block; height:100%; background:#e2492f; border-radius:99px; transition:width .3s; }
+  main { max-width:760px; margin:0 auto; padding:16px 16px 40px; }
+  .postcard { background:#fff; border-radius:18px; box-shadow:0 1px 4px rgba(0,0,0,.07); padding:16px; }
+  .postcard h2 { font-size:16px; font-weight:800; margin-bottom:12px; }
+  .postcard h2 span { color:#e2492f; }
+  label { font-size:12.5px; font-weight:800; color:#555; display:block; margin-bottom:5px; }
+  input[type=text], textarea { width:100%; border:1.5px solid #ddd; border-radius:11px; padding:11px 12px; font-size:15px; font-family:inherit; outline:none; }
+  input[type=text]:focus, textarea:focus { border-color:#e2492f; }
+  textarea { resize:vertical; min-height:52px; }
+  .frow { margin-bottom:12px; }
+  .seg { display:flex; gap:8px; }
+  .seg button { flex:1; border:1.5px solid #ddd; background:#fff; border-radius:11px; padding:9px 4px; font-size:13.5px; font-weight:800; color:#666; cursor:pointer; }
+  .seg button.on-nasu { background:#5b4a8a; border-color:#5b4a8a; color:#fff; }
+  .seg button.on-tomato { background:#e2492f; border-color:#e2492f; color:#fff; }
+  .seg button.on-both { background:#2e7d46; border-color:#2e7d46; color:#fff; }
+  .attach { border:1.5px dashed #c9c2b4; background:#faf7f2; border-radius:11px; padding:12px; display:flex; align-items:center; gap:10px; cursor:pointer; }
+  .attach img { width:40px; height:40px; object-fit:contain; display:none; }
+  .attach span { font-size:13px; color:#888; font-weight:600; }
+  .post { width:100%; border:none; background:#e2492f; color:#fff; border-radius:12px; padding:14px; font-size:16px; font-weight:800; cursor:pointer; }
+  .sec-head { display:flex; align-items:baseline; gap:8px; margin:26px 0 10px; }
+  .sec-head h3 { font-size:16px; font-weight:800; }
+  .sec-head .cnt { font-size:12px; font-weight:800; background:#222; color:#fff; border-radius:99px; padding:2px 9px; }
+  .sec-head p { font-size:12px; color:#888; margin-left:auto; }
+  .stock { display:grid; grid-template-columns:repeat(2, 1fr); gap:10px; }
+  @media (min-width:640px){ .stock { grid-template-columns:repeat(3, 1fr); } }
+  .sitem { background:#fff; border-radius:13px; box-shadow:0 1px 4px rgba(0,0,0,.06); padding:11px; display:flex; flex-direction:column; gap:7px; }
+  .sitem .s { font-size:15px; font-weight:800; line-height:1.35; }
+  .sitem .memo { font-size:11.5px; color:#888; line-height:1.5; }
+  .who { font-size:11px; font-weight:700; padding:2px 8px; border-radius:99px; align-self:flex-start; }
+  .who.nasu { background:#ece7f7; color:#5b4a8a; }
+  .who.tomato { background:#fdeae7; color:#c23a24; }
+  .who.both { background:#e8f2e9; color:#2e7d46; }
+  .move { margin-top:auto; border:1.5px solid #222; background:#fff; border-radius:9px; padding:7px 4px; font-size:12.5px; font-weight:800; cursor:pointer; }
+  .move.done { background:#178a50; border-color:#178a50; color:#fff; }
+  .slots { display:grid; grid-template-columns:repeat(8, 1fr); gap:6px; }
+  .slot { aspect-ratio:1; border-radius:9px; background:#fff; border:1.5px dashed #d8d2c6; display:flex; align-items:center; justify-content:center; font-size:11px; color:#bbb; font-weight:700; overflow:hidden; }
+  .slot.filled { border-style:solid; border-color:#eee7db; background:#faf7f2; padding:3px; }
+  .slot.filled img { max-width:100%; max-height:100%; object-fit:contain; }
+  .flow { display:flex; align-items:center; gap:8px; justify-content:center; margin:18px 0 2px; font-size:12.5px; font-weight:800; color:#666; }
+  .flow .arr { color:#e2492f; }
+  .foot { text-align:center; font-size:12px; color:#999; padding:14px 0 6px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="head-in">
+    <div class="title-row">
+      <h1><span class="accent">ナスとトマト</span> 共同編集</h1>
+      <a class="back" href="index.html">← 案一覧</a>
+    </div>
+    <div class="progress">
+      <div class="progress-meta"><span>確定 <b id="doneCount">12</b> / 40</span><span id="pct">30%</span></div>
+      <div class="bar"><i id="barFill" style="width:30%"></i></div>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="postcard">
+    <h2>新しいネタを<span>置く</span></h2>
+    <div class="frow">
+      <label>セリフ</label>
+      <input type="text" id="inp" placeholder="思いついたセリフを入力">
+    </div>
+    <div class="frow">
+      <label>担当キャラ</label>
+      <div class="seg">
+        <button id="segNasu">ナス</button>
+        <button id="segTomato" class="on-tomato">トマト</button>
+        <button id="segBoth">2人</button>
+      </div>
+    </div>
+    <div class="frow">
+      <label>参考画像</label>
+      <div class="attach" id="attach">
+        <img id="attachImg" src="img/08.png" alt="">
+        <span id="attachMsg">＋ 参考画像を添付（ポーズ・表情の参考に）</span>
+      </div>
+    </div>
+    <div class="frow">
+      <label>メモ</label>
+      <textarea id="memo" placeholder="どんな場面で使うか、など"></textarea>
+    </div>
+    <button class="post" id="postBtn">ネタ置き場へ投稿</button>
+  </div>
+
+  <div class="sec-head">
+    <h3>ネタ置き場</h3><span class="cnt" id="stockCnt">4件</span>
+    <p>まず置く。整理はあとで</p>
+  </div>
+  <div class="stock" id="stock"></div>
+
+  <div class="flow"><span>ネタ置き場</span><span class="arr">→ 育てる →</span><span>40枠の候補</span><span class="arr">→ 2人の確認 →</span><span>確定</span></div>
+
+  <div class="sec-head">
+    <h3>40枠の候補</h3><span class="cnt" id="candCnt">候補 12 / 40</span>
+    <p>確定は2人の確認がそろったもの</p>
+  </div>
+  <div class="slots" id="slots"></div>
+  <p class="foot">「候補へ移す」を押すと枠が埋まります（モック）</p>
+</main>
+<script>
+  let cur = "tomato";
+  function setChar(c){
+    cur = c;
+    ["Nasu","Tomato","Both"].forEach(k => document.getElementById("seg" + k).className = "");
+    document.getElementById("seg" + (c === "nasu" ? "Nasu" : c === "tomato" ? "Tomato" : "Both")).className = "on-" + c;
+  }
+  document.getElementById("segNasu").addEventListener("click", () => setChar("nasu"));
+  document.getElementById("segTomato").addEventListener("click", () => setChar("tomato"));
+  document.getElementById("segBoth").addEventListener("click", () => setChar("both"));
+  document.getElementById("attach").addEventListener("click", () => {
+    document.getElementById("attachImg").style.display = "block";
+    document.getElementById("attachMsg").textContent = "参考画像を添付しました";
+  });
+  const whoLabel = { nasu:"ナス", tomato:"トマト", both:"2人" };
+  const stock = [
+    { s:"ツアー終わった", who:"tomato", memo:"帰宅直後の報告用", moved:0 },
+    { s:"着いた", who:"nasu", memo:"待ち合わせの連絡に", moved:0 },
+    { s:"ちょっと待って", who:"tomato", memo:"", moved:0 },
+    { s:"大丈夫？", who:"nasu", memo:"心配なとき用", moved:0 }
+  ];
+  let candCount = 12;
+  const stockEl = document.getElementById("stock");
+  function renderStock(){
+    stockEl.innerHTML = "";
+    stock.forEach((it, i) => {
+      const el = document.createElement("div");
+      el.className = "sitem";
+      el.innerHTML = '<div class="s"></div><span class="who ' + it.who + '">' + whoLabel[it.who] + '</span>' +
+        (it.memo ? '<div class="memo"></div>' : '') +
+        '<button class="move' + (it.moved ? " done" : "") + '">' + (it.moved ? "候補に入れた" : "候補へ移す") + '</button>';
+      el.querySelector(".s").textContent = it.s;
+      if (it.memo) el.querySelector(".memo").textContent = it.memo;
+      el.querySelector(".move").addEventListener("click", () => {
+        if (it.moved) return;
+        it.moved = 1; candCount++;
+        renderStock(); renderSlots();
+      });
+      stockEl.appendChild(el);
+    });
+    document.getElementById("stockCnt").textContent = stock.length + "件";
+  }
+  const filledImgs = ["01","02","03","04","05","06","07","08","09","10","11","12"];
+  function renderSlots(){
+    const el = document.getElementById("slots");
+    el.innerHTML = "";
+    for (let i = 0; i < 40; i++){
+      const d = document.createElement("div");
+      if (i < candCount){
+        d.className = "slot filled";
+        d.innerHTML = '<img src="img/' + filledImgs[i % 12] + '.png" alt="">';
+      } else {
+        d.className = "slot";
+        d.textContent = i + 1;
+      }
+      el.appendChild(d);
+    }
+    document.getElementById("candCnt").textContent = "候補 " + candCount + " / 40";
+  }
+  document.getElementById("postBtn").addEventListener("click", () => {
+    const v = document.getElementById("inp").value.trim();
+    if (!v) return;
+    stock.unshift({ s: v, who: cur, memo: document.getElementById("memo").value.trim(), moved: 0 });
+    document.getElementById("inp").value = "";
+    document.getElementById("memo").value = "";
+    renderStock();
+  });
+  renderStock(); renderSlots();
+</script>
+</body>
+</html>

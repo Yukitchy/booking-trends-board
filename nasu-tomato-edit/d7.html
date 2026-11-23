@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>案7 スタンププレビュー型｜ナスとトマト共同編集</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif; background:#f4f4f4; color:#222; -webkit-font-smoothing:antialiased; }
+  header { background:#fff; border-bottom:1px solid #e6e6e6; position:sticky; top:0; z-index:10; }
+  .head-in { max-width:680px; margin:0 auto; padding:12px 16px; }
+  .title-row { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  h1 { font-size:19px; font-weight:800; white-space:nowrap; }
+  h1 .accent { color:#e2492f; }
+  .back { font-size:13px; color:#666; text-decoration:none; white-space:nowrap; }
+  .progress { margin-top:10px; }
+  .progress-meta { display:flex; justify-content:space-between; font-size:12.5px; font-weight:700; color:#444; margin-bottom:5px; }
+  .bar { height:8px; background:#eee; border-radius:99px; overflow:hidden; }
+  .bar i { display:block; height:100%; background:#e2492f; border-radius:99px; transition:width .3s; }
+  main { max-width:680px; margin:0 auto; padding:18px 16px 40px; }
+  .stage { background:#fff; border-radius:18px; box-shadow:0 1px 4px rgba(0,0,0,.07); padding:20px 16px; text-align:center; }
+  .stamp { width:230px; height:230px; margin:0 auto; background:#fff; border:2px solid #eee3d3; border-radius:22px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:14px; gap:6px; }
+  .stamp .imgs { display:flex; align-items:flex-end; justify-content:center; gap:4px; height:140px; }
+  .stamp img { max-height:140px; max-width:150px; object-fit:contain; }
+  .stamp.both img { max-width:100px; max-height:120px; }
+  .stamp .txt { font-size:21px; font-weight:800; line-height:1.3; word-break:break-all; }
+  .seg { display:flex; gap:8px; justify-content:center; margin:16px 0 6px; }
+  .seg button { border:1.5px solid #ddd; background:#fff; border-radius:999px; padding:8px 18px; font-size:14px; font-weight:800; color:#666; cursor:pointer; }
+  .seg button.on-nasu { background:#5b4a8a; border-color:#5b4a8a; color:#fff; }
+  .seg button.on-tomato { background:#e2492f; border-color:#e2492f; color:#fff; }
+  .seg button.on-both { background:#2e7d46; border-color:#2e7d46; color:#fff; }
+  .form { background:#fff; border-radius:18px; box-shadow:0 1px 4px rgba(0,0,0,.07); padding:16px; margin-top:14px; display:flex; flex-direction:column; gap:12px; }
+  label { font-size:12.5px; font-weight:800; color:#555; display:block; margin-bottom:5px; }
+  input[type=text], textarea { width:100%; border:1.5px solid #ddd; border-radius:11px; padding:11px 12px; font-size:15px; font-family:inherit; outline:none; }
+  input[type=text]:focus, textarea:focus { border-color:#e2492f; }
+  textarea { resize:vertical; min-height:56px; }
+  .attach { display:flex; align-items:center; gap:10px; }
+  .attach button { border:1.5px dashed #c9c2b4; background:#faf7f2; border-radius:11px; padding:9px 14px; font-size:13px; font-weight:700; color:#777; cursor:pointer; }
+  .attach img { width:44px; height:44px; object-fit:contain; background:#faf7f2; border:1px solid #eee7db; border-radius:8px; padding:3px; display:none; }
+  .attach span { font-size:12px; color:#999; }
+  .post { border:none; background:#e2492f; color:#fff; border-radius:12px; padding:14px; font-size:16px; font-weight:800; cursor:pointer; }
+  h3 { font-size:15px; font-weight:800; margin:24px 0 10px; }
+  .posted { background:#fff; border-radius:14px; box-shadow:0 1px 4px rgba(0,0,0,.07); padding:12px; display:flex; gap:12px; margin-bottom:10px; align-items:center; }
+  .posted img { width:56px; height:56px; object-fit:contain; background:#faf7f2; border-radius:9px; padding:4px; flex:none; }
+  .posted .s { font-size:15px; font-weight:800; }
+  .posted .m { font-size:11.5px; color:#888; margin-top:3px; }
+  .status { font-size:11px; font-weight:800; padding:2px 8px; border-radius:99px; margin-left:auto; flex:none; }
+  .status.wait { background:#fdf3e0; color:#a86f08; }
+  .status.done { background:#e2f4ea; color:#178a50; }
+  .foot { text-align:center; font-size:12px; color:#999; padding:10px 0 6px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="head-in">
+    <div class="title-row">
+      <h1><span class="accent">ナスとトマト</span> 共同編集</h1>
+      <a class="back" href="index.html">← 案一覧</a>
+    </div>
+    <div class="progress">
+      <div class="progress-meta"><span>確定 <b id="doneCount">12</b> / 40</span><span>30%</span></div>
+      <div class="bar"><i style="width:30%"></i></div>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="stage">
+    <div class="stamp" id="stamp">
+      <div class="imgs" id="stampImgs"><img src="img/01.png" alt=""></div>
+      <div class="txt" id="stampTxt">おはようございます</div>
+    </div>
+    <div class="seg">
+      <button id="segNasu">ナス</button>
+      <button id="segTomato" class="on-tomato">トマト</button>
+      <button id="segBoth">2人</button>
+    </div>
+  </div>
+  <div class="form">
+    <div>
+      <label>セリフ</label>
+      <input type="text" id="inp" value="おはようございます" placeholder="思いついたセリフを入力">
+    </div>
+    <div>
+      <label>参考画像</label>
+      <div class="attach">
+        <button id="attachBtn">＋ 画像を添付</button>
+        <img id="attachImg" src="img/08.png" alt="">
+        <span id="attachMsg">ポーズや表情の参考に（任意）</span>
+      </div>
+    </div>
+    <div>
+      <label>メモ</label>
+      <textarea id="memo" placeholder="どんな場面で使うか、など"></textarea>
+    </div>
+    <button class="post" id="postBtn">このネタを投稿する</button>
+  </div>
+  <h3>投稿したネタ</h3>
+  <div id="postedList"></div>
+  <p class="foot">プレビューは入力に合わせてその場で変わります（モック）</p>
+</main>
+<script>
+  const charImg = { nasu:"02", tomato:"01" };
+  let cur = "tomato";
+  const stamp = document.getElementById("stamp");
+  const stampImgs = document.getElementById("stampImgs");
+  const stampTxt = document.getElementById("stampTxt");
+  const inp = document.getElementById("inp");
+  function setChar(c){
+    cur = c;
+    ["Nasu","Tomato","Both"].forEach(k => document.getElementById("seg" + k).className = "");
+    document.getElementById("seg" + (c === "nasu" ? "Nasu" : c === "tomato" ? "Tomato" : "Both")).className = "on-" + c;
+    stamp.className = "stamp" + (c === "both" ? " both" : "");
+    stampImgs.innerHTML = c === "both"
+      ? '<img src="img/02.png" alt=""><img src="img/01.png" alt="">'
+      : '<img src="img/' + charImg[c] + '.png" alt="">';
+  }
+  document.getElementById("segNasu").addEventListener("click", () => setChar("nasu"));
+  document.getElementById("segTomato").addEventListener("click", () => setChar("tomato"));
+  document.getElementById("segBoth").addEventListener("click", () => setChar("both"));
+  inp.addEventListener("input", () => { stampTxt.textContent = inp.value || "（セリフ未入力）"; });
+  document.getElementById("attachBtn").addEventListener("click", () => {
+    document.getElementById("attachImg").style.display = "block";
+    document.getElementById("attachMsg").textContent = "参考画像を添付しました";
+  });
+  const posted = [
+    { n:"16", s:"やばばば", who:"ナス", done:0 },
+    { n:"33", s:"ごめん今電車", who:"トマト", done:0 }
+  ];
+  const list = document.getElementById("postedList");
+  function renderPosted(){
+    list.innerHTML = "";
+    posted.forEach(p => {
+      const el = document.createElement("div");
+      el.className = "posted";
+      el.innerHTML = '<img src="img/' + p.n + '.png" alt=""><div><div class="s">' + p.s + '</div><div class="m">' + p.who + '・確認待ち</div></div><span class="status wait">確認待ち</span>';
+      list.appendChild(el);
+    });
+  }
+  document.getElementById("postBtn").addEventListener("click", () => {
+    const v = inp.value.trim();
+    if (!v) return;
+    posted.unshift({ n: charImg[cur] || "01", s: v, who: cur === "nasu" ? "ナス" : cur === "tomato" ? "トマト" : "2人", done: 0 });
+    renderPosted();
+    inp.value = ""; stampTxt.textContent = "（セリフ未入力）";
+    document.getElementById("memo").value = "";
+  });
+  renderPosted();
+</script>
+</body>
+</html>
