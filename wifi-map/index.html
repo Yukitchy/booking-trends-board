@@ -88,6 +88,7 @@ button:disabled{opacity:.55; cursor:wait;}
 #guess-status{margin-top:4px;}
 #f-speed-status{margin-top:2px; min-height:1.2em; font-size:12.5px;}
 #f-form-status{margin-top:4px;}
+#f-fold-toggle{width:100%; font:inherit; font-size:13px; font-weight:700; padding:8px; border:1.5px dashed var(--line); border-radius:10px; background:#fbfdfb; color:var(--ink); margin:8px 0 2px;}
 #add-panel{position:fixed; left:8px; right:8px; bottom:8px; max-height:82dvh; overflow-y:auto; z-index:1500;}
 [hidden]{display:none !important;}
 .row1{display:flex; align-items:baseline; gap:8px;}
@@ -266,22 +267,9 @@ div.ph-side{height:100%;}
 <p id="guess-status"></p>
 </div>
 </div>
-<div class="f-2col">
-<div class="f-row">
-<label for="f-area">エリア（任意）</label>
-<input type="text" id="f-area" placeholder="例：秋葉原" autocomplete="off">
-</div>
 <div class="f-row">
 <label for="f-ssid">SSID</label>
 <input type="text" id="f-ssid" placeholder="接続中のWi-Fi名" autocomplete="off">
-</div>
-</div>
-<div class="f-row">
-<label for="f-password">パスワード（任意）</label>
-<div class="pw-wrap">
-<input type="password" id="f-password" placeholder="オープンネットワークなら空欄" autocomplete="off">
-<button type="button" id="f-pw-toggle">表示</button>
-</div>
 </div>
 <div class="f-2col">
 <div class="f-row">
@@ -295,6 +283,21 @@ div.ph-side{height:100%;}
 </div>
 <div class="f-btns">
 <button type="button" id="f-locate">📍 現在地を入れる</button>
+</div>
+<button type="button" id="f-fold-toggle">▽ 任意項目を開く（エリア・パスワード・速度・電源・メモ）</button>
+<div id="f-optional" hidden>
+<div class="f-row">
+<label for="f-area">エリア（任意）</label>
+<input type="text" id="f-area" placeholder="例：秋葉原" autocomplete="off">
+</div>
+<div class="f-row">
+<label for="f-password">パスワード（任意）</label>
+<div class="pw-wrap">
+<input type="password" id="f-password" placeholder="オープンネットワークなら空欄" autocomplete="off">
+<button type="button" id="f-pw-toggle">表示</button>
+</div>
+</div>
+<div class="f-btns">
 <button type="button" id="f-measure">⚡ 速度を測る（下りのみ）</button>
 </div>
 <p id="f-speed-status"></p>
@@ -314,6 +317,7 @@ div.ph-side{height:100%;}
 <div class="f-row">
 <label for="f-note">メモ</label>
 <textarea id="f-note" rows="2" placeholder="席・電源の場所・利用条件など"></textarea>
+</div>
 </div>
 <div class="f-btns">
 <button type="button" id="f-save" class="on">保存して地図に追加</button>
@@ -779,6 +783,12 @@ if (panel.hidden) openForm(); else closeForm();
 document.getElementById('f-cancel').addEventListener('click', closeForm);
 document.getElementById('f-locate').addEventListener('click', function(){
 locate(function(pos){ fillLatLng(pos);});
+});
+document.getElementById('f-fold-toggle').addEventListener('click', function(){
+  var box = document.getElementById('f-optional');
+  var opening = box.hidden;
+  box.hidden = !opening;
+  this.textContent = opening ? '△ 任意項目を閉じる' : '▽ 任意項目を開く（エリア・パスワード・速度・電源・メモ）';
 });
 document.getElementById('f-guess').addEventListener('click', function(){
 var lat = parseFloat(document.getElementById('f-lat').value);
