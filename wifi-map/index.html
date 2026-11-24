@@ -90,6 +90,11 @@ button:disabled{opacity:.55; cursor:wait;}
 #f-form-status{margin-top:4px;}
 #f-fold-toggle{width:100%; font:inherit; font-size:13px; font-weight:700; padding:8px; border:1.5px dashed var(--line); border-radius:10px; background:#fbfdfb; color:var(--ink); margin:8px 0 2px;}
 #add-panel{position:fixed; left:8px; right:8px; bottom:8px; max-height:82dvh; overflow-y:auto; z-index:1500;}
+#edit-panel{position:fixed; left:8px; right:8px; bottom:8px; max-height:82dvh; overflow-y:auto; z-index:1500;}
+.photo-prev{width:100%; max-height:180px; object-fit:cover; border-radius:10px; display:block; margin-top:6px;}
+#e-speed-status{font-size:12.5px; color:var(--deep); min-height:1.2em; margin-top:2px;}
+#e-form-status{font-size:13px; color:#5c6b5e; min-height:1.4em; margin-top:8px;}
+.popedit{margin-top:7px; font-size:12.5px; padding:5px 12px;}
 [hidden]{display:none !important;}
 .row1{display:flex; align-items:baseline; gap:8px;}
 .meta.sm{font-size:12px;}
@@ -252,6 +257,38 @@ div.ph-side{height:100%;}
 <p>右上の＋から、自分で測って追加できる。追加したスポットは端末に保存され、送ると恒久的に掲載される。</p>
 </div>
 </div>
+<div class="panel" id="edit-panel" hidden>
+<h2 id="e-title">スポットを編集</h2>
+<p class="hint">速度の測り直しと写真の追加ができる。保存先はこの端末の中。</p>
+<div class="f-btns">
+<button type="button" id="e-measure">⚡ 速度を測る（下りのみ）</button>
+</div>
+<p id="e-speed-status"></p>
+<div class="f-2col">
+<div class="f-row">
+<label for="e-down">下り Mbps</label>
+<input type="number" id="e-down" step="any" min="0" inputmode="decimal" placeholder="未計測なら空欄">
+</div>
+<div class="f-row">
+<label for="e-up">上り Mbps（手入力）</label>
+<input type="number" id="e-up" step="any" min="0" inputmode="decimal" placeholder="未計測なら空欄">
+</div>
+</div>
+<p class="meta sm" id="e-measured"></p>
+<div class="f-row">
+<label for="e-photo">写真</label>
+<input type="file" id="e-photo" accept="image/*">
+<img id="e-photo-prev" class="photo-prev" alt="" hidden>
+<div class="f-btns">
+<button type="button" id="e-photo-del">写真を削除</button>
+</div>
+</div>
+<div class="f-btns">
+<button type="button" id="e-save" class="on">保存する</button>
+<button type="button" id="e-cancel">キャンセル</button>
+</div>
+<p id="e-form-status"></p>
+</div>
 <div class="panel" id="add-panel" hidden>
 <h2>今いる場所のWi-Fiを追加</h2>
 <a href="shortcuts://run-shortcut?name=%E7%8F%BE%E5%9C%A8%E5%9C%B0%E3%82%92%E5%8F%96%E5%BE%97" style="display:block;text-align:center;background:#101410;color:#fff;border-radius:10px;padding:8px;font-size:13.5px;font-weight:700;text-decoration:none;margin:2px 0 4px">📶 接続中のWi-Fiで自動入力（ショートカット）</a>
@@ -284,7 +321,7 @@ div.ph-side{height:100%;}
 <div class="f-btns">
 <button type="button" id="f-locate">📍 現在地を入れる</button>
 </div>
-<button type="button" id="f-fold-toggle">▽ 任意項目を開く（エリア・パスワード・速度・電源・メモ）</button>
+<button type="button" id="f-fold-toggle">▽ 任意項目を開く（エリア・パスワード・速度・電源・写真・メモ）</button>
 <div id="f-optional" hidden>
 <div class="f-row">
 <label for="f-area">エリア（任意）</label>
@@ -313,6 +350,14 @@ div.ph-side{height:100%;}
 </div>
 <div class="f-row">
 <label class="chk"><input type="checkbox" id="f-power"> 🔌 電源あり</label>
+</div>
+<div class="f-row">
+<label for="f-photo">写真（任意）</label>
+<input type="file" id="f-photo" accept="image/*">
+<img id="f-photo-prev" class="photo-prev" alt="" hidden>
+<div class="f-btns">
+<button type="button" id="f-photo-del">写真を外す</button>
+</div>
 </div>
 <div class="f-row">
 <label for="f-note">メモ</label>
@@ -435,7 +480,7 @@ return Array.isArray(arr)? arr: [];
 } catch(e){ return [];}
 }
 function saveMine(){
-try { localStorage.setItem(LS_KEY, JSON.stringify(mySpots));} catch(e){}
+try { localStorage.setItem(LS_KEY, JSON.stringify(mySpots)); return true; } catch(e){ return false; }
 }
 var mySpots = loadMine();
 mySpots.forEach(function(s){ s.mine = true;});
@@ -447,7 +492,7 @@ c.photo = (typeof PHOTOS !== 'undefined' && PHOTOS[i])? PHOTOS[i]: null;
 return c;
 });
 var mine = mySpots.map(function(s, i){
-var c = Object.assign({}, s); c._key = 'm' + (s.id || i); c.mine = true; c.photo = null;
+var c = Object.assign({}, s); c._key = 'm' + (s.id || i); c.mine = true; c.photo = s.photo || null;
 return c;
 });
 return base.concat(mine);
@@ -533,6 +578,27 @@ return '\n' +
 'メモ：' + (s.note || '') + '\n' +
 '緯度経度：' + s.lat + ', ' + s.lng;
 }
+function spotJson(s){
+var o = {
+name: s.name || '',
+area: s.area || '',
+lat: s.lat, lng: s.lng,
+ssid: s.ssid || '',
+password: (s.password === undefined? null: s.password),
+down: (s.down === undefined? null: s.down),
+up: (s.up === undefined? null: s.up),
+measured_on: s.measured_on || null,
+approx: !!s.approx,
+power: !!s.power,
+note: s.note || ''
+};
+if (s.photo){
+/* data URL の文字数×3/4 ≒ 実バイト数。約300KB以下なら写真ごと含める */
+if (s.photo.length * 3 / 4 <= 300 * 1024){ o.photo = s.photo; }
+else { o.photo = 'あり（データが大きいため写真は別送）'; }
+}
+return JSON.stringify(o, null, 2);
+}
 function copyText(txt, btn){
 function done(){
 var old = btn.textContent;
@@ -561,7 +627,10 @@ var btns = document.createElement('div');
 btns.className = 'cardbtns';
 var cp = document.createElement('button');
 cp.type = 'button'; cp.textContent = '📋 Muse に送る用にコピー';
-cp.addEventListener('click', function(e){ e.stopPropagation(); copyText(recordText(s), cp);});
+cp.addEventListener('click', function(e){ e.stopPropagation(); copyText(spotJson(s), cp);});
+var ed = document.createElement('button');
+ed.type = 'button'; ed.textContent = '✏️ 編集';
+ed.addEventListener('click', function(e){ e.stopPropagation(); openEditSpot(s.id);});
 var del = document.createElement('button');
 del.type = 'button'; del.className = 'danger'; del.textContent = '削除';
 del.addEventListener('click', function(e){
@@ -571,7 +640,7 @@ mySpots = mySpots.filter(function(x){ return String(x.id) !== String(s.id);});
 saveMine();
 render();
 });
-btns.appendChild(cp); btns.appendChild(del);
+btns.appendChild(cp); btns.appendChild(ed); btns.appendChild(del);
 card.appendChild(btns);
 }
 card.addEventListener('click', function(e){
@@ -610,7 +679,8 @@ m.bindPopup(
 '<br>' + (sl? esc(sl): '速度：未計測') +
 (pw? '<br>' + pw: '') +
 (s.note? '<br>' + esc(s.note): '') +
-'<br><a href="' + gmapUrl(s) + '" target="_blank" rel="noopener">Googleマップで開く</a>');
+'<br><a href="' + gmapUrl(s) + '" target="_blank" rel="noopener">Googleマップで開く</a>' +
+(s.mine? '<br><button type="button" class="popedit" onclick="window.__openEdit(' + s.id + ')">✏️ 編集（速度・写真）</button>': ''));
 }
 if (window.PINCLICK){
 m.on('click', function(){ window.PINCLICK(s); });
@@ -778,6 +848,7 @@ else { locate(function(pos){ fillLatLng(pos);});}
 }
 function closeForm(){ panel.hidden = true; }
 document.getElementById('btn-add').addEventListener('click', function(){
+document.getElementById('edit-panel').hidden = true;
 if (panel.hidden) openForm(); else closeForm();
 });
 document.getElementById('f-cancel').addEventListener('click', closeForm);
@@ -788,7 +859,7 @@ document.getElementById('f-fold-toggle').addEventListener('click', function(){
   var box = document.getElementById('f-optional');
   var opening = box.hidden;
   box.hidden = !opening;
-  this.textContent = opening ? '△ 任意項目を閉じる' : '▽ 任意項目を開く（エリア・パスワード・速度・電源・メモ）';
+  this.textContent = opening ? '△ 任意項目を閉じる' : '▽ 任意項目を開く（エリア・パスワード・速度・電源・写真・メモ）';
 });
 document.getElementById('f-guess').addEventListener('click', function(){
 var lat = parseFloat(document.getElementById('f-lat').value);
@@ -820,11 +891,8 @@ inp.type = show? 'text': 'password';
 this.textContent = show? '隠す': '表示';
 });
 
-document.getElementById('f-measure').addEventListener('click', function(){
-var btn = this;
-var st = document.getElementById('f-speed-status');
-btn.disabled = true;
-st.textContent = '計測中…（今つながっている回線の下り速度・簡易計測）';
+/* 下りの簡易計測（speed.bin を3回落として中央値）。追加フォームと編集で共用 */
+function measureDownTimes(cb){
 var results = [];
 function once(){
 var start = performance.now();
@@ -840,15 +908,71 @@ if (sec > 0) results.push((buf.byteLength * 8) / sec / 1000000);
 }
 once().then(once).then(once).then(function(){
 results.sort(function(a,b){ return a-b;});
-var med = Math.round(results[1] * 10) / 10;
+cb(null, Math.round(results[1] * 10) / 10);
+}).catch(function(e){ cb(e); });
+}
+
+document.getElementById('f-measure').addEventListener('click', function(){
+var btn = this;
+var st = document.getElementById('f-speed-status');
+btn.disabled = true;
+st.textContent = '計測中…（今つながっている回線の下り速度・簡易計測）';
+measureDownTimes(function(err, med){
+btn.disabled = false;
+if (err){
+st.textContent = '計測に失敗した（' + err.message + '）。下りは手入力でも登録できる。';
+return;
+}
 document.getElementById('f-down').value = med;
 measuredApprox = true;
 st.textContent = '下り ' + med + ' Mbps（簡易計測・3回の中央値）';
-btn.disabled = false;
-}).catch(function(e){
-st.textContent = '計測に失敗した（' + e.message + '）。下りは手入力でも登録できる。';
-btn.disabled = false;
 });
+});
+
+/* 写真ファイル → 長辺1200px・JPEG化した data URL（約300KB以下を目標に段階圧縮） */
+function processPhotoFile(file, cb){
+if (!file){ cb(null); return; }
+var url = URL.createObjectURL(file);
+var img = new Image();
+img.onload = function(){
+function render(scale, q){
+var cv = document.createElement('canvas');
+cv.width = Math.max(1, Math.round(img.naturalWidth * scale));
+cv.height = Math.max(1, Math.round(img.naturalHeight * scale));
+cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
+return cv.toDataURL('image/jpeg', q);
+}
+var scale = Math.min(1, 1200 / Math.max(img.naturalWidth, img.naturalHeight));
+var out = render(scale, 0.82);
+if (out.length > 400000) out = render(scale * 0.8, 0.72);
+if (out.length > 400000) out = render(scale * 0.6, 0.65);
+URL.revokeObjectURL(url);
+cb(out);
+};
+img.onerror = function(){ URL.revokeObjectURL(url); cb(null); };
+img.src = url;
+}
+
+/* 追加フォームの写真添付 */
+var formPhoto = null;
+document.getElementById('f-photo').addEventListener('change', function(){
+var file = this.files && this.files[0];
+if (!file) return;
+processPhotoFile(file, function(dataUrl){
+var prev = document.getElementById('f-photo-prev');
+if (dataUrl){
+formPhoto = dataUrl;
+prev.src = dataUrl; prev.hidden = false;
+} else {
+document.getElementById('f-form-status').textContent = '写真を読み込めなかった。別の写真で試してほしい。';
+}
+});
+});
+document.getElementById('f-photo-del').addEventListener('click', function(){
+formPhoto = null;
+document.getElementById('f-photo').value = '';
+var prev = document.getElementById('f-photo-prev');
+prev.hidden = true; prev.removeAttribute('src');
 });
 
 document.getElementById('f-save').addEventListener('click', function(){
@@ -875,14 +999,121 @@ measured_on: (down !== null)? todayStr(): null,
 approx: (down !== null && measuredApprox)? true: false,
 power: document.getElementById('f-power').checked,
 note: document.getElementById('f-note').value.trim(),
+photo: formPhoto || null,
 mine: true
 };
 mySpots.push(rec);
-saveMine();
+if (!saveMine()){
+mySpots.pop();
+st.textContent = '保存容量がいっぱいで保存できなかった。写真を外すか、古い自分の追加を削除してから試してほしい。';
+return;
+}
+formPhoto = null;
+document.getElementById('f-photo').value = '';
+var fpPrev = document.getElementById('f-photo-prev');
+fpPrev.hidden = true; fpPrev.removeAttribute('src');
 render();
 closeForm();
 statusSink.textContent =
 '「' + name + '」を追加した（この端末に保存）。恒久化はカードの「Muse に送る用にコピー」をチャットへ貼ってほしい。';
+});
+
+/* ---------- 自分の追加の編集（速度・写真） ---------- */
+var editPanel = document.getElementById('edit-panel');
+var editId = null;
+var editPhoto; /* undefined=変更なし / null=削除 / 文字列=新しい写真 */
+var editMeasuredApprox = false;
+
+function findMine(id){
+var rec = null;
+mySpots.forEach(function(x){ if (String(x.id) === String(id)) rec = x; });
+return rec;
+}
+function openEditSpot(id){
+var rec = findMine(id);
+if (!rec) return;
+editId = rec.id;
+editPhoto = undefined;
+editMeasuredApprox = false;
+document.getElementById('e-title').textContent = '編集：' + rec.name;
+document.getElementById('e-down').value = (rec.down === null || rec.down === undefined)? '': rec.down;
+document.getElementById('e-up').value = (rec.up === null || rec.up === undefined)? '': rec.up;
+document.getElementById('e-measured').textContent = rec.measured_on
+? '計測日：' + rec.measured_on + (rec.approx? '（簡易計測）': '（実測）')
+: 'まだ計測していない';
+document.getElementById('e-speed-status').textContent = '';
+document.getElementById('e-form-status').textContent = '';
+var prev = document.getElementById('e-photo-prev');
+if (rec.photo){ prev.src = rec.photo; prev.hidden = false; }
+else { prev.hidden = true; prev.removeAttribute('src'); }
+document.getElementById('e-photo').value = '';
+closeForm();
+editPanel.hidden = false;
+}
+function closeEdit(){ editPanel.hidden = true; editId = null; }
+window.__openEdit = function(id){ openEditSpot(id); };
+
+document.getElementById('e-cancel').addEventListener('click', closeEdit);
+document.getElementById('e-measure').addEventListener('click', function(){
+var btn = this;
+var st = document.getElementById('e-speed-status');
+btn.disabled = true;
+st.textContent = '計測中…（今つながっている回線の下り速度・簡易計測）';
+measureDownTimes(function(err, med){
+btn.disabled = false;
+if (err){
+st.textContent = '計測に失敗した（' + err.message + '）。下りは手入力でも直せる。';
+return;
+}
+document.getElementById('e-down').value = med;
+editMeasuredApprox = true;
+document.getElementById('e-measured').textContent = '計測日：' + todayStr() + '（簡易計測）';
+st.textContent = '下り ' + med + ' Mbps（簡易計測・3回の中央値）。保存で反映される。';
+});
+});
+document.getElementById('e-photo').addEventListener('change', function(){
+var file = this.files && this.files[0];
+if (!file) return;
+processPhotoFile(file, function(dataUrl){
+if (dataUrl){
+editPhoto = dataUrl;
+var prev = document.getElementById('e-photo-prev');
+prev.src = dataUrl; prev.hidden = false;
+} else {
+document.getElementById('e-form-status').textContent = '写真を読み込めなかった。別の写真で試してほしい。';
+}
+});
+});
+document.getElementById('e-photo-del').addEventListener('click', function(){
+editPhoto = null;
+document.getElementById('e-photo').value = '';
+var prev = document.getElementById('e-photo-prev');
+prev.hidden = true; prev.removeAttribute('src');
+});
+document.getElementById('e-save').addEventListener('click', function(){
+var st = document.getElementById('e-form-status');
+var rec = findMine(editId);
+if (!rec){ closeEdit(); return; }
+var downV = document.getElementById('e-down').value;
+var upV = document.getElementById('e-up').value;
+var down = downV === ''? null: parseFloat(downV);
+var up = upV === ''? null: parseFloat(upV);
+var changed = (down !== rec.down) || (up !== rec.up);
+rec.down = down;
+rec.up = up;
+if (down === null){ rec.measured_on = null; rec.approx = false; }
+else {
+if (changed || !rec.measured_on) rec.measured_on = todayStr();
+rec.approx = editMeasuredApprox? true: (changed? false: !!rec.approx);
+}
+if (editPhoto !== undefined) rec.photo = editPhoto;
+if (!saveMine()){
+st.textContent = '保存容量がいっぱいで保存できなかった。写真を外すか、古い自分の追加を削除してから試してほしい。';
+return;
+}
+render();
+closeEdit();
+statusSink.textContent = '「' + rec.name + '」を更新した。恒久化はカードの「Muse に送る用にコピー」を貼ってほしい。';
 });
 
 var exBtn = document.getElementById('btn-export-json');
