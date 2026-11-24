@@ -12,11 +12,16 @@
 .rd{--bg:#f4f1ea;--fg:#23201b;--mute:#756f64;--line:#ddd7c9;--card:#fffdf8;--acc:#d8452b;--acc2:#1f6f78;--chip:#ece6d6;--jp:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",sans-serif;--mincho:"Shippori Mincho B1","Hiragino Mincho ProN",serif;--mono:ui-monospace,Menlo,monospace;margin:0;background:var(--bg);color:var(--fg);font-family:var(--jp);font-weight:500;-webkit-text-size-adjust:100%}
 .rd h1,.rd h2,.rd p{margin:0}
 .wrap{max-width:920px;margin:0 auto;padding:0 14px 110px}
-.back{display:inline-block;margin-top:16px;font-size:12.5px;font-weight:900;color:var(--fg);text-decoration:none;background:var(--card);border:2px solid var(--fg);border-radius:999px;padding:4px 14px}
-.brandrow{display:flex;align-items:center;gap:11px;margin-top:18px}
+.back{display:inline-block;font-size:12.5px;font-weight:900;color:var(--fg);text-decoration:none;background:var(--card);border:2px solid var(--fg);border-radius:999px;padding:4px 14px}
+.brandrow{display:flex;align-items:center;gap:11px}
 .brandrow .mk img{width:46px;height:46px;display:block}
 .brandrow .en{font:900 10.5px var(--mono);letter-spacing:.22em;color:var(--acc)}
 .brandrow .bn{font-size:19px;font-weight:900;line-height:1.3}
+/* ヘッダー1行化（2026-11-24 ユウキ指示）: ブランド行と「ゲスト帳にもどる」を同じ1行に。
+   左にブランド、右端に戻るピル、縦位置は中央揃え。縦幅の節約が目的 */
+.headrow{display:flex;align-items:center;gap:12px;margin-top:16px}
+.headrow .brandrow{flex:none}
+.headrow .back{margin-left:auto;flex:none;white-space:nowrap}
 h1.title{font-size:23px;font-weight:900;line-height:1.5;margin-top:16px}
 .smeta{font-size:12.5px;color:var(--mute);font-weight:700;margin-top:5px;line-height:1.7}
 .smeta .ch{background:var(--fg);color:#fff;border-radius:5px;padding:0 7px;font-size:10.5px;display:inline-block}
@@ -87,17 +92,25 @@ h1.title{font-size:23px;font-weight:900;line-height:1.5;margin-top:16px}
 }
 @media (max-width:640px){
   .scene .pg{flex-wrap:wrap}
-  .scene .col{height:330px;flex:1 1 100%;order:1}
+  /* 縦書き本文の縦幅を拡大（2026-11-24 ユウキ指示「もっと縦幅広げて」）: 330px → 500px。
+     本文の下に大きな空白ができないようにする。PC幅（620px）は変更しない */
+  .scene .col{height:500px;flex:1 1 100%;order:1}
   .scene .tm{order:2;flex-direction:row;align-items:center}
   .scene .ef{order:3;width:100%}
   h1.title{font-size:20px}
+  /* ヘッダー1行を狭幅でも1行に収めるための縮小 */
+  .headrow{gap:10px}
+  .brandrow{gap:9px}
+  .brandrow .mk img{width:40px;height:40px}
+  .brandrow .bn{font-size:17px}
+  .back{font-size:11.5px;padding:4px 11px}
 }
 @media (min-width:1000px){
   /* PC配置 案1 レール内スクロール型（見比べボード tsuarogu-read-pc5 で採用、2026-11-24）。
      目次は右レールに固定。場面カードの左レール(.ef)は本文(620px)と同じ高さで止め、
      溢れたカードはレール内スクロール。DOM の組み替えは末尾の PC1_JS が PC幅のときだけ行う */
   .wrap{max-width:1240px;padding:0 26px 110px;display:grid;grid-template-columns:minmax(0,1fr) 302px;column-gap:26px}
-  .back,.brandrow,h1.title,.smeta,.hero,.foot{grid-column:1/-1}
+  .headrow,h1.title,.smeta,.hero,.foot{grid-column:1/-1}
   .vmain{grid-column:1;min-width:0}
   .vrail{grid-column:2;align-self:start;position:sticky;top:14px;max-height:calc(100vh - 28px);overflow-y:auto;scrollbar-width:thin}
   .vrail .tocbox{margin-top:20px}
@@ -124,8 +137,7 @@ h1.title{font-size:23px;font-weight:900;line-height:1.5;margin-top:16px}
 </head>
 <body class="rd">
 <div class="wrap">
-<a class="back" href="../">‹ ゲスト帳にもどる</a>
-<div class="brandrow"><div class="mk"><img src="../mark-bubble.png" alt=""></div><div><div class="en">TOUR LOG</div><div class="bn">つあろぐ</div></div></div>
+<div class="headrow"><div class="brandrow"><div class="mk"><img src="../mark-bubble.png" alt=""></div><div><div class="en">TOUR LOG</div><div class="bn">つあろぐ</div></div></div><a class="back" href="../">‹ ゲスト帳にもどる</a></div>
 <h1 class="title">映画談義と友人の再会</h1>
 <p class="smeta">地元の友人たち ・ 2026.10.30 金 ・ 18:44〜 ・ 180分</p>
 <div class="tocbox" id="toc"><button type="button" class="tochd" id="tochd" aria-expanded="false" aria-controls="toclist"><span class="tocttl">目次</span><span class="toccnt">全18場面</span><svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9l7 7 7-7"/></svg></button><div class="toclist" id="toclist" hidden>
