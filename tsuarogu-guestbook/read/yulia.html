@@ -108,6 +108,18 @@ h1.title{font-size:23px;font-weight:900;line-height:1.5;margin-top:16px}
   .rd .scene .ef::-webkit-scrollbar{width:5px}
   .rd .scene .ef::-webkit-scrollbar-thumb{background:#c6bfa9;border-radius:3px}
 }
+@media (max-width:640px){
+  /* スマホ配置 案1 横スワイプ・カルーセル型（見比べボード tsuarogu-read-sp5 で採用、2026-11-24）。
+     場面カード内のカード（客の声・朱書き・要確認）の縦積みをやめ、横スワイプの
+     カルーセルにして場面の縦をカード1枚分に収める。何枚目か分かるカウンタ付き。
+     バーの挿入とカウンタ更新は末尾の SP1_JS がスマホ幅のときだけ行う */
+  .scene .ef{flex-direction:row;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;gap:8px;padding:2px 2px 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .scene .ef::-webkit-scrollbar{display:none}
+  .scene .ef>div{flex:0 0 80%;scroll-snap-align:start}
+  .swipebar{display:flex;align-items:center;gap:8px;order:3;width:100%;font-size:11px;font-weight:700;color:#6a7283;letter-spacing:.06em}
+  .swipebar .cnt{margin-left:auto;font-family:var(--mono);font-weight:800;color:var(--acc);font-size:12px}
+  .swipebar .arw{color:var(--acc);font-weight:900}
+}
 </style>
 </head>
 <body class="rd">
@@ -137,6 +149,24 @@ if(window.matchMedia('(min-width:1000px)').matches){
   var anchor=document.querySelector('.hero')||toc;
   anchor.after(main); main.after(rail);
   rail.appendChild(toc);
+}
+</script>
+<script>
+if(window.matchMedia('(max-width:640px)').matches){
+  document.querySelectorAll('.scene').forEach(function(sc){
+    var ef=sc.querySelector('.ef'); if(!ef) return;
+    var cards=ef.children.length; if(!cards) return;
+    var bar=document.createElement('div'); bar.className='swipebar';
+    bar.innerHTML='<span>カード '+cards+'枚</span><span class="arw">横にスワイプ →</span><span class="cnt">1/'+cards+'</span>';
+    ef.parentNode.insertBefore(bar, ef);
+    ef.style.order='4';
+    var cnt=bar.querySelector('.cnt');
+    ef.addEventListener('scroll',function(){
+      var w=ef.children[0].getBoundingClientRect().width+8;
+      var i=Math.min(cards, Math.round(ef.scrollLeft/w)+1);
+      cnt.textContent=i+'/'+cards;
+    },{passive:true});
+  });
 }
 </script>
 <script>
