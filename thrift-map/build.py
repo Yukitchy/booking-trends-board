@@ -534,7 +534,7 @@ details[open ] .hint{display:none}
 .mood .chips button:disabled{opacity:.38;cursor:default;box-shadow:none}
 .mood .mn{margin-top:8px;font-size:13.5px;font-weight:700;color:var(--mut);min-height:1.2em}
 .maphd{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:22px 0 8px;flex-wrap:wrap}
-.maphd h2{font-family:'Archivo','Noto Sans JP',sans-serif;font-weight:900;font-size:24px;text-transform:uppercase;letter-spacing:.01em}
+.maphd h2{font-family:'Archivo','Noto Sans JP',sans-serif;font-weight:900;font-size:clamp(20px,6.4vw,24px);text-transform:uppercase;letter-spacing:.01em;min-width:0}
 .sw{display:inline-flex;align-items:center;gap:8px;font-family:'Archivo','Noto Sans JP',sans-serif;font-weight:900;font-size:13px;letter-spacing:.06em;cursor:pointer}
 .sw input{position:absolute;opacity:0;width:0;height:0}
 .sw .trk{width:46px;height:26px;border-radius:999px;background:#CFCBC0;border:2.5px solid var(--ink);position:relative;transition:background .15s;flex:none}
@@ -606,6 +606,8 @@ details[open ] .hint{display:none}
 footer{margin-top:22px;font-size:12.5px;color:var(--mut);line-height:1.7}
 footer .areas a{color:var(--ink);font-weight:800;text-decoration:none;border-bottom:2px solid var(--ac)}
 @media (max-width:560px){
+.maphd{row-gap:8px}
+.maphd h2{flex:1 1 100%}
 .hero.mos{height:240px}
 .card h3{font-size:20px}
 .big{font-size:36px}
