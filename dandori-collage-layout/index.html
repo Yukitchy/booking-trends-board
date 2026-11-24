@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>だんどりー コラージュ配置 5案 — Dandori Collage Layout</title>
+<meta property="og:title" content="だんどりー コラージュ配置 5案">
+<meta property="og:description" content="「フィード画像を作り直す」画面のコラージュ部分（主役／下1／下2）のグルーピング5案。写真・ラベル・ボタンが一目で結びつく形はどれか。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/dandori-collage-layout/">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/dandori-collage-layout/og.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23E60012'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-weight='bold'>段</text></svg>">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;background:#F1EFEA;color:#1f2225;-webkit-text-size-adjust:100%}
+  .wrap{max-width:860px;margin:0 auto;padding:28px 16px 64px}
+  h1{font-size:26px;font-weight:900;line-height:1.3}
+  h1 .en{display:block;font-size:12px;letter-spacing:.14em;color:#E60012;font-weight:800;margin-bottom:6px}
+  .lead{font-size:14px;line-height:1.8;margin-top:12px;color:#333}
+  .problem{background:#fff;border:2px solid #1f2225;padding:16px 18px;margin-top:20px}
+  .problem h2{font-size:16px;font-weight:900;margin-bottom:8px}
+  .problem p{font-size:13.5px;line-height:1.8}
+  .problem .ng{color:#E60012;font-weight:800}
+  .meta{font-size:12px;color:#6b7280;margin-top:14px;line-height:1.7}
+  .variant{margin-top:44px}
+  .vhead{display:flex;align-items:center;gap:12px}
+  .vnum{flex:none;width:44px;height:44px;background:#E60012;color:#fff;font-size:22px;font-weight:900;display:flex;align-items:center;justify-content:center}
+  .vtitle{font-size:20px;font-weight:900;line-height:1.3}
+  .vsum{font-size:13.5px;line-height:1.75;color:#333;margin:10px 2px 14px}
+  .vsum b{color:#E60012}
+  .phone{width:390px;max-width:100%;margin:0 auto;background:#fff;border:2px solid #1f2225;box-shadow:6px 6px 0 #1f2225}
+  .sheet-head{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid #e5e7eb}
+  .sheet-head .t{font-size:15px;font-weight:800}
+  .sheet-head .x{font-size:16px;color:#6b7280;border:1px solid #e5e7eb;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center}
+  .sheet-body{padding:12px 12px 14px}
+  .collage-prev{position:relative}
+  .collage-prev img{width:100%;height:118px;object-fit:cover;object-position:center 30%;display:block}
+  .collage-prev .cap{position:absolute;left:0;bottom:0;background:rgba(0,0,0,.72);color:#fff;font-size:10.5px;padding:3px 8px}
+  .sec-label{font-size:11px;font-weight:800;color:#6b7280;letter-spacing:.08em;margin:12px 0 6px}
+  .btnrow{display:flex;gap:4px}
+  .btnrow button{flex:1;font:inherit;font-size:12.5px;font-weight:700;padding:8px 0;border:1.5px solid #1f2225;background:#fff;border-radius:8px;color:#1f2225}
+  .btnrow button.primary{background:#1f2225;color:#fff}
+  .src-label{font-size:13px;font-weight:800;color:#E60012}
+  .src-label small{color:#6b7280;font-weight:600}
+  .thumb{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:#dde1e6}
+  .thumb-sq{width:100%;aspect-ratio:1;object-fit:cover;display:block;background:#dde1e6}
+  .rebuild{margin-top:14px;background:#E60012;color:#fff;text-align:center;font-weight:800;font-size:14px;padding:12px 0;border-radius:10px}
+  .reset{text-align:center;font-size:11.5px;color:#6b7280;text-decoration:underline;margin-top:10px}
+
+  /* 案1 カード */
+  .v1 .card{border:2px solid #1f2225;border-radius:14px;padding:10px;margin-bottom:14px;background:#fff}
+  .v1 .card-head{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+  .v1 .chip{background:#E60012;color:#fff;font-size:11px;font-weight:800;padding:2px 10px;border-radius:999px}
+  .v1 .card .btnrow{margin-top:8px}
+
+  /* 案2 密着＋間隔 */
+  .v2 .group{margin-bottom:34px}
+  .v2 .group:last-of-type{margin-bottom:6px}
+  .v2 .attach{border:2px solid #1f2225;border-top:none;border-radius:0 0 10px 10px;display:flex;overflow:hidden}
+  .v2 .attach button{flex:1;font:inherit;font-size:12.5px;font-weight:700;padding:9px 0;border:none;background:#fff;color:#1f2225}
+  .v2 .attach button+button{border-left:1.5px solid #1f2225}
+  .v2 .attach button.primary{background:#1f2225;color:#fff}
+  .v2 .glabel{display:flex;align-items:baseline;gap:8px;margin-bottom:5px}
+  .v2 .photo-wrap{border:2px solid #1f2225;border-bottom:none;border-radius:10px 10px 0 0;overflow:hidden}
+
+  /* 案3 オーバーレイ */
+  .v3 .group{margin-bottom:16px}
+  .v3 .photo-wrap{position:relative;border-radius:12px;overflow:hidden}
+  .v3 .tag{position:absolute;top:8px;left:8px;background:rgba(0,0,0,.78);color:#fff;font-size:11.5px;font-weight:800;padding:4px 10px;border-radius:999px}
+  .v3 .tag b{color:#ff8a94}
+  .v3 .overlay-bar{position:absolute;left:0;right:0;bottom:0;display:flex;gap:6px;padding:22px 8px 8px;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.72))}
+  .v3 .overlay-bar button{flex:1;font:inherit;font-size:12.5px;font-weight:800;padding:9px 0;border:none;border-radius:8px;background:rgba(255,255,255,.94);color:#1f2225}
+  .v3 .overlay-bar button.primary{background:#E60012;color:#fff}
+
+  /* 案4 左帯 */
+  .v4 .group{display:flex;border:2px solid #1f2225;border-radius:12px;overflow:hidden;margin-bottom:14px}
+  .v4 .rail{flex:0 0 74px;background:#1f2225;color:#fff;display:flex;flex-direction:column;align-items:center;padding:10px 6px;gap:8px}
+  .v4 .rail .role{writing-mode:vertical-rl;font-size:15px;font-weight:900;letter-spacing:.3em}
+  .v4 .rail .file{font-size:10.5px;color:#ffb3ba;font-weight:700}
+  .v4 .rail button{width:100%;font:inherit;font-size:11.5px;font-weight:800;padding:8px 0;border:1.5px solid #fff;border-radius:7px;background:transparent;color:#fff}
+  .v4 .rail button.primary{background:#E60012;border-color:#E60012}
+  .v4 .rail .sp{flex:1}
+  .v4 .photo-side{flex:1;min-width:0}
+  .v4 .photo-side img{width:100%;height:100%;object-fit:cover;display:block}
+
+  /* 案5 区切り帯 */
+  .v5 .band{background:#1f2225;color:#fff;display:flex;align-items:center;gap:10px;padding:9px 12px;margin-top:18px}
+  .v5 .band:first-of-type{margin-top:2px}
+  .v5 .band .role{font-size:15px;font-weight:900;letter-spacing:.12em}
+  .v5 .band .file{font-size:11.5px;color:#ffb3ba;font-weight:700}
+  .v5 .band .dot{margin-left:auto;width:9px;height:9px;background:#E60012;border-radius:50%}
+  .v5 .under{border:2px solid #1f2225;border-top:none;padding:10px;margin-bottom:4px}
+  .v5 .under .btnrow{margin-top:8px}
+
+  .note{font-size:12px;color:#6b7280;line-height:1.7;margin-top:36px;border-top:1px solid #d8d5cf;padding-top:14px}
+  @media (max-width:480px){ h1{font-size:22px} .vtitle{font-size:18px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1><span class="en">DANDORI — COLLAGE LAYOUT ×5</span>だんどりー コラージュ配置 5案</h1>
+  <p class="lead">「フィード画像を作り直す」画面のコラージュ部分（主役／下1／下2）の並べ方を5案作りました。番号で選んでください。</p>
+
+  <div class="problem">
+    <h2>いまの問題</h2>
+    <p>現状は1つのセルの中に「主役の写真 → 主役差替ボタン → 下1の写真 → 差替ボタン…」が縦に詰まっています。<span class="ng">主役差替ボタンが下1の写真の真上に来るため、ボタンが下の写真のものに見えて勘違いしやすい</span>状態です。5案とも「写真・ラベル・ボタンがその写真のもの」と一目で分かる結びつけ方を変えています。</p>
+    <p style="margin-top:8px">あわせて、確定済みの今後の形として、各写真のボタンは「差替＋範囲」（主役は「主役差替＋範囲」）で描いています。通常枠（01.jpg等）の「← 差替 範囲 戻す →」と揃えた構成です。</p>
+  </div>
+  <p class="meta">題材：Jennifer West 回（2026-11-24）実写真 — 主役 008.jpg／下1 003.jpg／下2 031.jpg。モックはスマホ幅390px実寸、コラージュ部分を全幅に広げて比較できる形にしています（本番のセル幅より拡大表示）。</p>
+
+  <!-- 案1 -->
+  <section class="variant v1">
+    <div class="vhead"><div class="vnum">1</div><div class="vtitle">カードで囲って閉じる</div></div>
+    <p class="vsum">写真ごとに<b>1枚のカード</b>にし、写真・ラベル・ボタンをすべてカードの枠の中へ。枠の外には何も出ないので、所属が絶対に混ざりません。</p>
+    <div class="phone" id="mock1">
+      <div class="sheet-head"><div class="t">フィード画像を作り直す</div><div class="x">×</div></div>
+      <div class="sheet-body">
+        <div class="collage-prev"><img src="img/00-collage.jpg" alt=""><div class="cap">00-collage.jpg（完成イメージ）</div></div>
+        <div class="sec-label">コラージュの中身</div>
+        <div class="card">
+          <div class="card-head"><span class="chip">主役</span><span class="src-label">008.jpg</span></div>
+          <img class="thumb-sq" src="img/008.jpg" alt="">
+          <div class="btnrow"><button class="primary">主役差替</button><button>範囲</button></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="chip">下1</span><span class="src-label">003.jpg</span></div>
+          <img class="thumb-sq" src="img/003.jpg" alt="">
+          <div class="btnrow"><button class="primary">差替</button><button>範囲</button></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="chip">下2</span><span class="src-label">031.jpg</span></div>
+          <img class="thumb-sq" src="img/031.jpg" alt="">
+          <div class="btnrow"><button class="primary">差替</button><button>範囲</button></div>
+        </div>
+        <div class="reset">全部自動に戻す</div>
+        <div class="rebuild">これで作り直す</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 案2 -->
+  <section class="variant v2">
+    <div class="vhead"><div class="vnum">2</div><div class="vtitle">ボタン密着＋間隔で分ける</div></div>
+    <p class="vsum">ボタンを写真の<b>真下にくっつけて</b>（隙間ゼロ・枠つながり）、次の写真との間だけ<b>大きく空けます</b>。近いものが同じグループに見える近接の原則で分ける、最小変更の案です。</p>
+    <div class="phone" id="mock2">
+      <div class="sheet-head"><div class="t">フィード画像を作り直す</div><div class="x">×</div></div>
+      <div class="sheet-body">
+        <div class="collage-prev"><img src="img/00-collage.jpg" alt=""><div class="cap">00-collage.jpg（完成イメージ）</div></div>
+        <div class="sec-label">コラージュの中身</div>
+        <div class="group">
+          <div class="glabel"><span class="src-label">主役</span><span class="src-label"><small>008.jpg</small></span></div>
+          <div class="photo-wrap"><img class="thumb-sq" src="img/008.jpg" alt=""></div>
+          <div class="attach"><button class="primary">主役差替</button><button>範囲</button></div>
+        </div>
+        <div class="group">
+          <div class="glabel"><span class="src-label">下1</span><span class="src-label"><small>003.jpg</small></span></div>
+          <div class="photo-wrap"><img class="thumb-sq" src="img/003.jpg" alt=""></div>
+          <div class="attach"><button class="primary">差替</button><button>範囲</button></div>
+        </div>
+        <div class="group">
+          <div class="glabel"><span class="src-label">下2</span><span class="src-label"><small>031.jpg</small></span></div>
+          <div class="photo-wrap"><img class="thumb-sq" src="img/031.jpg" alt=""></div>
+          <div class="attach"><button class="primary">差替</button><button>範囲</button></div>
+        </div>
+        <div class="reset">全部自動に戻す</div>
+        <div class="rebuild">これで作り直す</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 案3 -->
+  <section class="variant v3">
+    <div class="vhead"><div class="vnum">3</div><div class="vtitle">写真の上に重ねる</div></div>
+    <p class="vsum">ラベルは写真の<b>左上のタグ</b>、ボタンは写真の<b>下端にオーバーレイ</b>。ボタンが写真の外に出ないので取り違えようがなく、縦の長さも一番短くなります。</p>
+    <div class="phone" id="mock3">
+      <div class="sheet-head"><div class="t">フィード画像を作り直す</div><div class="x">×</div></div>
+      <div class="sheet-body">
+        <div class="collage-prev"><img src="img/00-collage.jpg" alt=""><div class="cap">00-collage.jpg（完成イメージ）</div></div>
+        <div class="sec-label">コラージュの中身</div>
+        <div class="group"><div class="photo-wrap">
+          <img class="thumb" src="img/008.jpg" alt="">
+          <div class="tag">主役 <b>008.jpg</b></div>
+          <div class="overlay-bar"><button class="primary">主役差替</button><button>範囲</button></div>
+        </div></div>
+        <div class="group"><div class="photo-wrap">
+          <img class="thumb" src="img/003.jpg" alt="">
+          <div class="tag">下1 <b>003.jpg</b></div>
+          <div class="overlay-bar"><button class="primary">差替</button><button>範囲</button></div>
+        </div></div>
+        <div class="group"><div class="photo-wrap">
+          <img class="thumb" src="img/031.jpg" alt="">
+          <div class="tag">下2 <b>031.jpg</b></div>
+          <div class="overlay-bar"><button class="primary">差替</button><button>範囲</button></div>
+        </div></div>
+        <div class="reset">全部自動に戻す</div>
+        <div class="rebuild">これで作り直す</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 案4 -->
+  <section class="variant v4">
+    <div class="vhead"><div class="vnum">4</div><div class="vtitle">左に縦の帯を寄せる</div></div>
+    <p class="vsum">写真の<b>左に黒い縦帯</b>を作り、役割（主役／下1／下2）・ファイル名・ボタンを全部その帯へ。帯と写真が横に貼り合うので、上下の混線が起きません。</p>
+    <div class="phone" id="mock4">
+      <div class="sheet-head"><div class="t">フィード画像を作り直す</div><div class="x">×</div></div>
+      <div class="sheet-body">
+        <div class="collage-prev"><img src="img/00-collage.jpg" alt=""><div class="cap">00-collage.jpg（完成イメージ）</div></div>
+        <div class="sec-label">コラージュの中身</div>
+        <div class="group">
+          <div class="rail"><div class="role">主役</div><div class="file">008.jpg</div><div class="sp"></div><button class="primary">主役差替</button><button>範囲</button></div>
+          <div class="photo-side"><img src="img/008.jpg" alt=""></div>
+        </div>
+        <div class="group">
+          <div class="rail"><div class="role">下1</div><div class="file">003.jpg</div><div class="sp"></div><button class="primary">差替</button><button>範囲</button></div>
+          <div class="photo-side"><img src="img/003.jpg" alt=""></div>
+        </div>
+        <div class="group">
+          <div class="rail"><div class="role">下2</div><div class="file">031.jpg</div><div class="sp"></div><button class="primary">差替</button><button>範囲</button></div>
+          <div class="photo-side"><img src="img/031.jpg" alt=""></div>
+        </div>
+        <div class="reset">全部自動に戻す</div>
+        <div class="rebuild">これで作り直す</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 案5 -->
+  <section class="variant v5">
+    <div class="vhead"><div class="vnum">5</div><div class="vtitle">見出し帯で区切る</div></div>
+    <p class="vsum">「主役 008.jpg」のような<b>黒い見出し帯</b>を写真ごとに置き、その下に写真とボタンをまとめます。帯が区切り線になるので、スクロールしても区間がはっきり分かれます。</p>
+    <div class="phone" id="mock5">
+      <div class="sheet-head"><div class="t">フィード画像を作り直す</div><div class="x">×</div></div>
+      <div class="sheet-body">
+        <div class="collage-prev"><img src="img/00-collage.jpg" alt=""><div class="cap">00-collage.jpg（完成イメージ）</div></div>
+        <div class="sec-label">コラージュの中身</div>
+        <div class="band"><span class="role">主役</span><span class="file">008.jpg</span><span class="dot"></span></div>
+        <div class="under">
+          <img class="thumb-sq" src="img/008.jpg" alt="">
+          <div class="btnrow"><button class="primary">主役差替</button><button>範囲</button></div>
+        </div>
+        <div class="band"><span class="role">下1</span><span class="file">003.jpg</span><span class="dot"></span></div>
+        <div class="under">
+          <img class="thumb-sq" src="img/003.jpg" alt="">
+          <div class="btnrow"><button class="primary">差替</button><button>範囲</button></div>
+        </div>
+        <div class="band"><span class="role">下2</span><span class="file">031.jpg</span><span class="dot"></span></div>
+        <div class="under">
+          <img class="thumb-sq" src="img/031.jpg" alt="">
+          <div class="btnrow"><button class="primary">差替</button><button>範囲</button></div>
+        </div>
+        <div class="reset">全部自動に戻す</div>
+        <div class="rebuild">これで作り直す</div>
+      </div>
+    </div>
+  </section>
+
+  <p class="note">モックについて：だんどりー本番 server.py の igBlock（00-collage.jpg 分岐）の構造 — コラージュ完成図＋主役サムネ＋「主役 ○○○.jpg」ラベル＋差替ボタン、下1・下2の繰り返し、「全部自動に戻す」— を土台に再現。写真は Jennifer West 回ギャラリー（m2 ~/tour-photos/galleries/2026-11-24-yuuki-s-animetour-w-jennifer-west/）の実サムネです。本番実装は含みません。</p>
+</div>
+</body>
+</html>
