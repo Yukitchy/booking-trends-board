@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thrift Map 読み込みアニメーション 案5 ステッチ描画</title>
+<link rel="stylesheet" href="anim.css">
+<style>
+  html,body { margin:0; padding:0; background:#F1EFEA; }
+  .demo { max-width:340px; margin:0 auto; }
+  .demo .stage { border-radius:0; }
+</style>
+</head>
+<body>
+<div class="demo d5 play">
+      <div class="stage">
+        <div class="tagwrap">
+          <svg class="tagsvg" viewBox="0 0 120 150" width="120" height="150" aria-hidden="true">
+            <path class="guide" d="M38 8 L82 8 L112 38 L112 132 Q112 142 102 142 L18 142 Q8 142 8 132 L8 38 Z"/>
+            <path class="sew" pathLength="100" d="M38 8 L82 8 L112 38 L112 132 Q112 142 102 142 L18 142 Q8 142 8 132 L8 38 Z"/>
+            <circle class="hole" cx="60" cy="24" r="7"/>
+          </svg>
+          <div class="needle"></div>
+        </div>
+        <img class="logo" src="logo.png" alt="THRIFT MAP ロゴ" style="width:148px;top:180px">
+        <p class="tag">STITCHING THE MAP TOGETHER</p>
+      </div>
+    </div>
+</body>
+</html>

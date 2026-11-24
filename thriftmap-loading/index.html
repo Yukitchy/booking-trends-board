@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thrift Map 読み込みアニメーション 5案｜見比べボード</title>
+<meta name="description" content="Thrift Map の読み込み（ローディング）アニメーション候補5案。eatmap系ローダーの作法を基準に、値札・ハンガー・ピン・ラック・ステッチの5方向を実際に動く形で見比べるボード。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Thrift Map 読み込みアニメーション 5案｜見比べボード">
+<meta property="og:description" content="値札スイング／ハンガースライド／ピンドロップ／ラックめくり／ステッチ描画の5案をその場で再生して見比べ">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/thriftmap-loading/og.jpg">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/thriftmap-loading/">
+<link rel="icon" type="image/png" href="../thriftmap-logo/favicon.png">
+<link rel="stylesheet" href="anim.css">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans JP", sans-serif; background: #f4f4f2; color: #1a1a1a; -webkit-text-size-adjust: 100%; }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 28px 16px 56px; }
+  h1 { font-size: 24px; font-weight: 800; letter-spacing: .02em; white-space: nowrap; }
+  h1 .accent { color: #c8102e; }
+  .sub { margin-top: 8px; font-size: 13px; line-height: 1.7; color: #555; }
+  .card { background: #fff; border: 1px solid #e3e3de; border-radius: 14px; padding: 20px 18px 18px; margin-top: 22px; }
+  .card-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .num { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; background: #111; color: #fff; font-weight: 800; font-size: 16px; flex: none; align-self: center; }
+  .card h2 { font-size: 17px; font-weight: 800; }
+  .desc { margin-top: 6px; font-size: 13px; line-height: 1.7; color: #555; }
+  .demo { max-width: 340px; margin: 14px auto 0; }
+  .demo .stage { border: 1px solid #e3e0d6; }
+  .meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+  .chip { font-size: 11.5px; font-weight: 700; color: #6b6b66; background: #f1efe9; border-radius: 999px; padding: 4px 10px; }
+  .replay { margin-left: auto; font: inherit; font-size: 13px; font-weight: 700; color: #fff; background: #81660D; border: 0; border-radius: 999px; padding: 8px 18px; cursor: pointer; }
+  .replay:active { transform: scale(.96); }
+  .solo { font-size: 12px; color: #888; }
+  .solo a { color: #81660D; }
+  .foot { margin-top: 30px; font-size: 12px; line-height: 1.8; color: #888; }
+  @media (max-width: 480px) {
+    h1 { font-size: 16.5px; }
+    .card { padding: 16px 12px 14px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Thrift Map 読み込みアニメーション <span class="accent">5案</span></h1>
+  <p class="sub">基準は eatmap 系ローダー（DRINK MAP など）の作法：紙色（#F1EFEA）の全画面に、中央のステージでモチーフが小さく演じ、下にブランド＋一言タグライン。実運用では最低1.7秒見せて、0.45秒のフェードで消える想定。各案はその全画面ローダーをスマホ幅のステージ（340×320px）に縮小再現したもの。スクロールで画面に入ると再生され、「再生」ボタンで何度でも見比べられます。ロゴは確定済みの案1（値札ピン×マスタード）を使用。</p>
+
+  <section class="card">
+    <div class="card-head"><span class="num">1</span><h2>値札スイング</h2></div>
+    <p class="desc">ロゴの「A」の中の値札が、紐にぶら下がって揺れる。揺れが収まると値札がシュッと縮んでロゴの定位置にはまり、ロゴが完成する。主役はロゴ本体のモチーフそのもの。</p>
+    <div class="demo d1">
+      <div class="stage">
+        <div class="pend"><div class="string"></div>
+          <svg class="bigtag" viewBox="0 0 74 96" width="74" height="96" aria-hidden="true">
+            <path d="M22 4 L52 4 L70 22 L70 82 Q70 92 60 92 L14 92 Q4 92 4 82 L4 22 Z" fill="#81660D"/>
+            <circle cx="37" cy="17" r="6" fill="#F1EFEA"/>
+            <rect x="11" y="11" width="52" height="74" rx="5" fill="none" stroke="#F1EFEA" stroke-width="2" stroke-dasharray="4 4" opacity=".65"/>
+          </svg>
+        </div>
+        <img class="logo" src="logo.png" alt="THRIFT MAP ロゴ" style="width:200px;top:126px">
+        <div class="spark"></div>
+        <p class="tag">HANGING THE TAGS</p>
+      </div>
+    </div>
+    <div class="meta"><span class="chip">約1.9秒</span><span class="chip">CSSのみ・SVG＋ロゴ画像（軽量）</span><button class="replay" type="button">▶ 再生</button></div>
+    <p class="solo">単独ページ：<a href="demo1.html">demo1.html</a></p>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><span class="num">2</span><h2>ハンガースライド</h2></div>
+    <p class="desc">ハンガーに吊られたTシャツがラックのレールを滑って中央へ。行き過ぎて少し戻る慣性と、服の揺れで古着屋のラック感を出す。シャツの胸には小さな値札付き。ロゴは下にフェードイン。</p>
+    <div class="demo d2">
+      <div class="stage">
+        <div class="rail"></div><div class="mount m1"></div><div class="mount m2"></div>
+        <div class="hang">
+          <svg viewBox="0 0 118 104" width="118" height="104" aria-hidden="true">
+            <path d="M59 20 a8 8 0 1 1 8 -8" fill="none" stroke="#121212" stroke-width="3.5" stroke-linecap="round"/>
+            <path d="M59 20 L16 46 M59 20 L102 46" stroke="#121212" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+            <path d="M16 46 L36 37 Q59 50 82 37 L102 46 L90 60 L82 55 L82 97 Q82 101 78 101 L40 101 Q36 101 36 97 L36 55 L28 60 Z" fill="#FBFAF6" stroke="#121212" stroke-width="3" stroke-linejoin="round"/>
+            <rect x="53" y="64" width="12" height="17" rx="2" fill="#81660D"/>
+            <circle cx="59" cy="69" r="2" fill="#F1EFEA"/>
+          </svg>
+        </div>
+        <img class="logo" src="logo.png" alt="THRIFT MAP ロゴ" style="width:170px;top:158px">
+        <p class="tag">RACKING UP THE FINDS</p>
+      </div>
+    </div>
+    <div class="meta"><span class="chip">約1.8秒</span><span class="chip">CSSのみ・SVG＋ロゴ画像（軽量）</span><button class="replay" type="button">▶ 再生</button></div>
+    <p class="solo">単独ページ：<a href="demo2.html">demo2.html</a></p>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><span class="num">3</span><h2>ピンドロップ</h2></div>
+    <p class="desc">eatmap 系の正統派。地図ピンが上から落ちて跳ね、着地の波紋と一緒にロゴが出る。ピンの中心ドットは値札の穴と同モチーフで、ロゴと静かにつながる。5案で最短。</p>
+    <div class="demo d3">
+      <div class="stage">
+        <div class="rip r1"></div><div class="rip r2"></div>
+        <div class="pin">
+          <svg viewBox="0 0 54 72" width="54" height="72" aria-hidden="true">
+            <path d="M27 2 C13 2 4 13 4 25 C4 43 27 70 27 70 C27 70 50 43 50 25 C50 13 41 2 27 2 Z" fill="#81660D" stroke="#121212" stroke-width="3" stroke-linejoin="round"/>
+            <circle cx="27" cy="25" r="11" fill="#FBFAF6" stroke="#121212" stroke-width="3"/>
+            <circle cx="27" cy="25" r="4.5" fill="#81660D"/>
+          </svg>
+        </div>
+        <img class="logo" src="logo.png" alt="THRIFT MAP ロゴ" style="width:172px;top:154px">
+        <p class="tag">DROPPING PINS ON THE GOOD RACKS</p>
+      </div>
+    </div>
+    <div class="meta"><span class="chip">約1.6秒（最短）</span><span class="chip">CSSのみ・SVG＋ロゴ画像（最軽量）</span><button class="replay" type="button">▶ 再生</button></div>
+    <p class="solo">単独ページ：<a href="demo3.html">demo3.html</a></p>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><span class="num">4</span><h2>ラックめくり</h2></div>
+    <p class="desc">ハンガーの服4枚がパラパラと左右にめくれ（ラックで掘る動き）、後ろに隠れていたロゴが現れる。いちばん「掘る」体験に寄せた案。最後の1枚はロゴと同じマスタードの「掘り出し物」。</p>
+    <div class="demo d4">
+      <div class="stage">
+        <img class="logo" src="logo.png" alt="THRIFT MAP ロゴ" style="width:205px;top:96px">
+        <div class="rail"></div><div class="mount m1"></div><div class="mount m2"></div>
+        <div class="rack">
+          <div class="item i1"><svg viewBox="0 0 68 112" width="68" height="112" aria-hidden="true"><path d="M34 12 a5.5 5.5 0 1 1 5.5 -5.5" fill="none" stroke="#121212" stroke-width="3" stroke-linecap="round"/><path d="M34 12 L8 30 M34 12 L60 30" stroke="#121212" stroke-width="3" stroke-linecap="round" fill="none"/><path d="M8 30 L20 24 Q34 32 48 24 L60 30 L52 40 L47 37 L47 106 Q47 109 44 109 L24 109 Q21 109 21 106 L21 37 L16 40 Z" fill="#CBB96A" stroke="#121212" stroke-width="2.6" stroke-linejoin="round"/></svg></div>
+          <div class="item i2"><svg viewBox="0 0 68 112" width="68" height="112" aria-hidden="true"><path d="M34 12 a5.5 5.5 0 1 1 5.5 -5.5" fill="none" stroke="#121212" stroke-width="3" stroke-linecap="round"/><path d="M34 12 L8 30 M34 12 L60 30" stroke="#121212" stroke-width="3" stroke-linecap="round" fill="none"/><path d="M8 30 L20 24 Q34 32 48 24 L60 30 L52 40 L47 37 L47 106 Q47 109 44 109 L24 109 Q21 109 21 106 L21 37 L16 40 Z" fill="#77813F" stroke="#121212" stroke-width="2.6" stroke-linejoin="round"/></svg></div>
+          <div class="item i3"><svg viewBox="0 0 68 112" width="68" height="112" aria-hidden="true"><path d="M34 12 a5.5 5.5 0 1 1 5.5 -5.5" fill="none" stroke="#121212" stroke-width="3" stroke-linecap="round"/><path d="M34 12 L8 30 M34 12 L60 30" stroke="#121212" stroke-width="3" stroke-linecap="round" fill="none"/><path d="M8 30 L20 24 Q34 32 48 24 L60 30 L52 40 L47 37 L47 106 Q47 109 44 109 L24 109 Q21 109 21 106 L21 37 L16 40 Z" fill="#B9B3A4" stroke="#121212" stroke-width="2.6" stroke-linejoin="round"/></svg></div>
+          <div class="item i4"><svg viewBox="0 0 68 112" width="68" height="112" aria-hidden="true"><path d="M34 12 a5.5 5.5 0 1 1 5.5 -5.5" fill="none" stroke="#121212" stroke-width="3" stroke-linecap="round"/><path d="M34 12 L8 30 M34 12 L60 30" stroke="#121212" stroke-width="3" stroke-linecap="round" fill="none"/><path d="M8 30 L20 24 Q34 32 48 24 L60 30 L52 40 L47 37 L47 106 Q47 109 44 109 L24 109 Q21 109 21 106 L21 37 L16 40 Z" fill="#81660D" stroke="#121212" stroke-width="2.6" stroke-linejoin="round"/><rect x="29" y="58" width="10" height="14" rx="2" fill="#F1EFEA"/></svg></div>
+        </div>
+        <p class="tag">DIGGING THE RACKS</p>
+      </div>
+    </div>
+    <div class="meta"><span class="chip">約2.2秒</span><span class="chip">CSSのみ・SVG×4＋ロゴ画像（軽量）</span><button class="replay" type="button">▶ 再生</button></div>
+    <p class="solo">単独ページ：<a href="demo4.html">demo4.html</a></p>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><span class="num">5</span><h2>ステッチ描画</h2></div>
+    <p class="desc">値札の輪郭を針が縫い目でたどり、縫い終わるとタグがマスタードに染まってロゴが出る。リメイク・手作りの世界観に寄せた案。5案で最長だが、その分「作っている感」が出る。</p>
+    <div class="demo d5">
+      <div class="stage">
+        <div class="tagwrap">
+          <svg class="tagsvg" viewBox="0 0 120 150" width="120" height="150" aria-hidden="true">
+            <path class="guide" d="M38 8 L82 8 L112 38 L112 132 Q112 142 102 142 L18 142 Q8 142 8 132 L8 38 Z"/>
+            <path class="sew" pathLength="100" d="M38 8 L82 8 L112 38 L112 132 Q112 142 102 142 L18 142 Q8 142 8 132 L8 38 Z"/>
+            <circle class="hole" cx="60" cy="24" r="7"/>
+          </svg>
+          <div class="needle"></div>
+        </div>
+        <img class="logo" src="logo.png" alt="THRIFT MAP ロゴ" style="width:148px;top:180px">
+        <p class="tag">STITCHING THE MAP TOGETHER</p>
+      </div>
+    </div>
+    <div class="meta"><span class="chip">約2.4秒（最長）</span><span class="chip">CSS＋SVGパス（offset-path使用・軽量）</span><button class="replay" type="button">▶ 再生</button></div>
+    <p class="solo">単独ページ：<a href="demo5.html">demo5.html</a></p>
+  </section>
+
+  <p class="foot">全案とも追加ライブラリなし（CSS／SVGのみ）で、実運用のローダーにそのまま移植できる作り。本採用は番号で指定してください（このボードからは Thrift Map 本体へ組み込んでいません）。</p>
+</div>
+<script>
+  document.querySelectorAll('.card').forEach(function(card){
+    var demo = card.querySelector('.demo');
+    var btn = card.querySelector('.replay');
+    if (!demo) return;
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if (e.isIntersecting) { demo.classList.add('play'); io.disconnect(); }
+      });
+    }, { threshold: .35 });
+    io.observe(demo);
+    if (btn) btn.addEventListener('click', function(){
+      demo.classList.remove('play');
+      void demo.offsetWidth;
+      demo.classList.add('play');
+    });
+  });
+</script>
+</body>
+</html>

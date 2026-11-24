@@ -1,0 +1,224 @@
+/* Thrift Map loading-animation demos — shared styles
+   Baseline (eatmap family loader, e.g. DRINK MAP #ld):
+   paper-coloured full screen, a small "stage" in the centre where the
+   motif performs, brand + one-line tagline under it, min display 1.7s,
+   then a .45s fade-out. These demos shrink that full-screen loader
+   into a phone-width stage so the five ideas can be compared. */
+:root{
+  --ink:#121212; --paper:#F1EFEA; --mu:#5D5A54;
+  --must:#81660D; --must2:#A8892A; --cream:#FBFAF6;
+}
+.demo{ --ld:.9s; --td:1.2s; }
+.demo .stage{
+  position:relative; height:320px; background:var(--paper);
+  border-radius:12px; overflow:hidden;
+}
+.demo .logo{
+  position:absolute; left:50%; transform:translateX(-50%); opacity:0;
+}
+.demo.play .logo{ animation:logoin .5s cubic-bezier(.22,1,.36,1) forwards; animation-delay:var(--ld); }
+@keyframes logoin{
+  0%{ opacity:0; transform:translateX(-50%) scale(.94); }
+  60%{ opacity:1; }
+  100%{ opacity:1; transform:translateX(-50%) scale(1); }
+}
+.demo .tag{
+  position:absolute; left:0; right:0; bottom:12px; margin:0; text-align:center;
+  font:700 12px/1.4 "Archivo","Helvetica Neue",Arial,"Noto Sans JP",sans-serif;
+  letter-spacing:.14em; color:var(--mu); opacity:0;
+}
+.demo.play .tag{ animation:tagin .45s ease forwards; animation-delay:var(--td); }
+@keyframes tagin{
+  0%{ opacity:0; transform:translateY(5px); }
+  100%{ opacity:1; transform:translateY(0); }
+}
+
+/* ---------- 1. Price-tag swing ---------- */
+.d1{ --ld:1.3s; --td:1.62s; }
+.d1 .pend{
+  position:absolute; left:50%; top:0; width:0; height:0;
+  transform-origin:0 0; z-index:3;
+}
+.d1 .logo{ z-index:1; }
+.d1.play .pend{ animation:d1swing 1.9s cubic-bezier(.3,.6,.4,1) forwards; }
+@keyframes d1swing{
+  0%{ transform:rotate(17deg); }
+  14%{ transform:rotate(-12deg); }
+  27%{ transform:rotate(8deg); }
+  39%{ transform:rotate(-5deg); }
+  50%{ transform:rotate(2.5deg); }
+  60%,100%{ transform:rotate(0deg); }
+}
+.d1 .string{
+  position:absolute; left:-1px; top:0; width:2px; height:58px;
+  background:repeating-linear-gradient(180deg,#9a7b24 0 5px,#7d6413 5px 10px);
+}
+.d1.play .string{ animation:d1str 1.9s ease forwards; }
+@keyframes d1str{
+  0%,80%{ opacity:1; }
+  93%,100%{ opacity:0; }
+}
+.d1 .bigtag{
+  position:absolute; left:0; top:50px; width:74px; height:96px;
+  transform:translateX(-50%);
+}
+.d1.play .bigtag{ animation:d1fly 1.9s ease forwards; }
+@keyframes d1fly{
+  0%,58%{ transform:translateX(-50%) translate(0,0) scale(1); opacity:1; }
+  82%{ transform:translateX(-50%) translate(9px,134px) scale(.19); opacity:1; }
+  90%,100%{ transform:translateX(-50%) translate(9px,134px) scale(.19); opacity:0; }
+}
+.d1 .spark{
+  position:absolute; left:50%; top:238px; width:22px; height:22px;
+  margin:-11px 0 0 -2px; opacity:0; z-index:4;
+}
+.d1 .spark::before,.d1 .spark::after{
+  content:""; position:absolute; background:var(--must2); border-radius:2px;
+}
+.d1 .spark::before{ left:9px; top:0; width:4px; height:22px; }
+.d1 .spark::after{ left:0; top:9px; width:22px; height:4px; }
+.d1.play .spark{ animation:d1spark .5s ease-out 1.52s forwards; }
+@keyframes d1spark{
+  0%{ opacity:0; transform:scale(.3) rotate(0deg); }
+  40%{ opacity:1; }
+  100%{ opacity:0; transform:scale(1.25) rotate(35deg); }
+}
+
+/* ---------- 2. Hanger slide ---------- */
+.d2{ --ld:.95s; --td:1.35s; }
+.d2 .rail{
+  position:absolute; top:46px; left:7%; right:7%; height:4px;
+  border-radius:2px; background:var(--ink);
+}
+.d2 .mount{ position:absolute; top:24px; width:4px; height:22px; background:var(--ink); }
+.d2 .m1{ left:16%; } .d2 .m2{ right:16%; }
+.d2 .hang{
+  position:absolute; top:50px; left:50%; width:118px; margin-left:-59px; opacity:0;
+}
+.d2.play .hang{ animation:d2slide 1.8s cubic-bezier(.25,.7,.3,1) forwards; }
+@keyframes d2slide{
+  0%{ transform:translateX(-208px); opacity:0; }
+  10%{ opacity:1; }
+  52%{ transform:translateX(16px); }
+  72%{ transform:translateX(-7px); }
+  86%{ transform:translateX(3px); }
+  100%{ transform:translateX(0); opacity:1; }
+}
+.d2 .hang svg{ display:block; transform-origin:50% 6px; }
+.d2.play .hang svg{ animation:d2sway 1.8s ease forwards; }
+@keyframes d2sway{
+  0%{ transform:rotate(6deg); }
+  30%{ transform:rotate(-5deg); }
+  55%{ transform:rotate(3.5deg); }
+  75%{ transform:rotate(-1.5deg); }
+  100%{ transform:rotate(0deg); }
+}
+
+/* ---------- 3. Pin drop ---------- */
+.d3{ --ld:.82s; --td:1.18s; }
+.d3 .pin{
+  position:absolute; left:50%; top:64px; width:54px; height:72px;
+  margin-left:-27px; transform-origin:50% 92%; opacity:0;
+}
+.d3.play .pin{ animation:d3drop 1.6s cubic-bezier(.3,.6,.4,1) forwards; }
+@keyframes d3drop{
+  0%{ transform:translateY(-185px) scale(1,1); opacity:0; }
+  10%{ opacity:1; }
+  44%{ transform:translateY(0) scale(1.08,.8); opacity:1; }
+  56%{ transform:translateY(-30px) scale(.96,1.05); }
+  68%{ transform:translateY(0) scale(1.04,.9); }
+  78%{ transform:translateY(-11px) scale(1,1); }
+  86%,100%{ transform:translateY(0) scale(1,1); opacity:1; }
+}
+.d3 .rip{
+  position:absolute; left:50%; top:136px; width:96px; height:26px;
+  margin:-13px 0 0 -48px; border:3px solid var(--must2);
+  border-radius:50%; opacity:0;
+}
+.d3.play .r1{ animation:d3rip 1.6s ease-out forwards; }
+.d3.play .r2{ animation:d3rip2 1.6s ease-out forwards; }
+@keyframes d3rip{
+  0%,43%{ transform:scale(.25); opacity:0; }
+  50%{ opacity:.75; }
+  90%,100%{ transform:scale(1.15); opacity:0; }
+}
+@keyframes d3rip2{
+  0%,58%{ transform:scale(.2); opacity:0; }
+  66%{ opacity:.55; }
+  95%,100%{ transform:scale(.85); opacity:0; }
+}
+
+/* ---------- 4. Rack flip (digging) ---------- */
+.d4{ --td:1.7s; }
+.d4 .rail{
+  position:absolute; top:52px; left:7%; right:7%; height:4px;
+  border-radius:2px; background:var(--ink); z-index:2;
+}
+.d4 .mount{ position:absolute; top:30px; width:4px; height:22px; background:var(--ink); z-index:2; }
+.d4 .m1{ left:16%; } .d4 .m2{ right:16%; }
+.d4 .logo{ opacity:.45; transform:translateX(-50%) scale(.96); }
+.d4.play .logo{ animation:d4logo 2.2s ease forwards; }
+@keyframes d4logo{
+  0%,55%{ opacity:.45; transform:translateX(-50%) scale(.96); }
+  85%,100%{ opacity:1; transform:translateX(-50%) scale(1); }
+}
+.d4 .rack{
+  position:absolute; top:56px; left:50%; transform:translateX(-50%);
+  display:flex; gap:0; z-index:3;
+}
+.d4 .item{ width:68px; transform-origin:50% 4px; }
+.d4 .item svg{ display:block; }
+.d4.play .item{ animation:d4flip .6s cubic-bezier(.3,.7,.3,1) forwards; }
+.d4 .i1{ --tx:-44px; --rot:-11deg; animation-delay:.25s; }
+.d4 .i2{ --tx:-18px; --rot:-6deg;  animation-delay:.45s; }
+.d4 .i3{ --tx:18px;  --rot:6deg;   animation-delay:.65s; }
+.d4 .i4{ --tx:44px;  --rot:11deg;  animation-delay:.85s; }
+@keyframes d4flip{
+  0%{ transform:translateX(0) rotate(0deg); }
+  45%{ transform:translateX(calc(var(--tx)*.5)) rotate(calc(var(--rot)*1.8)); }
+  100%{ transform:translateX(var(--tx)) rotate(var(--rot)); }
+}
+
+/* ---------- 5. Stitch ---------- */
+.d5{ --ld:1.78s; --td:2.02s; }
+.d5 .tagwrap{
+  position:absolute; left:50%; top:14px; width:120px; height:150px; margin-left:-60px;
+}
+.d5 .tagsvg{ display:block; }
+.d5 .guide{
+  fill:none; stroke:#D9CC9C; stroke-width:3;
+  stroke-dasharray:5 5; stroke-linejoin:round;
+}
+.d5 .sew{
+  fill:var(--must); fill-opacity:0; stroke:var(--must); stroke-width:3.5;
+  stroke-linejoin:round; stroke-dasharray:100; stroke-dashoffset:100;
+}
+.d5.play .sew{ animation:d5sew 2.4s linear forwards; }
+@keyframes d5sew{
+  0%{ stroke-dashoffset:100; fill-opacity:0; stroke-dasharray:100; }
+  60%{ stroke-dashoffset:0; fill-opacity:0; stroke-dasharray:100; }
+  68%{ stroke-dasharray:5 4; }
+  74%,100%{ stroke-dashoffset:0; fill-opacity:1; stroke-dasharray:5 4; }
+}
+.d5 .hole{ fill:var(--paper); stroke:var(--must); stroke-width:3; opacity:0; }
+.d5.play .hole{ animation:d5hole 2.4s linear forwards; }
+@keyframes d5hole{
+  0%,64%{ opacity:0; }
+  74%,100%{ opacity:1; }
+}
+.d5 .needle{
+  position:absolute; left:0; top:0; width:10px; height:10px; margin:-5px 0 0 -5px;
+  border-radius:50%; background:var(--ink); opacity:0;
+  offset-path:path('M38,8 L82,8 L112,38 L112,132 Q112,142 102,142 L18,142 Q8,142 8,132 L8,38 Z');
+}
+.d5.play .needle{ animation:d5needle 2.4s linear forwards; }
+@keyframes d5needle{
+  0%{ offset-distance:0%; opacity:1; }
+  60%{ offset-distance:100%; opacity:1; }
+  67%,100%{ offset-distance:100%; opacity:0; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .demo *{ animation:none !important; }
+  .demo .logo,.demo .tag{ opacity:1 !important; }
+}
