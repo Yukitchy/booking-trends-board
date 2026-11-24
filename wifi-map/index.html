@@ -261,7 +261,7 @@ div.ph-side{height:100%;}
 <h2 id="e-title">スポットを編集</h2>
 <p class="hint">速度の測り直しと写真の追加ができる。保存先はこの端末の中。</p>
 <div class="f-btns">
-<button type="button" id="e-measure">⚡ 速度を測る（下りのみ）</button>
+<button type="button" id="e-measure">⚡ 速度を測る（下り・上り）</button>
 </div>
 <p id="e-speed-status"></p>
 <div class="f-2col">
@@ -270,7 +270,7 @@ div.ph-side{height:100%;}
 <input type="number" id="e-down" step="any" min="0" inputmode="decimal" placeholder="未計測なら空欄">
 </div>
 <div class="f-row">
-<label for="e-up">上り Mbps（手入力）</label>
+<label for="e-up">上り Mbps</label>
 <input type="number" id="e-up" step="any" min="0" inputmode="decimal" placeholder="未計測なら空欄">
 </div>
 </div>
@@ -335,7 +335,7 @@ div.ph-side{height:100%;}
 </div>
 </div>
 <div class="f-btns">
-<button type="button" id="f-measure">⚡ 速度を測る（下りのみ）</button>
+<button type="button" id="f-measure">⚡ 速度を測る（下り・上り）</button>
 </div>
 <p id="f-speed-status"></p>
 <div class="f-2col">
@@ -344,7 +344,7 @@ div.ph-side{height:100%;}
 <input type="number" id="f-down" step="any" min="0" inputmode="decimal" placeholder="未計測なら空欄">
 </div>
 <div class="f-row">
-<label for="f-up">上り Mbps（任意・手入力）</label>
+<label for="f-up">上り Mbps（任意）</label>
 <input type="number" id="f-up" step="any" min="0" inputmode="decimal" placeholder="未計測なら空欄">
 </div>
 </div>
@@ -912,20 +912,79 @@ cb(null, Math.round(results[1] * 10) / 10);
 }).catch(function(e){ cb(e); });
 }
 
+/* 上りの簡易計測（Cloudflare の計測用エンドポイントへ POST して所要時間から算出）。
+   まず 100KB で下見し、約0.8秒かかるサイズで3回送って中央値 */
+function upPayload(bytes){
+var block = new Uint8Array(65536);
+for (var i = 0; i < block.length; i++) block[i] = i % 251;
+var parts = [];
+var rest = bytes;
+while (rest > 0){
+var n = Math.min(rest, block.length);
+parts.push(n === block.length? block: block.subarray(0, n));
+rest -= n;
+}
+return new Blob(parts);
+}
+function postUpOnce(bytes){
+var start = performance.now();
+return fetch('https://speed.cloudflare.com/__up', {method:'POST', body: upPayload(bytes), cache:'no-store'})
+.then(function(r){
+if (!r.ok) throw new Error('HTTP ' + r.status);
+return r.text();
+})
+.then(function(){
+var sec = (performance.now() - start) / 1000;
+if (sec <= 0) throw new Error('計測不能');
+return (bytes * 8) / sec / 1000000;
+});
+}
+function measureUpTimes(cb){
+postUpOnce(100000).then(function(probe){
+var size = Math.round(probe * 1000000 / 8 * 0.8);
+size = Math.max(100000, Math.min(25000000, size));
+var results = [];
+function once(){
+return postUpOnce(size).then(function(v){ results.push(v); });
+}
+return once().then(once).then(once).then(function(){
+results.sort(function(a,b){ return a-b;});
+cb(null, Math.round(results[1] * 10) / 10);
+});
+}).catch(function(e){ cb(e); });
+}
+
+/* 下り→上りの順に両方測る。cb(err, down, up, upErr)：
+   下り失敗時は err、上りだけ失敗時は up=null かつ upErr に理由 */
+function measureSpeedBoth(cb){
+measureDownTimes(function(err, down){
+if (err){ cb(err); return; }
+measureUpTimes(function(upErr, up){
+if (upErr){ cb(null, down, null, upErr); return; }
+cb(null, down, up, null);
+});
+});
+}
+
 document.getElementById('f-measure').addEventListener('click', function(){
 var btn = this;
 var st = document.getElementById('f-speed-status');
 btn.disabled = true;
-st.textContent = '計測中…（今つながっている回線の下り速度・簡易計測）';
-measureDownTimes(function(err, med){
+st.textContent = '計測中…（今つながっている回線の下り・上り速度・簡易計測）';
+measureSpeedBoth(function(err, down, up, upErr){
 btn.disabled = false;
 if (err){
-st.textContent = '計測に失敗した（' + err.message + '）。下りは手入力でも登録できる。';
+st.textContent = '計測に失敗した（' + err.message + '）。速度は手入力でも登録できる。';
 return;
 }
-document.getElementById('f-down').value = med;
+document.getElementById('f-down').value = down;
 measuredApprox = true;
-st.textContent = '下り ' + med + ' Mbps（簡易計測・3回の中央値）';
+if (upErr){
+st.textContent = '下り ' + down + ' Mbps（簡易計測・3回の中央値）。上りは計測できなかった（' + upErr.message + '）ので、手入力で入れてほしい。';
+return;
+}
+document.getElementById('f-up').value = up;
+st.textContent = '下り ' + down + ' Mbps／上り ' + up + ' Mbps（簡易計測・各3回の中央値）';
 });
 });
 
@@ -1058,17 +1117,22 @@ document.getElementById('e-measure').addEventListener('click', function(){
 var btn = this;
 var st = document.getElementById('e-speed-status');
 btn.disabled = true;
-st.textContent = '計測中…（今つながっている回線の下り速度・簡易計測）';
-measureDownTimes(function(err, med){
+st.textContent = '計測中…（今つながっている回線の下り・上り速度・簡易計測）';
+measureSpeedBoth(function(err, down, up, upErr){
 btn.disabled = false;
 if (err){
-st.textContent = '計測に失敗した（' + err.message + '）。下りは手入力でも直せる。';
+st.textContent = '計測に失敗した（' + err.message + '）。速度は手入力でも直せる。';
 return;
 }
-document.getElementById('e-down').value = med;
+document.getElementById('e-down').value = down;
 editMeasuredApprox = true;
 document.getElementById('e-measured').textContent = '計測日：' + todayStr() + '（簡易計測）';
-st.textContent = '下り ' + med + ' Mbps（簡易計測・3回の中央値）。保存で反映される。';
+if (upErr){
+st.textContent = '下り ' + down + ' Mbps（簡易計測・3回の中央値）。上りは計測できなかった（' + upErr.message + '）ので、手入力で入れてほしい。保存で反映される。';
+return;
+}
+document.getElementById('e-up').value = up;
+st.textContent = '下り ' + down + ' Mbps／上り ' + up + ' Mbps（簡易計測・各3回の中央値）。保存で反映される。';
 });
 });
 document.getElementById('e-photo').addEventListener('change', function(){
