@@ -45,13 +45,29 @@ header .cnt a{color:var(--ink);font-weight:900}
 .up b{font-size:15px;font-weight:900;display:block;line-height:1.4}
 .up .uptx span{display:block;font-size:11.5px;color:var(--sub);font-weight:700}
 .up input{display:none}
-.cal{display:flex;gap:6px;padding:12px 0 4px;overflow-x:auto;scrollbar-width:none}
-.cal::-webkit-scrollbar{display:none}
-.cal button{flex:1 0 auto;min-width:44px;text-align:center;padding:7px 4px;border-radius:10px;font-size:11px;color:#8A8578;background:none;border:1px solid transparent;font-family:inherit;cursor:pointer}
-.cal button b{display:block;font-size:15px;color:#2B2B28}
-.cal button.has{border-color:#DCD2BE}
-.cal button.on{background:#7A4A21;color:#fff}
-.cal button.on b{color:#fff}
+.cv1{margin-top:16px;background:var(--card);border:3px solid var(--ink);border-radius:18px;box-shadow:6px 6px 0 var(--ink);padding:13px 13px 12px}
+.cv1 .calhd{display:flex;align-items:center;justify-content:space-between}
+.cv1 .calhd h3{font-size:17px;font-weight:900;letter-spacing:.04em}
+.cv1 .nav{width:34px;height:34px;border-radius:50%;border:2.5px solid var(--ink);background:var(--card);font-family:var(--en);font-size:17px;font-weight:900;line-height:1;color:var(--ink);cursor:pointer}
+.cv1 .nav.dis{opacity:.25}
+.cv1 .wk{display:grid;grid-template-columns:repeat(7,1fr);margin-top:10px;text-align:center;font-size:11px;font-weight:900;color:var(--sub)}
+.cv1 .wk .sun{color:var(--aka)}
+.cv1 .mrow{display:grid;grid-template-columns:repeat(7,1fr)}
+.cv1 .mgrid{margin-top:2px}
+.cv1 .d{position:relative;background:none;border:none;font-family:var(--jp);padding:5px 0 4px;display:flex;flex-direction:column;align-items:center;gap:1px;color:var(--ink);cursor:pointer}
+.cv1 .d .n{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--en);font-size:14.5px;font-weight:900}
+.cv1 .d.out{opacity:.3}
+.cv1 .d.has .n{background:var(--orange);border:2px solid var(--ink)}
+.cv1 .d .cnt2{font-size:9px;font-weight:900;color:var(--sub);line-height:1.2;height:11px}
+.cv1 .d.sel .n{background:var(--ink);color:#fff}
+.cv1 .d.sel .cnt2{color:var(--ink)}
+.cv1 .d .wdot{position:absolute;top:2px;right:5px;width:8px;height:8px;border-radius:50%;background:var(--aka);border:1.5px solid #fff}
+.cv1 .legend{margin-top:9px;border-top:2px dashed var(--ink);padding-top:8px;font-size:10.5px;font-weight:700;color:var(--sub);display:flex;gap:5px;align-items:center;flex-wrap:wrap}
+.cv1 .lg-o{display:inline-block;width:11px;height:11px;border-radius:50%;background:var(--orange);border:1.5px solid var(--ink)}
+.cv1 .lg-w{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--aka);margin-left:9px}
+.gava-img{overflow:hidden;padding:0;background:#fff}
+.gava-img img{width:100%;height:100%;object-fit:cover;display:block}
+.ephoto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .search{margin-top:14px}
 .search input{width:100%;background:var(--card);border:3px solid var(--ink);border-radius:14px;padding:10px 14px;font-family:var(--jp);font-size:13.5px;font-weight:700;color:var(--ink);outline:none}
 .search input::placeholder{color:#a39c8b}
@@ -64,7 +80,7 @@ header .cnt a{color:var(--ink);font-weight:900}
 .ghead h3{font-size:18px;font-weight:900;line-height:1.35;flex:1;min-width:0}
 .ghead .gsub{display:block;font-size:11.5px;color:var(--sub);font-weight:700}
 .entry{display:flex;gap:11px;margin-top:14px;border-top:2px dashed var(--ink);padding-top:14px}
-.ephoto{width:86px;height:86px;border-radius:14px;border:2.5px solid var(--ink);flex:none;position:relative;display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--en);font-weight:900;font-size:30px}
+.ephoto{width:86px;height:86px;border-radius:14px;border:2.5px solid var(--ink);flex:none;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--en);font-weight:900;font-size:30px}
 .ephoto .pcount{position:absolute;right:6px;bottom:6px;background:rgba(21,21,21,.85);color:#fff;font-family:var(--jp);font-size:10.5px;font-weight:700;border-radius:999px;padding:1px 8px;line-height:1.6}
 .ebody{flex:1;min-width:0}
 .ebody h4{font-size:15.5px;font-weight:900;line-height:1.5}
@@ -129,7 +145,7 @@ button.use{font-family:var(--jp);font-size:11.5px;font-weight:900;border-radius:
 </header>
 <div class="steps"><div class="stp">録る</div><div class="stp">文字に</div><div class="stp">まとめる</div><div class="stp last">読む</div></div>
 <label class="up"><span class="n">1</span><span class="uptx"><b>＋ 録音をアップ</b><span>ステップ1「録る」から新しい1本が付きます</span></span><input type="file" id="upfile" accept="audio/*" multiple></label>
-<div class="cal" id="cal"></div>
+<div class="cv1" id="cal"></div>
 <div class="search"><input type="search" id="q" placeholder="ゲスト名・題・本音で検索 — 再訪の人の前回ログがすぐ開けます"></div>
 <div class="filters" id="filters">
 <button data-f="all" class="on">すべて</button>
@@ -316,7 +332,9 @@ const GUESTS = [
     "scope": "自分だけ",
     "status": "要確認"
    }
-  ]
+  ],
+  "icon": "img/ch-airbnb.png",
+  "photo": "img/ep-yulia.jpg"
  },
  {
   "id": "carola",
@@ -587,7 +605,9 @@ const GUESTS = [
     "scope": "自分だけ",
     "status": "完成"
    }
-  ]
+  ],
+  "icon": "img/ch-direct.webp",
+  "photo": "img/ep-carola.jpg"
  },
  {
   "id": "samuel",
@@ -826,7 +846,9 @@ const GUESTS = [
     "scope": "自分だけ",
     "status": "完成"
    }
-  ]
+  ],
+  "icon": "img/ch-oshinobi.png",
+  "photo": "img/ep-samuel.jpg"
  },
  {
   "id": "alan",
@@ -1097,7 +1119,9 @@ const GUESTS = [
     "scope": "自分だけ",
     "status": "完成"
    }
-  ]
+  ],
+  "icon": "img/ch-viator.png",
+  "photo": "img/ep-alan.jpg"
  },
  {
   "id": "friends",
@@ -1464,19 +1488,68 @@ function toast(msg){ const t = document.getElementById("toast"); t.textContent =
 const EP = {}; // rec -> {guest, ep}
 GUESTS.forEach(g => g.episodes.forEach(e => EP[e.rec] = {g, e}));
 
-/* カレンダー帯 */
+/* カレンダー（月グリッド・案1） */
 (function(){
-  const days = [];
-  GUESTS.forEach(g => g.episodes.forEach(e => { if(!days.includes(e.date)) days.push(e.date); }));
-  days.sort();
-  document.getElementById("cal").innerHTML = days.map((ds,i) => {
-    const d = new Date(ds+"T00:00:00");
-    return '<button class="has' + (i===days.length-1 ? " on" : "") + '" data-day="' + ds + '">' + (d.getMonth()+1) + '月<b>' + d.getDate() + '</b></button>';
-  }).join("");
-  document.querySelectorAll("#cal button").forEach(b => b.addEventListener("click", () => {
-    const el = document.querySelector('[data-date="' + b.dataset.day + '"]');
-    if(el){ el.scrollIntoView({behavior:"smooth", block:"center"}); el.classList.remove("flash"); void el.offsetWidth; el.classList.add("flash"); }
+  const byDay = {}; // ds -> {n, warn}
+  GUESTS.forEach(g => g.episodes.forEach(e => {
+    const d = byDay[e.date] || (byDay[e.date] = {n: 0, warn: false});
+    d.n++; if(e.doubts > 0) d.warn = true;
   }));
+  const days = Object.keys(byDay).sort();
+  const months = [...new Set(days.map(ds => ds.slice(0, 7)))].sort();
+  let mi = months.length - 1;          // 最新の月から表示
+  let sel = days[days.length - 1];     // 既定の選択は最新のログ日
+  const box = document.getElementById("cal");
+  const pad = n => String(n).padStart(2, "0");
+  const dstr2 = d => d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
+  function grid(ym){
+    const [y, m] = ym.split("-").map(Number);
+    const first = new Date(y, m - 1, 1);
+    const last = new Date(y, m, 0);
+    const start = new Date(y, m - 1, 1 - first.getDay());
+    let rows = "";
+    for(let w = 0; ; w++){
+      const wkStart = new Date(start.getFullYear(), start.getMonth(), start.getDate() + w * 7);
+      if(w > 0 && wkStart > last) break;
+      let cells = "";
+      for(let d = 0; d < 7; d++){
+        const dt = new Date(start.getFullYear(), start.getMonth(), start.getDate() + w * 7 + d);
+        const ds = dstr2(dt);
+        const out = dt.getMonth() !== m - 1;
+        const info = out ? null : byDay[ds];
+        const cls = "d" + (out ? " out" : "") + (info ? " has" : "") + (ds === sel ? " sel" : "");
+        cells += '<button class="' + cls + '" data-d="' + ds + '"><span class="n">' + dt.getDate() + '</span>' +
+          '<span class="cnt2">' + (info ? info.n + "本" : "") + '</span>' +
+          (info && info.warn ? '<span class="wdot"></span>' : "") + '</button>';
+      }
+      rows += '<div class="mrow">' + cells + '</div>';
+    }
+    return rows;
+  }
+  function render(){
+    const ym = months[mi];
+    const [y, m] = ym.split("-").map(Number);
+    box.innerHTML =
+      '<div class="calhd"><button class="nav' + (mi === 0 ? " dis" : "") + '" data-mv="-1" aria-label="前の月">‹</button>' +
+      '<h3>' + y + '年' + m + '月</h3>' +
+      '<button class="nav' + (mi === months.length - 1 ? " dis" : "") + '" data-mv="1" aria-label="次の月">›</button></div>' +
+      '<div class="wk"><span class="sun">日</span><span>月</span><span>火</span><span>水</span><span>木</span><span>金</span><span>土</span></div>' +
+      '<div class="mgrid">' + grid(ym) + '</div>' +
+      '<p class="legend"><span class="lg-o"></span>ログあり（下の数字は本数）<span class="lg-w"></span>要確認あり</p>';
+    box.querySelectorAll(".nav").forEach(b => b.addEventListener("click", () => {
+      const ni = mi + Number(b.dataset.mv);
+      if(ni < 0 || ni >= months.length) return;
+      mi = ni; render();
+    }));
+    box.querySelectorAll(".d").forEach(b => b.addEventListener("click", () => {
+      const ds = b.dataset.d;
+      if(!byDay[ds] || b.classList.contains("out")) return;
+      sel = ds; render();
+      const el = document.querySelector('[data-date="' + ds + '"]');
+      if(el){ el.scrollIntoView({behavior:"smooth", block:"center"}); el.classList.remove("flash"); void el.offsetWidth; el.classList.add("flash"); }
+    }));
+  }
+  render();
 })();
 
 function stChip(e){
@@ -1499,7 +1572,7 @@ function entryHTML(g, e){
   const warn = e.doubts > 0 ? ' <span class="warn">要確認 ' + e.doubts + '</span>' : "";
   const sub = dfull(e.date) + " ・ " + e.min + "分" + (e.channel ? ' <span class="ch">' + esc(e.channel) + "</span>" : "");
   return '<article class="entry" id="ep-' + e.rec + '" data-date="' + e.date + '" data-tour="' + (e.tour?1:0) + '" data-warn="' + (e.doubts>0?1:0) + '">' +
-    '<div class="ephoto" style="background:' + g.color + '">' + esc(g.initial) + (e.photos>0 ? '<span class="pcount">写真' + e.photos + '枚</span>' : '') + '</div>' +
+    (g.photo ? '<div class="ephoto"><img src="' + g.photo + '" alt="">' + (e.photos>0 ? '<span class="pcount">写真' + e.photos + '枚</span>' : '') + '</div>' : '<div class="ephoto" style="background:' + g.color + '">' + esc(g.initial) + (e.photos>0 ? '<span class="pcount">写真' + e.photos + '枚</span>' : '') + '</div>') +
     '<div class="ebody"><h4>' + esc(e.title) + '</h4>' +
     '<p class="edate2">' + sub + '</p>' +
     '<p class="honne"><span class="lb">本音</span>' + esc(e.honne_pre) + '<b>' + esc(e.honne_q) + '</b><span class="why">' + esc(e.honne_why) + '</span></p>' +
@@ -1512,7 +1585,7 @@ function render(){
   const main = document.getElementById("list");
   main.innerHTML = GUESTS.map(g => {
     return '<section class="guest-sec" data-guest="' + g.id + '"><div class="ghead">' +
-      '<div class="gava" style="background:' + g.color + '">' + esc(g.initial) + '</div>' +
+      (g.icon ? '<div class="gava gava-img"><img src="' + g.icon + '" alt=""></div>' : '<div class="gava" style="background:' + g.color + '">' + esc(g.initial) + '</div>') +
       '<h3>' + esc(g.name) + '<span class="gsub">' + esc(g.sub) + '</span></h3>' +
       '</div>' +
       g.episodes.map(e => entryHTML(g, e)).join("") + '</section>';
