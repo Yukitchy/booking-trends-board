@@ -505,8 +505,6 @@ h1 .areasw ul a::after{content:' →'}
 .hint{position:absolute;left:calc(100% + 10px);top:0;bottom:0;z-index:61;display:flex;align-items:center;gap:.3em;background:#FFFFFF;color:var(--ink);border:2.5px solid var(--ink);border-radius:999px;padding:0 5px;font-family:'Archivo','Noto Sans JP',sans-serif;font-weight:800;font-size:min(.33em,12px);line-height:1;letter-spacing:.01em;text-transform:uppercase;box-shadow:3px 3px 0 rgba(18,18,18,.9);pointer-events:none;white-space:nowrap}
 .hint::after{content:'';position:absolute;left:-8px;top:50%;width:10px;height:10px;background:#FFFFFF;border-left:2.5px solid var(--ink);border-bottom:2.5px solid var(--ink);transform:translateY(-50%) rotate(45deg)}
 details[open ] .hint{display:none}
-.intro{font-size:15.5px;line-height:1.65;color:var(--ink);max-width:640px}
-.intro b{background:linear-gradient(transparent 62%,#F2CE5F 62%);font-weight:800}
 .station{margin-top:16px;border:3px solid var(--ink);background:var(--card);box-shadow:6px 6px 0 rgba(18,18,18,.9)}
 .station .hd2{background:var(--ink);color:#fff;font-family:'Archivo','Noto Sans JP',sans-serif;font-weight:900;font-size:15px;letter-spacing:.14em;padding:7px 12px 6px}
 .station .bd{padding:10px 14px 12px;display:grid;gap:6px}
@@ -931,16 +929,6 @@ document.querySelectorAll('.car').forEach(function(c){
 </script>
 """
 
-INTROS = {
- "shimo": "Tokyo's thrift capital. Eight shops within a few minutes of the station — vintage dens, recycle chains and tiny curated stores packed into the lanes on both sides of the tracks.",
- "koenji": "Vintage without the Shimokitazawa crowds. Eight shops around the station and its covered shopping streets, strong on American vintage and budget recycle racks.",
- "kichijoji": "A local favorite west of the center. Eight shops between the Sun Road arcade and Harmonica Yokocho, mixing big recycle chains with small vintage picks.",
- "nakano": "Broadway is a treasure building. Eight clothing shops in and around Nakano Broadway and the Sun Mall arcade — come for the hobby floors, stay for the vintage.",
- "harajuku": "The famous end of Tokyo vintage. Five shops around Harajuku and Shibuya — big-name vintage, brand resale and a huge recycle floor.",
- "akiba": "One specialist stop. PENNY TOKYO deals in American vintage a short walk from Akihabara Station — worth the detour between the arcades.",
- "ikebukuro": "West-side value. Three shops around Ikebukuro Station, including a big 2nd STREET inside P'PARCO.",
- "ueno": "Ameyoko bargains. Four shops in and around the Ameyoko market streets — workwear, outdoor vintage and recycle racks under the tracks.",
-}
 
 def load_translations():
     t = {}
@@ -1031,7 +1019,6 @@ def area_page(data, area, trans):
 <div class="wrap">
 <header class="top"><img class="logo" src="../img/logo-1line-v3.png" alt="Thrift Map">{LANGSW_HTML}</header>
 {h1}
-<p class="intro">{INTROS[area['key']]}</p>
 {station}
 {hero}
 {mood}
