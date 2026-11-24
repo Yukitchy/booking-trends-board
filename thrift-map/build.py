@@ -24,8 +24,8 @@ PHOTO_KIND = {
  "jam":"Outside","chicagoharajuku":"Outside","kinjiharajuku":"Outside","kindalharajuku":"Outside",
  "bazzstore":"Outside","grapefruit":"Outside","nakata":"Outside","magazines":"Outside","tanpopo":"Outside",
  "trefacvintage":"Outside","trefackoenji2":"Outside","tripmens":"Outside","tripkoenji":"Outside","trefackoenji":"Outside",
- "chicagoshimo":"Outside","flamingo":"Outside","kinjishimo":"Outside","stickout":"Outside","trefacshimo":"Outside",
- "penny":"Inside","modeoff":"Inside","safari":"Inside","slat":"Inside"}
+ "chicagoshimo":"Outside","flamingo":"Outside","kinjishimo":"Outside","trefacshimo":"Outside",
+ "penny":"Inside","modeoff":"Inside","safari":"Inside","slat":"Inside","stickout":"Inside"}
 
 def has_photo(sid):
     return os.path.exists(os.path.join(HERE, "img", "photos", sid + "-1.jpg"))
@@ -245,7 +245,8 @@ h1,h2,h3,.big{font-family:Archivo,"Noto Sans JP",sans-serif;font-stretch:62%;fon
 .howto div{background:#fff;border:2px solid var(--ink);padding:10px 12px;font-size:12.5px;line-height:1.55}
 .howto b{display:block;font-size:12px;letter-spacing:.08em;color:var(--ac);margin-bottom:2px}
 section.area{margin-top:14px;scroll-margin-top:10px}
-.maphd{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:30px 0 10px}
+.maphd{display:flex;align-items:flex-end;justify-content:space-between;gap:8px 12px;margin:30px 0 10px;flex-wrap:wrap}
+.maphd h2.map{min-width:0}
 .maphd h2.map{margin:0;font-size:34px;line-height:1}
 .maphd .ajp{font-size:14px;font-weight:800;color:var(--mu);margin-left:8px}
 .nowmini{display:inline-flex;align-items:center;gap:8px;font:800 13px/1 Archivo,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);padding-bottom:6px;white-space:nowrap}
