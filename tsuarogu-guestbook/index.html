@@ -171,7 +171,6 @@ button.use{font-family:var(--jp);font-size:11.5px;font-weight:900;border-radius:
 </div>
 </div>
 
-<div class="sheet" id="reader"><div class="panel"><button class="close" data-close="reader">✕</button><div id="reader-body"></div></div></div>
 <div class="sheet" id="draft"><div class="panel"><button class="close" data-close="draft">✕</button><h2>お礼の下書き</h2><p class="smeta">本音と要点から自動で組みました。送る前に直してください。</p><pre id="draft-text"></pre><button class="copybtn" id="draft-copy">コピーする</button></div></div>
 <div class="toast" id="toast">コピーしました</div>
 
@@ -1983,41 +1982,10 @@ document.getElementById("upfile").addEventListener("change", ev => {
   toast(files.length + "本を処理待ちに足しました");
   ev.target.value = "";
 });
-/* 読む（ページ内リーダー: 目次・要点・抜粋の実データ） */
-function tocList(toc){
-  return '<ul class="toclist">' + toc.map(t =>
-    '<li><span class="tm">' + esc(t.time) + '</span><span>' + esc(t.t) + "</span></li>").join("") + "</ul>";
-}
+/* 読む（読み物ページへ遷移: 目次・要点・朱書き全件・本音・マーク・次に活かすの全文） */
 function openReader(rec){
-  const {g, e} = EP[rec];
-  const sub = [dfull(e.date), e.start + "〜", e.min + "分", e.channel].filter(Boolean).join(" ・ ");
-  let h = "<h2>" + esc(e.title) + '</h2><p class="smeta">' + esc(g.name) + " ・ " + sub + "</p>";
-  if(e.recs) h += '<p class="smeta" style="margin-top:4px">同じツアーの録音' + e.recs.length + '本を1つの読み物にまとめています。</p>';
-  if(e.page) h += '<p class="smeta" style="margin-top:4px">読み物ページは生成済み（m2のローカルに保存）。ここでは目次と要点を表示します。</p>';
-  if(e.doubts > 0) h += '<p class="smeta" style="color:#C0392B;font-weight:700;margin-top:4px">要確認 ' + e.doubts + '件が残っています（聞き取りの裏取り待ち）</p>';
-  if(e.talk && e.talk.length){
-    h += "<h5>今日の要点</h5><ul>" + e.talk.map(t => "<li>" + esc(t) + "</li>").join("") + "</ul>";
-  }
-  if(e.parts && e.parts.length > 1){
-    h += "<h5>目次（全" + e.toc_n + "行）</h5>" + e.parts.map((p, i) =>
-      '<p class="partsep">録音' + (i + 1) + " ・ " + esc(p.start) + "〜 ・ " + p.min + "分</p>" + tocList(p.toc)).join("");
-  } else {
-    h += "<h5>目次（" + e.toc_n + "行）</h5>" + tocList(e.toc);
-  }
-  if(e.fixes_sample && e.fixes_sample.length){
-    h += "<h5>朱書きの抜粋（全" + e.fixes_n + "件）</h5>" + e.fixes_sample.map(f =>
-      '<p class="fix"><s>' + esc(f.said) + '</s> → <span class="better">' + esc(f.better) + '</span><span class="why">' + esc(f.why) + "</span></p>").join("");
-  }
-  if(e.marks_sample && e.marks_sample.length){
-    h += "<h5>マークの抜粋（本音・ネタ）</h5>" + e.marks_sample.map(m =>
-      '<p class="mk"><b>' + esc(m.quote) + '</b><span class="why">' + esc(m.type) + " ・ " + esc(m.why) + "</span></p>").join("");
-  }
-  if(e.know && e.know.length){
-    h += "<h5>次に活かす</h5><ul>" + e.know.map(t => "<li>" + esc(t) + "</li>").join("") + "</ul>";
-  }
-  document.getElementById("reader-body").innerHTML = h;
-  document.getElementById("reader").classList.add("open");
-  document.querySelector("#reader .panel").scrollTop = 0;
+  const {g} = EP[rec];
+  location.href = "read/" + g.id + ".html";
 }
 /* お礼の下書き */
 function openDraft(rec){
