@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>つあろぐ管理UI 5案</title>
+<meta name="description" content="つあろぐ（録音→要約＋朱書き＋写真の読み物）の自分用管理ページのデザイン5案。Day One／ブクログ／Letterboxd／Notion／Strava の管理画面の型を1案ずつ下敷きに比較。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="つあろぐ管理UI 5案">
+<meta property="og:description" content="録音をアップしてログを増やしていく、自分専用の管理ページのデザイン5案。人気のログ・日記系サービスの型をモチーフに比較。">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/tsuarogu-admin/og.jpg">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/tsuarogu-admin/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23111'/><circle cx='50' cy='50' r='17' fill='%23e61e28'/></svg>">
+<style>
+:root{--paper:#F1EFEA;--ink:#141414;--red:#E61E28;--card:#fff;--line:#141414}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:"Helvetica Neue",Arial,"Noto Sans JP",sans-serif;line-height:1.65}
+.wrap{max-width:1080px;margin:0 auto;padding:28px 18px 64px}
+header{border-bottom:3px solid var(--line);padding-bottom:18px;margin-bottom:26px}
+.kicker{font-size:12px;letter-spacing:.18em;font-weight:700;color:var(--red)}
+h1{font-size:clamp(21px,5.4vw,38px);font-weight:900;letter-spacing:.01em;white-space:nowrap;overflow:hidden}
+.sub{margin-top:8px;font-size:14px;max-width:780px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}}
+.card{background:var(--card);border:2px solid var(--line);display:flex;flex-direction:column}
+.card a{display:block}
+.card img{width:100%;height:auto;display:block;border-bottom:2px solid var(--line)}
+.card .body{padding:12px 13px 14px}
+.card h3{font-size:15px;font-weight:900;line-height:1.4}
+.badge{display:inline-block;background:var(--red);color:#fff;font-size:11px;font-weight:900;padding:1px 8px;margin-bottom:6px}
+.note{font-size:12.5px;margin-top:7px}
+.open{font-size:11px;font-weight:700;margin-top:8px;color:var(--red)}
+.foot{margin-top:34px;border-top:3px solid var(--line);padding-top:14px;font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<div class="kicker">TSUAROGU — ADMIN UI</div>
+<h1>つあろぐ管理UI 5案</h1>
+<p class="sub">録音ファイルをアップしてログをどんどん追加していく、自分専用の管理ページのデザイン5案です。実在するログ・日記系サービスの管理画面の型を、1案ずつ下敷きにしています。全案に共通で「録音をアップする大きな入口」「ログ一覧（日付・ゲスト／場面数／写真数／公開範囲／状態）」「検索・絞り込み」「各ログから読み物ページを開く導線」が入っています。一覧の先頭は実物の Yuliaさん回（2026.11.06）で、残りはモックです。カードをタップすると実寸の案が開きます。</p>
+</header>
+<div class="grid">
+
+<div class="card">
+<a href="v1.html"><img src="shot-v1.png" alt="案1 Day One風ジャーナル"></a>
+<div class="body">
+<span class="badge">案1</span>
+<h3>Day One風ジャーナル</h3>
+<p class="note">モチーフ: Day One（カレンダー＋写真のジャーナル）。日付の帯と日付カードで振り返る、明るく穏やかな型。毎日の記録そのものが主役になります。</p>
+<p class="open">実寸で開く ›</p>
+</div>
+</div>
+
+<div class="card">
+<a href="v2.html"><img src="shot-v2.png" alt="案2 ブクログ風シェルフ"></a>
+<div class="body">
+<span class="badge">案2</span>
+<h3>ブクログ風シェルフ</h3>
+<p class="note">モチーフ: ブクログ（棚に並べるログ）。「つあろぐの棚」に本みたいに並べるコレクション型。公開範囲のチップで絞り込み、最近の追加も棚の脇に。</p>
+<p class="open">実寸で開く ›</p>
+</div>
+</div>
+
+<div class="card">
+<a href="v3.html"><img src="shot-v3.png" alt="案3 Letterboxd風ダイアリー"></a>
+<div class="body">
+<span class="badge">案3</span>
+<h3>Letterboxd風ダイアリー</h3>
+<p class="note">モチーフ: Letterboxd（ポスターグリッドの日記）。観た映画みたいにツアーをコレクションするダーク基調。ポスターの棚＋DIARYリストで、眺める楽しさが一番強い案です。</p>
+<p class="open">実寸で開く ›</p>
+</div>
+</div>
+
+<div class="card">
+<a href="v4.html"><img src="shot-v4.png" alt="案4 Notion風データベース"></a>
+<div class="body">
+<span class="badge">案4</span>
+<h3>Notion風データベース</h3>
+<p class="note">モチーフ: Notion（データベース／ボード）。テーブルで場面・写真・公開範囲・状態をプロパティ管理する実務型。ビュー切替（テーブル／ボード／カレンダー）と状態サマリー付き。</p>
+<p class="open">実寸で開く ›</p>
+</div>
+</div>
+
+<div class="card">
+<a href="v5.html"><img src="shot-v5.png" alt="案5 Strava風フィード"></a>
+<div class="body">
+<span class="badge">案5</span>
+<h3>Strava風フィード</h3>
+<p class="note">モチーフ: Strava（アクティビティフィード）。今月の本数・総場面・総写真の数値サマリー付きで、積み上がりが見える活動フィード型。1本ごとの数値が並びます。</p>
+<p class="open">実寸で開く ›</p>
+</div>
+</div>
+
+</div>
+<p class="foot">番号で選んでください。選ばれた案を土台に、管理ページ本体を実装します。これはデザイン案のボードで、本体（kyo-no-koe）には触っていません。</p>
+</div>
+</body>
+</html>
