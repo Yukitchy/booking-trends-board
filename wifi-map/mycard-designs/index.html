@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ワイスピ 自分の追加カードのボタン整理 5案</title>
+<meta property="og:title" content="ワイスピ 自分の追加カードのボタン整理 5案">
+<meta property="og:description" content="横帯ストリップで崩れている「自分の追加」カードのコピー／編集／削除の見せ方を整理する5案の比較ボード">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/wifi-map/mycard-designs/og.jpg">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/wifi-map/mycard-designs/">
+<style>
+:root{--ink:#101410;--grn:#16c95c;--neon:#34f27b;--deep:#0b7a38;--line:#dfe7df;--sub:#5c6b5e}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;background:#eef2ee;color:var(--ink)}
+header{padding:18px 16px 6px}
+h1{font-size:19px;margin:0}
+header p{font-size:13px;color:var(--sub);margin:6px 0 0;line-height:1.6}
+.grid{display:flex;flex-wrap:wrap;gap:20px;padding:14px 16px 34px}
+.case{width:366px;max-width:100%}
+.case h2{font-size:15px;margin:0 0 4px}
+.case h2 .no{display:inline-block;background:var(--ink);color:#fff;border-radius:6px;padding:1px 8px;margin-right:6px}
+.case .desc{font-size:12px;color:var(--sub);margin:0 0 8px;min-height:2.6em;line-height:1.55}
+/* ---- scene: phone bottom (map + strip) at real size ---- */
+.scene{position:relative;width:358px;max-width:100%;height:238px;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 4px 16px rgba(16,20,16,.10);background:repeating-linear-gradient(0deg,#eef1ee 0 26px,#e2e8e2 26px 27px),repeating-linear-gradient(90deg,#eef1ee 0 26px,#e2e8e2 26px 27px)}
+.stripcnt{position:absolute;left:10px;bottom:118px;font-size:11.5px;font-weight:700;color:#3c4a3e;background:rgba(255,255,255,.94);border:1px solid var(--line);padding:2px 10px;border-radius:999px;z-index:6}
+.exportrow{position:absolute;right:10px;bottom:118px;z-index:6}
+.exportrow button{font:inherit;font-size:11.5px;font-weight:700;background:var(--ink);color:#fff;border:1px solid var(--ink);padding:3px 10px;border-radius:999px}
+.strip{position:absolute;left:0;right:0;bottom:0;padding:10px;display:flex;gap:9px;overflow:hidden}
+/* ---- strip card (mirrors the live page) ---- */
+.card{flex:0 0 238px;max-width:238px;height:94px;background:#fff;border:2px solid var(--ink);border-radius:14px;overflow:hidden;box-shadow:0 6px 18px rgba(16,20,16,.14);display:flex;flex-direction:row;align-items:stretch;position:relative}
+.card.next{flex:0 0 120px;opacity:.92}
+.ph-side{width:74px;flex:none;height:100%;object-fit:cover;display:block}
+.cbody{padding:7px 10px 8px;display:flex;flex-direction:column;gap:2px;justify-content:center;min-width:0;flex:1}
+.name{font-size:13.5px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.speed{font-size:12px;font-weight:800}
+.up{font-size:11px;color:var(--sub);margin-left:5px}
+.sbar{height:7px;border-radius:99px;background:#eef1ee;overflow:hidden;margin-top:2px}
+.sbar i{display:block;height:100%;background:linear-gradient(90deg,#0b7a38,var(--grn),var(--neon));border-radius:99px}
+.meta.sm{font-size:11px;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chip.mine{display:inline-block;background:#101410;color:var(--neon);font-size:10px;font-weight:700;border-radius:999px;padding:1px 7px;vertical-align:2px;margin-left:5px}
+/* 案1: icon buttons on photo */
+.icobtns{position:absolute;top:5px;left:44px;display:flex;flex-direction:column;gap:3px;z-index:5}
+.icobtns button{width:25px;height:25px;border-radius:50%;border:1.5px solid var(--ink);background:#fff;font-size:11.5px;line-height:1;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(16,20,16,.35);padding:0}
+/* 案2: popup */
+.popup{position:absolute;left:16px;bottom:112px;width:216px;background:#fff;border:1.5px solid var(--ink);border-radius:12px;box-shadow:0 8px 22px rgba(16,20,16,.25);padding:9px 11px;z-index:8}
+.popup .pname{font-size:12.5px;font-weight:800;margin-bottom:2px}
+.popup .pmeta{font-size:11px;color:var(--sub);line-height:1.5}
+.popup .pacts{margin-top:7px;border-top:1px solid var(--line)}
+.popup .pacts div{display:flex;justify-content:space-between;font-size:12px;font-weight:700;padding:6px 1px;border-bottom:1px solid #eef2ee}
+.popup .pacts div:last-child{border-bottom:none}
+.popup .pacts .danger{color:#b3261e}
+.popup:after{content:"";position:absolute;left:44px;bottom:-8px;width:14px;height:14px;background:#fff;border-right:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);transform:rotate(45deg)}
+/* 案3: footer action row */
+.card.col{flex-direction:column;height:122px}
+.card.col .mainrow{display:flex;flex-direction:row;align-items:stretch;height:94px;min-height:0}
+.footrow{display:flex;border-top:1.5px solid var(--ink);height:26px;flex:none}
+.footrow button{flex:1;font:inherit;font-size:11.5px;font-weight:700;background:#fbfdfb;border:none;border-right:1px solid var(--line);color:var(--ink);padding:0}
+.footrow button:last-child{border-right:none}
+.footrow button.danger{color:#b3261e}
+/* 案4: dot menu */
+.dotbtn{position:absolute;top:6px;right:6px;width:27px;height:27px;border-radius:50%;border:1.5px solid var(--ink);background:#fff;font-size:14px;font-weight:900;line-height:1;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(16,20,16,.3);z-index:5;padding:0}
+.menu{position:absolute;top:38px;right:6px;width:158px;background:#fff;border:1.5px solid var(--ink);border-radius:11px;box-shadow:0 8px 22px rgba(16,20,16,.28);z-index:9;overflow:hidden}
+.menu div{font-size:12.5px;font-weight:700;padding:8px 11px;border-bottom:1px solid #eef2ee}
+.menu div:last-child{border-bottom:none}
+.menu .danger{color:#b3261e}
+/* 案5: edit mode */
+.editpill{position:absolute;left:96px;bottom:118px;z-index:6;font-size:11.5px;font-weight:800;background:var(--ink);color:#fff;border:1px solid var(--ink);padding:2px 11px;border-radius:999px}
+.card.editing{outline:2.5px dashed var(--deep);outline-offset:-2.5px}
+.minirow{display:flex;gap:4px;margin-top:3px}
+.minirow button{font:inherit;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--ink)}
+.minirow button.danger{color:#b3261e}
+.card.dim{opacity:.55}
+/* shot mode */
+body.shot{background:#eef2ee}
+body.shot header,body.shot .case .desc,body.shot .case h2{display:none}
+body.shot .grid{padding:10px}
+body.shot .case{display:none}
+body.shot .case.on{display:block}
+</style>
+</head>
+<body>
+<header>
+<h1>ワイスピ 自分の追加カードのボタン整理 5案</h1>
+<p>下の横帯ストリップで、自分で追加したスポットのカードだけが崩れている（コピーボタンが文字に重なり、編集・削除が窮屈）。アクション（コピー／編集／削除）の見せ方を整理する5案。恒久スポットのカードは全案共通で今のまま。本番反映は番号で選んでから。</p>
+</header>
+<div class="grid">
+
+<div class="case" data-n="1">
+<h2><span class="no">1</span>写真の上にアイコンボタン</h2>
+<p class="desc">map系共通ルールのKAPITAL式。写真の右端に白丸アイコン3つ（コピー／編集／削除）を縦に重ね、カード本体は文字だけに戻す。</p>
+<div class="scene">
+<div class="stripcnt">スポット10件</div>
+<div class="exportrow"><button type="button">自分の追加をJSONでダウンロード</button></div>
+<div class="strip">
+<div class="card">
+<img class="ph-side" src="../img/sbux-atre-akiba.jpg" alt="">
+<div class="icobtns"><button type="button" title="コピー">📋</button><button type="button" title="編集">✏️</button><button type="button" title="削除">🗑</button></div>
+<div class="cbody">
+<div class="name">THE R.C.ARMS 秋葉原店<span class="chip mine">自分の追加</span></div>
+<div><span class="speed">下り 74.1 Mbps</span><span class="up">上り 52.3</span></div>
+<div class="sbar"><i style="width:62%"></i></div>
+<div class="meta sm">SSID：<b>the_rc_arms_akihabara</b>　🔌 電源あり</div>
+</div>
+</div>
+<div class="card next">
+<img class="ph-side" src="../img/sarutahiko-atre.jpg" alt="">
+<div class="cbody">
+<div class="name">猿田彦珈琲 アトレ秋葉原1店</div>
+<div><span class="speed">下り 199.0 Mbps</span><span class="up">上り 152.2</span></div>
+<div class="sbar"><i style="width:96%"></i></div>
+<div class="meta sm">SSID：<b>SARUTAHIKOCOFFEE</b></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="case" data-n="2">
+<h2><span class="no">2</span>カードは素のまま、詳細側に集約</h2>
+<p class="desc">カードにはボタンを一切置かない。タップで開くポップアップ／詳細シートの中に、コピー／編集／削除を大きな行で置く。</p>
+<div class="scene">
+<div class="stripcnt">スポット10件</div>
+<div class="exportrow"><button type="button">自分の追加をJSONでダウンロード</button></div>
+<div class="popup">
+<div class="pname">THE R.C.ARMS 秋葉原店</div>
+<div class="pmeta">SSID：the_rc_arms_akihabara<br>パスワード：なし（オープン）</div>
+<div class="pacts">
+<div><span>📋 Muse に送る用にコピー</span><span>›</span></div>
+<div><span>✏️ 編集（速度・写真）</span><span>›</span></div>
+<div class="danger"><span>🗑 削除</span><span>›</span></div>
+</div>
+</div>
+<div class="strip">
+<div class="card">
+<img class="ph-side" src="../img/sbux-atre-akiba.jpg" alt="">
+<div class="cbody">
+<div class="name">THE R.C.ARMS 秋葉原店<span class="chip mine">自分の追加</span></div>
+<div><span class="speed">下り 74.1 Mbps</span><span class="up">上り 52.3</span></div>
+<div class="sbar"><i style="width:62%"></i></div>
+<div class="meta sm">SSID：<b>the_rc_arms_akihabara</b>　🔌 電源あり</div>
+</div>
+</div>
+<div class="card next">
+<img class="ph-side" src="../img/sarutahiko-atre.jpg" alt="">
+<div class="cbody">
+<div class="name">猿田彦珈琲 アトレ秋葉原1店</div>
+<div><span class="speed">下り 199.0 Mbps</span><span class="up">上り 152.2</span></div>
+<div class="sbar"><i style="width:96%"></i></div>
+<div class="meta sm">SSID：<b>SARUTAHIKOCOFFEE</b></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="case" data-n="3">
+<h2><span class="no">3</span>カード下に細いアクション行</h2>
+<p class="desc">カードを少しだけ高くして、下端に1行の専用帯を追加。コピー／編集／削除を等幅で並べ、文字には一切重ならない。</p>
+<div class="scene">
+<div class="stripcnt">スポット10件</div>
+<div class="exportrow"><button type="button">自分の追加をJSONでダウンロード</button></div>
+<div class="strip">
+<div class="card col">
+<div class="mainrow">
+<img class="ph-side" src="../img/sbux-atre-akiba.jpg" alt="">
+<div class="cbody">
+<div class="name">THE R.C.ARMS 秋葉原店<span class="chip mine">自分の追加</span></div>
+<div><span class="speed">下り 74.1 Mbps</span><span class="up">上り 52.3</span></div>
+<div class="sbar"><i style="width:62%"></i></div>
+<div class="meta sm">SSID：<b>the_rc_arms_akihabara</b>　🔌 電源あり</div>
+</div>
+</div>
+<div class="footrow">
+<button type="button">📋 コピー</button>
+<button type="button">✏️ 編集</button>
+<button type="button" class="danger">削除</button>
+</div>
+</div>
+<div class="card next">
+<img class="ph-side" src="../img/sarutahiko-atre.jpg" alt="">
+<div class="cbody">
+<div class="name">猿田彦珈琲 アトレ秋葉原1店</div>
+<div><span class="speed">下り 199.0 Mbps</span><span class="up">上り 152.2</span></div>
+<div class="sbar"><i style="width:96%"></i></div>
+<div class="meta sm">SSID：<b>SARUTAHIKOCOFFEE</b></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="case" data-n="4">
+<h2><span class="no">4</span>「…」メニューに集約</h2>
+<p class="desc">カード右上に「…」ボタン1つだけ。押すと小さなメニューが開いてコピー／編集／削除を選ぶ。閉じているときはほぼ素のカード。</p>
+<div class="scene">
+<div class="stripcnt">スポット10件</div>
+<div class="exportrow"><button type="button">自分の追加をJSONでダウンロード</button></div>
+<div class="strip">
+<div class="card">
+<img class="ph-side" src="../img/sbux-atre-akiba.jpg" alt="">
+<div class="cbody">
+<div class="name">THE R.C.ARMS 秋葉原店<span class="chip mine">自分の追加</span></div>
+<div><span class="speed">下り 74.1 Mbps</span><span class="up">上り 52.3</span></div>
+<div class="sbar"><i style="width:62%"></i></div>
+<div class="meta sm">SSID：<b>the_rc_arms_akihabara</b>　🔌 電源あり</div>
+</div>
+<button class="dotbtn" type="button">…</button>
+<div class="menu">
+<div>📋 Muse に送る用にコピー</div>
+<div>✏️ 編集（速度・写真）</div>
+<div class="danger">🗑 削除</div>
+</div>
+</div>
+<div class="card next">
+<img class="ph-side" src="../img/sarutahiko-atre.jpg" alt="">
+<div class="cbody">
+<div class="name">猿田彦珈琲 アトレ秋葉原1店</div>
+<div><span class="speed">下り 199.0 Mbps</span><span class="up">上り 152.2</span></div>
+<div class="sbar"><i style="width:96%"></i></div>
+<div class="meta sm">SSID：<b>SARUTAHIKOCOFFEE</b></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="case" data-n="5">
+<h2><span class="no">5</span>編集モード切替</h2>
+<p class="desc">通常時は全カードが素のまま。「✏️ 編集」トグルを押した間だけ、自分のカードに破線枠と小さなボタン行が出る（他カードは薄くなる）。</p>
+<div class="scene">
+<div class="stripcnt">スポット10件</div>
+<div class="editpill">✏️ 編集中</div>
+<div class="exportrow"><button type="button">自分の追加をJSONでダウンロード</button></div>
+<div class="strip">
+<div class="card editing">
+<img class="ph-side" src="../img/sbux-atre-akiba.jpg" alt="">
+<div class="cbody">
+<div class="name">THE R.C.ARMS 秋葉原店<span class="chip mine">自分の追加</span></div>
+<div><span class="speed">下り 74.1 Mbps</span><span class="up">上り 52.3</span></div>
+<div class="minirow">
+<button type="button">📋 コピー</button>
+<button type="button">✏️ 編集</button>
+<button type="button" class="danger">削除</button>
+</div>
+</div>
+</div>
+<div class="card next dim">
+<img class="ph-side" src="../img/sarutahiko-atre.jpg" alt="">
+<div class="cbody">
+<div class="name">猿田彦珈琲 アトレ秋葉原1店</div>
+<div><span class="speed">下り 199.0 Mbps</span><span class="up">上り 152.2</span></div>
+<div class="sbar"><i style="width:96%"></i></div>
+<div class="meta sm">SSID：<b>SARUTAHIKOCOFFEE</b></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<script>
+(function(){
+var q = new URLSearchParams(location.search).get('shot');
+if (q){
+  document.body.classList.add('shot');
+  document.querySelectorAll('.case').forEach(function(c){
+    if (c.getAttribute('data-n') === q) c.classList.add('on');
+  });
+}
+})();
+</script>
+</body>
+</html>
