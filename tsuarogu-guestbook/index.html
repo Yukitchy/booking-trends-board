@@ -35,10 +35,6 @@ header{padding-top:16px}
 .brandrow h1{font-size:24px;font-weight:900;line-height:1.3}
 header .cnt{margin-top:10px;font-size:12.5px;color:var(--sub);font-weight:700;line-height:1.7}
 header .cnt a{color:var(--ink);font-weight:900}
-.steps{margin-top:16px;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;position:relative}
-.steps::before{content:"";position:absolute;left:8%;right:8%;top:50%;border-top:2.5px dotted var(--ink);z-index:0}
-.stp{position:relative;z-index:1;background:var(--card);border:2.5px solid var(--ink);border-radius:14px;box-shadow:3px 3px 0 var(--ink);padding:8px 2px;text-align:center;font-weight:900;font-size:13.5px}
-.stp.last{background:var(--orange)}
 .up{margin-top:14px;background:var(--card);border:3px solid var(--ink);border-radius:18px;display:flex;align-items:center;gap:11px;padding:12px 15px;cursor:pointer}
 .up .n{flex:none;width:26px;height:26px;border-radius:50%;background:var(--orange);color:var(--ink);font-family:var(--en);font-weight:900;font-size:14px;line-height:26px;text-align:center}
 .up .uptx{flex:1;min-width:0}
@@ -150,7 +146,6 @@ button.use{font-family:var(--jp);font-size:11.5px;font-weight:900;border-radius:
 <div><p class="en">TSUAROGU</p><h1>つあろぐ</h1></div></div>
 <p class="cnt">読み物の紹介は <a href="https://yukitchy.github.io/kyo-no-koe/">つあろぐLP</a> へ</p>
 </header>
-<div class="steps"><div class="stp">録る</div><div class="stp">まとめる</div><div class="stp">読む</div><div class="stp last">改善する</div></div>
 <label class="up"><span class="n">1</span><span class="uptx"><b>＋ 録音をアップ</b><span>ステップ1「録る」から新しい1本が付きます</span></span><input type="file" id="upfile" accept="audio/*" multiple></label>
 <div class="cv1" id="cal"></div>
 <div class="search"><input type="search" id="q" placeholder="ゲスト名・題・本音で検索 — 再訪の人の前回ログがすぐ開けます"></div>
