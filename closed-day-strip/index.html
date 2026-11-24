@@ -18,27 +18,27 @@
 
 body{font-family:Archivo,"Noto Sans JP",sans-serif}
 header{background:#111;color:#fff;border-bottom:6px solid #E60012;padding:26px 0 22px}
-header .in{max-width:1120px;margin:0 auto;padding:0 20px}
-h1{font-size:clamp(18px,3.2vw,26px);font-weight:900;margin:0}
-.note{color:#ddd;font-size:14px;margin:8px 0 0;line-height:1.7}
+header .bin{max-width:1120px;margin:0 auto;padding:0 20px}
+header h1{font-size:clamp(19px,3.2vw,26px);font-weight:900;margin:0;color:#fff;font-stretch:normal;letter-spacing:0;text-transform:none;line-height:1.35}
+.bnote{color:#ddd;font-size:14px;margin:8px 0 0;line-height:1.7}
 main{max-width:1120px;margin:0 auto;padding:10px 20px 50px}
-.opt{padding:30px 0 6px;border-bottom:2px solid #ddd}
-.lab{display:flex;align-items:center;gap:12px}
-.no{background:#E60012;color:#fff;font-weight:900;font-size:14px;padding:2px 10px}
-.lab h2{font-size:19px;font-weight:900;margin:0}
-.desc{font-size:14.5px;color:#333;margin:8px 0 4px;line-height:1.7}
+.bopt{padding:30px 0 6px;border-bottom:2px solid #ddd}
+.blab{display:flex;align-items:center;gap:12px}
+.ano{position:static;background:#E60012;color:#fff;font-weight:900;font-size:14px;padding:2px 10px;font-stretch:normal;letter-spacing:0;text-transform:none;flex:none}
+.blab h2{font-size:19px;font-weight:900;margin:0;color:#111;font-stretch:normal;letter-spacing:0;text-transform:none;line-height:1.4}
+.bdesc{font-size:14.5px;color:#333;margin:8px 0 4px;line-height:1.7}
 .boardcol{padding-left:0;padding-right:0;margin:0}
 footer{max-width:1120px;margin:0 auto;padding:22px 20px 46px;font-size:14px;color:#333;line-height:1.8}
 </style></head><body>
-<header><div class="in">
+<header><div class="bin">
 <h1>eatmap 黒帯への定休日の埋め込み 5案</h1>
-<p class="note">例題は浅草の実在店 YOSHIKAMI（木曜定休・毎日 11:30-21:30・浅草駅から徒歩2分）。帯は火曜日に開いたときの表示で、カード全体の中で比べられます。帯の下の重複行を消したことで定休日の表示が無くなった店に、この形で帯の中へ戻す想定です。</p>
+<p class="bnote">例題は浅草の実在店 YOSHIKAMI（木曜定休・毎日 11:30-21:30・浅草駅から徒歩2分）。帯は火曜日に開いたときの表示で、カード全体の中で比べられます。帯の下の重複行を消したことで定休日の表示が無くなった店に、この形で帯の中へ戻す想定です。</p>
 </div></header>
 <main>
 
-<section class="opt" id="v1">
-<div class="lab"><span class="no">案1</span><h2>現行形・末尾に緑文字</h2></div>
-<p class="desc">一部の店で既に使われている形。ドット区切りの最後に、緑色で「Closed Thu」。帯の高さもレイアウトも今のまま。</p>
+<section class="bopt" id="v1">
+<div class="blab"><span class="ano">案1</span><h2>現行形・末尾に緑文字</h2></div>
+<p class="bdesc">一部の店で既に使われている形。ドット区切りの最後に、緑色で「Closed Thu」。帯の高さもレイアウトも今のまま。</p>
 <div class="col boardcol">
 <article class="card" data-id="yoshikami-asakusa">
 <div class="hd"><span class="big">02</span><div><span class="genre">Western-style Japanese (yoshoku)</span><h3>YOSHIKAMI</h3></div></div>
@@ -49,9 +49,9 @@ footer{max-width:1120px;margin:0 auto;padding:22px 20px 46px;font-size:14px;colo
 </article>
 </div>
 </section>
-<section class="opt" id="v2">
-<div class="lab"><span class="no">案2</span><h2>白抜きチップ</h2></div>
-<p class="desc">帯の中に細い白枠のピル型チップで「CLOSED THU」。帯の文字の流れから独立して、ラベルのように見える。</p>
+<section class="bopt" id="v2">
+<div class="blab"><span class="ano">案2</span><h2>白抜きチップ</h2></div>
+<p class="bdesc">帯の中に細い白枠のピル型チップで「CLOSED THU」。帯の文字の流れから独立して、ラベルのように見える。</p>
 <div class="col boardcol">
 <article class="card" data-id="yoshikami-asakusa">
 <div class="hd"><span class="big">02</span><div><span class="genre">Western-style Japanese (yoshoku)</span><h3>YOSHIKAMI</h3></div></div>
@@ -62,9 +62,9 @@ footer{max-width:1120px;margin:0 auto;padding:22px 20px 46px;font-size:14px;colo
 </article>
 </div>
 </section>
-<section class="opt" id="v3">
-<div class="lab"><span class="no">案3</span><h2>2段組み</h2></div>
-<p class="desc">帯を2段にして、下段に小さく「Closed on Thursdays」。帯は少し高くなる代わりに、営業時間と定休日が混ざらない。</p>
+<section class="bopt" id="v3">
+<div class="blab"><span class="ano">案3</span><h2>2段組み</h2></div>
+<p class="bdesc">帯を2段にして、下段に小さく「Closed on Thursdays」。帯は少し高くなる代わりに、営業時間と定休日が混ざらない。</p>
 <div class="col boardcol">
 <article class="card" data-id="yoshikami-asakusa">
 <div class="hd"><span class="big">02</span><div><span class="genre">Western-style Japanese (yoshoku)</span><h3>YOSHIKAMI</h3></div></div>
@@ -75,9 +75,9 @@ footer{max-width:1120px;margin:0 auto;padding:22px 20px 46px;font-size:14px;colo
 </article>
 </div>
 </section>
-<section class="opt" id="v4">
-<div class="lab"><span class="no">案4</span><h2>赤バッジ</h2></div>
-<p class="desc">赤地に白文字のバッジで「CLOSED THU」。5案の中でいちばん目立つ。休みだと一目で分かる強さ。</p>
+<section class="bopt" id="v4">
+<div class="blab"><span class="ano">案4</span><h2>赤バッジ</h2></div>
+<p class="bdesc">赤地に白文字のバッジで「CLOSED THU」。5案の中でいちばん目立つ。休みだと一目で分かる強さ。</p>
 <div class="col boardcol">
 <article class="card" data-id="yoshikami-asakusa">
 <div class="hd"><span class="big">02</span><div><span class="genre">Western-style Japanese (yoshoku)</span><h3>YOSHIKAMI</h3></div></div>
@@ -88,9 +88,9 @@ footer{max-width:1120px;margin:0 auto;padding:22px 20px 46px;font-size:14px;colo
 </article>
 </div>
 </section>
-<section class="opt" id="v5">
-<div class="lab"><span class="no">案5</span><h2>時間の直後・アイコン付き</h2></div>
-<p class="desc">営業時間のすぐ後ろに、カレンダーにバツのアイコン付きで「Closed Thu」。徒歩分数より先に定休日が目に入る。</p>
+<section class="bopt" id="v5">
+<div class="blab"><span class="ano">案5</span><h2>時間の直後・アイコン付き</h2></div>
+<p class="bdesc">営業時間のすぐ後ろに、カレンダーにバツのアイコン付きで「Closed Thu」。徒歩分数より先に定休日が目に入る。</p>
 <div class="col boardcol">
 <article class="card" data-id="yoshikami-asakusa">
 <div class="hd"><span class="big">02</span><div><span class="genre">Western-style Japanese (yoshoku)</span><h3>YOSHIKAMI</h3></div></div>
