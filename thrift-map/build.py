@@ -1,15 +1,42 @@
 #!/usr/bin/env python3
-# Thrift Map builder — eatmap-layout edition.
-# Same composition as eatmap (akiba-where-to-eat): 640px column, area header
-# with Open-now switch, hand-drawn sketch map with photo thumb pins, then
-# eatmap-style cards (big number, genre chip, photo, icon strip, buttons).
-# Reads data.json, geocodes addresses via GSI, emits index.html.
-import json, math, os, random, sys, urllib.parse, urllib.request
+# Thrift Map builder — eatmap-structure edition, round 2.
+# Same structure and systems as eatmap (where-to-eat):
+#  - root URL redirects to the default area; one area per page
+#  - H1 area switcher (<details> + "Tap to change area" hint)
+#  - header: small transparent logo left, language button (flag + code) right;
+#    the button cycles EN -> JA -> ZH -> ES -> DE -> KO, swapping page text
+#    from the __T dictionary (eatmap's engine, localStorage + ?lang=)
+#  - hero: 3-photo collage + black status bar
+#  - "I'm after" category chips that filter map pins and cards
+#  - hand-drawn sketch map with photo thumb pins; eatmap-style cards whose
+#    actions (Google Maps / official site) are white round icon buttons
+#    overlaid on the photo's top-right (KAPITAL map style)
+# Reads data.json (+ translations/*.json), geocodes via GSI, emits pages.
+import glob, json, math, os, random, sys, urllib.parse, urllib.request
 from html import escape
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ACCENT = "#81660D"
 PAGE_URL = "https://yukitchy.github.io/booking-trends-board/thrift-map/"
+
+SLUGS = {
+ "shimo": "shimokitazawa",
+ "koenji": "koenji",
+ "kichijoji": "kichijoji",
+ "nakano": "nakano",
+ "harajuku": "harajuku-shibuya",
+ "akiba": "akihabara",
+ "ikebukuro": "ikebukuro",
+ "ueno": "ueno",
+}
+DEFAULT_SLUG = "shimokitazawa"
+
+CATS = [
+ ("vintage", "Vintage"),
+ ("brand", "Brand resale"),
+ ("recycle", "Recycle"),
+ ("specialty", "Specialty"),
+]
 
 SHORT = {
  "stickout":"STICK OUT","nyjoe":"NY JOE","secondshimo":"2nd STREET","chicagoshimo":"CHICAGO",
@@ -25,7 +52,15 @@ PHOTO_KIND = {
  "bazzstore":"Outside","grapefruit":"Outside","nakata":"Outside","magazines":"Outside","tanpopo":"Outside",
  "trefacvintage":"Outside","trefackoenji2":"Outside","tripmens":"Outside","tripkoenji":"Outside","trefackoenji":"Outside",
  "chicagoshimo":"Outside","flamingo":"Outside","kinjishimo":"Outside","trefacshimo":"Outside",
- "penny":"Inside","modeoff":"Inside","safari":"Inside","slat":"Inside","stickout":"Inside"}
+ "penny":"Inside","modeoff":"Inside","safari":"Inside","slat":"Inside","stickout":"Inside", "secondparco": "Inside"}
+
+def photo_files(sid):
+    out = []
+    for n in (1, 2, 3):
+        p = os.path.join(HERE, "img", "photos", f"{sid}-{n}.jpg")
+        if os.path.exists(p):
+            out.append(f"{sid}-{n}.jpg")
+    return out
 
 def has_photo(sid):
     return os.path.exists(os.path.join(HERE, "img", "photos", sid + "-1.jpg"))
@@ -160,8 +195,45 @@ CLOCK_SVG = ('<svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"
 WALK_SVG = ('<svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><circle cx="9.6" cy="2.4" r="1.7" fill="currentColor"/>'
             '<path d="M6 7.9 8.8 5.8 11.6 7.7M8.8 5.8 7.8 9.6M7.8 9.6 10.6 12 10.2 15M7.8 9.6 5.8 12.4 3.6 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>')
 STAR_SVG = ('<svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M8 1.2l2.1 4.3 4.7.7-3.4 3.3 1 4.7L8 12l-4.4 2.2 1-4.7L1.2 6.2l4.7-.7z"/></svg>')
+XCIRC_SVG = ('<svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/>'
+             '<path d="M5.8 5.8l4.4 4.4M10.2 5.8l-4.4 4.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>')
+CHEV_SVG = ('<svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8l8 8 8-8" fill="none" '
+            'stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>')
+PIN_SVG = ('<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="currentColor" '
+           'd="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>')
+GLOBE_SVG = ('<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2">'
+             '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.9 5.7 3.9 9S14.5 18.4 12 21c-2.5-2.6-3.9-5.7-3.9-9S9.5 5.6 12 3z"/></g></svg>')
+CAT_ICONS = {
+ "vintage": ('<svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="currentColor" d="M21.4 11.6l-9-9A2 2 0 0 0 11 2H4a2 2 0 0 0-2 2v7c0 .5.2 1 .6 1.4l9 9a2 2 0 0 0 2.8 0l7-7a2 2 0 0 0 0-2.8zM6.5 8A1.5 1.5 0 1 1 8 6.5 1.5 1.5 0 0 1 6.5 8z"/></svg>'),
+ "brand": ('<svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="currentColor" d="M12 2l3.2 5.2L21 8l-4.5 4.6L17.8 19 12 16l-5.8 3 1.3-6.4L3 8l5.8-.8z"/></svg>'),
+ "recycle": ('<svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 8a8 8 0 0 1 13.6-2.4L20 7"/><path d="M20 3v4h-4"/><path d="M19 16a8 8 0 0 1-13.6 2.4L4 17"/><path d="M4 21v-4h4"/></g></svg>'),
+ "specialty": ('<svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></svg>'),
+}
 
-def build_area(area):
+FLAG_SVGS = (
+ '<svg class="f on" data-l="en" aria-hidden="true" viewBox="0 0 24 16"><rect width="24" height="16" fill="#fff"/>'
+ '<rect y="0.00" width="24" height="1.23" fill="#B22234"/><rect y="2.46" width="24" height="1.23" fill="#B22234"/>'
+ '<rect y="4.92" width="24" height="1.23" fill="#B22234"/><rect y="7.38" width="24" height="1.23" fill="#B22234"/>'
+ '<rect y="9.85" width="24" height="1.23" fill="#B22234"/><rect y="12.31" width="24" height="1.23" fill="#B22234"/>'
+ '<rect y="14.77" width="24" height="1.23" fill="#B22234"/><rect width="10" height="8.6" fill="#3C3B6E"/></svg>'
+ '<svg class="f" data-l="ja" aria-hidden="true" viewBox="0 0 24 16"><rect width="24" height="16" fill="#fff"/>'
+ '<circle cx="12" cy="8" r="4.6" fill="#BC002D"/></svg>'
+ '<svg class="f" data-l="zh" aria-hidden="true" viewBox="0 0 24 16"><rect width="24" height="16" fill="#DE2910"/>'
+ '<polygon points="5,2.2 5.9,4.9 8.7,4.9 6.4,6.5 7.3,9.2 5,7.5 2.7,9.2 3.6,6.5 1.3,4.9 4.1,4.9" fill="#FFDE00"/></svg>'
+ '<svg class="f" data-l="es" aria-hidden="true" viewBox="0 0 24 16"><rect width="24" height="16" fill="#AA151B"/>'
+ '<rect y="4" width="24" height="8" fill="#F1BF00"/></svg>'
+ '<svg class="f" data-l="de" aria-hidden="true" viewBox="0 0 24 16"><rect width="24" height="16" fill="#FFCE00"/>'
+ '<rect width="24" height="5.34" fill="#000"/><rect y="5.33" width="24" height="5.34" fill="#DD0000"/></svg>'
+ '<svg class="f" data-l="ko" aria-hidden="true" viewBox="0 0 24 16"><rect width="24" height="16" fill="#fff"/>'
+ '<circle cx="12" cy="8" r="3.6" fill="#CD2E3A"/>'
+ '<path d="M8.4 8a3.6 3.6 0 0 0 7.2 0a1.8 1.8 0 0 0-3.6 0a1.8 1.8 0 0 1-3.6 0z" fill="#0047A0"/>'
+ '<g stroke="#000" stroke-width="1"><path d="M3 3.3l2.6-1.6M3.6 4.5l2.6-1.6M3 5.7l2.6-1.6"/>'
+ '<path d="M18.4 12.6l2.6-1.6M17.8 13.8l2.6-1.6M18.4 14.5l2.6-1.6" opacity=".0"/></g></svg>')
+
+LANGSW_HTML = ('<button type="button" class="langsw" aria-label="Change language"><span class="fl">'
+               + FLAG_SVGS + '</span><b class="lc">EN</b></button>')
+
+def build_area(area, prefix):
     stations = area.get("stations") or [area["station"]]
     pts = [(s["lat"], s["lng"]) for s in stations]
     for sh in area["shops"]:
@@ -180,12 +252,12 @@ def build_area(area):
     pins = []
     for i, sh in enumerate(area["shops"], 1):
         px, py = proj.pct(sh["lat"], sh["lng"])
-        short = escape(SHORT.get(sh["id"], sh["en"]))
+        short = escape(SHORT.get(sh["id"]) or sh.get("short") or sh["en"])
         if has_photo(sh["id"]):
-            photo = f'<span class="thumb-photo" style="background-image:url(\'img/photos/{sh["id"]}-1.jpg\')"></span>'
+            photo = f'<span class="thumb-photo" style="background-image:url(\'{prefix}img/photos/{sh["id"]}-1.jpg\')"></span>'
         else:
             photo = f'<span class="thumb-photo nophoto">{TAG_SVG}</span>'
-        pins.append(f'<button type="button" class="pin" data-area="{area["key"]}" data-n="{i}" data-id="{sh["id"]}" '
+        pins.append(f'<button type="button" class="pin" data-area="{area["key"]}" data-n="{i}" data-id="{sh["id"]}" data-cat="{sh["cat"]}" '
                     f'style="left:{px:.2f}%;top:{py:.2f}%" aria-label="{escape(sh["en"])}">'
                     f'<span class="thumb-card"><span class="thumb-head"><b>{i}</b>{short}</span>{photo}'
                     f'<span class="thumb-tail"></span></span></button>')
@@ -199,329 +271,711 @@ def build_area(area):
     for i, sh in enumerate(area["shops"], 1):
         q = urllib.parse.quote(sh["jp"] + " " + sh["addr"])
         gmap = f"https://www.google.com/maps/search/?api=1&query={q}"
-        car = ""
+        acts = [f'<a class="icon-btn maps-btn" href="{gmap}" target="_blank" rel="noopener" aria-label="Google Maps — {escape(sh["en"])}" title="Google Maps">{PIN_SVG}</a>']
+        if sh.get("src"):
+            acts.append(f'<a class="icon-btn site-btn" href="{escape(sh["src"])}" target="_blank" rel="noopener" aria-label="Official site — {escape(sh["en"])}" title="Official site">{GLOBE_SVG}</a>')
+        actions = f'<div class="photo-actions">{"".join(acts)}</div>'
         if has_photo(sh["id"]):
-            kind = PHOTO_KIND.get(sh["id"], "Outside")
-            car = (f'<div class="car"><img class="ph" src="img/photos/{sh["id"]}-1.jpg" alt="{escape(sh["en"])}" loading="lazy" referrerpolicy="no-referrer">'
+            kind = PHOTO_KIND.get(sh["id"]) or sh.get("pk") or "Outside"
+            car = (f'<div class="car"><img class="ph" src="{prefix}img/photos/{sh["id"]}-1.jpg" alt="{escape(sh["en"])}" loading="lazy" referrerpolicy="no-referrer">'
+                   f'{actions}'
                    f'<span class="st" data-st="{sh["id"]}"></span>'
                    f'<span class="cn"><b>{kind}</b></span></div>')
+        else:
+            car = (f'<div class="car nophoto"><span class="pholder">{TAG_SVG}</span>'
+                   f'{actions}'
+                   f'<span class="st" data-st="{sh["id"]}"></span></div>')
         strip = [f'<span class="hr">{CLOCK_SVG}<b class="today" data-today="{sh["id"]}">{escape(sh["txt"])}</b></span>',
-                 f'<span class="wk">{WALK_SVG}{sh["walk"]} min walk · {escape(sh["sta"])} Sta.</span>']
+                 f'<span class="wk">{WALK_SVG}<span class="wkt">{sh["walk"]} min walk</span><span class="wks"> · {escape(sh["sta"])} Sta.</span></span>']
+        if sh.get("closed"):
+            cv = sh["closed"]
+            clabel = cv if cv.lower().startswith("closed") else f"Closed: {cv}"
+            strip.append(f'<span class="cl">{XCIRC_SVG}{escape(clabel)}</span>')
         if sh.get("gr"):
             strip.append(f'<span class="rt">{STAR_SVG}{escape(sh["gr"])}</span>')
-        hrs = escape(sh["txt"]) + "."
-        if sh.get("closed"):
-            hrs += f' Closed: {escape(sh["closed"])}.'
-        hrs += f' {escape(sh["addr"])}'
-        src = f'<a class="btn tg" href="{escape(sh["src"])}" target="_blank" rel="noopener">Official site <i>→</i></a>' if sh.get("src") else ""
+        # Under-strip line: address only. Hours and closed days live in the
+        # black strip above; the address appears nowhere else, so it stays.
+        hrs = escape(sh["addr"])
         cards.append(
-            f'<article class="card" id="card-{sh["id"]}" data-id="{sh["id"]}">'
+            f'<article class="card" id="card-{sh["id"]}" data-id="{sh["id"]}" data-cat="{sh["cat"]}">'
             f'<div class="hd"><button type="button" class="big" data-goto="{area["key"]}" data-n="{i}" data-id="{sh["id"]}" aria-label="Find {escape(sh["en"])} on the map">{i:02d}</button>'
             f'<div class="hdtx"><span class="genre">{escape(sh["genre"])}</span><h3>{escape(sh["en"])}</h3>'
             f'<div class="jp">{escape(sh["jp"])}</div></div></div>'
             f'{car}'
             f'<p class="tx">{escape(sh["note"])}</p>'
             f'<p class="strip">{"".join(strip)}</p>'
-            f'<p class="hrs">{hrs}</p>'
-            f'<div class="bt"><a class="btn" href="{gmap}" target="_blank" rel="noopener">Google Maps <i>→</i></a>{src}</div></article>')
+            f'<p class="hrs">{hrs}</p></article>')
     return maphtml, "".join(cards), proj
 
+def build_hero(area, prefix):
+    imgs = []
+    for s in area["shops"]:
+        for f in photo_files(s["id"]):
+            imgs.append((s, f))
+    chosen = []
+    seen = set()
+    for s, f in imgs:
+        if s["id"] not in seen:
+            chosen.append((s, f)); seen.add(s["id"])
+        if len(chosen) == 3:
+            break
+    if len(chosen) < 3:
+        for s, f in imgs:
+            if (s, f) not in chosen:
+                chosen.append((s, f))
+            if len(chosen) == 3:
+                break
+    n = max(1, len(chosen))
+    anchors = "".join(
+        f'<a href="#card-{s["id"]}" aria-label="Go to {escape(s["en"])}">'
+        f'<img src="{prefix}img/photos/{f}" alt="" referrerpolicy="no-referrer"></a>'
+        for s, f in chosen)
+    mos = (f'<div class="hero mos n{n}">{anchors}'
+           f'<div class="vt">{escape(area["jp"])}</div></div>')
+    walks = [s["walk"] for s in area["shops"]]
+    near = sum(1 for w in walks if w <= 5)
+    far = len(walks) - near
+    sta = escape(area["station"]["name"])
+    if len(walks) == 1:
+        left = f'1 shop · {walks[0]} min from {escape(area["shops"][0]["sta"])} Sta.'
+        right = "Worth the short walk"
+    elif far == 0:
+        left = f'All {len(walks)} within {max(walks)} min of the station'
+        right = f'{sta} Sta.'
+    elif near == 0:
+        left = f'{len(walks)} shops, a short stroll from the station'
+        right = f'{sta} Sta.'
+    else:
+        left = f'{near} within a 5 min walk'
+        right = f'{far} a bit further out'
+    return mos + f'<div class="hb"><span>{left}</span><b>{right}</b></div>'
+
+def build_mood(area):
+    counts = {}
+    for sh in area["shops"]:
+        counts[sh["cat"]] = counts.get(sh["cat"], 0) + 1
+    chips = []
+    for key, label in CATS:
+        c = counts.get(key, 0)
+        dis = " disabled" if c == 0 else ""
+        chips.append(
+            f'<button type="button" data-cat="{key}" aria-pressed="false"{dis}>'
+            f'{CAT_ICONS[key]}{label}<small>{c}</small></button>')
+    return (f'<div class="mood"><p class="mt">I\'m after</p>'
+            f'<div class="chips" role="group" aria-label="Filter shops by category">{"".join(chips)}</div>'
+            f'<p class="mn"></p></div>')
+
 CSS = """
-:root{--bg:#F1EFEA;--ink:#121212;--ac:#81660D;--ac2:#D9B44A;--mu:#5D5A54}
-*{box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--ink:#121212;--paper:#F1EFEA;--card:#FFFFFF;--mut:#57534A;--ac:#81660D;--line:#E2DED3;--open:#2E7D32;--pop:#FFF7DB;--popb:#E9C46A}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);color-scheme:light;font:16px/1.5 Archivo,"Noto Sans JP",sans-serif;-webkit-font-smoothing:antialiased}
-.col{max-width:640px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-h1,h2,h3,.big{font-family:Archivo,"Noto Sans JP",sans-serif;font-stretch:62%;font-weight:900;letter-spacing:-.01em;text-transform:uppercase}
-.top{display:flex;justify-content:space-between;font-weight:800;font-size:13px;letter-spacing:.14em;padding:18px 0 8px;border-bottom:4px solid var(--ink)}
-.hero{padding:22px 0 2px;text-align:left}
-.hero img.logo{width:min(430px,86vw);height:auto;display:block}
-.tagline{margin:12px 0 0;font-size:17px;font-weight:800}
-.subline{margin:4px 0 0;font-size:13px;color:var(--mu);font-weight:700}
-.areanav{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 2px}
-.areanav a{display:inline-block;padding:7px 13px;background:#fff;border:2px solid var(--ink);color:var(--ink);font-size:12.5px;font-weight:800;text-decoration:none;text-transform:uppercase;letter-spacing:.05em}
-.areanav a b{color:var(--ac)}
-.howto{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0 4px}
-.howto div{background:#fff;border:2px solid var(--ink);padding:10px 12px;font-size:12.5px;line-height:1.55}
-.howto b{display:block;font-size:12px;letter-spacing:.08em;color:var(--ac);margin-bottom:2px}
-section.area{margin-top:14px;scroll-margin-top:10px}
-.maphd{display:flex;align-items:flex-end;justify-content:space-between;gap:8px 12px;margin:30px 0 10px;flex-wrap:wrap}
-.maphd h2.map{min-width:0}
-.maphd h2.map{margin:0;font-size:34px;line-height:1}
-.maphd .ajp{font-size:14px;font-weight:800;color:var(--mu);margin-left:8px}
-.nowmini{display:inline-flex;align-items:center;gap:8px;font:800 13px/1 Archivo,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);padding-bottom:6px;white-space:nowrap}
-.sw{position:relative;width:44px;height:24px;flex:none;border:0;background:#c9c5bc;cursor:pointer;padding:0}
-.sw:after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;background:#fff;transition:left .15s}
-.sw[aria-checked=true]{background:var(--ac)}
-.sw[aria-checked=true]:after{left:23px}
-.nowlist{margin:0 0 10px;font-size:14px;font-weight:700;color:var(--ac)}
-.nowlist.off{display:none}
-section.filter .card.closed,section.filter .pin.closed{display:none}
-.access{background:#fff;border:2px solid var(--ink);padding:13px 15px;margin:0 0 14px;font-size:13.5px;line-height:1.6}
-.access .lab{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.08em;color:#fff;background:var(--ac);padding:2px 7px;margin-right:8px;vertical-align:1px}
-.access p{margin:0 0 8px}.access p:last-child{margin-bottom:0}
-.mapwrap{position:relative;border:4px solid var(--ink);background:#E9E8E4;overflow:hidden}
-.pz{overflow:hidden;touch-action:none;cursor:grab}
-.pz:active{cursor:grabbing}
+body{font-family:'Noto Sans JP',system-ui,sans-serif;background:var(--paper);color:var(--ink);-webkit-text-size-adjust:100%}
+img{max-width:100%}
+.wrap{max-width:860px;margin:0 auto;padding:0 16px 40px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 0 4px}
+.top img.logo{width:86px;height:auto;display:block}
+.langsw{margin-left:auto;align-self:center;display:inline-flex;align-items:center;gap:7px;background:var(--ac);color:#fff;border:0;border-radius:999px;padding:8px 11px;font:inherit;font-weight:900;font-size:15px;line-height:1;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.18)}
+.langsw .fl{position:relative;width:24px;height:16px;border-radius:2px;overflow:hidden;flex:none;box-shadow:0 0 0 1px rgba(0,0,0,.25)}
+.langsw .fl svg{position:absolute;inset:0;width:100%;height:100%;display:none}
+.langsw .fl svg.on{display:block}
+.langsw .lc{font-family:'Archivo',sans-serif;font-weight:900;letter-spacing:.04em}
+h1{position:relative;font-family:'Archivo','Noto Sans JP',sans-serif;font-weight:900;font-size:clamp(44px,13vw,72px);line-height:.92;letter-spacing:-.01em;text-transform:uppercase;margin:14px 0 62px}
+h1 .kindsw{display:inline-block;vertical-align:baseline}
+h1 .kindsw summary{display:inline-block;background:var(--ac);color:#fff;padding:.02em .14em .06em;border-radius:.12em;cursor:pointer;list-style:none;white-space:nowrap}
+h1 .kindsw summary::-webkit-details-marker{display:none}
+h1 .kindsw ul{position:absolute;z-index:60;margin-top:.1em;background:var(--ink);border-radius:10px;padding:.12em 0;box-shadow:0 12px 30px rgba(0,0,0,.35);list-style:none;min-width:5.2em}
+h1 .kindsw ul a{display:block;color:#fff;font-family:'Archivo','Noto Sans JP',sans-serif;font-weight:900;font-size:.62em;text-transform:uppercase;text-decoration:none;padding:.22em .5em;white-space:nowrap}
+h1 .kindsw ul a:hover{background:var(--ac)}
+h1 .areasw{display:inline-block;vertical-align:baseline;max-width:100%;position:relative}
+h1 .areasw summary{display:inline-flex;align-items:center;gap:.08em;background:var(--ink);color:#fff;padding:.02em .12em .06em .16em;border-radius:.12em;cursor:pointer;list-style:none;max-width:100%}
+h1 .areasw summary::-webkit-details-marker{display:none}
+h1 .areasw summary em{font-style:normal;white-space:nowrap}
+h1 .areasw .chev{width:.34em;height:.34em;flex:none}
+h1 .areasw ul{position:absolute;z-index:60;margin-top:.1em;background:var(--ink);border-radius:10px;padding:.12em 0;box-shadow:0 12px 30px rgba(0,0,0,.35);list-style:none}
+h1 .areasw ul a{display:block;color:#fff;font-family:'Archivo','Noto Sans JP',sans-serif;font-weight:900;font-size:.62em;text-transform:uppercase;text-decoration:none;padding:.22em .5em;white-space:nowrap}
+h1 .areasw ul a:hover{background:var(--ac)}
+h1 .areasw ul a::after{content:' →'}
+.hint{position:absolute;left:4px;top:calc(100% + 10px);z-index:61;background:#FFFFFF;color:var(--ink);border:2.5px solid var(--ink);border-radius:10px;padding:6px 10px 5px;font-family:'Archivo','Noto Sans JP',sans-serif;font-weight:900;font-size:12.5px;line-height:1.25;letter-spacing:.02em;text-transform:uppercase;box-shadow:3px 3px 0 rgba(18,18,18,.9);pointer-events:none;animation:bob 1.6s ease-in-out infinite;max-width:150px;text-align:left}
+.hint::after{content:'';position:absolute;left:22px;top:-9px;width:14px;height:14px;background:#FFFFFF;border-left:2.5px solid var(--ink);border-top:2.5px solid var(--ink);transform:rotate(45deg)}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+details[open ] .hint{display:none}
+.intro{font-size:15.5px;line-height:1.65;color:var(--ink);max-width:640px}
+.intro b{background:linear-gradient(transparent 62%,#F2CE5F 62%);font-weight:800}
+.station{margin-top:16px;border:3px solid var(--ink);background:var(--card);box-shadow:6px 6px 0 rgba(18,18,18,.9)}
+.station .hd2{background:var(--ink);color:#fff;font-family:'Archivo','Noto Sans JP',sans-serif;font-weight:900;font-size:15px;letter-spacing:.14em;padding:7px 12px 6px}
+.station .bd{padding:10px 14px 12px;display:grid;gap:6px}
+.station .r{display:flex;gap:10px;font-size:14px;line-height:1.5}
+.station .r b{flex:none;width:118px;font-family:'Archivo','Noto Sans JP',sans-serif;font-weight:900;font-size:12.5px;letter-spacing:.08em;padding-top:2px}
+.hero{position:relative;margin-top:18px;border:3px solid var(--ink);box-shadow:6px 6px 0 rgba(18,18,18,.9);background:#DDD9CF}
+.hero.mos{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr;height:340px}
+.hero.mos a{display:block;overflow:hidden}
+.hero.mos a:first-child{grid-row:1/3}
+.hero.mos.n1{grid-template-columns:1fr;grid-template-rows:1fr}
+.hero.mos.n1 a:first-child{grid-row:auto}
+.hero.mos.n2{grid-template-columns:1fr 1fr;grid-template-rows:1fr}
+.hero.mos.n2 a:first-child{grid-row:auto}
+.hero.mos img{width:100%;height:100%;object-fit:cover;display:block}
+.hero .vt{position:absolute;top:0;left:0;background:var(--ac);color:#fff;font-weight:900;font-size:15px;letter-spacing:.3em;padding:8px 5px;writing-mode:vertical-rl;z-index:2}
+.hb{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--ink);color:#fff;font-family:'Archivo','Noto Sans JP',sans-serif;font-weight:900;font-size:14.5px;letter-spacing:.06em;text-transform:uppercase;padding:9px 12px 8px;margin-top:0}
+.hb b{color:#F2CE5F;font-weight:900;text-align:right}
+.mood{margin-top:18px}
+.mood .mt{font-family:'Archivo','Noto Sans JP',sans-serif;font-weight:900;font-size:19px;letter-spacing:.02em;text-transform:uppercase;margin-bottom:8px}
+.mood .chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:8px}
+.mood .chips button{display:flex;align-items:center;gap:7px;background:var(--card);border:2.5px solid var(--ink);border-radius:12px;padding:8px 10px;font:inherit;font-family:'Archivo','Noto Sans JP',sans-serif;font-weight:900;font-size:14px;color:var(--ink);cursor:pointer;text-align:left;box-shadow:3px 3px 0 rgba(18,18,18,.85)}
+.mood .chips button svg{color:var(--ac);flex:none}
+.mood .chips button small{margin-left:auto;font-size:12.5px;color:var(--mut);font-weight:900}
+.mood .chips button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.mood .chips button[aria-pressed="true"] svg{color:#F2CE5F}
+.mood .chips button[aria-pressed="true"] small{color:#F2CE5F}
+.mood .chips button:disabled{opacity:.38;cursor:default;box-shadow:none}
+.mood .mn{margin-top:8px;font-size:13.5px;font-weight:700;color:var(--mut);min-height:1.2em}
+.maphd{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:22px 0 8px;flex-wrap:wrap}
+.maphd h2{font-family:'Archivo','Noto Sans JP',sans-serif;font-weight:900;font-size:24px;text-transform:uppercase;letter-spacing:.01em}
+.sw{display:inline-flex;align-items:center;gap:8px;font-family:'Archivo','Noto Sans JP',sans-serif;font-weight:900;font-size:13px;letter-spacing:.06em;cursor:pointer}
+.sw input{position:absolute;opacity:0;width:0;height:0}
+.sw .trk{width:46px;height:26px;border-radius:999px;background:#CFCBC0;border:2.5px solid var(--ink);position:relative;transition:background .15s;flex:none}
+.sw .trk::after{content:'';position:absolute;top:2px;left:2px;width:17px;height:17px;border-radius:50%;background:#fff;border:2.5px solid var(--ink);transition:left .15s}
+.sw input:checked+.trk{background:var(--open)}
+.sw input:checked+.trk::after{left:20px}
+.mapwrap{position:relative;border:3px solid var(--ink);background:#E9E8E4;box-shadow:6px 6px 0 rgba(18,18,18,.9);overflow:hidden;touch-action:none}
+.pz{overflow:hidden;cursor:grab}
+.pz.grabbing{cursor:grabbing}
 .pz-inner{position:relative;transform-origin:0 0;will-change:transform}
-svg.mapsvg{display:block;width:100%;height:auto}
+.mapsvg{display:block;width:100%;height:auto}
 .pins{position:absolute;inset:0}
-.pin{position:absolute;transform:translate(-50%,-100%) scale(var(--pk,1));background:none;border:0;padding:0;cursor:pointer;z-index:3;font:inherit}
-.thumb-card{display:flex;flex-direction:column;width:64px;background:#fff;border:2px solid var(--ink);box-shadow:0 2px 6px rgba(18,18,18,.35);position:relative}
-.thumb-head{display:flex;align-items:center;gap:4px;background:var(--ac);color:#fff;font:800 9.5px/1 Archivo,sans-serif;letter-spacing:.02em;padding:4px 5px;white-space:nowrap;overflow:hidden}
-.thumb-head b{background:#fff;color:var(--ac);font-size:10px;padding:1px 4px;flex:none}
-.thumb-photo{display:block;height:40px;background-size:cover;background-position:center;background-color:#E9E8E4}
-.thumb-photo.nophoto{background:var(--ac2);display:flex;align-items:center;justify-content:center}
-.thumb-tail{position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:8px solid var(--ink)}
-.pin.hl .thumb-card{outline:3px solid var(--ink);animation:pinpulse .5s ease-in-out 3}
-@keyframes pinpulse{50%{transform:scale(1.18)}}
-.pz-btns{position:absolute;right:10px;bottom:10px;display:flex;flex-direction:column;gap:6px;z-index:5}
-.pzb{width:34px;height:34px;border-radius:50%;border:2px solid var(--ink);background:#fff;font-size:17px;font-weight:700;color:var(--ink);cursor:pointer;line-height:1}
-.maphint{position:absolute;left:10px;bottom:10px;z-index:5;background:rgba(255,255,255,.9);padding:4px 10px;font-size:10.5px;font-weight:700;color:#55524C}
-.card{padding:22px 0 24px;border-bottom:4px solid var(--ink);scroll-margin-top:8px}
-.card.hit{outline:4px solid var(--ac);outline-offset:6px}
-.hd{display:flex;gap:12px;align-items:flex-start;margin-bottom:10px}
-.big{font-size:64px;line-height:.85;color:var(--ac);background:none;border:0;padding:0;cursor:pointer;font-family:Archivo,"Noto Sans JP",sans-serif;font-stretch:62%;font-weight:900;letter-spacing:-.01em}
-.hdtx{min-width:0}
-.genre{display:inline-block;background:var(--ac);color:#fff;font:900 12.5px/1 Archivo,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:6px 9px}
-.hd h3{margin:7px 0 0;font-size:22px;line-height:1.05}
-.hd .jp{color:var(--mu);font-size:12.5px;font-weight:700;margin-top:3px}
-.car{position:relative;aspect-ratio:16/10;background:#222;margin:0 0 4px}
-.ph{display:block;width:100%;height:100%;object-fit:cover}
-.st{position:absolute;right:8px;top:8px;z-index:2;font:800 11px/1 Archivo,sans-serif;letter-spacing:.08em;padding:5px 7px;background:#fff;color:var(--ink)}
-.st.o{background:#1F8A4C;color:#fff}
-.st.c{background:#c9c5bc;color:#3a3833}
-.cn{position:absolute;left:0;bottom:0;background:rgba(18,18,18,.78);color:#fff;font:700 12px/1 Archivo,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:7px 10px}
-.tx{margin:10px 0;font-size:16px;line-height:1.55}
-.strip{display:flex;flex-wrap:wrap;gap:4px 0;margin:0;background:var(--ink);color:#fff;padding:9px 10px;font-size:14px;font-weight:700;line-height:1.3}
-.strip span{display:inline-flex;align-items:center;gap:6px}
-.strip span+span:before{content:"";display:inline-block;width:4px;height:4px;background:var(--ac2);margin:0 8px;flex:none}
-.strip svg{flex:none;color:var(--ac2)}
-.strip .today{font-weight:800}
-.hrs{margin:6px 0 0;font-size:13px;color:var(--mu);line-height:1.55}
-.bt{display:flex;gap:6px;margin-top:10px}
-.bt>*{flex:1 1 0;min-width:0}
-.btn{display:flex;align-items:center;justify-content:center;gap:6px;min-height:46px;padding:0 8px;background:var(--ink);color:#fff;text-decoration:none;font:800 13px Archivo,sans-serif;letter-spacing:.04em;text-transform:uppercase;border:0;cursor:pointer;white-space:nowrap}
-.btn i{font-style:normal;color:var(--ac2)}
-.btn.tg{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 3px var(--ink)}
-.btn.tg i{color:var(--ac)}
-.know{background:var(--ink);color:#fff;margin-top:34px;padding:28px 0 32px}
-.know h2{margin:0 0 10px;font-size:30px;color:#fff}
-.know ul{margin:0;padding-left:20px}
-.know li{margin:8px 0;font-size:15px;line-height:1.6}
-footer{padding:20px 0 40px;color:var(--mu);font-size:12.5px;line-height:1.8}
-footer .brand{color:var(--ac);font-weight:800}
-@media (max-width:560px){.howto{grid-template-columns:1fr}.maphd h2.map{font-size:27px}.big{font-size:52px}.hd h3{font-size:19px}}
-@media (min-width:700px){.col{max-width:760px}}
+.pin{position:absolute;transform:translate(-50%,-100%);background:none;border:0;padding:0;cursor:pointer;z-index:3;font:inherit}
+.pin:hover,.pin:focus-visible{z-index:6}
+.pin.sel{z-index:7}
+.thumb-card{position:relative;display:block;width:118px;background:var(--card);border:2.5px solid var(--ink);border-radius:9px;box-shadow:2.5px 2.5px 0 rgba(18,18,18,.85);overflow:visible;transition:transform .12s ease}
+.pin:hover .thumb-card,.pin:focus-visible .thumb-card,.pin.sel .thumb-card{transform:scale(1.07)}
+.pin.sel .thumb-card{outline:3px solid var(--ac);outline-offset:1px}
+.thumb-head{display:flex;align-items:center;gap:5px;background:var(--ink);color:#fff;border-radius:6px 6px 0 0;padding:3.5px 7px 3px;font-family:'Archivo','Noto Sans JP',sans-serif;font-weight:900;font-size:10.5px;letter-spacing:.02em;white-space:nowrap;overflow:hidden}
+.thumb-head b{background:#fff;color:var(--ink);border-radius:50%;width:16px;height:16px;line-height:16px;text-align:center;font-size:10.5px;flex:none}
+.thumb-photo{display:block;width:100%;height:74px;background-size:cover;background-position:center;border-top:2px solid var(--ink);border-radius:0 0 6px 6px}
+.thumb-photo.nophoto{display:flex;align-items:center;justify-content:center;background:linear-gradient(140deg,#A8841A,#6E560B);height:74px}
+.thumb-tail{position:absolute;left:50%;bottom:-9px;transform:translateX(-50%);width:14px;height:14px;background:var(--card);border-right:2.5px solid var(--ink);border-bottom:2.5px solid var(--ink);rotate:45deg}
+.pz-btns{position:absolute;right:10px;top:10px;display:flex;flex-direction:column;gap:6px;z-index:8}
+.pzb{width:34px;height:34px;border-radius:9px;border:2.5px solid var(--ink);background:#fff;font-size:17px;font-weight:900;line-height:1;cursor:pointer;box-shadow:2px 2px 0 rgba(18,18,18,.8)}
+.maphint{position:absolute;left:10px;bottom:8px;z-index:8;background:rgba(255,255,255,.92);border:2px solid var(--ink);border-radius:999px;padding:3px 10px;font-size:11px;font-weight:700}
+.hide{display:none !important}
+.cards{display:grid;gap:20px;margin-top:20px}
+.card{background:var(--card);border:3px solid var(--ink);box-shadow:6px 6px 0 rgba(18,18,18,.9);padding:14px 14px 12px;scroll-margin-top:14px}
+.card.flash{animation:flash 1.4s ease}
+@keyframes flash{0%,55%{background:var(--pop);border-color:var(--popb)}100%{background:var(--card)}}
+.hd{display:flex;gap:12px;align-items:flex-start}
+.big{font-family:'Archivo',sans-serif;font-weight:900;font-size:44px;line-height:.95;color:var(--ac);background:none;border:0;padding:0;cursor:pointer;flex:none}
+.big:hover{text-decoration:underline}
+.hdtx{flex:1;min-width:0}
+.genre{display:inline-block;background:var(--ac);color:#fff;font-family:'Archivo','Noto Sans JP',sans-serif;font-weight:900;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px 2px;border-radius:4px}
+.card h3{font-family:'Archivo','Noto Sans JP',sans-serif;font-weight:900;font-size:23px;line-height:1.15;margin-top:5px}
+.jp{font-size:13.5px;color:var(--mut);font-weight:700;margin-top:1px}
+.car{position:relative;margin-top:10px;border:2.5px solid var(--ink);background:#E9E8E4}
+.car .ph{width:100%;height:210px;object-fit:cover;display:block}
+.car.nophoto{height:120px;display:flex;align-items:center;justify-content:center;background:linear-gradient(140deg,#A8841A,#6E560B)}
+.car .pholder{display:flex}
+.car .pholder svg{width:52px;height:52px}
+.st{position:absolute;right:8px;bottom:8px;background:var(--ink);color:#fff;font-family:'Archivo','Noto Sans JP',sans-serif;font-weight:900;font-size:11.5px;letter-spacing:.08em;padding:4px 8px 3px;border-radius:4px;z-index:2}
+.st.open{background:var(--open)}
+.st:empty{display:none}
+.cn{position:absolute;left:8px;bottom:8px;background:rgba(18,18,18,.82);color:#fff;font-size:11.5px;font-weight:700;padding:4px 8px 3px;border-radius:4px}
+.photo-actions{position:absolute;top:.5rem;right:.5rem;display:flex;gap:.45rem;z-index:3}
+.icon-btn{width:44px;height:44px;min-height:44px;border-radius:50%;background:#fff;border:none;box-shadow:0 2px 8px rgba(18,18,18,.35),0 0 0 1px rgba(18,18,18,.08);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;text-decoration:none;padding:0;flex:none;color:var(--ink)}
+.icon-btn svg{width:24px;height:24px;display:block}
+.icon-btn:active{transform:scale(.94)}
+.tx{font-size:14.5px;line-height:1.6;margin-top:10px}
+.strip{display:flex;flex-wrap:wrap;align-items:center;column-gap:16px;row-gap:5px;background:var(--ink);color:#fff;margin:11px -14px 0;padding:8px 14px;font-size:13.5px}
+.strip>span{display:inline-flex;align-items:center;gap:6px}
+.strip .today{font-weight:700}
+.strip .rt{margin-left:auto}
+.hrs{font-size:12.5px;color:var(--mut);line-height:1.55;margin-top:9px}
+.know{margin-top:26px;background:var(--ink);color:#fff;padding:18px 18px 14px;box-shadow:6px 6px 0 rgba(18,18,18,.35)}
+.know h2{font-family:'Archivo','Noto Sans JP',sans-serif;font-weight:900;font-size:21px;text-transform:uppercase;margin-bottom:8px}
+.know li{font-size:14px;line-height:1.6;margin:0 0 6px 18px}
+footer{margin-top:22px;font-size:12.5px;color:var(--mut);line-height:1.7}
+footer .areas a{color:var(--ink);font-weight:800;text-decoration:none;border-bottom:2px solid var(--ac)}
+@media (max-width:560px){
+.top img.logo{width:72px}
+.hero.mos{height:240px}
+.card h3{font-size:20px}
+.big{font-size:36px}
+.thumb-card{width:96px}
+.thumb-photo{height:60px}
+.thumb-photo.nophoto{height:60px}
+.hint{font-size:11px;max-width:128px}
+.photo-actions{top:.35rem;right:.35rem;gap:.25rem}
+.strip .rt{margin-left:0}
+.station .r b{width:92px}
+}
 """
 
-JS = """
-const HOURS = __HOURS__;
-function pad(n){return String(n).padStart(2,'0')}
-function t12(mins){let h=Math.floor(mins/60)%24,m=mins%60;const ap=h<12?'AM':'PM';h=h%12||12;return h+(m?':'+pad(m):'')+' '+ap}
-function statusFor(h){
-  if(!h||!h.length)return null;
-  const now=new Date();const day=(now.getDay()+6)%7;const cur=now.getHours()*60+now.getMinutes();
-  const ent=h.find(e=>e.d.includes(day));
-  if(ent){const o=+ent.o.split(':')[0]*60+(+ent.o.split(':')[1]);let c=+ent.c.split(':')[0]*60+(+ent.c.split(':')[1]);if(c<=o)c+=1440;
-    if(cur>=o&&cur<c)return{open:true,today:'Today '+t12(o)+' \\u2013 '+t12(c%1440),label:c-cur<=45?'Closes '+t12(c%1440):'Open now'};
-    if(cur<o)return{open:false,today:'Today '+t12(o)+' \\u2013 '+t12(c%1440),label:'Opens '+t12(o)};}
-  for(let k=1;k<=7;k++){const d2=(day+k)%7;const e2=h.find(e=>e.d.includes(d2));
-    if(e2){const o2=+e2.o.split(':')[0]*60+(+e2.o.split(':')[1]);
-      return{open:false,today:null,label:k===1?'Opens '+t12(o2)+' tomorrow':'Closed today'};}}
-  return null;}
-document.querySelectorAll('section.area').forEach(sec=>{
-  let openN=0,totalN=0;
-  sec.querySelectorAll('.card').forEach(card=>{
-    const id=card.dataset.id;const rec=HOURS[id];const st=rec&&statusFor(rec.h);
-    totalN++;
-    const badge=card.querySelector('[data-st]');
-    const todayEl=card.querySelector('[data-today]');
-    if(st){
-      if(st.today&&todayEl)todayEl.textContent=st.today;
-      if(badge){badge.textContent=st.open?'OPEN NOW':'CLOSED';badge.classList.add(st.open?'o':'c');}
-      if(st.open)openN++;else{
-        card.classList.add('closed');
-        const pin=sec.querySelector('.pin[data-id="'+id+'"]');if(pin)pin.classList.add('closed');}
-    } else { if(badge)badge.remove(); openN++; }
+KNOW_HTML = """
+<h2>Good to know</h2>
+<ul>
+<li><b>Cash still matters.</b> Most chains take cards and IC, but small vintage shops may be cash only — carry a few thousand yen.</li>
+<li><b>Condition is graded on the tag.</b> Japanese second-hand shops grade strictly; a B-rank here is often cleaner than "like new" elsewhere.</li>
+<li><b>Tax-free:</b> larger chains (2nd STREET, TREASURE FACTORY, Kindal) do tax-free for visitors — bring your passport.</li>
+<li><b>Shimokitazawa and Koenji are dense enough to wander.</b> The other areas reward a plan: check the OPEN NOW switch before you go.</li>
+</ul>"""
+
+LANG_JS = r"""
+<script>
+/* Language switch — same system as eatmap: the button cycles
+   EN -> JA -> ZH -> ES -> DE -> KO, swapping visible text from the
+   __T dictionary. Choice persists in localStorage; ?lang= wins. */
+window.__T = __T_DICT__;
+(function(){
+var LANGS=['en','ja','zh','es','de','ko'];
+var orig=new WeakMap();
+function tr(s,L){
+  if(L==='en')return s;
+  var t=window.__T[s],m;
+  if(t&&t[L])return t[L];
+  if(m=s.match(/^(\d+) min walk$/)){t=window.__T['{n} min walk'];if(t&&t[L])return t[L].replace('{n}',m[1]);}
+  if(m=s.match(/^Open now: (\d+) of (\d+) shops in this area$/)){t=window.__T['Open now: {a} of {b} shops in this area'];if(t&&t[L])return t[L].replace('{a}',m[1]).replace('{b}',m[2]);}
+  if(m=s.match(/^Showing (\d+) shops$/)){t=window.__T['Showing {n} shops'];if(t&&t[L])return t[L].replace('{n}',m[1]);}
+  if(m=s.match(/^Google ★([\d.]+) · ([\d,]+) reviews$/)){t=window.__T['Google ★{r} · {n} reviews'];if(t&&t[L])return t[L].replace('{r}',m[1]).replace('{n}',m[2]);}
+  if(m=s.match(/^All (\d+) within (\d+) min of the station$/)){t=window.__T['All {n} within {m} min of the station'];if(t&&t[L])return t[L].replace('{n}',m[1]).replace('{m}',m[2]);}
+  if(m=s.match(/^(\d+) within a 5 min walk$/)){t=window.__T['{n} within a 5 min walk'];if(t&&t[L])return t[L].replace('{n}',m[1]);}
+  if(m=s.match(/^(\d+) a bit further out$/)){t=window.__T['{n} a bit further out'];if(t&&t[L])return t[L].replace('{n}',m[1]);}
+  if(m=s.match(/^(\d+) shops, a short stroll from the station$/)){t=window.__T['{n} shops, a short stroll from the station'];if(t&&t[L])return t[L].replace('{n}',m[1]);}
+  if(m=s.match(/^1 shop · (\d+) min from (.+) Sta\.$/)){t=window.__T['1 shop · {n} min from {s} Sta.'];if(t&&t[L]){var nm=tr(m[2],L);return t[L].replace('{n}',m[1]).replace('{s}',nm);}}
+  if(m=s.match(/^· (.+) Sta\.$/)){t=window.__T['{s} Sta.'];if(t&&t[L]){var nm2=tr(m[1],L);return '· '+t[L].replace('{s}',nm2);}}
+  if(m=s.match(/^(.+) Sta\.$/)){t=window.__T['{s} Sta.'];if(t&&t[L]){var nm3=tr(m[1],L);return t[L].replace('{s}',nm3);}}
+  var pre=[['Today ','Today'],['Opens ','Opens'],['Closes ','Closes'],['Closed: ','Closed:']];
+  for(var i=0;i<pre.length;i++){if(s.indexOf(pre[i][0])===0){t=window.__T[pre[i][1]];if(t&&t[L])return t[L]+s.slice(pre[i][0].length-1);}}
+  var days={Mon:'MON',Tue:'TUE',Wed:'WED',Thu:'THU',Fri:'FRI',Sat:'SAT',Sun:'SUN'};
+  if(/^(Mon|Tue|Wed|Thu|Fri|Sat|Sun)\b/.test(s)){var k=s.slice(0,3);t=window.__T[days[k]];if(t&&t[L])return t[L]+s.slice(3);}
+  return s;
+}
+var mo=null;
+function apply(L){
+  if(mo)mo.disconnect();
+  document.documentElement.lang=(L==='zh'?'zh-CN':L);
+  var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
+  var nodes=[];while(w.nextNode())nodes.push(w.currentNode);
+  nodes.forEach(function(n){
+    if(!orig.has(n))orig.set(n,n.nodeValue);
+    var el=n.parentElement;
+    if(el&&(el.closest('script,style,svg,.langsw,.big')||el.closest('.no')))return;
+    var raw=orig.get(n),lead=raw.match(/^\s*/)[0],tail=raw.match(/\s*$/)[0],core=raw.trim();
+    if(!core)return;
+    var nv=lead+tr(core,L)+tail;
+    if(n.nodeValue!==nv)n.nodeValue=nv;
   });
-  const nl=sec.querySelector('.nowlist');
-  if(nl)nl.textContent='Open now: '+openN+' of '+totalN+' shops in this area';
-  const sw=sec.querySelector('.sw');
-  if(sw)sw.addEventListener('click',()=>{
-    const on=sw.getAttribute('aria-checked')!=='true';
-    sw.setAttribute('aria-checked',on);sec.classList.toggle('filter',on);
-    if(nl)nl.classList.toggle('off',false);});
+  document.querySelectorAll('.langsw .fl svg').forEach(function(sv){sv.classList.toggle('on',sv.getAttribute('data-l')===L);});
+  var lc=document.querySelector('.langsw .lc');if(lc&&lc.textContent!==L.toUpperCase())lc.textContent=L.toUpperCase();
+  if(mo)mo.observe(document.body,{childList:true,subtree:true,characterData:true});
+}
+var start='en';
+try{var q=new URLSearchParams(location.search).get('lang');var saved=localStorage.getItem('thriftmap_lang');
+if(q&&LANGS.indexOf(q)>=0)start=q;else if(saved&&LANGS.indexOf(saved)>=0)start=saved;}catch(e){}
+if(start!=='en')apply(start);
+var btn=document.querySelector('.langsw');
+if(btn)btn.addEventListener('click',function(){
+  var cur=document.documentElement.lang||'en';if(cur==='zh-CN')cur='zh';
+  var nx=LANGS[(LANGS.indexOf(cur)+1)%LANGS.length];
+  apply(nx);
+  try{localStorage.setItem('thriftmap_lang',nx);}catch(e){}
 });
-function focusPin(wrap,n){
-  const pin=wrap.querySelector('.pin[data-n="'+n+'"]');if(!pin)return;
-  const pz=wrap.querySelector('.pz');
-  const st=wrap._pz;const k=2.1;
-  const px=parseFloat(pin.style.left)/100*pz.clientWidth, py=parseFloat(pin.style.top)/100*pz.clientHeight;
-  st.k=k;st.x=pz.clientWidth/2-px*k;st.y=pz.clientHeight/2-py*k;clampPZ(wrap);applyPZ(wrap,true);
-  wrap.querySelectorAll('.pin').forEach(p=>p.classList.remove('hl'));pin.classList.add('hl');
-  setTimeout(()=>pin.classList.remove('hl'),1700);}
-function clampPZ(wrap){const pz=wrap.querySelector('.pz');const st=wrap._pz;
-  const W=pz.clientWidth,H=pz.clientHeight;
-  if(st.k<=1){st.x=0;st.y=0;st.k=1;return}
-  st.x=Math.min(0,Math.max(W-W*st.k,st.x));st.y=Math.min(0,Math.max(H-H*st.k,st.y));}
-function applyPZ(wrap,anim){const inner=wrap.querySelector('.pz-inner');const st=wrap._pz;
-  inner.style.transition=anim?'transform .38s ease':'';
-  inner.style.transform='translate('+st.x+'px,'+st.y+'px) scale('+st.k+')';
-  inner.style.setProperty('--pk',Math.max(.55,1/Math.sqrt(st.k)));}
-document.querySelectorAll('.mapwrap').forEach(wrap=>{
-  wrap._pz={k:1,x:0,y:0};
-  const pz=wrap.querySelector('.pz');
-  const ptrs=new Map();let lastD=0;
-  pz.addEventListener('pointerdown',e=>{ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});pz.setPointerCapture(e.pointerId);});
-  pz.addEventListener('pointermove',e=>{
-    if(!ptrs.has(e.pointerId))return;
-    const prev=ptrs.get(e.pointerId);ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
-    const st=wrap._pz;
-    if(ptrs.size===1){st.x+=e.clientX-prev.x;st.y+=e.clientY-prev.y;clampPZ(wrap);applyPZ(wrap,false);}
-    else if(ptrs.size===2){const p=[...ptrs.values()];
-      const d=Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y);
-      if(lastD>0){const r=pz.getBoundingClientRect();
-        const mx=(p[0].x+p[1].x)/2-r.left,my=(p[0].y+p[1].y)/2-r.top;
-        const nk=Math.min(6,Math.max(1,st.k*d/lastD));
-        st.x=mx-(mx-st.x)*(nk/st.k);st.y=my-(my-st.y)*(nk/st.k);st.k=nk;clampPZ(wrap);applyPZ(wrap,false);}
-      lastD=d;}});
-  const end=e=>{ptrs.delete(e.pointerId);if(ptrs.size<2)lastD=0;};
-  pz.addEventListener('pointerup',end);pz.addEventListener('pointercancel',end);
-  pz.addEventListener('wheel',e=>{e.preventDefault();const st=wrap._pz;const r=pz.getBoundingClientRect();
-    const mx=e.clientX-r.left,my=e.clientY-r.top;
-    const nk=Math.min(6,Math.max(1,st.k*Math.exp(-e.deltaY*0.0016)));
-    st.x=mx-(mx-st.x)*(nk/st.k);st.y=my-(my-st.y)*(nk/st.k);st.k=nk;clampPZ(wrap);applyPZ(wrap,false);},{passive:false});
-  wrap.querySelector('.pzb.in').addEventListener('click',()=>{const st=wrap._pz;const pz2=wrap.querySelector('.pz');
-    const nk=Math.min(6,st.k*1.45);st.x=pz2.clientWidth/2-(pz2.clientWidth/2-st.x)*(nk/st.k);
-    st.y=pz2.clientHeight/2-(pz2.clientHeight/2-st.y)*(nk/st.k);st.k=nk;clampPZ(wrap);applyPZ(wrap,true);});
-  wrap.querySelector('.pzb.out').addEventListener('click',()=>{const st=wrap._pz;const pz2=wrap.querySelector('.pz');
-    const nk=Math.max(1,st.k/1.45);st.x=pz2.clientWidth/2-(pz2.clientWidth/2-st.x)*(nk/st.k);
-    st.y=pz2.clientHeight/2-(pz2.clientHeight/2-st.y)*(nk/st.k);st.k=nk;clampPZ(wrap);applyPZ(wrap,true);});
-  wrap.querySelector('.pzb.reset').addEventListener('click',()=>{wrap._pz={k:1,x:0,y:0};applyPZ(wrap,true);});
-});
-document.querySelectorAll('.pin').forEach(pin=>{
-  pin.addEventListener('pointerdown',e=>e.stopPropagation());
-  pin.addEventListener('click',()=>{
-    const card=document.getElementById('card-'+pin.dataset.id);
-    if(card){card.scrollIntoView({behavior:'smooth',block:'center'});
-      card.classList.remove('hit');void card.offsetWidth;card.classList.add('hit');
-      setTimeout(()=>card.classList.remove('hit'),1800);}});});
-document.querySelectorAll('.big').forEach(b=>{
-  b.addEventListener('click',()=>{
-    const wrap=document.querySelector('.mapwrap[data-area="'+b.dataset.goto+'"]');
-    if(wrap){wrap.scrollIntoView({behavior:'smooth',block:'center'});
-      setTimeout(()=>focusPin(wrap,b.dataset.n),450);}});});
+mo=new MutationObserver(function(){var L=document.documentElement.lang;if(L&&L!=='en')apply(L==='zh-CN'?'zh':L);});
+mo.observe(document.body,{childList:true,subtree:true,characterData:true});
+})();
+</script>
 """
 
-def main():
-    data = json.load(open(os.path.join(HERE, "data.json"), encoding="utf-8"))
-    total = 0
-    fallbacks = []
-    for area in data["areas"]:
-        stations = area.get("stations") or [area["station"]]
-        for sh in area["shops"]:
-            got = None
-            try:
-                got = geocode(sh["addr"])
-            except Exception as e:
-                print(f"geocode error {sh['id']}: {e}", file=sys.stderr)
-            if got:
-                sh["lat"], sh["lng"] = got
-            elif sh.get("fb"):
-                sh["lat"], sh["lng"] = sh["fb"]
-                fallbacks.append(sh["id"])
-            else:
-                print(f"FATAL: no coords for {sh['id']}", file=sys.stderr)
-                sys.exit(1)
-            best = min(stations, key=lambda s: haversine_m((sh["lat"], sh["lng"]), (s["lat"], s["lng"])))
-            d = haversine_m((sh["lat"], sh["lng"]), (best["lat"], best["lng"]))
-            sh["walk"] = max(1, round(d * 1.3 / 80))
-            sh["sta"] = best["name"]
-            total += 1
-    hours_js = {sh["id"]: {"h": sh["hours"], "closed": sh.get("closed")}
-                for area in data["areas"] for sh in area["shops"]}
-    sections = []
-    nav = []
-    for area in data["areas"]:
-        maphtml, cards, proj = build_area(area)
-        nav.append(f'<a href="#area-{area["key"]}">{escape(area["name"])} <b>{len(area["shops"])}</b></a>')
-        sections.append(
-            f'<section class="area" id="area-{area["key"]}">'
-            f'<div class="maphd"><h2 class="map">{escape(area["name"])}<span class="ajp">{escape(area["jp"])}</span></h2>'
-            f'<span class="nowmini">Open now <button type="button" class="sw" role="switch" aria-checked="false" aria-label="Show only shops open now in {escape(area["name"])}"></button></span></div>'
-            f'<p class="nowlist off"></p>'
-            f'<div class="access"><p><span class="lab">GETTING THERE</span>{escape(area["access"])}</p>'
-            f'<p><span class="lab">THE AREA</span>{escape(area["walk"])}</p>'
-            f'<p><span class="lab">STATION</span>{escape(area["station"]["name"])} — {escape(area["lines"])}</p></div>'
-            f'{maphtml}<div class="cards">{cards}</div></section>')
-    counts = " · ".join(f'{a["name"]} {len(a["shops"])}' for a in data["areas"])
-    js = JS.replace("__HOURS__", json.dumps(hours_js))
-    html = f"""<!DOCTYPE html>
+UI_DICT = {
+"Where to": {"ja": "Where to", "zh": "Where to", "es": "Where to", "de": "Where to", "ko": "Where to"},
+"Thrift": {"ja": "Thrift", "zh": "Thrift", "es": "Thrift", "de": "Thrift", "ko": "Thrift"},
+"in": {"ja": "in", "zh": "in", "es": "in", "de": "in", "ko": "in"},
+"Tap to": {"ja": "タップで", "zh": "点按", "es": "Toca para", "de": "Tippen:", "ko": "탭해서"},
+"change area": {"ja": "エリア切替", "zh": "切换区域", "es": "cambiar zona", "de": "Gebiet wechseln", "ko": "지역 변경"},
+"Shimokitazawa": {"ja": "下北沢", "zh": "下北泽", "es": "Shimokitazawa", "de": "Shimokitazawa", "ko": "시모키타자와"},
+"Koenji": {"ja": "高円寺", "zh": "高圆寺", "es": "Koenji", "de": "Koenji", "ko": "고엔지"},
+"Kichijoji": {"ja": "吉祥寺", "zh": "吉祥寺", "es": "Kichijoji", "de": "Kichijoji", "ko": "기치조지"},
+"Nakano": {"ja": "中野", "zh": "中野", "es": "Nakano", "de": "Nakano", "ko": "나카노"},
+"Harajuku & Shibuya": {"ja": "原宿・渋谷", "zh": "原宿·涩谷", "es": "Harajuku y Shibuya", "de": "Harajuku & Shibuya", "ko": "하라주쿠·시부야"},
+"Akihabara": {"ja": "秋葉原", "zh": "秋叶原", "es": "Akihabara", "de": "Akihabara", "ko": "아키하바라"},
+"Ikebukuro": {"ja": "池袋", "zh": "池袋", "es": "Ikebukuro", "de": "Ikebukuro", "ko": "이케부쿠로"},
+"Ueno & Ameyoko": {"ja": "上野・アメ横", "zh": "上野·阿美横", "es": "Ueno y Ameyoko", "de": "Ueno & Ameyoko", "ko": "우에노·아메요코"},
+"SHIMOKITAZAWA": {"ja": "下北沢", "zh": "下北泽", "es": "SHIMOKITAZAWA", "de": "SHIMOKITAZAWA", "ko": "시모키타자와"},
+"KOENJI": {"ja": "高円寺", "zh": "高圆寺", "es": "KOENJI", "de": "KOENJI", "ko": "고엔지"},
+"KICHIJOJI": {"ja": "吉祥寺", "zh": "吉祥寺", "es": "KICHIJOJI", "de": "KICHIJOJI", "ko": "기치조지"},
+"NAKANO": {"ja": "中野", "zh": "中野", "es": "NAKANO", "de": "NAKANO", "ko": "나카노"},
+"HARAJUKU & SHIBUYA": {"ja": "原宿・渋谷", "zh": "原宿·涩谷", "es": "HARAJUKU Y SHIBUYA", "de": "HARAJUKU & SHIBUYA", "ko": "하라주쿠·시부야"},
+"AKIHABARA": {"ja": "秋葉原", "zh": "秋叶原", "es": "AKIHABARA", "de": "AKIHABARA", "ko": "아키하바라"},
+"IKEBUKURO": {"ja": "池袋", "zh": "池袋", "es": "IKEBUKURO", "de": "IKEBUKURO", "ko": "이케부쿠로"},
+"UENO & AMEYOKO": {"ja": "上野・アメ横", "zh": "上野·阿美横", "es": "UENO Y AMEYOKO", "de": "UENO & AMEYOKO", "ko": "우에노·아메요코"},
+"Okachimachi": {"ja": "御徒町", "zh": "御徒町", "es": "Okachimachi", "de": "Okachimachi", "ko": "오카치마치"},
+"Harajuku": {"ja": "原宿", "zh": "原宿", "es": "Harajuku", "de": "Harajuku", "ko": "하라주쿠"},
+"Ueno": {"ja": "上野", "zh": "上野", "es": "Ueno", "de": "Ueno", "ko": "우에노"},
+"GETTING THERE": {"ja": "アクセス", "zh": "交通", "es": "CÓMO LLEGAR", "de": "ANFAHRT", "ko": "가는 법"},
+"THE AREA": {"ja": "エリア", "zh": "区域", "es": "LA ZONA", "de": "DAS VIERTEL", "ko": "지역"},
+"STATION": {"ja": "最寄り駅", "zh": "车站", "es": "ESTACIÓN", "de": "BAHNHOF", "ko": "역"},
+"Open now": {"ja": "営業中のみ", "zh": "营业中", "es": "Abierto ahora", "de": "Jetzt geöffnet", "ko": "영업 중"},
+"I'm after": {"ja": "探しているのは", "zh": "我想找", "es": "Busco", "de": "Ich suche", "ko": "찾는 것"},
+"Vintage": {"ja": "ヴィンテージ", "zh": "复古", "es": "Vintage", "de": "Vintage", "ko": "빈티지"},
+"Brand resale": {"ja": "ブランド買取", "zh": "品牌二手", "es": "Marcas", "de": "Marken-Resale", "ko": "브랜드 리세일"},
+"Recycle": {"ja": "リサイクル", "zh": "回收店", "es": "Reciclaje", "de": "Recycling", "ko": "리사이클"},
+"Specialty": {"ja": "専門店", "zh": "专门店", "es": "Especialidad", "de": "Spezial", "ko": "전문점"},
+"Drag to pan · Pinch or scroll to zoom · Tap a pin": {"ja": "ドラッグで移動 · ピンチ/スクロールで拡大 · ピンをタップ", "zh": "拖动平移 · 捏合或滚动缩放 · 点按图钉", "es": "Arrastra para mover · Pellizca o desplázate para ampliar · Toca un pin", "de": "Ziehen zum Verschieben · Pinchen oder Scrollen zum Zoomen · Pin antippen", "ko": "드래그로 이동 · 핀치/스크롤로 확대 · 핀 탭"},
+"Outside": {"ja": "外観", "zh": "外观", "es": "Exterior", "de": "Außen", "ko": "외관"},
+"Inside": {"ja": "店内", "zh": "店内", "es": "Interior", "de": "Innen", "ko": "실내"},
+"OPEN NOW": {"ja": "営業中", "zh": "营业中", "es": "ABIERTO", "de": "GEÖFFNET", "ko": "영업 중"},
+"CLOSED": {"ja": "営業時間外", "zh": "已打烊", "es": "CERRADO", "de": "GESCHLOSSEN", "ko": "영업 종료"},
+"Closed today": {"ja": "本日休業", "zh": "今日休息", "es": "Cerrado hoy", "de": "Heute geschlossen", "ko": "오늘 휴무"},
+"Today": {"ja": "本日", "zh": "今天", "es": "Hoy", "de": "Heute", "ko": "오늘"},
+"Opens": {"ja": "開店", "zh": "开门", "es": "Abre", "de": "Öffnet", "ko": "오픈"},
+"Closes": {"ja": "閉店", "zh": "关门", "es": "Cierra", "de": "Schließt", "ko": "마감"},
+"Closed:": {"ja": "定休日：", "zh": "休息日：", "es": "Cerrado:", "de": "Ruhetag:", "ko": "휴무:"},
+"MON": {"ja": "月曜", "zh": "周一", "es": "lun", "de": "Mo", "ko": "월"},
+"TUE": {"ja": "火曜", "zh": "周二", "es": "mar", "de": "Di", "ko": "화"},
+"WED": {"ja": "水曜", "zh": "周三", "es": "mié", "de": "Mi", "ko": "수"},
+"THU": {"ja": "木曜", "zh": "周四", "es": "jue", "de": "Do", "ko": "목"},
+"FRI": {"ja": "金曜", "zh": "周五", "es": "vie", "de": "Fr", "ko": "금"},
+"SAT": {"ja": "土曜", "zh": "周六", "es": "sáb", "de": "Sa", "ko": "토"},
+"SUN": {"ja": "日曜", "zh": "周日", "es": "dom", "de": "So", "ko": "일"},
+"{n} min walk": {"ja": "徒歩{n}分", "zh": "步行{n}分钟", "es": "{n} min a pie", "de": "{n} Min. zu Fuß", "ko": "도보 {n}분"},
+"{s} Sta.": {"ja": "{s}駅", "zh": "{s}站", "es": "Est. {s}", "de": "Bh. {s}", "ko": "{s}역"},
+"Open now: {a} of {b} shops in this area": {"ja": "営業中：このエリアの{b}店中{a}店", "zh": "营业中：本区{b}家中的{a}家", "es": "Abiertas: {a} de {b} tiendas de la zona", "de": "Jetzt geöffnet: {a} von {b} Läden hier", "ko": "영업 중: 이 지역 {b}곳 중 {a}곳"},
+"Showing {n} shops": {"ja": "{n}店を表示中", "zh": "显示{n}家店", "es": "Mostrando {n} tiendas", "de": "{n} Läden angezeigt", "ko": "{n}곳 표시 중"},
+"Google ★{r} · {n} reviews": {"ja": "Google ★{r} · レビュー{n}件", "zh": "Google ★{r} · {n}条评价", "es": "Google ★{r} · {n} reseñas", "de": "Google ★{r} · {n} Bewertungen", "ko": "Google ★{r} · 리뷰 {n}개"},
+"All {n} within {m} min of the station": {"ja": "全{n}店が駅から徒歩{m}分以内", "zh": "全部{n}家都在车站步行{m}分钟内", "es": "Las {n} a menos de {m} min de la estación", "de": "Alle {n} max. {m} Min. vom Bahnhof", "ko": "전 {n}곳이 역에서 도보 {m}분 이내"},
+"{n} within a 5 min walk": {"ja": "徒歩5分以内が{n}店", "zh": "步行5分钟内{n}家", "es": "{n} a menos de 5 min a pie", "de": "{n} max. 5 Min. zu Fuß", "ko": "도보 5분 이내 {n}곳"},
+"{n} a bit further out": {"ja": "少し歩く店が{n}店", "zh": "稍远的有{n}家", "es": "{n} un poco más lejos", "de": "{n} etwas weiter weg", "ko": "조금 먼 곳 {n}곳"},
+"{n} shops, a short stroll from the station": {"ja": "駅から少し歩く{n}店", "zh": "离车站稍远的{n}家店", "es": "{n} tiendas, a un paseo de la estación", "de": "{n} Läden, kurzer Spaziergang vom Bahnhof", "ko": "역에서 조금 걷는 {n}곳"},
+"1 shop · {n} min from {s} Sta.": {"ja": "1店 · {s}駅から徒歩{n}分", "zh": "1家店 · 离{s}站步行{n}分钟", "es": "1 tienda · {n} min desde la est. {s}", "de": "1 Laden · {n} Min. ab Bh. {s}", "ko": "1곳 · {s}역에서 도보 {n}분"},
+"Worth the short walk": {"ja": "歩く価値あり", "zh": "值得一走", "es": "Vale la pena el paseo", "de": "Den Weg wert", "ko": "걸을 가치 있음"},
+"Good to know": {"ja": "知っておくと便利", "zh": "实用贴士", "es": "Bueno saber", "de": "Gut zu wissen", "ko": "알아두면 좋아요"},
+"Cash still matters.": {"ja": "現金はまだ大事。", "zh": "现金仍然重要。", "es": "El efectivo sigue importando.", "de": "Bargeld zählt weiterhin.", "ko": "현금은 여전히 필수."},
+"Most chains take cards and IC, but small vintage shops may be cash only — carry a few thousand yen.": {"ja": "大手チェーンはカード・IC対応だが、小さな古着屋は現金のみの場合がある。数千円は持っておくと安心。", "zh": "大型连锁店可刷卡和交通卡，但小型复古店可能只收现金，建议带几千日元。", "es": "Las cadenas aceptan tarjeta e IC, pero las tiendas vintage pequeñas pueden ser solo efectivo: lleva unos miles de yenes.", "de": "Ketten nehmen Karten und IC, kleine Vintage-Läden oft nur Bargeld — ein paar Tausend Yen einpacken.", "ko": "대형 체인은 카드·IC 가능하지만 작은 빈티지 숍은 현금만 받는 곳도 있으니 몇천 엔은 챙기세요."},
+"Condition is graded on the tag.": {"ja": "状態は値札のランクで表示。", "zh": "成色在价签上分级。", "es": "El estado se indica en la etiqueta.", "de": "Der Zustand steht am Etikett.", "ko": "상태는 태그에 등급으로 표시."},
+"Japanese second-hand shops grade strictly; a B-rank here is often cleaner than \"like new\" elsewhere.": {"ja": "日本のリサイクルショップの査定は厳しめで、Bランクでも他国の「新品同様」よりきれいなことが多い。", "zh": "日本二手店分级严格，B级往往比其他地方的“几乎全新”还干净。", "es": "Las tiendas japonesas de segunda mano califican con rigor; un grado B aquí suele estar más limpio que un \"como nuevo\" en otros lugares.", "de": "Japanische Secondhand-Läden bewerten streng; ein B-Rang ist hier oft sauberer als \"wie neu\" anderswo.", "ko": "일본 중고 숍은 등급이 엄격해서 B등급도 다른 나라의 '새것 수준'보다 깨끗한 경우가 많아요."},
+"Tax-free:": {"ja": "免税：", "zh": "免税：", "es": "Tax-free:", "de": "Tax-free:", "ko": "면세:"},
+"larger chains (2nd STREET, TREASURE FACTORY, Kindal) do tax-free for visitors — bring your passport.": {"ja": "大手チェーン（2nd STREET、トレファク、Kindal）は免税対応。パスポートを持参して。", "zh": "大型连锁店（2nd STREET、TREASURE FACTORY、Kindal）为游客提供免税，请带护照。", "es": "las cadenas grandes (2nd STREET, TREASURE FACTORY, Kindal) ofrecen tax-free a visitantes: trae tu pasaporte.", "de": "große Ketten (2nd STREET, TREASURE FACTORY, Kindal) bieten Tax-free für Besucher — Pass mitbringen.", "ko": "대형 체인(2nd STREET, TREASURE FACTORY, Kindal)은 면세 가능. 여권을 가져오세요."},
+"Shimokitazawa and Koenji are dense enough to wander.": {"ja": "下北沢と高円寺はぶらぶら歩くだけで回れる密度。", "zh": "下北泽和高圆寺店铺密集，适合随意逛。", "es": "Shimokitazawa y Koenji son densos para pasear sin plan.", "de": "Shimokitazawa und Koenji sind dicht genug zum Schlendern.", "ko": "시모키타자와와 고엔지는 그냥 걸어다니기만 해도 될 만큼 밀집해 있어요."},
+"The other areas reward a plan: check the OPEN NOW switch before you go.": {"ja": "他のエリアは計画性が大事。出発前に OPEN NOW スイッチで営業中を確認して。", "zh": "其他区域建议先计划：出发前用 OPEN NOW 开关确认营业状态。", "es": "Las demás zonas recompensan un plan: revisa el interruptor OPEN NOW antes de ir.", "de": "Andere Viertel belohnen Planung: vor dem Losgehen den OPEN-NOW-Schalter prüfen.", "ko": "다른 지역은 계획이 중요해요. 출발 전에 OPEN NOW 스위치로 영업 여부를 확인하세요."},
+"Areas:": {"ja": "エリア：", "zh": "区域：", "es": "Zonas:", "de": "Gebiete:", "ko": "지역:"},
+"— a guest guide by Anime Sensei": {"ja": "— Anime Sensei のゲストガイド", "zh": "— Anime Sensei 的游客指南", "es": "— guía para invitados de Anime Sensei", "de": "— ein Gästeguide von Anime Sensei", "ko": "— Anime Sensei의 게스트 가이드"},
+"Shop details checked on official sites and Google listings on Nov 24, 2026.": {"ja": "店舗情報は2026年11月24日に公式サイトと Google 掲載情報で確認済み。", "zh": "店铺信息已于2026年11月24日通过官方网站和 Google 商家信息核实。", "es": "Datos de tiendas verificados en sitios oficiales y fichas de Google el 24 de nov. de 2026.", "de": "Ladendaten am 24. Nov. 2026 auf offiziellen Seiten und Google-Einträgen geprüft.", "ko": "매장 정보는 2026년 11월 24일 공식 사이트와 Google 정보로 확인했습니다."},
+"Map sketches are schematic. Coordinates: GSI address search. Always confirm the exact spot with the map pin button on each card.": {"ja": "地図スケッチは模式図。座標は国土地理院の住所検索による。正確な場所は各カードの地図ピンボタンで確認して。", "zh": "地图草图为示意图。坐标来自 GSI 地址搜索。请用每张卡片上的地图图钉按钮确认确切位置。", "es": "Los mapas son esquemáticos. Coordenadas: búsqueda de direcciones GSI. Confirma el lugar exacto con el botón de pin de cada tarjeta.", "de": "Die Kartenskizzen sind schematisch. Koordinaten: GSI-Adresssuche. Den genauen Ort mit dem Pin-Button auf jeder Karte bestätigen.", "ko": "지도 스케치는 개략도입니다. 좌표는 GSI 주소 검색 기준. 정확한 위치는 각 카드의 지도 핀 버튼으로 확인하세요."},
+"Tokyo's thrift capital. Eight shops within a few minutes of the station — vintage dens, recycle chains and tiny curated stores packed into the lanes on both sides of the tracks.": {"ja": "東京の古着の中心地。駅から数分の範囲に8店。ヴィンテージの名店、リサイクルチェーン、路地の小さなセレクト店が線路の両側に密集している。"},
+"Vintage without the Shimokitazawa crowds. Eight shops around the station and its covered shopping streets, strong on American vintage and budget recycle racks.": {"ja": "下北沢ほどの混雑なしにヴィンテージを楽しめる。高円寺駅周辺と商店街に8店。アメリカ古着と手頃なリサイクルが強いエリア。"},
+"A local favorite west of the center. Eight shops between the Sun Road arcade and Harmonica Yokocho, mixing big recycle chains with small vintage picks.": {"ja": "都心の西側、地元に愛される街。サンロードとハーモニカ横丁の間に8店。大型リサイクルチェーンと小さなヴィンテージ店が混ざる。"},
+"Broadway is a treasure building. Eight clothing shops in and around Nakano Broadway and the Sun Mall arcade — come for the hobby floors, stay for the vintage.": {"ja": "ブロードウェイは宝のビル。中野ブロードウェイとサンモール商店街の内外に古着店8店。ホビーフロアのついでにヴィンテージも楽しめる。"},
+"The famous end of Tokyo vintage. Five shops around Harajuku and Shibuya — big-name vintage, brand resale and a huge recycle floor.": {"ja": "東京ヴィンテージの有名どころ。原宿・渋谷周辺に5店。有名ヴィンテージ、ブランド買取、巨大なリサイクルフロアが揃う。"},
+"One specialist stop. PENNY TOKYO deals in American vintage a short walk from Akihabara Station — worth the detour between the arcades.": {"ja": "専門店が1店。PENNY TOKYO は秋葉原駅から少し歩くアメリカ古着の店。ゲームセンター巡りの合間に寄る価値がある。"},
+"West-side value. Three shops around Ikebukuro Station, including a big 2nd STREET inside P'PARCO.": {"ja": "西側のお得エリア。池袋駅周辺に3店。P'PARCO 内の大型 2nd STREET も入っている。"},
+"Ameyoko bargains. Four shops in and around the Ameyoko market streets — workwear, outdoor vintage and recycle racks under the tracks.": {"ja": "アメ横の掘り出し物。アメ横市場の内外に4店。ワークウェア、アウトドア古着、線路下のリサイクルラックが揃う。"},
+}
+
+STATUS_JS = """
+<script>
+const SHOPS = __SHOPS_JSON__;
+const DAYN = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+function mins(t){const[a,b]=t.split(':').map(Number);return a*60+b;}
+function fmt(m){let h=Math.floor(m/60),mm=m%60;const ap=h>=12?'PM':'AM';h=h%12;if(h===0)h=12;return h+':'+String(mm).padStart(2,'0')+' '+ap;}
+function statusFor(sh,now){
+  const day=(now.getDay()+6)%7,cur=now.getHours()*60+now.getMinutes();
+  const h=sh.hours;
+  const ent=h.find(e=>e.d.includes(day));
+  if(ent){const o=mins(ent.o);let c=mins(ent.c);if(c<=o)c+=1440;
+    if(cur>=o&&cur<c)return{open:true,today:'Today '+fmt(o)+' \\u2013 '+fmt(c%1440)};
+    if(cur<o)return{open:false,today:'Today '+fmt(o)+' \\u2013 '+fmt(c%1440)};}
+  for(let k=1;k<=7;k++){const d2=(day+k)%7;const e2=h.find(e=>e.d.includes(d2));
+    if(e2)return{open:false,today:null};}
+  return null;
+}
+let nowOpenCount=0;
+const _now=new Date();
+for(const id in SHOPS){
+  const sh=SHOPS[id],st=statusFor(sh,_now);
+  if(st&&st.open)nowOpenCount++;
+  sh._st=st;
+  document.querySelectorAll('[data-st="'+id+'"]').forEach(el=>{if(st){el.textContent=st.open?'OPEN NOW':'CLOSED';el.classList.toggle('open',st.open);}else{el.remove();}});
+  document.querySelectorAll('[data-today="'+id+'"]').forEach(el=>{if(st&&st.today)el.textContent=st.today;});
+}
+const nowEl=document.getElementById('nowline');
+if(nowEl)nowEl.textContent='Open now: '+nowOpenCount+' of '+Object.keys(SHOPS).length+' shops in this area';
+let activeCat=null,onlyOpen=false;
+function applyFilters(){
+  document.querySelectorAll('.card').forEach(c=>{
+    const sh=SHOPS[c.dataset.id];
+    const okC=!activeCat||c.dataset.cat===activeCat;
+    const okO=!onlyOpen||(sh&&sh._st&&sh._st.open);
+    c.classList.toggle('hide',!(okC&&okO));
+  });
+  document.querySelectorAll('.pin').forEach(p=>{
+    const sh=SHOPS[p.dataset.id];
+    const okC=!activeCat||p.dataset.cat===activeCat;
+    const okO=!onlyOpen||(sh&&sh._st&&sh._st.open);
+    p.classList.toggle('hide',!(okC&&okO));
+  });
+  const vis=document.querySelectorAll('.card:not(.hide)').length;
+  const mn=document.querySelector('.mood .mn');
+  if(mn)mn.textContent=(activeCat||onlyOpen)?('Showing '+vis+' shops'):'';
+}
+const openSw=document.getElementById('opensw');
+if(openSw)openSw.addEventListener('change',()=>{onlyOpen=openSw.checked;applyFilters();});
+document.querySelectorAll('.areasw,.kindsw').forEach(dw=>{
+  document.addEventListener('click',e=>{if(!dw.contains(e.target))dw.removeAttribute('open');});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')dw.removeAttribute('open');});
+});
+document.querySelectorAll('.mood .chips button').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const cat=b.dataset.cat;
+    if(activeCat===cat){activeCat=null;b.setAttribute('aria-pressed','false');}
+    else{activeCat=cat;document.querySelectorAll('.mood .chips button').forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));}
+    applyFilters();
+  });
+});
+</script>
+"""
+
+PINZOOM_JS = """
+<script>
+document.querySelectorAll('.mapwrap').forEach(wrap=>{
+  const pz=wrap.querySelector('.pz'),inner=wrap.querySelector('.pz-inner');
+  let scale=1,tx=0,ty=0;
+  const pointers=new Map();let pinchD=0,pinchS=1;
+  function clampT(){
+    const r=pz.getBoundingClientRect();
+    const w=inner.offsetWidth*scale,h=inner.offsetHeight*scale;
+    tx=w<=r.width?(r.width-w)/2:Math.min(0,Math.max(r.width-w,tx));
+    ty=h<=r.height?(r.height-h)/2:Math.min(0,Math.max(r.height-h,ty));
+  }
+  function apply(){clampT();inner.style.transform='translate('+tx+'px,'+ty+'px) scale('+scale+')';}
+  function fit(){
+    const r=pz.getBoundingClientRect();
+    scale=Math.max(1,r.width/inner.offsetWidth);
+    tx=(r.width-inner.offsetWidth*scale)/2;
+    ty=0;apply();
+  }
+  function zoomAt(cx,cy,f){
+    const r=pz.getBoundingClientRect();
+    const x=cx-r.left,y=cy-r.top;
+    const ns=Math.min(4,Math.max(1,scale*f));
+    const k=ns/scale;
+    tx=x-(x-tx)*k;ty=y-(y-ty)*k;scale=ns;apply();
+  }
+  pz.addEventListener('pointerdown',e=>{pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});pz.setPointerCapture(e.pointerId);pz.classList.add('grabbing');if(pointers.size===2){const p=[...pointers.values()];pinchD=Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y);pinchS=scale;}});
+  pz.addEventListener('pointermove',e=>{
+    if(!pointers.has(e.pointerId))return;
+    const prev=pointers.get(e.pointerId);
+    pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(pointers.size===1){tx+=e.clientX-prev.x;ty+=e.clientY-prev.y;apply();}
+    else if(pointers.size===2){const p=[...pointers.values()];const d=Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y);if(pinchD>0){const cx=(p[0].x+p[1].x)/2,cy=(p[0].y+p[1].y)/2;const target=pinchS*d/pinchD;const f=target/scale;zoomAt(cx,cy,f);}}
+  });
+  function release(e){pointers.delete(e.pointerId);if(pointers.size===0)pz.classList.remove('grabbing');}
+  pz.addEventListener('pointerup',release);pz.addEventListener('pointercancel',release);
+  pz.addEventListener('wheel',e=>{e.preventDefault();zoomAt(e.clientX,e.clientY,e.deltaY<0?1.15:1/1.15);},{passive:false});
+  pz.addEventListener('click',e=>{if(e.target.closest('.pin'))e.stopPropagation();},true);
+  wrap.querySelector('.pzb.in').addEventListener('click',()=>{const r=pz.getBoundingClientRect();zoomAt(r.left+r.width/2,r.top+r.height/2,1.35);});
+  wrap.querySelector('.pzb.out').addEventListener('click',()=>{const r=pz.getBoundingClientRect();zoomAt(r.left+r.width/2,r.top+r.height/2,1/1.35);});
+  wrap.querySelector('.pzb.reset').addEventListener('click',fit);
+  wrap.querySelectorAll('.pin').forEach(pin=>{
+    pin.addEventListener('click',ev=>{
+      ev.stopPropagation();
+      wrap.querySelectorAll('.pin.sel').forEach(p=>p.classList.remove('sel'));
+      pin.classList.add('sel');
+      const card=document.getElementById('card-'+pin.dataset.id);
+      if(card){card.scrollIntoView({behavior:'smooth',block:'start'});card.classList.remove('flash');void card.offsetWidth;card.classList.add('flash');}
+    });
+  });
+  document.querySelectorAll('[data-goto="'+wrap.dataset.area+'"]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const pin=wrap.querySelector('.pin[data-id="'+btn.dataset.id+'"]');
+      if(!pin)return;
+      wrap.scrollIntoView({behavior:'smooth',block:'start'});
+      const r=pz.getBoundingClientRect();
+      const px=parseFloat(pin.style.left)/100*inner.offsetWidth;
+      const py=parseFloat(pin.style.top)/100*inner.offsetHeight;
+      scale=Math.max(scale,1.9);
+      tx=r.width/2-px*scale;ty=r.height/2-py*scale;apply();
+      wrap.querySelectorAll('.pin.sel').forEach(p=>p.classList.remove('sel'));
+      pin.classList.add('sel');
+    });
+  });
+  window.addEventListener('resize',()=>{apply();});
+  fit();
+});
+</script>
+"""
+
+INTROS = {
+ "shimo": "Tokyo's thrift capital. Eight shops within a few minutes of the station — vintage dens, recycle chains and tiny curated stores packed into the lanes on both sides of the tracks.",
+ "koenji": "Vintage without the Shimokitazawa crowds. Eight shops around the station and its covered shopping streets, strong on American vintage and budget recycle racks.",
+ "kichijoji": "A local favorite west of the center. Eight shops between the Sun Road arcade and Harmonica Yokocho, mixing big recycle chains with small vintage picks.",
+ "nakano": "Broadway is a treasure building. Eight clothing shops in and around Nakano Broadway and the Sun Mall arcade — come for the hobby floors, stay for the vintage.",
+ "harajuku": "The famous end of Tokyo vintage. Five shops around Harajuku and Shibuya — big-name vintage, brand resale and a huge recycle floor.",
+ "akiba": "One specialist stop. PENNY TOKYO deals in American vintage a short walk from Akihabara Station — worth the detour between the arcades.",
+ "ikebukuro": "West-side value. Three shops around Ikebukuro Station, including a big 2nd STREET inside P'PARCO.",
+ "ueno": "Ameyoko bargains. Four shops in and around the Ameyoko market streets — workwear, outdoor vintage and recycle racks under the tracks.",
+}
+
+def load_translations():
+    t = {}
+    for path in sorted(glob.glob(os.path.join(HERE, "translations", "*.json"))):
+        try:
+            with open(path, encoding="utf-8") as f:
+                t.update(json.load(f))
+        except Exception as e:
+            print("WARN: translations file skipped:", path, e, file=sys.stderr)
+    t.update(UI_DICT)
+    return t
+
+def area_page(data, area, trans):
+    slug = SLUGS[area["key"]]
+    url = PAGE_URL + slug + "/"
+    total = len(data["areas"])
+    desc = (f"Thrift Map — {area['name']}: {len(area['shops'])} second-hand and vintage clothing shops "
+            f"around {area['station']['name']} Station, Tokyo — hours, ratings and how far each is on foot. "
+            f"One of {total} areas on the map.")
+    title = f"Thrift Map — {area['name']} | Anime Sensei"
+    kind_urls = {"Eat": "https://yukitchy.github.io/where-to-eat/"}
+    others_kind = "".join(f'<li><a href="{kind_urls.get(k, PAGE_URL)}">{k}</a></li>' for k in
+                          ["Eat", "Drink", "Thrift", "Shop", "Stay"])
+    areas_lis = "".join(
+        f'<li><a href="../{SLUGS[a["key"]]}/">{escape(a["name"].upper())}</a></li>'
+        for a in data["areas"] if a["key"] != area["key"])
+    name = area["name"]
+    n = len(name)
+    emscale = 1.25 if n <= 10 else (1.02 if n <= 14 else 0.85)
+    vwcap = (280.0 / (0.64 * n + 0.3)) / 3.2 * 0.97
+    emstyle = f"font-size:min({emscale}em,{vwcap:.1f}vw)"
+    h1 = (
+        '<h1><span>Where to</span> '
+        '<details class="kindsw"><summary>Thrift</summary><ul>'
+        + others_kind +
+        '</ul></details> '
+        '<span>in</span> '
+        f'<details class="areasw"><summary><em style="{emstyle}">{escape(name.upper())}</em>{CHEV_SVG}'
+        '<span class="hint">Tap to<br>change area</span></summary>'
+        f'<ul>{areas_lis}</ul></details></h1>')
+    maphtml, cards, _proj = build_area(area, "../")
+    hero = build_hero(area, "../")
+    mood = build_mood(area)
+    _sts = area.get("stations") or [area["station"]]
+    stations_rows = "".join(
+        f'<div class="r"><b>STATION</b><span>{escape(s["name"])}'
+        + (f' — <span>{escape(area["lines"])}</span>' if i == 0 else "")
+        + '</span></div>'
+        for i, s in enumerate(_sts))
+    station = (f'<div class="station"><div class="hd2">GETTING THERE</div><div class="bd">'
+               f'<div class="r"><b>THE AREA</b><span>{escape(area["access"])}</span></div>'
+               f'{stations_rows}'
+               f'<div class="r"><b>ON FOOT</b><span>{escape(area["walk"])}</span></div>'
+               f'</div></div>')
+    areas_links = " · ".join(
+        f'<a href="../{SLUGS[a["key"]]}/">{escape(a["name"])}</a>' for a in data["areas"])
+    shops_json = json.dumps({s["id"]: {"hours": s["hours"]} for s in area["shops"]},
+                            ensure_ascii=False, separators=(",", ":"))
+    status_js = STATUS_JS.replace("__SHOPS_JSON__", shops_json)
+    lang_js = LANG_JS.replace("__T_DICT__", json.dumps(trans, ensure_ascii=False, separators=(",", ":")))
+    return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Thrift Map — Tokyo Vintage &amp; Thrift Shops</title>
-<meta name="description" content="A hand-drawn map of Tokyo's best vintage and thrift shops: Shimokitazawa, Koenji, Harajuku, Akihabara, Ikebukuro and Ueno — {total} shops, checked November 2026.">
-<link rel="icon" type="image/png" href="img/favicon.png">
-<link rel="apple-touch-icon" href="img/favicon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&family=Noto+Sans+JP:wght@500;700;900&display=swap" rel="stylesheet">
+<title>{escape(title)}</title>
+<meta name="description" content="{escape(desc)}">
+<link rel="canonical" href="{url}">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Anime Sensei">
-<meta property="og:title" content="Thrift Map — Tokyo Vintage &amp; Thrift Shops">
-<meta property="og:description" content="{total} vintage &amp; thrift shops across 6 Tokyo neighborhoods, on hand-drawn maps. Shimokitazawa &amp; Koenji first.">
-<meta property="og:url" content="{PAGE_URL}">
+<meta property="og:site_name" content="Thrift Map — Anime Sensei">
+<meta property="og:title" content="{escape(title)}">
+<meta property="og:description" content="{escape(desc)}">
+<meta property="og:url" content="{url}">
 <meta property="og:image" content="{PAGE_URL}img/ogp1.jpg">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;900&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
 <style>{CSS}</style>
 </head>
 <body>
-<div class="col">
-<div class="top"><span>ANIME SENSEI</span><span>TOKYO GUIDE</span></div>
-<header class="hero">
-<img class="logo" src="img/logo.png" alt="THRIFT MAP">
-<p class="tagline">{escape(data["tagline"])}</p>
-<p class="subline">{total} shops · 6 areas · {counts}</p>
-<nav class="areanav">{"".join(nav)}</nav>
-<div class="howto">
-<div><b>HOW TO USE</b>Tap a photo pin on a map to jump to that shop's card. Tap the big number on a card to find it back on the map.</div>
-<div><b>OPEN NOW</b>Flip the switch next to an area name to hide shops that are closed right now. The badge on each photo is live, too.</div>
-<div><b>PHOTOS</b>Shop photos come from the shops' own sites and listings, checked on Nov 24, 2026.</div>
+<div class="wrap">
+<header class="top"><img class="logo" src="../img/logo-transparent.png" alt="Thrift Map">{LANGSW_HTML}</header>
+{h1}
+<p class="intro">{INTROS[area['key']]}</p>
+{station}
+{hero}
+{mood}
+<div class="maphd"><h2>{escape(name)}</h2><label class="sw"><input type="checkbox" id="opensw"><span class="trk"></span>Open now</label></div>
+<p class="nowline" id="nowline" style="font-size:13.5px;font-weight:700;color:var(--mut);margin:-2px 0 8px"></p>
+{maphtml}
+<section class="cards">{cards}</section>
+<section class="know">{KNOW_HTML}</section>
+<footer><p class="areas">Areas: {areas_links}</p>
+<p>{escape(data['checked'])}<br>Map sketches are schematic. Coordinates: GSI address search. Always confirm the exact spot with the map pin button on each card.<br>Thrift Map — a guest guide by Anime Sensei</p></footer>
 </div>
-</header>
-{"".join(sections)}
-</div>
-<div class="know"><div class="col">
-<h2>Good to know</h2>
-<ul>
-<li>Many Tokyo thrift shops open at 11 AM or noon, and small ones close early — check the live badge before a long trip.</li>
-<li>Shimokitazawa and Koenji are dense enough to cover on foot in one afternoon each. Start with the shops marked OPEN NOW.</li>
-<li>Most shops take cards, but small vintage stores may be cash only. Tax-free shopping is rare in thrift stores.</li>
-<li>Hours were checked on Nov 24, 2026 — a quick look at the Google listing before you go is wise.</li>
-</ul>
-</div></div>
-<div class="col">
-<footer>
-<p><span class="brand">THRIFT MAP</span> — a guest guide by Anime Sensei<br>
-{escape(data["checked"])}<br>
-Map sketches are schematic. Coordinates: GSI address search. Always confirm the exact spot with the Google Maps button on each card.</p>
-</footer>
-</div>
-<script>{js}</script>
+{status_js}
+{PINZOOM_JS}
+{lang_js}
 </body>
-</html>"""
-    out = os.path.join(HERE, "index.html")
-    with open(out, "w", encoding="utf-8") as f:
-        f.write(html)
-    nophoto = [sh["id"] for area in data["areas"] for sh in area["shops"] if not has_photo(sh["id"])]
-    print(f"built {out}: {total} shops, {len(data['areas'])} areas, photos {total - len(nophoto)}/{total}")
-    if nophoto:
-        print("no photo (tag-icon pin, no photo block):", ", ".join(nophoto))
-    if fallbacks:
-        print("fallback coords used:", ", ".join(fallbacks))
+</html>
+"""
+
+def root_page(data):
+    total_shops = sum(len(a["shops"]) for a in data["areas"])
+    desc = (f"Thrift Map — Tokyo second-hand and vintage clothing, area by area: "
+            f"{total_shops} shops across {len(data['areas'])} Tokyo neighborhoods, "
+            f"with hours, ratings and walking times from the station.")
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="refresh" content="0; url={DEFAULT_SLUG}/">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thrift Map — Tokyo vintage &amp; second-hand clothing | Anime Sensei</title>
+<meta name="description" content="{escape(desc)}">
+<link rel="canonical" href="{PAGE_URL}">
+<meta name="robots" content="noindex">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Thrift Map — Anime Sensei">
+<meta property="og:title" content="Thrift Map — Tokyo vintage &amp; second-hand clothing | Anime Sensei">
+<meta property="og:description" content="{escape(desc)}">
+<meta property="og:url" content="{PAGE_URL}">
+<meta property="og:image" content="{PAGE_URL}img/ogp1.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+</head>
+<body><p>Thrift Map — <a href="{DEFAULT_SLUG}/">enter the map</a></p></body>
+</html>
+"""
+
+def main():
+    with open(os.path.join(HERE, "data.json"), encoding="utf-8") as f:
+        data = json.load(f)
+    trans = load_translations()
+    all_shops = [sh for a in data["areas"] for sh in a["shops"]]
+    for sh in all_shops:
+        if not sh.get("fb"):
+            got = geocode(sh["addr"])
+            if not got:
+                print("GEOCODE FAILED:", sh["id"], sh["addr"], file=sys.stderr)
+                sys.exit(1)
+            sh["fb"] = [got[0], got[1]]
+        sh["lat"], sh["lng"] = sh["fb"]
+    for a in data["areas"]:
+        for sh in a["shops"]:
+            cand = a.get("stations") or [a["station"]]
+            best = min(cand, key=lambda s: haversine_m((sh["lat"], sh["lng"]), (s["lat"], s["lng"])))
+            d = haversine_m((sh["lat"], sh["lng"]), (best["lat"], best["lng"]))
+            sh["sta"] = best["name"]
+            sh["walk"] = max(1, round(d / 80.0))
+    outdir = os.path.join(HERE, "out")
+    os.makedirs(outdir, exist_ok=True)
+    with open(os.path.join(outdir, "index.html"), "w", encoding="utf-8") as f:
+        f.write(root_page(data))
+    for a in data["areas"]:
+        d = os.path.join(outdir, SLUGS[a["key"]])
+        os.makedirs(d, exist_ok=True)
+        with open(os.path.join(d, "index.html"), "w", encoding="utf-8") as f:
+            f.write(area_page(data, a, trans))
+        print("built", SLUGS[a["key"]], len(a["shops"]), "shops")
+    print("total shops:", len(all_shops), "areas:", len(data["areas"]))
 
 if __name__ == "__main__":
     main()

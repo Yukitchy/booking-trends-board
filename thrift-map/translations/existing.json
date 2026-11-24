@@ -1,0 +1,478 @@
+{
+  "About 7 minutes from Shinjuku on the Odakyu Line, or 3 minutes from Shibuya on the Keio Inokashira Line.": {
+    "ja": "新宿から小田急線で約7分、渋谷から京王井の頭線で約3分。",
+    "zh": "从新宿乘坐小田急线约7分钟，从涩谷乘坐京王井之头线约3分钟。",
+    "es": "A unos 7 minutos de Shinjuku en la línea Odakyu, o 3 minutos de Shibuya en la línea Keio Inokashira.",
+    "de": "Etwa 7 Minuten von Shinjuku mit der Odakyu-Linie oder 3 Minuten von Shibuya mit der Keio-Inokashira-Linie.",
+    "ko": "오다큐선으로 신주쿠에서 약 7분, 게이오 이노카시라선으로 시부야에서 약 3분."
+  },
+  "About 6 minutes from Shinjuku on the JR Chuo Line. Rapid trains stop at Koenji on weekends; local Sobu Line trains stop all day.": {
+    "ja": "新宿からJR中央線で約6分。快速電車は週末に高円寺に停車し、総武線の各駅停車は終日停車します。",
+    "zh": "从新宿乘坐JR中央线约6分钟。快速列车周末停靠高圆寺，总武线各站停车列车全天停靠。",
+    "es": "A unos 6 minutos de Shinjuku en la línea JR Chuo. Los trenes rápidos paran en Koenji los fines de semana; los trenes locales de la línea Sobu paran todo el día.",
+    "de": "Etwa 6 Minuten von Shinjuku mit der JR-Chuo-Linie. Schnellzüge halten an Wochenenden in Koenji; die Lokalzüge der Sobu-Linie halten den ganzen Tag.",
+    "ko": "JR 주오선으로 신주쿠에서 약 6분. 쾌속 열차는 주말에 고엔지에 정차하고, 소부선 각역정차 열차는 하루 종일 정차합니다."
+  },
+  "Harajuku Station (Takeshita Exit) or Meiji-jingumae Station — the shops split between Cat Street, Takeshita-dori and the Omotesando side streets.": {
+    "ja": "原宿駅（竹下口）または明治神宮前駅 — 店はキャットストリート、竹下通り、表参道の脇道に分かれています。",
+    "zh": "原宿站（竹下口）或明治神宫前站——店铺分布在猫街、竹下通和表参道的小巷之间。",
+    "es": "Estación de Harajuku (salida Takeshita) o estación de Meiji-jingumae: las tiendas se reparten entre Cat Street, Takeshita-dori y las calles laterales de Omotesando.",
+    "de": "Bahnhof Harajuku (Ausgang Takeshita) oder Bahnhof Meiji-jingumae — die Shops verteilen sich auf die Cat Street, die Takeshita-dori und die Seitenstraßen der Omotesando.",
+    "ko": "하라주쿠역(다케시타 출구) 또는 메이지진구마에역 — 매장은 캣 스트리트, 다케시타도리, 오모테산도 골목길에 나뉘어 있습니다."
+  },
+  "The tour's home ground. Electric Town is anime and electronics first — clothing thrift is the exception here, not the rule.": {
+    "ja": "ツアーのホームグラウンド。電気街はアニメと家電が中心で、古着はここでは例外的な存在です。",
+    "zh": "这是导览的主场。电器街以动漫和电子产品为主——在这里，二手服装是例外，而非常态。",
+    "es": "El territorio base del tour. Electric Town es ante todo anime y electrónica: la ropa de segunda mano aquí es la excepción, no la regla.",
+    "de": "Das Heimatrevier der Tour. In Electric Town stehen Anime und Elektronik an erster Stelle — Secondhand-Kleidung ist hier die Ausnahme, nicht die Regel.",
+    "ko": "투어의 홈그라운드. 일렉트릭 타운은 애니메이션과 전자제품이 중심이며, 이곳에서 중고 의류는 예외적인 존재입니다."
+  },
+  "One of Tokyo's biggest stations. West exit (north) for BAZZSTORE; the east side for P'PARCO and Sunshine City.": {
+    "ja": "東京最大級の駅の一つ。BAZZSTOREへは西口（北）へ、P'PARCOとサンシャインシティへは東側へ。",
+    "zh": "东京最大的车站之一。去BAZZSTORE走西口（北），去P'PARCO和阳光城走东侧。",
+    "es": "Una de las estaciones más grandes de Tokio. Salida oeste (norte) para BAZZSTORE; el lado este para P'PARCO y Sunshine City.",
+    "de": "Einer der größten Bahnhöfe Tokios. Westausgang (Nord) für BAZZSTORE; die Ostseite für P'PARCO und Sunshine City.",
+    "ko": "도쿄에서 가장 큰 역 중 하나. BAZZSTORE는 서쪽 출구(북쪽), P'PARCO와 선샤인시티는 동쪽으로 가세요."
+  },
+  "The Ameyoko market street runs between Ueno and Okachimachi stations — one stop north of Akihabara.": {
+    "ja": "アメ横の市場通りは上野駅と御徒町駅の間にあり、秋葉原から北へ1駅です。",
+    "zh": "阿美横丁市场街位于上野站和御徒町站之间，在秋叶原以北一站。",
+    "es": "La calle comercial de Ameyoko discurre entre las estaciones de Ueno y Okachimachi, una parada al norte de Akihabara.",
+    "de": "Die Marktstraße Ameyoko verläuft zwischen den Bahnhöfen Ueno und Okachimachi — eine Station nördlich von Akihabara.",
+    "ko": "아메요코 시장 거리는 우에노역과 오카치마치역 사이에 있으며, 아키하바라에서 북쪽으로 한 정거장입니다."
+  },
+  "Tokyo's thrift capital. Shops ring the station in every direction — the big chains on the south and east streets, indie vintage on the north side (Ichibangai). Everything is within a 10-minute stroll, and most shops open around 11 AM to noon, so arrive at lunchtime and just wander.": {
+    "ja": "東京の古着の中心地。駅を囲むようにあらゆる方向に店があり、大型チェーンは南側と東側の通りに、インディー系ヴィンテージは北側（一番街）に集まっています。すべて徒歩10分圏内で、ほとんどの店は午前11時から正午ごろに開店するので、昼時に着いてぶらぶら歩くのがおすすめです。",
+    "zh": "东京的二手服装之都。车站四周各个方向都有店铺——大型连锁店在南侧和东侧的街道上，独立古着店在北侧（一番街）。所有店铺都在步行10分钟范围内，大多数店铺在上午11点到中午左右开门，所以建议午餐时间到达，随意逛逛。",
+    "es": "La capital de la ropa de segunda mano de Tokio. Las tiendas rodean la estación en todas direcciones: las grandes cadenas en las calles del sur y el este, y la ropa vintage independiente en el lado norte (Ichibangai). Todo está a menos de 10 minutos a pie, y la mayoría de las tiendas abren entre las 11:00 y el mediodía, así que llega a la hora del almuerzo y pasea sin rumbo.",
+    "de": "Tokios Hauptstadt für Secondhand-Mode. Shops umgeben den Bahnhof in alle Richtungen — die großen Ketten in den Straßen im Süden und Osten, unabhängige Vintage-Läden auf der Nordseite (Ichibangai). Alles ist in einem 10-minütigen Spaziergang erreichbar, und die meisten Shops öffnen gegen 11 Uhr bis mittags, also komm zur Mittagszeit und schlendere einfach los.",
+    "ko": "도쿄 중고 의류의 수도. 역을 둘러싸고 모든 방향에 매장이 있으며, 대형 체인은 남쪽과 동쪽 거리에, 인디 빈티지는 북쪽(이치반가이)에 있습니다. 모두 도보 10분 이내 거리이며, 대부분의 매장은 오전 11시부터 정오 무렵에 문을 열기 때문에 점심시간에 도착해 천천히 둘러보는 것이 좋습니다."
+  },
+  "From the south exit, the covered PAL arcade runs straight ahead and turns into the open-air Look Shotengai — nearly every shop on this list lines that one street or sits just off it. Serious American vintage at SAFARI, brand resale at the three TreFacStyle stores, tiny specialists in between.": {
+    "ja": "南口から出ると、アーケード商店街のパルがまっすぐ伸び、屋外のルック商店街へと続きます。このリストのほぼすべての店がその1本の通り沿いか、すぐ脇にあります。本格的なアメリカンヴィンテージのSAFARI、ブランドリセールのトレファクスタイル3店舗、その間に小さな専門店が点在します。",
+    "zh": "从南口出来，有顶棚的PAL拱廊街笔直向前，随后是露天的Look商店街——这份名单上几乎所有店铺都沿着这一条街分布，或就在街边小巷里。SAFARI有正宗的美国古着，三家TreFacStyle做品牌转售，中间点缀着小巧的专卖店。",
+    "es": "Desde la salida sur, la galería cubierta PAL sigue recta y se convierte en la calle comercial al aire libre Look Shotengai: casi todas las tiendas de esta lista se alinean en esa única calle o están justo al lado. Ropa vintage americana seria en SAFARI, reventa de marcas en las tres tiendas TreFacStyle y pequeñas tiendas especializadas entre ellas.",
+    "de": "Vom Südausgang führt die überdachte PAL-Arkade geradeaus weiter und geht in die offene Look Shotengai über — fast jeder Shop auf dieser Liste liegt an dieser einen Straße oder direkt daneben. Ernsthaftes amerikanisches Vintage bei SAFARI, Marken-Resale in den drei TreFacStyle-Filialen, dazwischen kleine Spezialisten.",
+    "ko": "남쪽 출구에서 덮개가 있는 PAL 아케이드가 곧장 이어지고 야외 룩 상점가로 이어집니다. 이 목록의 거의 모든 매장이 그 하나의 거리를 따라 있거나 바로 옆에 있습니다. SAFARI의 본격적인 아메리칸 빈티지, 세 곳의 TreFacStyle 매장의 브랜드 리세일, 그 사이에 작은 전문점들이 있습니다."
+  },
+  "The priciest vintage in Tokyo: museum-grade American denim at BerBerJin, huge imported floors at JAM and Chicago, designer resale at Kindal and KINJI. All five shops sit within a 10-minute walk of each other.": {
+    "ja": "東京で最も高価なヴィンテージ：BerBerJinの博物館級アメリカンデニム、JAMとChicagoの広大な輸入フロア、KindalとKINJIのデザイナーズリセール。全5店は互いに徒歩10分圏内にあります。",
+    "zh": "东京最贵的古着：BerBerJin的博物馆级美国丹宁，JAM和Chicago宽敞的进口楼层，Kindal和KINJI的设计师品牌转售。五家店彼此都在步行10分钟范围内。",
+    "es": "La ropa vintage más cara de Tokio: denim americano de nivel museístico en BerBerJin, enormes plantas de importación en JAM y Chicago, reventa de diseñadores en Kindal y KINJI. Las cinco tiendas están a menos de 10 minutos a pie unas de otras.",
+    "de": "Das teuerste Vintage in Tokio: amerikanischer Denim in Museumsqualität bei BerBerJin, riesige Import-Etagen bei JAM und Chicago, Designer-Resale bei Kindal und KINJI. Alle fünf Shops liegen innerhalb von 10 Gehminuten voneinander.",
+    "ko": "도쿄에서 가장 비싼 빈티지: BerBerJin의 박물관급 아메리칸 데님, JAM과 Chicago의 거대한 수입 플로어, Kindal과 KINJI의 디자이너 리세일. 다섯 매장 모두 서로 도보 10분 이내에 있습니다."
+  },
+  "Akihabara is light on clothes, but PENNY TOKYO is a local favorite a short walk east of the station. For a bigger hunt, Ueno & Ameyoko (next section) is one stop north.": {
+    "ja": "秋葉原は衣料品は少なめですが、PENNY TOKYOは駅の東へ少し歩いたところにある地元のお気に入りです。もっと本格的に探すなら、上野＆アメ横（次のセクション）が北へ1駅です。",
+    "zh": "秋叶原的服装店较少，但PENNY TOKYO是当地人的最爱，从车站向东步行不远即可到达。想更尽兴地淘货，可去北边一站的上野和阿美横丁（下一节）。",
+    "es": "Akihabara tiene poca ropa, pero PENNY TOKYO es un favorito local a un corto paseo al este de la estación. Para una búsqueda mayor, Ueno y Ameyoko (siguiente sección) están una parada al norte.",
+    "de": "Akihabara hat wenig Kleidung zu bieten, aber PENNY TOKYO ist ein lokaler Favorit, nur einen kurzen Spaziergang östlich des Bahnhofs. Für eine größere Suche liegt Ueno & Ameyoko (nächster Abschnitt) eine Station nördlich.",
+    "ko": "아키하바라는 의류가 적지만, PENNY TOKYO는 역에서 동쪽으로 조금 걸어가면 있는 현지인이 좋아하는 곳입니다. 더 본격적으로 찾으려면 북쪽으로 한 정거장 떨어진 우에노 & 아메요코(다음 섹션)가 좋습니다."
+  },
+  "A compact cluster: brand resale by the west exit, a chain outpost in P'PARCO by the east exit, and true vintage inside Sunshine City's ALTA mall.": {
+    "ja": "コンパクトな集まり：西口そばのブランドリセール、東口そばのP'PARCO内のチェーン店、サンシャインシティのALTAモール内の本格ヴィンテージ。",
+    "zh": "紧凑的集群：西口旁的品牌转售店，东口旁P'PARCO内的连锁分店，以及阳光城ALTA商场内的正宗古着。",
+    "es": "Un grupo compacto: reventa de marcas junto a la salida oeste, una sucursal de cadena en P'PARCO junto a la salida este y ropa vintage auténtica dentro del centro comercial ALTA de Sunshine City.",
+    "de": "Ein kompakter Cluster: Marken-Resale am Westausgang, eine Kettenfiliale im P'PARCO am Ostausgang und echtes Vintage im ALTA-Einkaufszentrum in Sunshine City.",
+    "ko": "컴팩트한 클러스터: 서쪽 출구 옆 브랜드 리세일, 동쪽 출구 옆 P'PARCO 내 체인 매장, 선샤인시티 ALTA 몰 안의 진정한 빈티지."
+  },
+  "The market street under the tracks is the walk itself: military surplus at Nakata Shoten, big recycle floors at Mode Off and MAGAZINES, bargain racks at Tanpopo House. Loud, dense and fun.": {
+    "ja": "線路下の市場通り自体が散策路です：中田商店のミリタリーサープラス、モードオフとMAGAZINESの広いリサイクルフロア、タンポポハウスのお買い得ラック。にぎやかで、密集していて、楽しい場所です。",
+    "zh": "铁轨下的市场街本身就是步行路线：中田商店的军用剩余物资，Mode Off和MAGAZINES宽敞的回收楼层，Tanpopo House的特价货架。热闹、密集又有趣。",
+    "es": "La calle comercial bajo las vías es el paseo en sí: excedentes militares en Nakata Shoten, grandes plantas de reciclaje en Mode Off y MAGAZINES, y percheros de gangas en Tanpopo House. Ruidoso, denso y divertido.",
+    "de": "Die Marktstraße unter den Gleisen ist der Spaziergang selbst: Militärüberschüsse bei Nakata Shoten, große Recycle-Etagen bei Mode Off und MAGAZINES, Schnäppchenständer bei Tanpopo House. Laut, dicht und unterhaltsam.",
+    "ko": "선로 아래 시장 거리 자체가 산책로입니다: 나카타 상점의 밀리터리 서플러스, 모드 오프와 MAGAZINES의 넓은 리사이클 플로어, 단포포 하우스의 할인 랙. 시끄럽고, 빽빽하고, 재미있습니다."
+  },
+  "Odakyu Line · Keio Inokashira Line": {
+    "ja": "小田急線 · 京王井の頭線",
+    "zh": "小田急线 · 京王井之头线",
+    "es": "Línea Odakyu · Línea Keio Inokashira",
+    "de": "Odakyu-Linie · Keio-Inokashira-Linie",
+    "ko": "오다큐선 · 게이오 이노카시라선"
+  },
+  "JR Chuo Line · Sobu Line": {
+    "ja": "JR中央線 · 総武線",
+    "zh": "JR中央线 · 总武线",
+    "es": "Línea JR Chuo · Línea Sobu",
+    "de": "JR-Chuo-Linie · Sobu-Linie",
+    "ko": "JR 주오선 · 소부선"
+  },
+  "JR Yamanote Line · Meiji-jingumae (Chiyoda / Fukutoshin Lines)": {
+    "ja": "JR山手線 · 明治神宮前（千代田線／副都心線）",
+    "zh": "JR山手线 · 明治神宫前（千代田线／副都心线）",
+    "es": "Línea JR Yamanote · Meiji-jingumae (líneas Chiyoda / Fukutoshin)",
+    "de": "JR-Yamanote-Linie · Meiji-jingumae (Chiyoda- / Fukutoshin-Linien)",
+    "ko": "JR 야마노테선 · 메이지진구마에 (지요다선 / 후쿠토신선)"
+  },
+  "JR Yamanote / Keihin-Tohoku / Sobu Lines · Tsukuba Express · Hibiya Line": {
+    "ja": "JR山手線／京浜東北線／総武線 · つくばエクスプレス · 日比谷線",
+    "zh": "JR山手线／京滨东北线／总武线 · 筑波快线 · 日比谷线",
+    "es": "Líneas JR Yamanote / Keihin-Tohoku / Sobu · Tsukuba Express · Línea Hibiya",
+    "de": "JR-Yamanote- / Keihin-Tohoku- / Sobu-Linien · Tsukuba Express · Hibiya-Linie",
+    "ko": "JR 야마노테선 / 게이힌도호쿠선 / 소부선 · 쓰쿠바 익스프레스 · 히비야선"
+  },
+  "JR Yamanote / Saikyo / Shonan-Shinjuku · Seibu · Tobu · Marunouchi / Yurakucho / Fukutoshin Lines": {
+    "ja": "JR山手線／埼京線／湘南新宿ライン · 西武線 · 東武線 · 丸ノ内線／有楽町線／副都心線",
+    "zh": "JR山手线／埼京线／湘南新宿线 · 西武线 · 东武线 · 丸之内线／有乐町线／副都心线",
+    "es": "JR Yamanote / Saikyo / Shonan-Shinjuku · Seibu · Tobu · Líneas Marunouchi / Yurakucho / Fukutoshin",
+    "de": "JR Yamanote / Saikyo / Shonan-Shinjuku · Seibu · Tobu · Marunouchi- / Yurakucho- / Fukutoshin-Linien",
+    "ko": "JR 야마노테선 / 사이쿄선 / 쇼난신주쿠선 · 세이부선 · 도부선 · 마루노우치선 / 유라쿠초선 / 후쿠토신선"
+  },
+  "JR Yamanote / Keihin-Tohoku Lines (Ueno & Okachimachi)": {
+    "ja": "JR山手線／京浜東北線（上野・御徒町）",
+    "zh": "JR山手线／京滨东北线（上野·御徒町）",
+    "es": "Líneas JR Yamanote / Keihin-Tohoku (Ueno y Okachimachi)",
+    "de": "JR-Yamanote- / Keihin-Tohoku-Linien (Ueno & Okachimachi)",
+    "ko": "JR 야마노테선 / 게이힌도호쿠선 (우에노 & 오카치마치)"
+  },
+  "Every item in the store is one flat price — ¥900 plus tax. Two floors of tees, denim and casual wear; the cheapest way to fill a suitcase in Shimokitazawa.": {
+    "ja": "店内のすべての商品が均一価格 — 税別¥900。Tシャツ、デニム、カジュアルウェアが2フロアに並び、下北沢でスーツケースをいっぱいにする一番安い方法です。",
+    "zh": "店内所有商品统一价格——¥900（不含税）。两层楼的T恤、牛仔和休闲装；是在下北泽装满行李箱最便宜的方式。",
+    "es": "Cada artículo de la tienda tiene un precio único: ¥900 más impuestos. Dos plantas de camisetas, denim y ropa casual; la forma más barata de llenar una maleta en Shimokitazawa.",
+    "de": "Jeder Artikel im Laden hat einen Einheitspreis — ¥900 zuzüglich Steuern. Zwei Etagen mit T-Shirts, Denim und Freizeitkleidung; der günstigste Weg, in Shimokitazawa einen Koffer zu füllen.",
+    "ko": "매장의 모든 상품이 균일가 — 세금 별도 ¥900. 티셔츠, 데님, 캐주얼 웨어가 2개 층에 있으며, 시모키타자와에서 가방을 채우는 가장 저렴한 방법입니다."
+  },
+  "A legend inside a converted public bathhouse — look for the old tiled walls. Everything is priced under ¥10,000, most pieces ¥2,000–3,000, and stock turns over daily. Half price on the first Sunday of the month.": {
+    "ja": "公衆浴場を改装した店内の伝説的な店 — 古いタイルの壁を探してみてください。すべて¥10,000以下で、ほとんどが¥2,000–3,000、在庫は毎日入れ替わります。毎月第1日曜日は半額です。",
+    "zh": "一家传奇店铺，位于由公共浴场改建的空间内——留意古老的瓷砖墙。所有商品均低于¥10,000，大多数为¥2,000–3,000，库存每天更新。每月第一个周日半价。",
+    "es": "Una leyenda dentro de una casa de baños pública reconvertida: busca las antiguas paredes de azulejos. Todo cuesta menos de ¥10,000, la mayoría de las piezas entre ¥2,000 y ¥3,000, y el stock se renueva a diario. Mitad de precio el primer domingo del mes.",
+    "de": "Eine Legende in einem umgebauten öffentlichen Badehaus — achte auf die alten Fliesenwände. Alles kostet unter ¥10,000, die meisten Teile ¥2,000–3,000, und der Bestand wechselt täglich. Am ersten Sonntag im Monat zum halben Preis.",
+    "ko": "공중목욕탕을 개조한 공간 안의 전설적인 매장 — 오래된 타일 벽을 찾아보세요. 모든 상품이 ¥10,000 이하이며 대부분 ¥2,000–3,000이고 재고는 매일 바뀝니다. 매월 첫째 일요일에는 반값입니다."
+  },
+  "The big national resale chain, Shimokitazawa style: designer and brand pieces on one floor, street and casual on the other. Tax-free, and one of the easiest first stops for thrift beginners.": {
+    "ja": "大手全国リセールチェーンの下北沢らしい店舗：1フロアにデザイナーとブランド物、もう1フロアにストリートとカジュアル。免税対応で、古着初心者にも入りやすい最初の1店です。",
+    "zh": "全国大型转售连锁的下北泽风格门店：一层是设计师和品牌单品，另一层是街头和休闲服饰。免税，是古着新手最容易上手的首站之一。",
+    "es": "La gran cadena nacional de reventa, al estilo de Shimokitazawa: piezas de diseñador y de marca en una planta, ropa urbana y casual en la otra. Libre de impuestos y una de las primeras paradas más fáciles para principiantes en la ropa de segunda mano.",
+    "de": "Die große nationale Resale-Kette im Shimokitazawa-Stil: Designer- und Markenstücke auf einer Etage, Streetwear und Casual auf der anderen. Steuerfrei und einer der einfachsten ersten Stopps für Secondhand-Anfänger.",
+    "ko": "대형 전국 리세일 체인의 시모키타자와 스타일 매장: 한 층은 디자이너와 브랜드 아이템, 다른 층은 스트리트와 캐주얼. 면세 가능하며, 중고 쇼핑 초보자가 가장 쉽게 시작할 수 있는 곳 중 하나입니다."
+  },
+  "The biggest branch of the Harajuku Chicago family — a huge floor of American casual and workwear, plus one of Tokyo's best kimono and yukata corners for souvenirs.": {
+    "ja": "原宿Chicagoファミリー最大の店舗 — アメリカンカジュアルとワークウェアの広大なフロアに加え、お土産に最適な東京でも屈指の着物・浴衣コーナーがあります。",
+    "zh": "原宿Chicago家族中最大的分店——宽敞的楼层陈列着美式休闲和工装，还有东京最好的和服与浴衣专区之一，适合买纪念品。",
+    "es": "La sucursal más grande de la familia Harajuku Chicago: una enorme planta de ropa casual americana y ropa de trabajo, además de uno de los mejores rincones de kimonos y yukatas de Tokio para recuerdos.",
+    "de": "Die größte Filiale der Harajuku-Chicago-Familie — eine riesige Etage mit amerikanischer Freizeit- und Arbeitskleidung plus einer der besten Kimono- und Yukata-Ecken Tokios für Souvenirs.",
+    "ko": "하라주쿠 Chicago 패밀리 중 가장 큰 지점 — 아메리칸 캐주얼과 워크웨어가 가득한 넓은 플로어와 기념품으로 좋은 도쿄 최고의 기모노·유카타 코너 중 하나가 있습니다."
+  },
+  "Treasure Factory's fashion arm, 2 minutes from the East Exit: vintage Levi's and military next to Hermès and Margiela. Tax-free, with a second Shimokitazawa branch 3 minutes south.": {
+    "ja": "トレジャーファクトリーのファッション部門で、東口から2分：ヴィンテージのLevi'sやミリタリーの隣にHermèsやMargiela。免税対応で、南へ3分のところに下北沢2号店もあります。",
+    "zh": "Treasure Factory的时尚部门，距东口2分钟：复古Levi's和军装旁边就是Hermès和Margiela。免税，在南边3分钟处还有第二家下北泽分店。",
+    "es": "La división de moda de Treasure Factory, a 2 minutos de la salida este: Levi's vintage y ropa militar junto a Hermès y Margiela. Libre de impuestos, con una segunda sucursal en Shimokitazawa a 3 minutos al sur.",
+    "de": "Der Modebereich von Treasure Factory, 2 Minuten vom Ostausgang: Vintage-Levi's und Military neben Hermès und Margiela. Steuerfrei, mit einer zweiten Shimokitazawa-Filiale 3 Minuten südlich.",
+    "ko": "트레저 팩토리의 패션 부문으로 동쪽 출구에서 2분 거리: 빈티지 Levi's와 밀리터리 옆에 Hermès와 Margiela가 있습니다. 면세 가능하며, 남쪽으로 3분 거리에 시모키타자와 2호점이 있습니다."
+  },
+  "Around 15,000 items on one floor, restocked daily and priced gently. Famous for its wall of patterned shirts — the easiest place in the area to dig for hours.": {
+    "ja": "1フロアに約15,000点のアイテムがあり、毎日補充され、価格も手頃です。柄シャツの壁で有名で、このエリアで何時間でも掘り続けられる一番入りやすい店です。",
+    "zh": "一层约有15,000件商品，每天补货，价格亲民。以花衬衫墙闻名，是这一带最容易逛上几个小时的地方。",
+    "es": "Alrededor de 15,000 artículos en una sola planta, repuestos a diario y con precios suaves. Famoso por su pared de camisas estampadas: el lugar más fácil de la zona para rebuscar durante horas.",
+    "de": "Rund 15,000 Artikel auf einer Etage, täglich aufgefüllt und sanft bepreist. Berühmt für seine Wand aus gemusterten Hemden — der einfachste Ort in der Gegend, um stundenlang zu stöbern.",
+    "ko": "한 층에 약 15,000점의 아이템이 있고 매일 재입고되며 가격도 부담 없습니다. 패턴 셔츠 벽으로 유명하며, 이 지역에서 몇 시간이고 파고들기 가장 쉬운 곳입니다."
+  },
+  "Hand-picked American vintage from the 1940s–80s, bought in the US and beautifully kept. The pink neon sign is a Shimokitazawa landmark; sister stores nearby cover other eras.": {
+    "ja": "1940年代～80年代のアメリカンヴィンテージを厳選し、アメリカで買い付けて美しい状態で保管しています。ピンクのネオンサインは下北沢のランドマークで、近くの姉妹店では他の時代を扱っています。",
+    "zh": "精选1940年代至80年代的美国古着，在美国采购并精心保存。粉色霓虹灯招牌是下北泽的地标；附近的姊妹店主营其他年代。",
+    "es": "Ropa vintage americana cuidadosamente seleccionada de los años 40 a los 80, comprada en EE. UU. y bellamente conservada. El letrero de neón rosa es un símbolo de Shimokitazawa; las tiendas hermanas cercanas cubren otras épocas.",
+    "de": "Handverlesenes amerikanisches Vintage aus den 1940er–80er Jahren, in den USA gekauft und wunderschön erhalten. Das pinke Neonschild ist ein Wahrzeichen von Shimokitazawa; Schwesterläden in der Nähe decken andere Epochen ab.",
+    "ko": "1940년대~80년대의 아메리칸 빈티지를 엄선하여 미국에서 매입하고 아름답게 보관했습니다. 핑크 네온사인은 시모키타자와의 랜드마크이며, 근처의 자매 매장에서는 다른 시대를 다룹니다."
+  },
+  "The original Desert Snow: US workwear and Americana — Carhartt, Dickies, military and denim — packed onto the 2nd floor. Several sister branches dot the neighborhood.": {
+    "ja": "元祖Desert Snow：アメリカのワークウェアとアメリカーナ — Carhartt、Dickies、ミリタリー、デニム — が2階にぎっしり詰まっています。近隣に姉妹店が数店舗点在します。",
+    "zh": "Desert Snow的创始店：美国工装和美式经典——Carhartt、Dickies、军装和牛仔——满满地陈列在2楼。附近散布着几家姊妹店。",
+    "es": "El Desert Snow original: ropa de trabajo estadounidense y Americana — Carhartt, Dickies, ropa militar y denim — abarrotada en la 2ª planta. Varias sucursales hermanas salpican el barrio.",
+    "de": "Das originale Desert Snow: US-Arbeitskleidung und Americana — Carhartt, Dickies, Military und Denim — dicht gedrängt im 2. Stock. Mehrere Schwesterfilialen sind im Viertel verteilt.",
+    "ko": "오리지널 Desert Snow: 미국 워크웨어와 아메리카나 — Carhartt, Dickies, 밀리터리, 데님 — 가 2층에 가득 차 있습니다. 동네 곳곳에 자매 매장이 여러 곳 있습니다."
+  },
+  "The most-reviewed thrift shop in Koenji: a big, bright brand-resale floor on the PAL arcade, strong on designer labels, bags and watches. Tax-free.": {
+    "ja": "高円寺で最もレビューの多い古着店：パル商店街にある大きく明るいブランドリセールのフロアで、デザイナーズラベル、バッグ、時計が充実しています。免税対応。",
+    "zh": "高圆寺评论最多的二手店：位于PAL拱廊街宽敞明亮的品牌转售楼层，设计师品牌、包袋和手表都很强。免税。",
+    "es": "La tienda de segunda mano con más reseñas de Koenji: una planta grande y luminosa de reventa de marcas en la galería PAL, fuerte en etiquetas de diseñador, bolsos y relojes. Libre de impuestos.",
+    "de": "Der am meisten bewertete Secondhand-Laden in Koenji: eine große, helle Marken-Resale-Etage in der PAL-Arkade, stark bei Designerlabels, Taschen und Uhren. Steuerfrei.",
+    "ko": "고엔지에서 리뷰가 가장 많은 중고 매장: PAL 아케이드에 있는 크고 밝은 브랜드 리세일 플로어로 디자이너 라벨, 가방, 시계가 강합니다. 면세 가능합니다."
+  },
+  "TreFacStyle's vintage-only Koenji store: older denim, military and one-off pieces rather than current-season brands.": {
+    "ja": "トレファクスタイルのヴィンテージ専門の高円寺店：今シーズンのブランドではなく、古いデニム、ミリタリー、一点物を扱います。",
+    "zh": "TreFacStyle在高圆寺的纯古着店：主营老牛仔、军装和孤品，而不是当季品牌。",
+    "es": "La tienda de Koenji de TreFacStyle dedicada solo al vintage: denim antiguo, ropa militar y piezas únicas en lugar de marcas de temporada actual.",
+    "de": "Der reine Vintage-Laden von TreFacStyle in Koenji: älterer Denim, Military und Einzelstücke statt Marken der aktuellen Saison.",
+    "ko": "TreFacStyle의 빈티지 전문 고엔지 매장: 현 시즌 브랜드가 아닌 오래된 데님, 밀리터리, 단 하나뿐인 아이템을 다룹니다."
+  },
+  "A tiny, obsessively curated men's shop: vintage brand clothing, Hermès and Tiffany jewelry, and bags. The 5.0-star rating is earned — stock is small but serious.": {
+    "ja": "小さく徹底的にキュレーションされたメンズショップ：ヴィンテージブランド服、HermèsやTiffanyのジュエリー、バッグ。5.0つ星の評価は伊達ではなく、在庫は少ないが本格的です。",
+    "zh": "一家小巧而极度讲究的男装店：复古品牌服装、Hermès和Tiffany珠宝以及包袋。5.0星评分名副其实——库存虽少，却很硬核。",
+    "es": "Una tienda masculina pequeña y obsesivamente curada: ropa de marca vintage, joyería de Hermès y Tiffany, y bolsos. La calificación de 5.0 estrellas es merecida: el stock es pequeño pero serio.",
+    "de": "Ein winziger, obsessiv kuratierter Herrenshop: Vintage-Markenkleidung, Schmuck von Hermès und Tiffany sowie Taschen. Die 5.0-Sterne-Bewertung ist verdient — der Bestand ist klein, aber ernsthaft.",
+    "ko": "작고 집요하게 큐레이션된 남성 매장: 빈티지 브랜드 의류, Hermès와 Tiffany 주얼리, 가방. 5.0점 평점은 그럴 만하며, 재고는 적지만 본격적입니다."
+  },
+  "The original Trip on Look Shotengai: ladies' vintage with a deep shelf of brand bags and accessories, all carefully graded.": {
+    "ja": "ルック商店街にある元祖Trip：レディースヴィンテージで、ブランドバッグやアクセサリーの棚が充実し、すべて丁寧にグレーディングされています。",
+    "zh": "Look商店街上的Trip创始店：女士古着，品牌包袋和配饰货架丰富，全部都经过仔细分级。",
+    "es": "El Trip original en Look Shotengai: ropa vintage para mujer con una profunda estantería de bolsos y accesorios de marca, todo cuidadosamente clasificado.",
+    "de": "Das originale Trip in der Look Shotengai: Damen-Vintage mit einem tiefen Regal an Markentaschen und Accessoires, alles sorgfältig eingestuft.",
+    "ko": "룩 상점가에 있는 오리지널 Trip: 여성 빈티지로 브랜드 가방과 액세서리 선반이 풍부하고 모두 세심하게 등급이 매겨져 있습니다."
+  },
+  "The first TreFacStyle in Koenji, 2 minutes from the south exit and open from 10 AM — the earliest start on this street. Everyday brands at recycle-shop prices.": {
+    "ja": "高円寺初のトレファクスタイルで、南口から2分、午前10時開店 — この通りで一番早いスタート。日常ブランドをリサイクルショップ価格で。",
+    "zh": "高圆寺第一家TreFacStyle，距南口2分钟，上午10点开门——是这条街上最早开始营业的。日常品牌以回收店的价格出售。",
+    "es": "El primer TreFacStyle de Koenji, a 2 minutos de la salida sur y abierto desde las 10 AM: el inicio más temprano de esta calle. Marcas cotidianas a precios de tienda de reciclaje.",
+    "de": "Das erste TreFacStyle in Koenji, 2 Minuten vom Südausgang und ab 10 Uhr geöffnet — der früheste Start auf dieser Straße. Alltagsmarken zu Recycle-Shop-Preisen.",
+    "ko": "고엔지 최초의 TreFacStyle로 남쪽 출구에서 2분 거리이며 오전 10시에 문을 엽니다 — 이 거리에서 가장 일찍 시작합니다. 일상 브랜드를 리사이클 숍 가격에 제공합니다."
+  },
+  "Koenji's icon. Serious American vintage — Levi's, Champion, military — bought piece by piece in the US. Six SAFARI shops in Koenji each split by genre; this is the flagship.": {
+    "ja": "高円寺のアイコン。本格的なアメリカンヴィンテージ — Levi's、Champion、ミリタリー — をアメリカで1点ずつ買い付け。高円寺のSAFARI 6店舗はジャンルごとに分かれており、ここが旗艦店です。",
+    "zh": "高圆寺的标志。正宗美国古着——Levi's、Champion、军装——在美国逐件采购。高圆寺的六家SAFARI按品类分工，这里是旗舰店。",
+    "es": "El icono de Koenji. Ropa vintage americana seria — Levi's, Champion, ropa militar — comprada pieza a pieza en EE. UU. Las seis tiendas SAFARI de Koenji se dividen por género; esta es la insignia.",
+    "de": "Die Ikone von Koenji. Ernsthaftes amerikanisches Vintage — Levi's, Champion, Military — Stück für Stück in den USA gekauft. Sechs SAFARI-Läden in Koenji, jeweils nach Genre aufgeteilt; dies ist das Flaggschiff.",
+    "ko": "고엔지의 아이콘. 본격적인 아메리칸 빈티지 — Levi's, Champion, 밀리터리 — 를 미국에서 한 점씩 매입했습니다. 고엔지의 SAFARI 6개 매장은 장르별로 나뉘어 있으며, 이곳이 플래그십입니다."
+  },
+  "Three floors of American vintage from the team behind Grapefruit Moon — denim, sweatshirts and workwear in a big, easy-to-browse space on the main street.": {
+    "ja": "Grapefruit Moonのチームによるアメリカンヴィンテージ3フロア — 大通りに面した大きく見やすい空間にデニム、スウェット、ワークウェア。",
+    "zh": "Grapefruit Moon团队打造的三层美国古着——位于主街宽敞易逛的空间里，有牛仔、卫衣和工装。",
+    "es": "Tres plantas de ropa vintage americana del equipo detrás de Grapefruit Moon: denim, sudaderas y ropa de trabajo en un espacio grande y fácil de recorrer en la calle principal.",
+    "de": "Drei Etagen amerikanisches Vintage vom Team hinter Grapefruit Moon — Denim, Sweatshirts und Arbeitskleidung in einem großen, übersichtlichen Raum an der Hauptstraße.",
+    "ko": "Grapefruit Moon 팀이 운영하는 아메리칸 빈티지 3층 매장 — 큰길에 있는 크고 둘러보기 쉬운 공간에 데님, 스웨트셔츠, 워크웨어가 있습니다."
+  },
+  "A Koenji institution on the PAL arcade: honest regular clothes mixed with vintage at local prices — where the neighborhood actually shops. Sister stores sit nearby.": {
+    "ja": "パル商店街にある高円寺の老舗：正直な普段着にヴィンテージが混ざり、地元の価格で — 地元の人が実際に買い物する店。姉妹店が近くにあります。",
+    "zh": "PAL拱廊街上的高圆寺老店：朴实的日常服装混搭古着，价格亲民——是街坊邻里真正购物的地方。附近有姊妹店。",
+    "es": "Una institución de Koenji en la galería PAL: ropa normal honesta mezclada con vintage a precios locales, donde realmente compra el vecindario. Las tiendas hermanas están cerca.",
+    "de": "Eine Koenji-Institution in der PAL-Arkade: ehrliche normale Kleidung gemischt mit Vintage zu lokalen Preisen — wo die Nachbarschaft tatsächlich einkauft. Schwesterläden liegen in der Nähe.",
+    "ko": "PAL 아케이드에 있는 고엔지의 터줏대감: 정직한 평상복에 빈티지가 섞여 있고 현지 가격으로 — 동네 사람들이 실제로 쇼핑하는 곳입니다. 자매 매장이 근처에 있습니다."
+  },
+  "Tokyo's most famous vintage denim shop, going since 1998. Museum-grade Levi's and American classics — prices match the quality, but even window-shopping here is an education.": {
+    "ja": "1998年から続く、東京で最も有名なヴィンテージデニム店。博物館級のLevi'sとアメリカンクラシック — 価格は品質に見合いますが、ウィンドウショッピングだけでも勉強になります。",
+    "zh": "自1998年以来，东京最著名的复古牛仔店。博物馆级的Levi's和美国经典款——价格与品质相符，但即使只是橱窗购物也是一种学习。",
+    "es": "La tienda de denim vintage más famosa de Tokio, desde 1998. Levi's de nivel museístico y clásicos americanos: los precios igualan la calidad, pero incluso mirar escaparates aquí es una educación.",
+    "de": "Tokios berühmtester Vintage-Denim-Laden, seit 1998. Levi's in Museumsqualität und amerikanische Klassiker — die Preise entsprechen der Qualität, aber selbst Schaufensterbummel ist hier lehrreich.",
+    "ko": "1998년부터 이어진 도쿄에서 가장 유명한 빈티지 데님 매장. 박물관급 Levi's와 아메리칸 클래식 — 가격은 품질에 걸맞지만, 윈도쇼핑만으로도 공부가 됩니다."
+  },
+  "A basement the size of a warehouse: row after row of imported vintage, sorted by genre, with prices below the Harajuku average. Easy to lose an hour here.": {
+    "ja": "倉庫のような広さの地下：輸入ヴィンテージがジャンル別にずらりと並び、価格は原宿の平均以下。ここでは1時間あっという間に過ぎます。",
+    "zh": "仓库大小的地下空间：一排排进口古着按品类分类，价格低于原宿平均水平。在这里很容易消磨一个小时。",
+    "es": "Un sótano del tamaño de un almacén: fila tras fila de ropa vintage importada, ordenada por género, con precios por debajo de la media de Harajuku. Es fácil perder una hora aquí.",
+    "de": "Ein Keller in Lagerhausgröße: Reihe um Reihe importiertes Vintage, nach Genre sortiert, mit Preisen unter dem Harajuku-Durchschnitt. Hier verliert man leicht eine Stunde.",
+    "ko": "창고 크기의 지하: 장르별로 정리된 수입 빈티지가 줄지어 있고 가격은 하라주쿠 평균보다 낮습니다. 여기서 한 시간을 보내기 쉽습니다."
+  },
+  "The classic Harajuku thrift stop on Meiji-dori: American casual at fair prices, and a famous kimono corner — vintage kimono and yukata make great souvenirs.": {
+    "ja": "明治通りにある定番の原宿古着スポット：適正価格のアメリカンカジュアルと、有名な着物コーナー — ヴィンテージ着物や浴衣は素敵なお土産になります。",
+    "zh": "明治通上的经典原宿二手店：价格公道的美式休闲装，还有著名的和服专区——复古和服和浴衣是很好的纪念品。",
+    "es": "La clásica parada de segunda mano de Harajuku en Meiji-dori: ropa casual americana a precios justos y un famoso rincón de kimonos: los kimonos y yukatas vintage son excelentes recuerdos.",
+    "de": "Der klassische Harajuku-Secondhand-Stopp an der Meiji-dori: amerikanische Freizeitkleidung zu fairen Preisen und eine berühmte Kimono-Ecke — Vintage-Kimonos und Yukatas sind tolle Souvenirs.",
+    "ko": "메이지도리에 있는 클래식한 하라주쿠 중고 스폿: 공정한 가격의 아메리칸 캐주얼과 유명한 기모노 코너 — 빈티지 기모노와 유카타는 훌륭한 기념품이 됩니다."
+  },
+  "30,000+ items in a basement by Laforet Harajuku: used and vintage mixed, priced for digging. One of the biggest single floors in Harajuku.": {
+    "ja": "ラフォーレ原宿そばの地下に30,000点以上：ユーズドとヴィンテージが混ざり、掘り出し物探し向けの価格。原宿最大級の1フロアです。",
+    "zh": "Laforet原宿旁的地下有30,000多件商品：二手与古着混杂，价格适合淘货。是原宿最大的单层空间之一。",
+    "es": "Más de 30,000 artículos en un sótano junto a Laforet Harajuku: usado y vintage mezclados, con precios para rebuscar. Una de las plantas individuales más grandes de Harajuku.",
+    "de": "Über 30,000 Artikel in einem Keller bei Laforet Harajuku: Gebraucht und Vintage gemischt, bepreist zum Stöbern. Eine der größten einzelnen Etagen in Harajuku.",
+    "ko": "라포레 하라주쿠 옆 지하에 30,000점 이상: 중고와 빈티지가 섞여 있고 파고들기 좋은 가격입니다. 하라주쿠에서 가장 큰 단일 플로어 중 하나입니다."
+  },
+  "Designer brand resale on Omotesando — Comme des Garçons, Margiela, Supreme and watches, authenticated and neatly graded. Above the Lawson, on the 3rd floor.": {
+    "ja": "表参道のデザイナーブランドリセール — Comme des Garçons、Margiela、Supreme、時計を鑑定し、きれいにグレーディング。ローソンの上、3階です。",
+    "zh": "表参道的设计师品牌转售——Comme des Garçons、Margiela、Supreme和手表，均经过鉴定并整齐分级。位于Lawson楼上，3楼。",
+    "es": "Reventa de marcas de diseñador en Omotesando: Comme des Garçons, Margiela, Supreme y relojes, autenticados y cuidadosamente clasificados. Encima del Lawson, en la 3ª planta.",
+    "de": "Designer-Marken-Resale an der Omotesando — Comme des Garçons, Margiela, Supreme und Uhren, authentifiziert und sauber eingestuft. Über dem Lawson, im 3. Stock.",
+    "ko": "오모테산도의 디자이너 브랜드 리세일 — Comme des Garçons, Margiela, Supreme, 시계를 감정하고 깔끔하게 등급을 매겼습니다. Lawson 위 3층입니다."
+  },
+  "A small local shop loved for prices below the usual market rate. Akihabara's one true clothing-thrift stop — pair it with Ueno, one stop north.": {
+    "ja": "通常の相場より安い価格で地元に愛される小さな店。秋葉原で唯一の本格的な衣料古着スポット — 北へ1駅の上野と合わせてどうぞ。",
+    "zh": "一家以低于通常市场价而受当地人喜爱的小店。秋叶原唯一真正的服装二手店——可与北边一站的上野一起逛。",
+    "es": "Una pequeña tienda local querida por sus precios por debajo de la tarifa habitual del mercado. La única parada verdadera de ropa de segunda mano de Akihabara: combínala con Ueno, una parada al norte.",
+    "de": "Ein kleiner lokaler Laden, geliebt für Preise unter dem üblichen Marktpreis. Akihabaras einziger echter Stopp für Secondhand-Kleidung — kombiniere ihn mit Ueno, eine Station nördlich.",
+    "ko": "평소 시세보다 낮은 가격으로 사랑받는 작은 현지 매장. 아키하바라의 유일한 진정한 의류 중고 스폿 — 북쪽으로 한 정거장 떨어진 우에노와 함께 둘러보세요."
+  },
+  "6,000+ items over two floors, 1 minute from the west exit — and open until 10 PM, the latest on this map. Brands and no-brand bargains side by side.": {
+    "ja": "6,000点以上が2フロアにあり、西口から1分 — しかも夜10時まで営業で、このマップで一番遅い。ブランド物とノーブランドのお買い得品が並びます。",
+    "zh": "两层楼有6,000多件商品，距西口1分钟——而且营业到晚上10点，是这张地图上最晚的。品牌和无品牌特价商品并排陈列。",
+    "es": "Más de 6,000 artículos en dos plantas, a 1 minuto de la salida oeste, y abierto hasta las 10 PM, el horario más tardío de este mapa. Marcas y gangas sin marca, lado a lado.",
+    "de": "Über 6,000 Artikel auf zwei Etagen, 1 Minute vom Westausgang — und bis 22 Uhr geöffnet, am längsten auf dieser Karte. Marken- und markenlose Schnäppchen Seite an Seite.",
+    "ko": "2개 층에 6,000점 이상, 서쪽 출구에서 1분 — 게다가 오후 10시까지 영업해 이 지도에서 가장 늦게까지 엽니다. 브랜드와 노브랜드 할인 상품이 나란히 있습니다."
+  },
+  "The chain's Ikebukuro outpost in the P'PARCO basement by the east exit — a quick, reliable brand-resale stop between trains.": {
+    "ja": "東口そばのP'PARCO地下にあるチェーンの池袋店 — 電車の合間に立ち寄れる、素早く頼れるブランドリセールスポット。",
+    "zh": "位于东口旁P'PARCO地下的连锁池袋分店——在乘车间隙可快速可靠地淘品牌转售。",
+    "es": "La sucursal de Ikebukuro de la cadena en el sótano de P'PARCO junto a la salida este: una parada de reventa de marcas rápida y fiable entre trenes.",
+    "de": "Die Ikebukuro-Filiale der Kette im Keller des P'PARCO am Ostausgang — ein schneller, zuverlässiger Marken-Resale-Stopp zwischen den Zügen.",
+    "ko": "동쪽 출구 옆 P'PARCO 지하에 있는 체인의 이케부쿠로 매장 — 기차 사이사이에 들르기 좋은 빠르고 믿을 수 있는 브랜드 리세일 스폿입니다."
+  },
+  "1960s–80s American and European vintage inside Sunshine City ALTA, famous for its hat wall. The most 'vintage' room in Ikebukuro.": {
+    "ja": "サンシャインシティALTA内の1960年代～80年代のアメリカ・ヨーロッパヴィンテージで、帽子の壁で有名。池袋で最も「ヴィンテージ」な空間です。",
+    "zh": "阳光城ALTA内的1960年代至80年代美欧古着，以帽子墙闻名。是池袋最具“古着”氛围的空间。",
+    "es": "Ropa vintage americana y europea de los años 60 a los 80 dentro de Sunshine City ALTA, famosa por su pared de sombreros. La sala más «vintage» de Ikebukuro.",
+    "de": "Amerikanisches und europäisches Vintage der 1960er–80er Jahre in der Sunshine City ALTA, berühmt für seine Hutwand. Der „vintage“ste Raum in Ikebukuro.",
+    "ko": "선샤인시티 ALTA 안의 1960년대~80년대 아메리칸·유러피안 빈티지로 모자 벽으로 유명합니다. 이케부쿠로에서 가장 '빈티지'한 공간입니다."
+  },
+  "A legend since 1956, and the most-reviewed shop on this whole map: real military surplus and leather jackets from armies around the world, on the Ameyoko main street.": {
+    "ja": "1956年以来の伝説で、このマップ全体で最もレビューの多い店：アメ横のメイン通りにある、世界各国の軍の本物のミリタリーサープラスとレザージャケット。",
+    "zh": "自1956年以来的传奇，也是整张地图上评论最多的店铺：位于阿美横丁主街，售卖世界各国军队的正宗军用剩余物资和皮夹克。",
+    "es": "Una leyenda desde 1956 y la tienda con más reseñas de todo este mapa: excedentes militares reales y chaquetas de cuero de ejércitos de todo el mundo, en la calle principal de Ameyoko.",
+    "de": "Eine Legende seit 1956 und der am meisten bewertete Laden auf dieser ganzen Karte: echte Militärüberschüsse und Lederjacken von Armeen aus aller Welt, an der Hauptstraße von Ameyoko.",
+    "ko": "1956년부터 이어진 전설이자 이 지도 전체에서 리뷰가 가장 많은 매장: 아메요코 메인 스트리트에 있는 전 세계 군대의 진짜 밀리터리 서플러스와 가죽 재킷."
+  },
+  "Hard Off's fashion sister brand: a big bargain floor where brand pieces hide among the cheap racks. The digger's stop in Ameyoko.": {
+    "ja": "ハードオフのファッション姉妹ブランド：ブランド物が安いラックの中に隠れている広いお買い得フロア。アメ横の掘り出し物スポット。",
+    "zh": "Hard Off的时尚姊妹品牌：宽敞的特价楼层，品牌单品藏在便宜货架之间。是阿美横丁的淘货站。",
+    "es": "La marca hermana de moda de Hard Off: una gran planta de gangas donde las piezas de marca se esconden entre los percheros baratos. La parada del buscador en Ameyoko.",
+    "de": "Die Mode-Schwestermarke von Hard Off: eine große Schnäppchen-Etage, auf der sich Markenstücke zwischen den billigen Ständern verstecken. Der Stopp für Schatzsucher in Ameyoko.",
+    "ko": "하드 오프의 패션 자매 브랜드: 저렴한 랙 사이에 브랜드 아이템이 숨어 있는 넓은 할인 플로어. 아메요코의 보물찾기 스폿입니다."
+  },
+  "One of Ameyoko's largest clothing floors — street brands, denim and vintage across a sprawling shop by the Ueno-Hirokoji crossing.": {
+    "ja": "アメ横最大級の衣料フロアの1つ — 上野広小路交差点そばの広大な店にストリートブランド、デニム、ヴィンテージ。",
+    "zh": "阿美横丁最大的服装楼层之一——位于上野广小路路口旁的宽敞店铺里，有街头品牌、牛仔和古着。",
+    "es": "Una de las plantas de ropa más grandes de Ameyoko: marcas urbanas, denim y vintage en una tienda extensa junto al cruce de Ueno-Hirokoji.",
+    "de": "Eine der größten Kleidungsetagen in Ameyoko — Street-Brands, Denim und Vintage in einem weitläufigen Laden an der Ueno-Hirokoji-Kreuzung.",
+    "ko": "아메요코에서 가장 큰 의류 플로어 중 하나 — 우에노히로코지 교차로 옆 넓은 매장에 스트리트 브랜드, 데님, 빈티지가 있습니다."
+  },
+  "20,000+ items starting from ¥105. Not curated — a pure treasure hunt, and a Tokyo institution for it.": {
+    "ja": "¥105から始まる20,000点以上。キュレーションなし — 純粋な宝探しで、そのための東京の老舗です。",
+    "zh": "20,000多件商品，¥105起。没有精选——纯粹的寻宝之旅，也是东京因此闻名的老店。",
+    "es": "Más de 20,000 artículos desde ¥105. Sin curaduría: una pura búsqueda del tesoro, y una institución de Tokio por ello.",
+    "de": "Über 20,000 Artikel ab ¥105. Nicht kuratiert — eine reine Schatzsuche und dafür eine Tokio-Institution.",
+    "ko": "¥105부터 시작하는 20,000점 이상. 큐레이션 없이 순수한 보물찾기이며, 그로 인해 도쿄의 명물입니다."
+  },
+  "AMEKAJI · WORKWEAR": {
+    "ja": "アメカジ · ワークウェア",
+    "zh": "美式休闲 · 工装",
+    "es": "AMEKAJI · ROPA DE TRABAJO",
+    "de": "AMEKAJI · WORKWEAR",
+    "ko": "아메카지 · 워크웨어"
+  },
+  "AMERICAN CASUAL · KIMONO": {
+    "ja": "アメリカンカジュアル · 着物",
+    "zh": "美式休闲 · 和服",
+    "es": "CASUAL AMERICANO · KIMONO",
+    "de": "AMERICAN CASUAL · KIMONO",
+    "ko": "아메리칸 캐주얼 · 기모노"
+  },
+  "AMERICAN VINTAGE": {
+    "ja": "アメリカンヴィンテージ",
+    "zh": "美国古着",
+    "es": "VINTAGE AMERICANO",
+    "de": "AMERICAN VINTAGE",
+    "ko": "아메리칸 빈티지"
+  },
+  "AMERICAN VINTAGE · KIMONO": {
+    "ja": "アメリカンヴィンテージ · 着物",
+    "zh": "美国古着 · 和服",
+    "es": "VINTAGE AMERICANO · KIMONO",
+    "de": "AMERICAN VINTAGE · KIMONO",
+    "ko": "아메리칸 빈티지 · 기모노"
+  },
+  "BRAND + VINTAGE": {
+    "ja": "ブランド + ヴィンテージ",
+    "zh": "品牌 + 古着",
+    "es": "MARCAS + VINTAGE",
+    "de": "MARKE + VINTAGE",
+    "ko": "브랜드 + 빈티지"
+  },
+  "BRAND RESALE": {
+    "ja": "ブランドリセール",
+    "zh": "品牌转售",
+    "es": "REVENTA DE MARCAS",
+    "de": "MARKEN-RESALE",
+    "ko": "브랜드 리세일"
+  },
+  "BUY · SELL · TRADE": {
+    "ja": "買取 · 販売 · トレード",
+    "zh": "收购 · 出售 · 交换",
+    "es": "COMPRA · VENTA · INTERCAMBIO",
+    "de": "ANKAUF · VERKAUF · TAUSCH",
+    "ko": "매입 · 판매 · 교환"
+  },
+  "DESIGNER RESALE": {
+    "ja": "デザイナーズリセール",
+    "zh": "设计师品牌转售",
+    "es": "REVENTA DE DISEÑADORES",
+    "de": "DESIGNER-RESALE",
+    "ko": "디자이너 리세일"
+  },
+  "EURO · US VINTAGE": {
+    "ja": "ヨーロッパ · アメリカ ヴィンテージ",
+    "zh": "欧洲 · 美国古着",
+    "es": "VINTAGE EUROPEO · ESTADOUNIDENSE",
+    "de": "EURO · US VINTAGE",
+    "ko": "유로 · 미국 빈티지"
+  },
+  "FLAT PRICE": {
+    "ja": "均一価格",
+    "zh": "统一价格",
+    "es": "PRECIO ÚNICO",
+    "de": "EINHEITSPREIS",
+    "ko": "균일가"
+  },
+  "HUGE FLOOR": {
+    "ja": "広大なフロア",
+    "zh": "超大楼层",
+    "es": "PLANTA ENORME",
+    "de": "RIESIGE ETAGE",
+    "ko": "대형 플로어"
+  },
+  "HUGE IMPORT FLOOR": {
+    "ja": "広大な輸入フロア",
+    "zh": "超大进口楼层",
+    "es": "ENORME PLANTA DE IMPORTACIÓN",
+    "de": "RIESIGE IMPORT-ETAGE",
+    "ko": "대형 수입 플로어"
+  },
+  "HUGE SELECTION": {
+    "ja": "豊富な品揃え",
+    "zh": "超大精选",
+    "es": "ENORME SELECCIÓN",
+    "de": "RIESIGE AUSWAHL",
+    "ko": "방대한 셀렉션"
+  },
+  "LADIES · BRAND BAGS": {
+    "ja": "レディース · ブランドバッグ",
+    "zh": "女装 · 品牌包袋",
+    "es": "MUJER · BOLSOS DE MARCA",
+    "de": "DAMEN · MARKENTASCHEN",
+    "ko": "레이디스 · 브랜드 가방"
+  },
+  "LOCAL FAVORITE": {
+    "ja": "地元のお気に入り",
+    "zh": "当地最爱",
+    "es": "FAVORITO LOCAL",
+    "de": "LOKALER FAVORIT",
+    "ko": "현지인 인기"
+  },
+  "MEN'S VINTAGE BRANDS": {
+    "ja": "メンズ ヴィンテージブランド",
+    "zh": "男士古着品牌",
+    "es": "MARCAS VINTAGE PARA HOMBRE",
+    "de": "VINTAGE-HERRENMARKEN",
+    "ko": "남성 빈티지 브랜드"
+  },
+  "MILITARY SURPLUS": {
+    "ja": "ミリタリーサープラス",
+    "zh": "军用剩余物资",
+    "es": "EXCEDENTES MILITARES",
+    "de": "MILITÄRÜBERSCHUSS",
+    "ko": "밀리터리 서플러스"
+  },
+  "RECYCLE · BARGAIN": {
+    "ja": "リサイクル · バーゲン",
+    "zh": "回收 · 特价",
+    "es": "RECICLAJE · GANGAS",
+    "de": "RECYCLE · SCHNÄPPCHEN",
+    "ko": "리사이클 · 할인"
+  },
+  "REGULAR + VINTAGE": {
+    "ja": "レギュラー + ヴィンテージ",
+    "zh": "日常款 + 古着",
+    "es": "NORMAL + VINTAGE",
+    "de": "REGULÄR + VINTAGE",
+    "ko": "레귤러 + 빈티지"
+  },
+  "ULTRA BARGAIN": {
+    "ja": "超お買い得",
+    "zh": "超值特价",
+    "es": "SUPERGANGA",
+    "de": "SUPER-SCHNÄPPCHEN",
+    "ko": "초특가"
+  },
+  "VINTAGE": {
+    "ja": "ヴィンテージ",
+    "zh": "古着",
+    "es": "VINTAGE",
+    "de": "VINTAGE",
+    "ko": "빈티지"
+  }
+}
