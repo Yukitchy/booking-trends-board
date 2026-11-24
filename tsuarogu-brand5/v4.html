@@ -1,0 +1,116 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=390,initial-scale=1">
+<title>案4 格上げ｜つあろぐ ゲスト帳 ブランド案</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800;900&family=Shippori+Mincho:wght@500;800&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" rel="stylesheet"><style>
+:root{--orange:#ff6a13;--ink:#151515;--paper:#fbfaf7;--grid:#e9e6df;--card:#fff;--sub:#5b5953;--peach:#ffd9c2;--beige:#efe6d6;--aka:#c24a36;
+--jp:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",sans-serif;--en:"Archivo","Zen Kaku Gothic New",sans-serif;--mincho:"Shippori Mincho","Hiragino Mincho ProN",serif}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:var(--jp);font-weight:500;color:var(--ink);font-size:14px;line-height:1.7}
+.screen{width:390px;margin:0 auto;padding:0 14px 28px;overflow:hidden}
+h1,h2,h3,h4,p{margin:0}
+img.mkimg{display:block}
+.cal{display:flex;gap:6px}
+.cal button{flex:1;font-family:var(--jp);cursor:pointer}
+.search input{width:100%;font-family:var(--jp);font-size:13.5px}
+.filters{display:flex;gap:7px;flex-wrap:wrap}
+.filters button{font-family:var(--jp);cursor:pointer;font-weight:700}
+.gava{flex:none;display:flex;align-items:center;justify-content:center;font-family:var(--en);font-weight:900;color:#fff}
+.ephoto{position:relative;flex:none;display:flex;align-items:center;justify-content:center;font-family:var(--en);font-weight:900;color:#fff}
+.pcount{position:absolute;right:6px;bottom:6px;background:rgba(21,21,21,.85);color:#fff;font-family:var(--jp);font-size:10.5px;font-weight:700;border-radius:999px;padding:1px 8px;line-height:1.6}
+.entry{display:flex;gap:11px}
+.honne b{font-weight:900}
+button{cursor:pointer}
+
+body{background:var(--paper)}
+.screen{padding:0 22px 34px}
+.brandrow{display:flex;align-items:center;gap:10px;padding-top:26px}
+.brandrow .mk{width:30px;height:30px}
+.brandrow .mk img{width:30px;height:30px}
+.brandrow .en{font-family:var(--en);font-size:10px;font-weight:900;letter-spacing:.3em;color:var(--sub)}
+h1{margin-top:16px;font-family:var(--mincho);font-size:31px;font-weight:800;line-height:1.35;letter-spacing:.02em}
+.rule{width:44px;height:3px;background:var(--orange);margin-top:14px}
+.cnt{margin-top:12px;font-size:12.5px;color:var(--sub);line-height:1.8}
+.cal{margin-top:22px;gap:4px}
+.cal button{background:none;border:none;border-bottom:2px solid var(--grid);border-radius:0;padding:5px 0 7px;font-size:10.5px;font-weight:700;color:var(--sub);line-height:1.35}
+.cal button b{display:block;font-family:var(--en);font-size:16px;font-weight:900;color:var(--ink)}
+.cal button i{font-style:normal;font-size:10px}
+.cal button.on{border-bottom:3px solid var(--orange)}
+.cal button.on b{color:var(--orange)}
+.up{margin-top:20px;border:2px solid var(--ink);border-radius:16px;padding:12px 16px;background:var(--card)}
+.up b{font-size:14.5px;font-weight:900;display:block}
+.up span{font-size:11.5px;color:var(--sub)}
+.search{margin-top:18px}
+.search input{background:none;border:none;border-bottom:2px solid var(--ink);border-radius:0;padding:9px 2px;font-weight:700}
+.search input::placeholder{color:#b6b0a1}
+.filters{margin-top:14px;gap:16px}
+.filters button{background:none;border:none;border-radius:0;padding:2px 1px;font-size:12.5px;color:var(--sub);border-bottom:3px solid transparent}
+.filters button.on{color:var(--ink);border-bottom:3px solid var(--orange)}
+.guest{margin-top:30px}
+.ghead{display:flex;align-items:center;gap:11px}
+.gava{width:40px;height:40px;border-radius:50%;font-size:18px}
+.ghead h3{font-family:var(--mincho);font-size:20px;font-weight:800;line-height:1.35}
+.gsub{display:block;font-family:var(--jp);font-size:11px;color:var(--sub);font-weight:700}
+.memo{margin-top:13px;background:var(--beige);border-radius:12px;padding:11px 13px;font-size:12.5px}
+.memo b{display:block;font-size:10.5px;font-weight:900;letter-spacing:.1em;color:var(--sub);margin-bottom:2px}
+.memoedit{margin-left:8px;background:none;border:1.5px solid var(--ink);border-radius:999px;font-family:var(--jp);font-size:11px;font-weight:900;padding:2px 10px;line-height:1.6}
+.entry{margin-top:16px;background:var(--card);border:2px solid var(--ink);border-radius:20px;padding:14px}
+.ephoto{width:80px;height:80px;border-radius:14px;font-size:28px}
+.ebody{flex:1;min-width:0}
+.ebody h4{font-size:15px;font-weight:900;line-height:1.55}
+.edate{font-size:11px;color:var(--sub);font-weight:700;margin-top:2px}
+.honne{margin-top:7px;font-size:12.5px;line-height:1.7}
+.honne .why{display:block;color:var(--sub);font-size:11px}
+.meta{margin-top:6px;font-size:11px;color:var(--sub);font-weight:700}
+.meta .warn{color:var(--aka);font-weight:900}
+.tags{margin-top:9px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.scope,.st{display:inline-block;font-size:10.5px;font-weight:900;border-radius:999px;padding:1px 9px;line-height:1.7;border:1.5px solid var(--ink)}
+.scope{background:var(--card);color:var(--ink)}
+.st-warn{background:var(--orange);border-color:var(--orange);color:var(--ink)}
+.st-done{background:var(--ink);color:#fff}
+.tags button{font-family:var(--jp);font-size:11px;font-weight:900;border-radius:999px;padding:3px 11px;line-height:1.6}
+.use{background:none;border:1.5px solid var(--ink);color:var(--ink)}
+.read{background:none;border:none;color:var(--orange);font-size:12.5px;padding:3px 2px}
+</style></head>
+<body><div class="screen">
+<div class="brandrow"><span class="mk"><img src="logo.png" alt=""></span><p class="en">TSUAROGU ・ GUESTBOOK</p></div>
+<h1>ゲスト帳</h1><div class="rule"></div>
+<p class="cnt">ゲストごとに前回のログと申し送りが残ります ・ 全10本（2026.10.30〜11.06）</p>
+<div class="cal"><button class="has">10月<b>30</b><i>金</i></button><button class="has">10月<b>31</b><i>土</i></button><button class="has">11月<b>2</b><i>月</i></button><button class="has">11月<b>3</b><i>火</i></button><button class="has">11月<b>4</b><i>水</i></button><button class="has">11月<b>5</b><i>木</i></button><button class="on">11月<b>6</b><i>金</i></button></div>
+<div class="up"><b>＋ 録音をアップ</b><span>ゲストの帳面に新しい1本が付きます</span></div>
+<div class="search"><input type="search" placeholder="ゲスト名・題・本音で検索"></div>
+<div class="filters"><button class="on">すべて</button><button>ツアー</button><button>ツアー以外</button><button>要確認あり</button></div>
+
+<section class="guest">
+  <div class="ghead"><div class="gava" style="background:#B4552D">Y</div>
+    <h3>Yuliaさん<span class="gsub">デンマーク・オーデンセ／親子2名</span></h3></div>
+  <div class="memo"><b>次回への申し送り</b>まだ書かれていません<button class="memoedit">申し送りを書く</button></div>
+  
+<article class="entry">
+  <div class="ephoto" style="background:#B4552D">Y<span class="pcount">写真31枚</span></div>
+  <div class="ebody">
+    <h4>デンマーク親子とのアキバツアー</h4>
+    <p class="edate">2026.11.06 金 ・ 144分 ・ Airbnb</p>
+    <p class="honne">本音: 息子が<b>「この景品は、日本でしか取れないの？」</b><span class="why">景品が非売品で店ごとに値段が違う理由を説明する場面</span></p>
+    <p class="meta">目次20行 ・ 写真31枚 ・ 朱書き66件 ・ <span class="warn">要確認 47</span></p>
+    <p class="tags"><span class="scope">自分だけ</span><span class="st st-warn">要確認</span><button class="use">お礼の下書きに使う</button><button class="read">読む ›</button></p>
+  </div>
+</article>
+</section>
+<section class="guest">
+  <div class="ghead"><div class="gava" style="background:#2D5A7B">C</div>
+    <h3>Carolaさん<span class="gsub">ドイツ・ミュンヘン／親子2名</span></h3></div>
+  <div class="memo"><b>次回への申し送り</b>まだ書かれていません<button class="memoedit">申し送りを書く</button></div>
+  
+<article class="entry">
+  <div class="ephoto" style="background:#2D5A7B">C<span class="pcount">写真24枚</span></div>
+  <div class="ebody">
+    <h4>ドイツ人客と巡る秋葉原</h4>
+    <p class="edate">2026.10.31 土 ・ 180分 ・ 直接</p>
+    <p class="meta">目次15行 ・ 写真24枚 ・ 朱書き66件</p>
+    <p class="tags"><span class="scope">自分だけ</span><span class="st st-done">完成</span><button class="use">お礼の下書きに使う</button><button class="read">読む ›</button></p>
+  </div>
+</article>
+</section>
+</div></body></html>
