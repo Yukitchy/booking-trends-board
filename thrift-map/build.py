@@ -486,7 +486,7 @@ img{max-width:100%}
 .langsw .fl svg{position:absolute;inset:0;width:100%;height:100%;display:none}
 .langsw .fl svg.on{display:block}
 .langsw .lc{font-family:'Archivo',sans-serif;font-weight:900;letter-spacing:.04em}
-h1{position:relative;font-family:'Archivo','Noto Sans JP',sans-serif;font-weight:900;font-size:clamp(20px,6.6vw,72px);line-height:.92;letter-spacing:-.01em;text-transform:uppercase;margin:14px 0 62px}
+h1{position:relative;font-family:'Archivo','Noto Sans JP',sans-serif;font-weight:900;font-size:clamp(20px,6.6vw,72px);line-height:.92;letter-spacing:-.01em;text-transform:uppercase;margin:14px 0 18px}
 h1 .kindsw{display:inline-block;vertical-align:baseline}
 h1 .kindsw summary{display:inline-block;background:var(--ac);color:#fff;padding:.02em .14em .06em;border-radius:.12em;cursor:pointer;list-style:none;white-space:nowrap}
 h1 .kindsw summary::-webkit-details-marker{display:none}
@@ -494,7 +494,7 @@ h1 .kindsw ul{position:absolute;z-index:60;margin-top:.1em;background:var(--ink)
 h1 .kindsw ul a{display:block;color:#fff;font-family:'Archivo','Noto Sans JP',sans-serif;font-weight:900;font-size:.62em;text-transform:uppercase;text-decoration:none;padding:.22em .5em;white-space:nowrap}
 h1 .kindsw ul a:hover{background:var(--ac)}
 h1 .areasw{display:inline-block;vertical-align:baseline;max-width:100%;position:relative}
-h1 .areasw summary{display:inline-flex;align-items:center;gap:.08em;background:var(--ink);color:#fff;padding:.02em .12em .06em .16em;border-radius:.12em;cursor:pointer;list-style:none;max-width:100%}
+h1 .areasw summary{position:relative;display:inline-flex;align-items:center;gap:.08em;background:var(--ink);color:#fff;padding:.02em .12em .06em .16em;border-radius:.12em;cursor:pointer;list-style:none;max-width:100%}
 h1 .areasw summary::-webkit-details-marker{display:none}
 h1 .areasw summary em{font-style:normal;white-space:nowrap}
 h1 .areasw .chev{width:.34em;height:.34em;flex:none}
@@ -502,9 +502,8 @@ h1 .areasw ul{position:absolute;z-index:60;margin-top:.1em;background:var(--ink)
 h1 .areasw ul a{display:block;color:#fff;font-family:'Archivo','Noto Sans JP',sans-serif;font-weight:900;font-size:.62em;text-transform:uppercase;text-decoration:none;padding:.22em .5em;white-space:nowrap}
 h1 .areasw ul a:hover{background:var(--ac)}
 h1 .areasw ul a::after{content:' →'}
-.hint{position:absolute;left:4px;top:calc(100% + 10px);z-index:61;background:#FFFFFF;color:var(--ink);border:2.5px solid var(--ink);border-radius:10px;padding:6px 10px 5px;font-family:'Archivo','Noto Sans JP',sans-serif;font-weight:900;font-size:12.5px;line-height:1.25;letter-spacing:.02em;text-transform:uppercase;box-shadow:3px 3px 0 rgba(18,18,18,.9);pointer-events:none;animation:bob 1.6s ease-in-out infinite;max-width:150px;text-align:left}
-.hint::after{content:'';position:absolute;left:22px;top:-9px;width:14px;height:14px;background:#FFFFFF;border-left:2.5px solid var(--ink);border-top:2.5px solid var(--ink);transform:rotate(45deg)}
-@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.hint{position:absolute;left:calc(100% + 10px);top:0;bottom:0;z-index:61;display:flex;align-items:center;gap:.3em;background:#FFFFFF;color:var(--ink);border:2.5px solid var(--ink);border-radius:999px;padding:0 5px;font-family:'Archivo','Noto Sans JP',sans-serif;font-weight:800;font-size:min(.33em,12px);line-height:1;letter-spacing:.01em;text-transform:uppercase;box-shadow:3px 3px 0 rgba(18,18,18,.9);pointer-events:none;white-space:nowrap}
+.hint::after{content:'';position:absolute;left:-8px;top:50%;width:10px;height:10px;background:#FFFFFF;border-left:2.5px solid var(--ink);border-bottom:2.5px solid var(--ink);transform:translateY(-50%) rotate(45deg)}
 details[open ] .hint{display:none}
 .intro{font-size:15.5px;line-height:1.65;color:var(--ink);max-width:640px}
 .intro b{background:linear-gradient(transparent 62%,#F2CE5F 62%);font-weight:800}
@@ -616,7 +615,6 @@ footer .areas a{color:var(--ink);font-weight:800;text-decoration:none;border-bot
 .thumb-card{width:96px}
 .thumb-photo{height:60px}
 .thumb-photo.nophoto{height:60px}
-.hint{font-size:11px;max-width:128px}
 .photo-actions{top:.35rem;right:.35rem;gap:.25rem}
 .strip .rt{margin-left:0}
 .station .r b{width:92px}
@@ -973,7 +971,9 @@ def area_page(data, area, trans):
     name = area["name"]
     n = len(name)
     emscale = 1.25 if n <= 10 else (1.02 if n <= 14 else 0.85)
-    vwcap = (280.0 / (0.64 * n + 0.3)) / 3.2 * 0.97
+    # Cap leaves room on the band's line for the hint bubble to its right
+    # (band + 10px gap + hint <= viewport - wrap padding, checked at 320px).
+    vwcap = 47.6 / (0.64 * n + 0.3)
     emstyle = f"font-size:min({emscale}em,{vwcap:.1f}vw)"
     h1 = (
         '<h1><span>Where to</span> '
@@ -982,7 +982,7 @@ def area_page(data, area, trans):
         '</ul></details> '
         '<span>in</span> '
         f'<details class="areasw"><summary><em style="{emstyle}">{escape(name.upper())}</em>{CHEV_SVG}'
-        '<span class="hint">Tap to<br>change area</span></summary>'
+        '<span class="hint"><span>Tap to</span><span>change area</span></span></summary>'
         f'<ul>{areas_lis}</ul></details></h1>')
     maphtml, cards, _proj = build_area(area, "../")
     hero = build_hero(area, "../")
