@@ -65,6 +65,27 @@ def photo_files(sid):
 def has_photo(sid):
     return os.path.exists(os.path.join(HERE, "img", "photos", sid + "-1.jpg"))
 
+def closed_badge(cv):
+    """Red-badge text for a shop's regular closing days, or None.
+    Weekly weekday closings -> 'CLOSED WED' / 'CLOSED TUE & WED'.
+    Monthly (2nd Thursday etc.) and irregular closings -> 'CLOSED IRREGULAR'.
+    Year-end-only closings are not regular closing days -> None."""
+    if not cv:
+        return None
+    t = cv.lower()
+    if "jan 1" in t or "new year" in t:
+        return None
+    if "irregular" in t:
+        return "CLOSED IRREGULAR"
+    days = [("monday", "MON"), ("tuesday", "TUE"), ("wednesday", "WED"),
+            ("thursday", "THU"), ("friday", "FRI"), ("saturday", "SAT"), ("sunday", "SUN")]
+    found = [abbr for name, abbr in days if name in t]
+    if not found:
+        return None
+    if any(w in t for w in ("1st", "first", "2nd", "second", "3rd", "third", "4th", "fourth", "last")):
+        return "CLOSED IRREGULAR"
+    return "CLOSED " + " & ".join(found)
+
 def geocode(addr):
     u = "https://msearch.gsi.go.jp/address-search/AddressSearch?q=" + urllib.parse.quote(addr)
     req = urllib.request.Request(u, headers={"User-Agent": "thrift-map-build/1.0"})
@@ -153,13 +174,59 @@ def map_background(proj, seedkey):
         out.append(f'<line x1="{x1:.0f}" y1="{y1:.0f}" x2="{x2:.0f}" y2="{y2:.0f}" stroke="#FFFFFF" stroke-width="10"/>')
     return "".join(out)
 
+def clip_runs(pts, W, H):
+    """Clip a polyline to the [0,W]x[0,H] rect (Liang-Barsky per segment);
+    returns a list of point runs. Keeps drawn geometry inside the viewBox
+    so out-of-frame line ends cannot leak scrollable overflow."""
+    def clip(p, q):
+        (x1, y1), (x2, y2) = p, q
+        dx, dy = x2 - x1, y2 - y1
+        t0, t1 = 0.0, 1.0
+        for pk, qk in ((-dx, x1), (dx, W - x1), (-dy, y1), (dy, H - y1)):
+            if pk == 0:
+                if qk < 0:
+                    return None
+                continue
+            t = qk / pk
+            if pk < 0:
+                if t > t1:
+                    return None
+                if t > t0:
+                    t0 = t
+            else:
+                if t < t0:
+                    return None
+                if t < t1:
+                    t1 = t
+        return ((x1 + t0 * dx, y1 + t0 * dy), (x1 + t1 * dx, y1 + t1 * dy))
+    runs, cur = [], []
+    for i in range(len(pts) - 1):
+        seg = clip(pts[i], pts[i + 1])
+        if seg is None:
+            if len(cur) > 1:
+                runs.append(cur)
+            cur = []
+            continue
+        a, b = seg
+        if cur and abs(cur[-1][0] - a[0]) < 0.6 and abs(cur[-1][1] - a[1]) < 0.6:
+            cur.append(b)
+        else:
+            if len(cur) > 1:
+                runs.append(cur)
+            cur = [a, b]
+    if len(cur) > 1:
+        runs.append(cur)
+    return runs
+
 def rail_svg(proj, line):
     pts = [proj.xy(lat, lng) for lat, lng in line["pts"]]
-    pl = " ".join(f"{x:.0f},{y:.0f}" for x, y in pts)
-    s = [f'<polyline points="{pl}" fill="none" stroke="#FFFFFF" stroke-width="13" opacity="0.85" stroke-linejoin="round"/>']
-    s.append(f'<polyline points="{pl}" fill="none" stroke="#141414" stroke-width="9" stroke-linejoin="round"/>')
-    s.append(f'<polyline points="{pl}" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linejoin="round"/>')
-    s.append(f'<polyline points="{pl}" fill="none" stroke="#141414" stroke-width="1.6" stroke-dasharray="7 6"/>')
+    pls = [" ".join(f"{x:.0f},{y:.0f}" for x, y in run) for run in clip_runs(pts, proj.W, proj.H)]
+    s = []
+    for pl in pls:
+        s.append(f'<polyline points="{pl}" fill="none" stroke="#FFFFFF" stroke-width="13" opacity="0.85" stroke-linejoin="round"/>')
+        s.append(f'<polyline points="{pl}" fill="none" stroke="#141414" stroke-width="9" stroke-linejoin="round"/>')
+        s.append(f'<polyline points="{pl}" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linejoin="round"/>')
+        s.append(f'<polyline points="{pl}" fill="none" stroke="#141414" stroke-width="1.6" stroke-dasharray="7 6"/>')
     best, bd = None, 1e18
     for i in range(len(pts) - 1):
         mx0 = (pts[i][0] + pts[i + 1][0]) / 2; my0 = (pts[i][1] + pts[i + 1][1]) / 2
@@ -253,8 +320,9 @@ def build_area(area, prefix):
     for i, sh in enumerate(area["shops"], 1):
         px, py = proj.pct(sh["lat"], sh["lng"])
         short = escape(SHORT.get(sh["id"]) or sh.get("short") or sh["en"])
-        if has_photo(sh["id"]):
-            photo = f'<span class="thumb-photo" style="background-image:url(\'{prefix}img/photos/{sh["id"]}-1.jpg\')"></span>'
+        _files = photo_files(sh["id"])
+        if _files:
+            photo = f'<span class=\"thumb-photo\" style=\"background-image:url(\'{prefix}img/photos/{_files[0]}\')\"></span>'
         else:
             photo = f'<span class="thumb-photo nophoto">{TAG_SVG}</span>'
         pins.append(f'<button type="button" class="pin" data-area="{area["key"]}" data-n="{i}" data-id="{sh["id"]}" data-cat="{sh["cat"]}" '
@@ -275,43 +343,81 @@ def build_area(area, prefix):
         if sh.get("src"):
             acts.append(f'<a class="icon-btn site-btn" href="{escape(sh["src"])}" target="_blank" rel="noopener" aria-label="Official site — {escape(sh["en"])}" title="Official site">{GLOBE_SVG}</a>')
         actions = f'<div class="photo-actions">{"".join(acts)}</div>'
-        if has_photo(sh["id"]):
-            kind = PHOTO_KIND.get(sh["id"]) or sh.get("pk") or "Outside"
-            car = (f'<div class="car"><img class="ph" src="{prefix}img/photos/{sh["id"]}-1.jpg" alt="{escape(sh["en"])}" loading="lazy" referrerpolicy="no-referrer">'
+        _files = photo_files(sh["id"])
+        if _files:
+            _labels = {"1": "Outside", "2": "Inside", "3": "Items"}
+            _lab = [_labels[f.rsplit("-", 1)[1].split(".")[0]] for f in _files]
+            _imgs = "".join(
+                f'<img src="{prefix}img/photos/{fn}" alt="{escape(sh["en"])}" loading="lazy" referrerpolicy="no-referrer" draggable="false" data-l="{lb}">'
+                for fn, lb in zip(_files, _lab))
+            _btns = ''
+            _cn = f'<span class="cn"><b>{_lab[0]}</b></span>'
+            if len(_files) > 1:
+                _btns = ('<button type="button" class="cb pv" aria-label="Previous photo">&lsaquo;</button>'
+                         '<button type="button" class="cb nx" aria-label="Next photo">&rsaquo;</button>')
+                _cn = f'<span class="cn"><b>{_lab[0]}</b> 1/{len(_files)}</span>'
+            car = (f'<div class="car"><div class="trk">{_imgs}</div>{_btns}'
                    f'{actions}'
-                   f'<span class="st" data-st="{sh["id"]}"></span>'
-                   f'<span class="cn"><b>{kind}</b></span></div>')
+                   f'<span class="st" data-st="{sh["id"]}"></span>{_cn}</div>')
         else:
             car = (f'<div class="car nophoto"><span class="pholder">{TAG_SVG}</span>'
                    f'{actions}'
                    f'<span class="st" data-st="{sh["id"]}"></span></div>')
         strip = [f'<span class="hr">{CLOCK_SVG}<b class="today" data-today="{sh["id"]}">{escape(sh["txt"])}</b></span>',
                  f'<span class="wk">{WALK_SVG}<span class="wkt">{sh["walk"]} min walk</span><span class="wks"> · {escape(sh["sta"])} Sta.</span></span>']
-        if sh.get("closed"):
-            cv = sh["closed"]
-            clabel = cv if cv.lower().startswith("closed") else f"Closed: {cv}"
-            strip.append(f'<span class="cl">{XCIRC_SVG}{escape(clabel)}</span>')
+        _badge = closed_badge(sh.get("closed"))
+        if _badge:
+            strip.append(f'<span class="clb">{escape(_badge)}</span>')
         if sh.get("gr"):
             strip.append(f'<span class="rt">{STAR_SVG}{escape(sh["gr"])}</span>')
-        # Under-strip line: address only. Hours and closed days live in the
-        # black strip above; the address appears nowhere else, so it stays.
-        hrs = escape(sh["addr"])
         cards.append(
             f'<article class="card" id="card-{sh["id"]}" data-id="{sh["id"]}" data-cat="{sh["cat"]}">'
             f'<div class="hd"><button type="button" class="big" data-goto="{area["key"]}" data-n="{i}" data-id="{sh["id"]}" aria-label="Find {escape(sh["en"])} on the map">{i:02d}</button>'
             f'<div class="hdtx"><span class="genre">{escape(sh["genre"])}</span><h3>{escape(sh["en"])}</h3>'
-            f'<div class="jp">{escape(sh["jp"])}</div></div></div>'
+            f'<div class="adr">{escape(sh["adr"])}</div></div></div>'
             f'{car}'
             f'<p class="tx">{escape(sh["note"])}</p>'
             f'<p class="strip">{"".join(strip)}</p>'
-            f'<p class="hrs">{hrs}</p></article>')
+            f'</article>')
     return maphtml, "".join(cards), proj
 
-def build_hero(area, prefix):
-    imgs = []
+def jpeg_long_edge(path):
+    try:
+        with open(path, "rb") as fh:
+            data = fh.read()
+    except OSError:
+        return 0
+    i = 2
+    while i < len(data) - 9:
+        if data[i] != 0xFF:
+            i += 1
+            continue
+        m = data[i + 1]
+        if m in (0xC0, 0xC1, 0xC2):
+            h = int.from_bytes(data[i + 5:i + 7], "big")
+            w = int.from_bytes(data[i + 7:i + 9], "big")
+            return max(w, h)
+        if m in (0xD8, 0xD9) or 0xD0 <= m <= 0xD7:
+            i += 2
+            continue
+        ln = int.from_bytes(data[i + 2:i + 4], "big")
+        if ln < 2:
+            break
+        i += 2 + ln
+    return 0
+
+def hero_photo_files(area):
+    """Hero slots only take photos whose long edge is at least 1200px."""
+    out = []
     for s in area["shops"]:
         for f in photo_files(s["id"]):
-            imgs.append((s, f))
+            p = os.path.join(HERE, "img", "photos", f)
+            if jpeg_long_edge(p) >= 1200:
+                out.append((s, f))
+    return out
+
+def build_hero(area, prefix):
+    imgs = hero_photo_files(area)
     chosen = []
     seen = set()
     for s, f in imgs:
@@ -369,17 +475,18 @@ CSS = """
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--ink:#121212;--paper:#F1EFEA;--card:#FFFFFF;--mut:#57534A;--ac:#81660D;--line:#E2DED3;--open:#2E7D32;--pop:#FFF7DB;--popb:#E9C46A}
 html{scroll-behavior:smooth}
+html,body{overflow-x:hidden}
 body{font-family:'Noto Sans JP',system-ui,sans-serif;background:var(--paper);color:var(--ink);-webkit-text-size-adjust:100%}
 img{max-width:100%}
 .wrap{max-width:860px;margin:0 auto;padding:0 16px 40px}
 .top{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 0 4px}
-.top img.logo{width:86px;height:auto;display:block}
+.top img.logo{width:164px;height:auto;display:block}
 .langsw{margin-left:auto;align-self:center;display:inline-flex;align-items:center;gap:7px;background:var(--ac);color:#fff;border:0;border-radius:999px;padding:8px 11px;font:inherit;font-weight:900;font-size:15px;line-height:1;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.18)}
 .langsw .fl{position:relative;width:24px;height:16px;border-radius:2px;overflow:hidden;flex:none;box-shadow:0 0 0 1px rgba(0,0,0,.25)}
 .langsw .fl svg{position:absolute;inset:0;width:100%;height:100%;display:none}
 .langsw .fl svg.on{display:block}
 .langsw .lc{font-family:'Archivo',sans-serif;font-weight:900;letter-spacing:.04em}
-h1{position:relative;font-family:'Archivo','Noto Sans JP',sans-serif;font-weight:900;font-size:clamp(44px,13vw,72px);line-height:.92;letter-spacing:-.01em;text-transform:uppercase;margin:14px 0 62px}
+h1{position:relative;font-family:'Archivo','Noto Sans JP',sans-serif;font-weight:900;font-size:clamp(20px,6.6vw,72px);line-height:.92;letter-spacing:-.01em;text-transform:uppercase;margin:14px 0 62px}
 h1 .kindsw{display:inline-block;vertical-align:baseline}
 h1 .kindsw summary{display:inline-block;background:var(--ac);color:#fff;padding:.02em .14em .06em;border-radius:.12em;cursor:pointer;list-style:none;white-space:nowrap}
 h1 .kindsw summary::-webkit-details-marker{display:none}
@@ -468,16 +575,24 @@ details[open ] .hint{display:none}
 .hdtx{flex:1;min-width:0}
 .genre{display:inline-block;background:var(--ac);color:#fff;font-family:'Archivo','Noto Sans JP',sans-serif;font-weight:900;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px 2px;border-radius:4px}
 .card h3{font-family:'Archivo','Noto Sans JP',sans-serif;font-weight:900;font-size:23px;line-height:1.15;margin-top:5px}
-.jp{font-size:13.5px;color:var(--mut);font-weight:700;margin-top:1px}
-.car{position:relative;margin-top:10px;border:2.5px solid var(--ink);background:#E9E8E4}
-.car .ph{width:100%;height:210px;object-fit:cover;display:block}
+.adr{font-size:13px;color:var(--mut);font-weight:700;margin-top:2px;line-height:1.45}
+.car{position:relative;margin-top:10px;border:2.5px solid var(--ink);background:#E9E8E4;height:214px;overflow:hidden}
+.car .trk{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;cursor:grab}
+.car .trk::-webkit-scrollbar{display:none}
+.car .trk img{flex:0 0 100%;width:100%;height:100%;object-fit:cover;scroll-snap-align:start;display:block}
+.car .trk.drag{cursor:grabbing;scroll-snap-type:none}
+.car .trk.drag img{pointer-events:none}
+.cb{position:absolute;top:50%;transform:translateY(-50%);z-index:4;width:34px;height:46px;border:0;background:rgba(18,18,18,.55);color:#fff;font-size:26px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;font-family:inherit}
+.cb:hover{background:rgba(18,18,18,.82)}
+.cb.pv{left:0;border-radius:0 8px 8px 0}
+.cb.nx{right:0;border-radius:8px 0 0 8px}
 .car.nophoto{height:120px;display:flex;align-items:center;justify-content:center;background:linear-gradient(140deg,#A8841A,#6E560B)}
 .car .pholder{display:flex}
 .car .pholder svg{width:52px;height:52px}
 .st{position:absolute;right:8px;bottom:8px;background:var(--ink);color:#fff;font-family:'Archivo','Noto Sans JP',sans-serif;font-weight:900;font-size:11.5px;letter-spacing:.08em;padding:4px 8px 3px;border-radius:4px;z-index:2}
 .st.open{background:var(--open)}
 .st:empty{display:none}
-.cn{position:absolute;left:8px;bottom:8px;background:rgba(18,18,18,.82);color:#fff;font-size:11.5px;font-weight:700;padding:4px 8px 3px;border-radius:4px}
+.cn{position:absolute;left:8px;bottom:8px;z-index:2;background:rgba(18,18,18,.82);color:#fff;font-size:11.5px;font-weight:700;padding:4px 8px 3px;border-radius:4px}
 .photo-actions{position:absolute;top:.5rem;right:.5rem;display:flex;gap:.45rem;z-index:3}
 .icon-btn{width:44px;height:44px;min-height:44px;border-radius:50%;background:#fff;border:none;box-shadow:0 2px 8px rgba(18,18,18,.35),0 0 0 1px rgba(18,18,18,.08);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;text-decoration:none;padding:0;flex:none;color:var(--ink)}
 .icon-btn svg{width:24px;height:24px;display:block}
@@ -485,9 +600,9 @@ details[open ] .hint{display:none}
 .tx{font-size:14.5px;line-height:1.6;margin-top:10px}
 .strip{display:flex;flex-wrap:wrap;align-items:center;column-gap:16px;row-gap:5px;background:var(--ink);color:#fff;margin:11px -14px 0;padding:8px 14px;font-size:13.5px}
 .strip>span{display:inline-flex;align-items:center;gap:6px}
+.strip .clb{background:#C1272D;color:#fff;font-weight:900;font-size:11.5px;letter-spacing:.06em;padding:3px 8px 2px;border-radius:4px}
 .strip .today{font-weight:700}
 .strip .rt{margin-left:auto}
-.hrs{font-size:12.5px;color:var(--mut);line-height:1.55;margin-top:9px}
 .know{margin-top:26px;background:var(--ink);color:#fff;padding:18px 18px 14px;box-shadow:6px 6px 0 rgba(18,18,18,.35)}
 .know h2{font-family:'Archivo','Noto Sans JP',sans-serif;font-weight:900;font-size:21px;text-transform:uppercase;margin-bottom:8px}
 .know li{font-size:14px;line-height:1.6;margin:0 0 6px 18px}
@@ -799,6 +914,24 @@ document.querySelectorAll('.mapwrap').forEach(wrap=>{
   fit();
 });
 </script>
+<script>
+document.querySelectorAll('.car').forEach(function(c){
+  var trk=c.querySelector('.trk');if(!trk)return;
+  var imgs=trk.querySelectorAll('img'),cn=c.querySelector('.cn');
+  function upd(){if(!imgs.length)return;var i=Math.round(trk.scrollLeft/Math.max(1,trk.clientWidth));if(i<0)i=0;if(i>imgs.length-1)i=imgs.length-1;if(cn&&imgs.length>1)cn.innerHTML='<b>'+imgs[i].dataset.l+'</b> '+(i+1)+'/'+imgs.length;}
+  function go(d){trk.scrollBy({left:d*Math.max(1,trk.clientWidth),behavior:'smooth'});}
+  var pv=c.querySelector('.cb.pv'),nx=c.querySelector('.cb.nx');
+  if(pv)pv.addEventListener('click',function(){go(-1);});
+  if(nx)nx.addEventListener('click',function(){go(1);});
+  var raf=0;trk.addEventListener('scroll',function(){if(raf)return;raf=requestAnimationFrame(function(){raf=0;upd();});},{passive:true});
+  var dn=false,sx=0,sl=0,pid=null;
+  trk.addEventListener('pointerdown',function(e){if(e.pointerType!=='mouse')return;dn=true;pid=e.pointerId;sx=e.clientX;sl=trk.scrollLeft;trk.classList.add('drag');});
+  trk.addEventListener('pointermove',function(e){if(!dn||e.pointerId!==pid)return;trk.scrollLeft=sl-(e.clientX-sx);});
+  function end(e){if(!dn)return;dn=false;trk.classList.remove('drag');}
+  trk.addEventListener('pointerup',end);trk.addEventListener('pointercancel',end);
+  upd();
+});
+</script>
 """
 
 INTROS = {
@@ -884,10 +1017,12 @@ def area_page(data, area, trans):
 <meta property="og:title" content="{escape(title)}">
 <meta property="og:description" content="{escape(desc)}">
 <meta property="og:url" content="{url}">
-<meta property="og:image" content="{PAGE_URL}img/ogp1.jpg">
+<meta property="og:image" content="{PAGE_URL}img/og-shimokitazawa.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" type="image/png" href="../img/favicon.png">
-<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="../img/favicon-v2-512.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-v2-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-v2-16.png">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon-v2.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;900&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
@@ -895,7 +1030,7 @@ def area_page(data, area, trans):
 </head>
 <body>
 <div class="wrap">
-<header class="top"><img class="logo" src="../img/logo-transparent.png" alt="Thrift Map">{LANGSW_HTML}</header>
+<header class="top"><img class="logo" src="../img/logo-1line-v2.png" alt="Thrift Map">{LANGSW_HTML}</header>
 {h1}
 <p class="intro">{INTROS[area['key']]}</p>
 {station}
@@ -936,10 +1071,12 @@ def root_page(data):
 <meta property="og:title" content="Thrift Map — Tokyo vintage &amp; second-hand clothing | Anime Sensei">
 <meta property="og:description" content="{escape(desc)}">
 <meta property="og:url" content="{PAGE_URL}">
-<meta property="og:image" content="{PAGE_URL}img/ogp1.jpg">
+<meta property="og:image" content="{PAGE_URL}img/og-shimokitazawa.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" type="image/png" href="img/favicon.png">
-<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="img/favicon-v2-512.png">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-v2-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="img/favicon-v2-16.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon-v2.png">
 </head>
 <body><p>Thrift Map — <a href="{DEFAULT_SLUG}/">enter the map</a></p></body>
 </html>

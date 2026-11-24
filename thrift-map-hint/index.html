@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thrift Map — 「Tap to change area」吹き出しの置き方 5案</title>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Thrift Map — Anime Sensei">
+<meta property="og:title" content="Thrift Map — 吹き出しの置き方 5案">
+<meta property="og:description" content="「TAP TO CHANGE AREA」の吹き出しをタイトルの空きに収める5案。実物サイズ（390px・SHIMOKITAZAWA）モック。">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/thrift-map-hint/">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/thrift-map-hint/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;800;900&family=Noto+Sans+JP:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#F1EFEA;color:#141414;font-family:'Archivo','Noto Sans JP',sans-serif}
+header{background:#141414;color:#fff;padding:34px 20px 28px}
+header .kick{font-size:11px;font-weight:800;letter-spacing:.22em;color:#C9A227;text-transform:uppercase}
+header h1{font-size:clamp(24px,6vw,40px);font-weight:900;line-height:1.15;margin-top:8px}
+header .rule{width:64px;height:5px;background:#C1272D;margin-top:14px}
+header p{margin-top:12px;font-size:13.5px;line-height:1.7;color:#D8D5CC;max-width:640px}
+main{max-width:680px;margin:0 auto;padding:8px 16px 48px}
+.opt{margin-top:34px}
+.opt .head{display:flex;align-items:baseline;gap:12px}
+.opt .num{font-size:34px;font-weight:900;color:#81660D;line-height:1}
+.opt h2{font-size:18px;font-weight:900}
+.opt .note{margin-top:6px;font-size:13px;line-height:1.7;color:#4A463E}
+.frame{margin-top:12px;border:3px solid #141414;box-shadow:6px 6px 0 rgba(18,18,18,.9);background:#F1EFEA;width:396px;max-width:100%}
+.frame iframe{display:block;width:390px;max-width:100%;height:150px;border:0}
+footer{max-width:680px;margin:0 auto;padding:0 16px 40px;font-size:12.5px;color:#6B675E;line-height:1.8}
+</style>
+</head>
+<body>
+<header>
+<div class="kick">Thrift Map — Design Board</div>
+<h1>「Tap to change area」吹き出しの置き方 5案</h1>
+<div class="rule"></div>
+<p>今の吹き出しはエリア名の帯の下にぶら下がって本文にはみ出しています。タイトル周りの空きに収める置き方を5案作りました。全て実物サイズ（幅390px）・最長のエリア名 SHIMOKITAZAWA で確認しています。番号で選んでください。</p>
+</header>
+<main>
+<section class="opt">
+<div class="head"><div class="num">1</div><h2>帯の右に横置き</h2></div>
+<p class="note">eatmap の右置きに一番近い形。帯と同じ高さで右隣に小さな吹き出しを置き、しっぽで帯を指す。タイトルの高さは今と変わらない。</p>
+<div class="frame"><iframe src="mock1.html" title="案1 帯の右に横置き"></iframe></div>
+</section>
+<section class="opt">
+<div class="head"><div class="num">2</div><h2>帯の右端に重ねる</h2></div>
+<p class="note">吹き出しを帯の右端にまたがせてはめ込む。帯と吹き出しが一体に見え、はみ出しは右方向だけ。文字は1行に収まる大きさ。</p>
+<div class="frame"><iframe src="mock2.html" title="案2 帯の右端に重ねる"></iframe></div>
+</section>
+<section class="opt">
+<div class="head"><div class="num">3</div><h2>タイトルの右上に載せる</h2></div>
+<p class="note">タイトルの上の余白を使って、右上の角に吹き出しを載せる。しっぽは下向きでエリア帯の方向を指す。帯の周りはすっきりする。</p>
+<div class="frame"><iframe src="mock3.html" title="案3 タイトルの右上に載せる"></iframe></div>
+</section>
+<section class="opt">
+<div class="head"><div class="num">4</div><h2>帯にタグを内蔵（吹き出しなし）</h2></div>
+<p class="note">吹き出し自体をやめ、エリア名の帯の中に「TAP TO CHANGE」の小タグを入れる。はみ出しゼロで一番崩れない。帯が少し長くなる。</p>
+<div class="frame"><iframe src="mock4.html" title="案4 帯にタグを内蔵"></iframe></div>
+</section>
+<section class="opt">
+<div class="head"><div class="num">5</div><h2>帯の上の空きに右寄せ</h2></div>
+<p class="note">タイトル行と帯の間に少し余白を作り、そこへ右寄せで吹き出しを収める。しっぽは下向きで帯を指す。タイトル全体が少し縦に伸びる。</p>
+<div class="frame"><iframe src="mock5.html" title="案5 帯の上の空きに右寄せ"></iframe></div>
+</section>
+</main>
+<footer>本実装は番号の選択後に行います。全エリア共通で使うため、長いエリア名でも収まることを SHIMOKITAZAWA で確認済みです。</footer>
+</body>
+</html>

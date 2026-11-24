@@ -75,7 +75,8 @@
      "note": "Every item in the store is one flat price — ¥900 plus tax. Two floors of tees, denim and casual wear; the cheapest way to fill a suitcase in Shimokitazawa.",
      "src": null,
      "txt": "Mon–Fri 12:00 PM – 8:00 PM · Sat & Sun from 11:00 AM",
-     "cat": "recycle"
+     "cat": "recycle",
+     "adr": "2-14-16 Kitazawa, Setagaya-ku, Tokyo"
     },
     {
      "addr": "東京都世田谷区北沢3-26-4",
@@ -107,7 +108,8 @@
      "note": "A legend inside a converted public bathhouse — look for the old tiled walls. Everything is priced under ¥10,000, most pieces ¥2,000–3,000, and stock turns over daily. Half price on the first Sunday of the month.",
      "src": null,
      "txt": "12:00 PM – 8:00 PM",
-     "cat": "recycle"
+     "cat": "recycle",
+     "adr": "3-26-4 Kitazawa, Setagaya-ku, Tokyo"
     },
     {
      "addr": "東京都世田谷区北沢2-30-13",
@@ -136,7 +138,8 @@
      "note": "The big national resale chain, Shimokitazawa style: designer and brand pieces on one floor, street and casual on the other. Tax-free, and one of the easiest first stops for thrift beginners.",
      "src": "https://www.2ndstreet.jp/shop/details?shopsId=31139",
      "txt": "11:00 AM – 9:00 PM",
-     "cat": "brand"
+     "cat": "brand",
+     "adr": "2-30-13 Kitazawa, Setagaya-ku, Tokyo"
     },
     {
      "addr": "東京都世田谷区代沢5-32-5",
@@ -165,7 +168,8 @@
      "note": "The biggest branch of the Harajuku Chicago family — a huge floor of American casual and workwear, plus one of Tokyo's best kimono and yukata corners for souvenirs.",
      "src": null,
      "txt": "11:00 AM – 8:00 PM",
-     "cat": "vintage"
+     "cat": "vintage",
+     "adr": "5-32-5 Daizawa, Setagaya-ku, Tokyo"
     },
     {
      "addr": "東京都世田谷区北沢2-32-8",
@@ -194,7 +198,8 @@
      "note": "Treasure Factory's fashion arm, 2 minutes from the East Exit: vintage Levi's and military next to Hermès and Margiela. Tax-free, with a second Shimokitazawa branch 3 minutes south.",
      "src": "https://www.tf-style.com/shop/445/",
      "txt": "11:00 AM – 9:00 PM",
-     "cat": "brand"
+     "cat": "brand",
+     "adr": "2-32-8 Kitazawa, Setagaya-ku, Tokyo"
     },
     {
      "addr": "東京都世田谷区北沢2-13-11",
@@ -226,7 +231,8 @@
      "note": "Around 15,000 items on one floor, restocked daily and priced gently. Famous for its wall of patterned shirts — the easiest place in the area to dig for hours.",
      "src": null,
      "txt": "11:00 AM – 8:00 PM",
-     "cat": "recycle"
+     "cat": "recycle",
+     "adr": "2-13-11 Kitazawa, Setagaya-ku, Tokyo"
     },
     {
      "addr": "東京都世田谷区北沢2-25-12",
@@ -264,7 +270,8 @@
      "note": "Hand-picked American vintage from the 1940s–80s, bought in the US and beautifully kept. The pink neon sign is a Shimokitazawa landmark; sister stores nearby cover other eras.",
      "src": null,
      "txt": "Mon–Fri 12:00 PM – 9:00 PM · Sat & Sun from 11:00 AM",
-     "cat": "vintage"
+     "cat": "vintage",
+     "adr": "2-25-12 Kitazawa, Setagaya-ku, Tokyo"
     },
     {
      "addr": "東京都世田谷区北沢2-30-14",
@@ -296,7 +303,8 @@
      "note": "The original Desert Snow: US workwear and Americana — Carhartt, Dickies, military and denim — packed onto the 2nd floor. Several sister branches dot the neighborhood.",
      "src": null,
      "txt": "12:00 PM – 8:00 PM",
-     "cat": "vintage"
+     "cat": "vintage",
+     "adr": "2-30-14 Kitazawa, Setagaya-ku, Tokyo"
     }
    ],
    "station": {
@@ -359,7 +367,8 @@
      "note": "The most-reviewed thrift shop in Koenji: a big, bright brand-resale floor on the PAL arcade, strong on designer labels, bags and watches. Tax-free.",
      "src": null,
      "txt": "11:00 AM – 9:00 PM",
-     "cat": "brand"
+     "cat": "brand",
+     "adr": "4-5-5 Koenji-minami, Suginami-ku, Tokyo"
     },
     {
      "addr": "東京都杉並区高円寺南4-4-15",
@@ -388,7 +397,8 @@
      "note": "TreFacStyle's vintage-only Koenji store: older denim, military and one-off pieces rather than current-season brands.",
      "src": null,
      "txt": "11:00 AM – 8:00 PM",
-     "cat": "vintage"
+     "cat": "vintage",
+     "adr": "4-4-15 Koenji-minami, Suginami-ku, Tokyo"
     },
     {
      "addr": "東京都杉並区高円寺南4-27-7",
@@ -420,7 +430,8 @@
      "note": "A tiny, obsessively curated men's shop: vintage brand clothing, Hermès and Tiffany jewelry, and bags. The 5.0-star rating is earned — stock is small but serious.",
      "src": null,
      "txt": "1:00 PM – 7:00 PM",
-     "cat": "vintage"
+     "cat": "vintage",
+     "adr": "4-27-7 Koenji-minami, Suginami-ku, Tokyo"
     },
     {
      "addr": "東京都杉並区高円寺南3-37-1",
@@ -452,7 +463,8 @@
      "note": "The original Trip on Look Shotengai: ladies' vintage with a deep shelf of brand bags and accessories, all carefully graded.",
      "src": null,
      "txt": "1:00 PM – 7:00 PM",
-     "cat": "brand"
+     "cat": "brand",
+     "adr": "3-37-1 Koenji-minami, Suginami-ku, Tokyo"
     },
     {
      "addr": "東京都杉並区高円寺南4-26-1",
@@ -481,7 +493,8 @@
      "note": "The first TreFacStyle in Koenji, 2 minutes from the south exit and open from 10 AM — the earliest start on this street. Everyday brands at recycle-shop prices.",
      "src": null,
      "txt": "10:00 AM – 9:00 PM",
-     "cat": "brand"
+     "cat": "brand",
+     "adr": "4-26-1 Koenji-minami, Suginami-ku, Tokyo"
     },
     {
      "addr": "東京都杉並区高円寺南3-57-4",
@@ -510,7 +523,8 @@
      "note": "Koenji's icon. Serious American vintage — Levi's, Champion, military — bought piece by piece in the US. Six SAFARI shops in Koenji each split by genre; this is the flagship.",
      "src": null,
      "txt": "1:00 PM – 8:00 PM",
-     "cat": "vintage"
+     "cat": "vintage",
+     "adr": "3-57-4 Koenji-minami, Suginami-ku, Tokyo"
     },
     {
      "addr": "東京都杉並区高円寺南4-25-3",
@@ -545,7 +559,8 @@
      "note": "Three floors of American vintage from the team behind Grapefruit Moon — denim, sweatshirts and workwear in a big, easy-to-browse space on the main street.",
      "src": null,
      "txt": "Mon–Thu 11:00 AM – 8:00 PM · Fri–Sun until 9:00 PM",
-     "cat": "vintage"
+     "cat": "vintage",
+     "adr": "4-25-3 Koenji-minami, Suginami-ku, Tokyo"
     },
     {
      "addr": "東京都杉並区高円寺南4-6-1",
@@ -579,7 +594,8 @@
      "note": "A Koenji institution on the PAL arcade: honest regular clothes mixed with vintage at local prices — where the neighborhood actually shops. Sister stores sit nearby.",
      "src": null,
      "txt": "From 12:30 PM · Mon–Fri until 7:30 PM, Sat until 8:00 PM",
-     "cat": "vintage"
+     "cat": "vintage",
+     "adr": "4-6-1 Koenji-minami, Suginami-ku, Tokyo"
     }
    ],
    "station": {
@@ -670,7 +686,8 @@
      "closed": null,
      "gr": "Google ★4.5 · 415 reviews",
      "note": "Huge fashion reuse store southeast of the station, mixing luxury brands, designer labels and everyday casual wear on one bright floor. Clean, well organised and easy to dig through, with tax-free shopping.",
-     "src": "https://www.tf-style.com/shop/401/"
+     "src": "https://www.tf-style.com/shop/401/",
+     "adr": "2-16-3 Kichijoji-minamicho, Musashino, Tokyo"
     },
     {
      "id": "modeoffkichijoji",
@@ -704,7 +721,8 @@
      "gr": "Google ★3.6 · 156 reviews",
      "note": "Hard Off's fashion offshoot at the far end of the Sunroad arcade, renewed in 2024. Clothing, bags and shoes run from a ¥550 bargain corner to a strong brand section.",
      "src": "https://www.hardoff.co.jp/shop/detail/?p=104003",
-     "pk": "Outside"
+     "pk": "Outside",
+     "adr": "1-4-26 Kichijoji-higashicho, Musashino, Tokyo"
     },
     {
      "id": "secondkichijoji",
@@ -738,7 +756,8 @@
      "gr": "Google ★3.1 · 153 reviews",
      "note": "Used-select branch of the national 2nd STREET chain inside the Sunroad shopping arcade. Buyer-picked brand clothing, bags and accessories fill a tall, narrow store that stays open until 9 PM.",
      "src": "https://www.2ndstreet.jp/shop/details?shopsId=31065",
-     "pk": "Inside"
+     "pk": "Inside",
+     "adr": "1-12-1 Kichijoji-honcho, Musashino, Tokyo"
     },
     {
      "id": "ragtagkichijoji",
@@ -772,7 +791,8 @@
      "gr": "Google ★3.4 · 76 reviews",
      "note": "Designer resale specialist two minutes from the park exit, with racks sorted by brand from Comme des Garçons to Margiela. A bright, boutique-like floor for men's and women's pieces.",
      "src": "https://www.ragtag.jp/real-store/0000000014",
-     "pk": "Outside"
+     "pk": "Outside",
+     "adr": "1-8-6 Kichijoji-minamicho, Musashino, Tokyo (Casa Calm Kichijoji 1F)"
     },
     {
      "id": "chicagokichijoji",
@@ -806,7 +826,8 @@
      "gr": "Google ★3.8 · 66 reviews",
      "note": "Basement branch of the long-running Harajuku Chicago chain, tucked behind the Tokyu department store. American and European vintage plus kimono and yukata, all at honest prices.",
      "src": "https://www.chicago.co.jp/company.html",
-     "pk": "Inside"
+     "pk": "Inside",
+     "adr": "2-13-6 Kichijoji-honcho, Musashino, Tokyo (Q&K Bldg. B1F)"
     },
     {
      "id": "kindalkichijoji",
@@ -839,7 +860,8 @@
      "closed": "Wednesdays",
      "gr": "Google ★4.5 · 62 reviews",
      "note": "Hidden second-floor brand resale shop above a convenience store near the Tokyu department store. Especially strong on Supreme and streetwear, alongside designer, luxury and outdoor labels.",
-     "src": "https://www.kind.co.jp/kichijyoji/"
+     "src": "https://www.kind.co.jp/kichijyoji/",
+     "adr": "2-4-2 Kichijoji-honcho, Musashino, Tokyo (Akatsuki Mansion 205)"
     },
     {
      "id": "amberlion",
@@ -873,7 +895,8 @@
      "gr": "Google ★4.0 · 53 reviews",
      "note": "Long-running Americana specialist on Nanaibashi-dori, open since 2007 under a yellow sign. US-bought basics, denim and T-shirts chosen for grown-up everyday wear, plus denim repair.",
      "src": "http://www.amberlion.jp/",
-     "pk": "Outside"
+     "pk": "Outside",
+     "adr": "1-15-5 Kichijoji-minamicho, Musashino, Tokyo"
     },
     {
      "id": "orfeo",
@@ -906,7 +929,8 @@
      "closed": null,
      "gr": "Google ★4.3 · 49 reviews",
      "note": "Second-floor vintage shop near the park exit stocking European and American pieces from the 1900s to the 1990s. Strong on women's vintage, deadstock and easy-to-wear military and workwear.",
-     "src": "http://orfeokichijoji.com"
+     "src": "http://orfeokichijoji.com",
+     "adr": "1-8-11 Kichijoji-minamicho, Musashino, Tokyo (Yayoi Bldg. 2F)"
     }
    ]
   },
@@ -985,7 +1009,8 @@
      "pk": "Outside",
      "short": "TREFAC NAKANO",
      "src": "https://www.tf-style.com/shop/831/",
-     "txt": "11:00 AM – 8:00 PM"
+     "txt": "11:00 AM – 8:00 PM",
+     "adr": "2-14-22 Nakano, Nakano-ku, Tokyo"
     },
     {
      "addr": "東京都中野区中野5-52-15 中野ブロードウェイB1F プチパリB-3b",
@@ -1024,7 +1049,8 @@
      "short": "SPANK!",
      "src": "https://spankshop.thebase.in/about",
      "txt": "Mon–Tue 12:30–5:30 PM · Thu–Sun 12:30–7:00 PM",
-     "pk": "Outside"
+     "pk": "Outside",
+     "adr": "5-52-15 Nakano, Nakano-ku, Tokyo (Nakano Broadway B1F)"
     },
     {
      "addr": "東京都中野区中野5-52-15 中野ブロードウェイB1F",
@@ -1057,7 +1083,8 @@
      "short": "MIYOSHIYA",
      "src": null,
      "txt": "10:00 AM – 8:00 PM",
-     "pk": "Inside"
+     "pk": "Inside",
+     "adr": "5-52-15 Nakano, Nakano-ku, Tokyo (Nakano Broadway B1F)"
     },
     {
      "addr": "東京都中野区中野5-52-15 中野ブロードウェイ3F",
@@ -1089,7 +1116,8 @@
      "short": "EURO SURPLUS",
      "src": "https://www.euro-surplus.jp/",
      "txt": "12:00 PM – 7:00 PM",
-     "pk": "Inside"
+     "pk": "Inside",
+     "adr": "5-52-15 Nakano, Nakano-ku, Tokyo (Nakano Broadway 3F)"
     },
     {
      "addr": "東京都中野区中野5-51-3",
@@ -1123,7 +1151,8 @@
      "short": "ABC NAKANO",
      "src": "https://www.re-abc.com/shopdetail.cgi?id=7",
      "txt": "10:30 AM – 7:00 PM",
-     "pk": "Outside"
+     "pk": "Outside",
+     "adr": "5-51-3 Nakano, Nakano-ku, Tokyo"
     },
     {
      "addr": "東京都中野区中野5-52-15 中野ブロードウェイB1F プチパリ内",
@@ -1157,7 +1186,8 @@
      "short": "KAYA",
      "src": "https://kayaailes.thebase.in/about",
      "txt": "10:00 AM – 8:00 PM",
-     "pk": "Inside"
+     "pk": "Inside",
+     "adr": "5-52-15 Nakano, Nakano-ku, Tokyo (Nakano Broadway B1F)"
     },
     {
      "addr": "東京都中野区中野2-14-19-101",
@@ -1189,7 +1219,8 @@
      "short": "M.O.S",
      "src": null,
      "txt": "11:00 AM – 6:30 PM",
-     "pk": "Outside"
+     "pk": "Outside",
+     "adr": "2-14-19 Nakano, Nakano-ku, Tokyo"
     },
     {
      "addr": "東京都中野区中野5-29-4 高橋ハイツ1F",
@@ -1223,7 +1254,8 @@
      "pk": "Inside",
      "short": "LITTLE BIRD",
      "src": "https://www.littlebird.co.jp/",
-     "txt": "12:00 PM – 8:00 PM"
+     "txt": "12:00 PM – 8:00 PM",
+     "adr": "5-29-4 Nakano, Nakano-ku, Tokyo (Takahashi Heights 1F)"
     }
    ],
    "station": {
@@ -1286,7 +1318,8 @@
      "note": "Tokyo's most famous vintage denim shop, going since 1998. Museum-grade Levi's and American classics — prices match the quality, but even window-shopping here is an education.",
      "src": null,
      "txt": "1:00 PM – 7:00 PM",
-     "cat": "vintage"
+     "cat": "vintage",
+     "adr": "3-26-11 Jingumae, Shibuya-ku, Tokyo"
     },
     {
      "addr": "東京都渋谷区神宮前6-28-5",
@@ -1315,7 +1348,8 @@
      "note": "A basement the size of a warehouse: row after row of imported vintage, sorted by genre, with prices below the Harajuku average. Easy to lose an hour here.",
      "src": null,
      "txt": "11:00 AM – 8:00 PM",
-     "cat": "recycle"
+     "cat": "recycle",
+     "adr": "6-28-5 Jingumae, Shibuya-ku, Tokyo"
     },
     {
      "addr": "東京都渋谷区神宮前6-31-15",
@@ -1344,7 +1378,8 @@
      "note": "The classic Harajuku thrift stop on Meiji-dori: American casual at fair prices, and a famous kimono corner — vintage kimono and yukata make great souvenirs.",
      "src": null,
      "txt": "11:00 AM – 8:00 PM",
-     "cat": "vintage"
+     "cat": "vintage",
+     "adr": "6-31-15 Jingumae, Shibuya-ku, Tokyo"
     },
     {
      "addr": "東京都渋谷区神宮前4-31-10",
@@ -1373,7 +1408,8 @@
      "note": "30,000+ items in a basement by Laforet Harajuku: used and vintage mixed, priced for digging. One of the biggest single floors in Harajuku.",
      "src": null,
      "txt": "11:00 AM – 8:00 PM",
-     "cat": "recycle"
+     "cat": "recycle",
+     "adr": "4-31-10 Jingumae, Shibuya-ku, Tokyo"
     },
     {
      "addr": "東京都渋谷区神宮前4-29-3",
@@ -1402,7 +1438,8 @@
      "note": "Designer brand resale on Omotesando — Comme des Garçons, Margiela, Supreme and watches, authenticated and neatly graded. Above the Lawson, on the 3rd floor.",
      "src": "https://www.kind.co.jp/harajuku/",
      "txt": "11:00 AM – 8:00 PM",
-     "cat": "brand"
+     "cat": "brand",
+     "adr": "4-29-3 Jingumae, Shibuya-ku, Tokyo"
     }
    ],
    "station": {
@@ -1485,7 +1522,8 @@
      "note": "A small local shop loved for prices below the usual market rate. Akihabara's one true clothing-thrift stop — pair it with Ueno, one stop north.",
      "src": "https://furugipenny.theshop.jp/about",
      "txt": "12:00 PM – 8:00 PM",
-     "cat": "specialty"
+     "cat": "specialty",
+     "adr": "1-14-3 Taito, Taito-ku, Tokyo"
     }
    ],
    "station": {
@@ -1548,7 +1586,8 @@
      "note": "6,000+ items over two floors, 1 minute from the west exit — and open until 10 PM, the latest on this map. Brands and no-brand bargains side by side.",
      "src": "https://www.bazzstore.com/shop015/",
      "txt": "12:00 PM – 10:00 PM",
-     "cat": "brand"
+     "cat": "brand",
+     "adr": "1-28-7 Nishi-Ikebukuro, Toshima-ku, Tokyo"
     },
     {
      "addr": "東京都豊島区南池袋1-50-35",
@@ -1580,7 +1619,8 @@
      "note": "The chain's Ikebukuro outpost in the P'PARCO basement by the east exit — a quick, reliable brand-resale stop between trains.",
      "src": null,
      "txt": "11:00 AM – 9:00 PM",
-     "cat": "brand"
+     "cat": "brand",
+     "adr": "1-50-35 Minami-Ikebukuro, Toshima-ku, Tokyo"
     },
     {
      "addr": "東京都豊島区東池袋3-1-3",
@@ -1609,7 +1649,8 @@
      "note": "1960s–80s American and European vintage inside Sunshine City ALTA, famous for its hat wall. The most 'vintage' room in Ikebukuro.",
      "src": "https://grapefruitmoon.jp/shop/ikebukuro.php",
      "txt": "11:00 AM – 8:00 PM",
-     "cat": "vintage"
+     "cat": "vintage",
+     "adr": "3-1-3 Higashi-Ikebukuro, Toshima-ku, Tokyo"
     }
    ],
    "station": {
@@ -1685,7 +1726,8 @@
      "note": "A legend since 1956, and the most-reviewed shop on this whole map: real military surplus and leather jackets from armies around the world, on the Ameyoko main street.",
      "src": "https://www.nakatashoten.com/shop/ameyoko/",
      "txt": "Mon–Fri 11:00 AM – 7:30 PM · Sat & Sun from 10:00 AM",
-     "cat": "specialty"
+     "cat": "specialty",
+     "adr": "6-4-10 Ueno, Taito-ku, Tokyo"
     },
     {
      "addr": "東京都台東区上野4-2-3",
@@ -1720,7 +1762,8 @@
      "note": "Hard Off's fashion sister brand: a big bargain floor where brand pieces hide among the cheap racks. The digger's stop in Ameyoko.",
      "src": null,
      "txt": "11:00 AM – 9:00 PM · Sat & Sun from 10:00 AM",
-     "cat": "recycle"
+     "cat": "recycle",
+     "adr": "4-2-3 Ueno, Taito-ku, Tokyo"
     },
     {
      "addr": "東京都台東区上野4-8-1",
@@ -1749,7 +1792,8 @@
      "note": "One of Ameyoko's largest clothing floors — street brands, denim and vintage across a sprawling shop by the Ueno-Hirokoji crossing.",
      "src": null,
      "txt": "11:00 AM – 8:00 PM",
-     "cat": "recycle"
+     "cat": "recycle",
+     "adr": "4-8-1 Ueno, Taito-ku, Tokyo"
     },
     {
      "addr": "東京都台東区上野3-17-6",
@@ -1778,7 +1822,8 @@
      "note": "20,000+ items starting from ¥105. Not curated — a pure treasure hunt, and a Tokyo institution for it.",
      "src": null,
      "txt": "10:00 AM – 8:00 PM",
-     "cat": "recycle"
+     "cat": "recycle",
+     "adr": "3-17-6 Ueno, Taito-ku, Tokyo"
     }
    ],
    "station": {
