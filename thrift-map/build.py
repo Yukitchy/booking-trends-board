@@ -1017,7 +1017,7 @@ def area_page(data, area, trans):
 <meta property="og:title" content="{escape(title)}">
 <meta property="og:description" content="{escape(desc)}">
 <meta property="og:url" content="{url}">
-<meta property="og:image" content="{PAGE_URL}img/og-shimokitazawa.jpg">
+<meta property="og:image" content="{PAGE_URL}img/og-shimokitazawa-v2.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" sizes="512x512" href="../img/favicon-v2-512.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-v2-32.png">
@@ -1030,7 +1030,7 @@ def area_page(data, area, trans):
 </head>
 <body>
 <div class="wrap">
-<header class="top"><img class="logo" src="../img/logo-1line-v2.png" alt="Thrift Map">{LANGSW_HTML}</header>
+<header class="top"><img class="logo" src="../img/logo-1line-v3.png" alt="Thrift Map">{LANGSW_HTML}</header>
 {h1}
 <p class="intro">{INTROS[area['key']]}</p>
 {station}
@@ -1071,7 +1071,7 @@ def root_page(data):
 <meta property="og:title" content="Thrift Map — Tokyo vintage &amp; second-hand clothing | Anime Sensei">
 <meta property="og:description" content="{escape(desc)}">
 <meta property="og:url" content="{PAGE_URL}">
-<meta property="og:image" content="{PAGE_URL}img/og-shimokitazawa.jpg">
+<meta property="og:image" content="{PAGE_URL}img/og-shimokitazawa-v2.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" sizes="512x512" href="img/favicon-v2-512.png">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-v2-32.png">
