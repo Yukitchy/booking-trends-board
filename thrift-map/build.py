@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-# Thrift Map builder — eatmap-style multi-area guest page.
+# Thrift Map builder — eatmap-layout edition.
+# Same composition as eatmap (akiba-where-to-eat): 640px column, area header
+# with Open-now switch, hand-drawn sketch map with photo thumb pins, then
+# eatmap-style cards (big number, genre chip, photo, icon strip, buttons).
 # Reads data.json, geocodes addresses via GSI, emits index.html.
 import json, math, os, random, sys, urllib.parse, urllib.request
 from html import escape
@@ -7,6 +10,25 @@ from html import escape
 HERE = os.path.dirname(os.path.abspath(__file__))
 ACCENT = "#81660D"
 PAGE_URL = "https://yukitchy.github.io/booking-trends-board/thrift-map/"
+
+SHORT = {
+ "stickout":"STICK OUT","nyjoe":"NY JOE","secondshimo":"2nd STREET","chicagoshimo":"CHICAGO",
+ "trefacshimo":"TreFacStyle","kinjishimo":"KINJI","flamingo":"FLAMINGO","desertsnow":"DESERT SNOW",
+ "trefackoenji2":"TreFac No.2","trefacvintage":"TreFac Vintage","tripmens":"Trip Men's","tripkoenji":"Trip",
+ "trefackoenji":"TreFacStyle","safari":"SAFARI","bigtime":"BIG TIME","slat":"SLAT",
+ "berberjin":"BerBerJin","jam":"JAM","chicagoharajuku":"CHICAGO","kinjiharajuku":"KINJI","kindalharajuku":"Kindal",
+ "penny":"PENNY","bazzstore":"BAZZSTORE","secondparco":"2nd STREET","grapefruit":"GRAPEFRUIT MOON",
+ "nakata":"NAKATA","modeoff":"MODE OFF","magazines":"MAGAZINES","tanpopo":"TANPOPO"}
+
+PHOTO_KIND = {
+ "jam":"Outside","chicagoharajuku":"Outside","kinjiharajuku":"Outside","kindalharajuku":"Outside",
+ "bazzstore":"Outside","grapefruit":"Outside","nakata":"Outside","magazines":"Outside","tanpopo":"Outside",
+ "trefacvintage":"Outside","trefackoenji2":"Outside","tripmens":"Outside","tripkoenji":"Outside","trefackoenji":"Outside",
+ "chicagoshimo":"Outside","flamingo":"Outside","kinjishimo":"Outside","stickout":"Outside","trefacshimo":"Outside",
+ "penny":"Inside","modeoff":"Inside","safari":"Inside","slat":"Inside"}
+
+def has_photo(sid):
+    return os.path.exists(os.path.join(HERE, "img", "photos", sid + "-1.jpg"))
 
 def geocode(addr):
     u = "https://msearch.gsi.go.jp/address-search/AddressSearch?q=" + urllib.parse.quote(addr)
@@ -24,12 +46,6 @@ def haversine_m(a, b):
     dp = math.radians(b[0] - a[0]); dl = math.radians(b[1] - a[1])
     h = math.sin(dp / 2) ** 2 + math.cos(p1) * math.cos(p2) * math.sin(dl / 2) ** 2
     return 2 * R * math.asin(math.sqrt(h))
-
-def fmt12(hhmm):
-    h, m = map(int, hhmm.split(":"))
-    ap = "AM" if h < 12 else "PM"
-    h12 = h % 12 or 12
-    return f"{h12}:{m:02d} {ap}" if m else f"{h12} {ap}"
 
 class Proj:
     def __init__(self, pts, W=1000):
@@ -78,7 +94,6 @@ def map_background(proj, seedkey):
     ys = [0.0]
     while ys[-1] < H:
         ys.append(ys[-1] + rnd.uniform(58, 118))
-    # buildings inside blocks
     for i in range(len(xs) - 1):
         for j in range(len(ys) - 1):
             bx, by = xs[i], ys[j]
@@ -91,14 +106,12 @@ def map_background(proj, seedkey):
                 y = by + rnd.uniform(3, max(4, bh - h - 3))
                 fill = rnd.choice(["#D9D8D3", "#D5D4CF", "#CFCEC9", "#DBDAD5"])
                 out.append(f'<rect x="{x:.0f}" y="{y:.0f}" width="{w:.0f}" height="{h:.0f}" rx="2" fill="{fill}"/>')
-    # roads on top of block edges
     for x in xs[1:-1]:
         wdt = rnd.uniform(6, 12)
         out.append(f'<line x1="{x:.0f}" y1="0" x2="{x:.0f}" y2="{H}" stroke="#FFFFFF" stroke-width="{wdt:.0f}"/>')
     for y in ys[1:-1]:
         wdt = rnd.uniform(6, 12)
         out.append(f'<line x1="0" y1="{y:.0f}" x2="{W}" y2="{y:.0f}" stroke="#FFFFFF" stroke-width="{wdt:.0f}"/>')
-    # two diagonal avenues
     for _ in range(2):
         x1, y1 = rnd.uniform(0, W * 0.4), rnd.choice([0, H])
         x2, y2 = rnd.uniform(W * 0.6, W), (H if y1 == 0 else 0)
@@ -112,7 +125,6 @@ def rail_svg(proj, line):
     s.append(f'<polyline points="{pl}" fill="none" stroke="#141414" stroke-width="9" stroke-linejoin="round"/>')
     s.append(f'<polyline points="{pl}" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linejoin="round"/>')
     s.append(f'<polyline points="{pl}" fill="none" stroke="#141414" stroke-width="1.6" stroke-dasharray="7 6"/>')
-    # label on the segment whose midpoint is closest to the frame center
     best, bd = None, 1e18
     for i in range(len(pts) - 1):
         mx0 = (pts[i][0] + pts[i + 1][0]) / 2; my0 = (pts[i][1] + pts[i + 1][1]) / 2
@@ -141,6 +153,14 @@ def station_svg(proj, st):
             f'<text x="{x:.0f}" y="{y+24:.0f}" text-anchor="middle" font-size="10.5" font-weight="700" fill="#55524C" '
             f'style="paint-order:stroke" stroke="#E9E8E4" stroke-width="3.5">STATION</text></g>')
 
+TAG_SVG = ('<svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">'
+           '<path fill="#FFFFFF" d="M21.4 11.6l-9-9A2 2 0 0 0 11 2H4a2 2 0 0 0-2 2v7c0 .5.2 1 .6 1.4l9 9a2 2 0 0 0 2.8 0l7-7a2 2 0 0 0 0-2.8zM6.5 8A1.5 1.5 0 1 1 8 6.5 1.5 1.5 0 0 1 6.5 8z"/></svg>')
+CLOCK_SVG = ('<svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/>'
+             '<path d="M8 4.5V8l2.5 1.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>')
+WALK_SVG = ('<svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><circle cx="9.6" cy="2.4" r="1.7" fill="currentColor"/>'
+            '<path d="M6 7.9 8.8 5.8 11.6 7.7M8.8 5.8 7.8 9.6M7.8 9.6 10.6 12 10.2 15M7.8 9.6 5.8 12.4 3.6 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>')
+STAR_SVG = ('<svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M8 1.2l2.1 4.3 4.7.7-3.4 3.3 1 4.7L8 12l-4.4 2.2 1-4.7L1.2 6.2l4.7-.7z"/></svg>')
+
 def build_area(area):
     stations = area.get("stations") or [area["station"]]
     pts = [(s["lat"], s["lng"]) for s in stations]
@@ -153,7 +173,6 @@ def build_area(area):
         svg.append(rail_svg(proj, line))
     for st in stations:
         svg.append(station_svg(proj, st))
-    # compass + scale
     svg.append(f'<g transform="translate({proj.W-34} 36)"><circle r="15" fill="#FFFFFF" opacity="0.85"/><path d="M0 -10 L4.5 3 L0 0 L-4.5 3 Z" fill="#141414"/><text y="-19" text-anchor="middle" font-size="11" font-weight="800" fill="#141414">N</text></g>')
     sb = 200 * proj.s
     svg.append(f'<g transform="translate(18 {proj.H-20})"><rect x="0" y="-4" width="{sb:.0f}" height="4" fill="#141414"/><text x="0" y="-9" font-size="10.5" font-weight="700" fill="#141414">200 m</text></g>')
@@ -161,9 +180,15 @@ def build_area(area):
     pins = []
     for i, sh in enumerate(area["shops"], 1):
         px, py = proj.pct(sh["lat"], sh["lng"])
+        short = escape(SHORT.get(sh["id"], sh["en"]))
+        if has_photo(sh["id"]):
+            photo = f'<span class="thumb-photo" style="background-image:url(\'img/photos/{sh["id"]}-1.jpg\')"></span>'
+        else:
+            photo = f'<span class="thumb-photo nophoto">{TAG_SVG}</span>'
         pins.append(f'<button type="button" class="pin" data-area="{area["key"]}" data-n="{i}" data-id="{sh["id"]}" '
                     f'style="left:{px:.2f}%;top:{py:.2f}%" aria-label="{escape(sh["en"])}">'
-                    f'<span class="pinbox">{i}</span><span class="pintail"></span></button>')
+                    f'<span class="thumb-card"><span class="thumb-head"><b>{i}</b>{short}</span>{photo}'
+                    f'<span class="thumb-tail"></span></span></button>')
     maphtml = (f'<div class="mapwrap" data-area="{area["key"]}"><div class="pz"><div class="pz-inner">'
                + "".join(svg) + '<div class="pins">' + "".join(pins) + "</div></div></div>"
                '<div class="pz-btns"><button type="button" class="pzb in" aria-label="Zoom in">+</button>'
@@ -174,85 +199,119 @@ def build_area(area):
     for i, sh in enumerate(area["shops"], 1):
         q = urllib.parse.quote(sh["jp"] + " " + sh["addr"])
         gmap = f"https://www.google.com/maps/search/?api=1&query={q}"
-        meta = [f'<div class="mrow"><span class="mic">🚶</span><span>{sh["walk"]} min from {escape(sh["sta"])} Sta.</span></div>',
-                f'<div class="mrow"><span class="mic">🕐</span><span>{escape(sh["txt"])}</span><span class="openbadge" data-open="{sh["id"]}"></span></div>']
+        car = ""
+        if has_photo(sh["id"]):
+            kind = PHOTO_KIND.get(sh["id"], "Outside")
+            car = (f'<div class="car"><img class="ph" src="img/photos/{sh["id"]}-1.jpg" alt="{escape(sh["en"])}" loading="lazy" referrerpolicy="no-referrer">'
+                   f'<span class="st" data-st="{sh["id"]}"></span>'
+                   f'<span class="cn"><b>{kind}</b></span></div>')
+        strip = [f'<span class="hr">{CLOCK_SVG}<b class="today" data-today="{sh["id"]}">{escape(sh["txt"])}</b></span>',
+                 f'<span class="wk">{WALK_SVG}{sh["walk"]} min walk · {escape(sh["sta"])} Sta.</span>']
         if sh.get("gr"):
-            meta.append(f'<div class="mrow"><span class="mic">★</span><span>{escape(sh["gr"])}</span></div>')
+            strip.append(f'<span class="rt">{STAR_SVG}{escape(sh["gr"])}</span>')
+        hrs = escape(sh["txt"]) + "."
         if sh.get("closed"):
-            meta.append(f'<div class="mrow"><span class="mic">📅</span><span>{escape(sh["closed"])}</span></div>')
-        meta.append(f'<div class="mrow addr"><span class="mic">📍</span><span>{escape(sh["addr"])}</span></div>')
-        src = f'<a class="srclink" href="{escape(sh["src"])}" target="_blank" rel="noopener">Official site ↗</a>' if sh.get("src") else ""
+            hrs += f' Closed: {escape(sh["closed"])}.'
+        hrs += f' {escape(sh["addr"])}'
+        src = f'<a class="btn tg" href="{escape(sh["src"])}" target="_blank" rel="noopener">Official site <i>→</i></a>' if sh.get("src") else ""
         cards.append(
-            f'<article class="card" id="card-{sh["id"]}">'
-            f'<div class="cardtop"><button type="button" class="numbadge" data-goto="{area["key"]}" data-n="{i}" data-id="{sh["id"]}">{i}</button>'
-            f'<span class="genre">{escape(sh["genre"])}</span>'
-            f'<a class="gmapbtn" href="{gmap}" target="_blank" rel="noopener" aria-label="Open {escape(sh["en"])} in Google Maps">'
-            '<svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg></a></div>'
-            f'<h3>{escape(sh["en"])}</h3><div class="jp">{escape(sh["jp"])}</div>'
-            f'<p class="note">{escape(sh["note"])}</p>'
-            f'<div class="meta">{"".join(meta)}</div>{src}</article>')
+            f'<article class="card" id="card-{sh["id"]}" data-id="{sh["id"]}">'
+            f'<div class="hd"><button type="button" class="big" data-goto="{area["key"]}" data-n="{i}" data-id="{sh["id"]}" aria-label="Find {escape(sh["en"])} on the map">{i:02d}</button>'
+            f'<div class="hdtx"><span class="genre">{escape(sh["genre"])}</span><h3>{escape(sh["en"])}</h3>'
+            f'<div class="jp">{escape(sh["jp"])}</div></div></div>'
+            f'{car}'
+            f'<p class="tx">{escape(sh["note"])}</p>'
+            f'<p class="strip">{"".join(strip)}</p>'
+            f'<p class="hrs">{hrs}</p>'
+            f'<div class="bt"><a class="btn" href="{gmap}" target="_blank" rel="noopener">Google Maps <i>→</i></a>{src}</div></article>')
     return maphtml, "".join(cards), proj
 
 CSS = """
+:root{--bg:#F1EFEA;--ink:#121212;--ac:#81660D;--ac2:#D9B44A;--mu:#5D5A54}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:#F5F3EE;color:#1C1B17;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Hiragino Sans","Noto Sans JP",sans-serif;-webkit-font-smoothing:antialiased}
-.wrap{max-width:1080px;margin:0 auto;padding:0 14px 44px}
-header.hero{text-align:center;padding:30px 6px 4px}
-header.hero img.logo{width:min(430px,84vw);height:auto;display:block;margin:0 auto}
-.tagline{margin:10px 0 0;font-size:16px;font-weight:700;color:#3B382E}
-.subline{margin:5px 0 0;font-size:12.5px;color:#8A8578}
-.areanav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:18px 0 2px}
-.areanav a{display:inline-block;padding:7px 13px;border-radius:999px;background:#FFFFFF;border:1px solid #DDD6C2;color:#5C5322;font-size:12.5px;font-weight:700;text-decoration:none}
-.areanav a b{color:#81660D}
+body{margin:0;background:var(--bg);color:var(--ink);color-scheme:light;font:16px/1.5 Archivo,"Noto Sans JP",sans-serif;-webkit-font-smoothing:antialiased}
+.col{max-width:640px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3,.big{font-family:Archivo,"Noto Sans JP",sans-serif;font-stretch:62%;font-weight:900;letter-spacing:-.01em;text-transform:uppercase}
+.top{display:flex;justify-content:space-between;font-weight:800;font-size:13px;letter-spacing:.14em;padding:18px 0 8px;border-bottom:4px solid var(--ink)}
+.hero{padding:22px 0 2px;text-align:left}
+.hero img.logo{width:min(430px,86vw);height:auto;display:block}
+.tagline{margin:12px 0 0;font-size:17px;font-weight:800}
+.subline{margin:4px 0 0;font-size:13px;color:var(--mu);font-weight:700}
+.areanav{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 2px}
+.areanav a{display:inline-block;padding:7px 13px;background:#fff;border:2px solid var(--ink);color:var(--ink);font-size:12.5px;font-weight:800;text-decoration:none;text-transform:uppercase;letter-spacing:.05em}
+.areanav a b{color:var(--ac)}
 .howto{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0 4px}
-.howto div{background:#FFFFFF;border:1px solid #E7E1CF;border-radius:12px;padding:10px 12px;font-size:12.5px;line-height:1.5;color:#3B382E}
-.howto b{display:block;font-size:12px;letter-spacing:.06em;color:#81660D;margin-bottom:2px}
-section.area{margin-top:36px;scroll-margin-top:12px}
-.areahead{display:flex;align-items:baseline;gap:10px;border-bottom:3px solid #81660D;padding-bottom:6px}
-.areahead h2{margin:0;font-size:25px;letter-spacing:.01em}
-.areahead .ajp{color:#8A8578;font-size:14px;font-weight:700}
-.areahead .cnt{margin-left:auto;font-size:12px;color:#8A8578;font-weight:700}
-.access{background:#FFFFFF;border:1px solid #E7E1CF;border-radius:14px;padding:13px 15px;margin-top:13px;font-size:13.5px;line-height:1.6;color:#33322E}
-.access .lab{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.08em;color:#FFFFFF;background:#81660D;border-radius:5px;padding:2px 7px;margin-right:8px;vertical-align:1px}
+.howto div{background:#fff;border:2px solid var(--ink);padding:10px 12px;font-size:12.5px;line-height:1.55}
+.howto b{display:block;font-size:12px;letter-spacing:.08em;color:var(--ac);margin-bottom:2px}
+section.area{margin-top:14px;scroll-margin-top:10px}
+.maphd{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:30px 0 10px}
+.maphd h2.map{margin:0;font-size:34px;line-height:1}
+.maphd .ajp{font-size:14px;font-weight:800;color:var(--mu);margin-left:8px}
+.nowmini{display:inline-flex;align-items:center;gap:8px;font:800 13px/1 Archivo,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);padding-bottom:6px;white-space:nowrap}
+.sw{position:relative;width:44px;height:24px;flex:none;border:0;background:#c9c5bc;cursor:pointer;padding:0}
+.sw:after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;background:#fff;transition:left .15s}
+.sw[aria-checked=true]{background:var(--ac)}
+.sw[aria-checked=true]:after{left:23px}
+.nowlist{margin:0 0 10px;font-size:14px;font-weight:700;color:var(--ac)}
+.nowlist.off{display:none}
+section.filter .card.closed,section.filter .pin.closed{display:none}
+.access{background:#fff;border:2px solid var(--ink);padding:13px 15px;margin:0 0 14px;font-size:13.5px;line-height:1.6}
+.access .lab{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.08em;color:#fff;background:var(--ac);padding:2px 7px;margin-right:8px;vertical-align:1px}
 .access p{margin:0 0 8px}.access p:last-child{margin-bottom:0}
-.mapwrap{position:relative;margin-top:13px;border-radius:18px;overflow:hidden;border:1px solid #DDD9CF;background:#E9E8E4}
+.mapwrap{position:relative;border:4px solid var(--ink);background:#E9E8E4;overflow:hidden}
 .pz{overflow:hidden;touch-action:none;cursor:grab}
 .pz:active{cursor:grabbing}
 .pz-inner{position:relative;transform-origin:0 0;will-change:transform}
 svg.mapsvg{display:block;width:100%;height:auto}
 .pins{position:absolute;inset:0}
-.pin{position:absolute;transform:translate(-50%,-100%) scale(var(--pk,1));background:none;border:0;padding:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;z-index:3}
-.pinbox{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:9px;background:#81660D;color:#FFFFFF;font-size:15px;font-weight:800;box-shadow:0 2px 6px rgba(20,20,20,.35);border:2px solid #FFFFFF}
-.pintail{width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:8px solid #81660D;margin-top:-1px}
-.pin.hl .pinbox{background:#141414;animation:pinpulse .5s ease-in-out 3}
-@keyframes pinpulse{50%{transform:scale(1.25)}}
+.pin{position:absolute;transform:translate(-50%,-100%) scale(var(--pk,1));background:none;border:0;padding:0;cursor:pointer;z-index:3;font:inherit}
+.thumb-card{display:flex;flex-direction:column;width:64px;background:#fff;border:2px solid var(--ink);box-shadow:0 2px 6px rgba(18,18,18,.35);position:relative}
+.thumb-head{display:flex;align-items:center;gap:4px;background:var(--ac);color:#fff;font:800 9.5px/1 Archivo,sans-serif;letter-spacing:.02em;padding:4px 5px;white-space:nowrap;overflow:hidden}
+.thumb-head b{background:#fff;color:var(--ac);font-size:10px;padding:1px 4px;flex:none}
+.thumb-photo{display:block;height:40px;background-size:cover;background-position:center;background-color:#E9E8E4}
+.thumb-photo.nophoto{background:var(--ac2);display:flex;align-items:center;justify-content:center}
+.thumb-tail{position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:8px solid var(--ink)}
+.pin.hl .thumb-card{outline:3px solid var(--ink);animation:pinpulse .5s ease-in-out 3}
+@keyframes pinpulse{50%{transform:scale(1.18)}}
 .pz-btns{position:absolute;right:10px;bottom:10px;display:flex;flex-direction:column;gap:6px;z-index:5}
-.pzb{width:34px;height:34px;border-radius:50%;border:1px solid #DDD9CF;background:#FFFFFF;font-size:17px;font-weight:700;color:#33322E;box-shadow:0 1px 4px rgba(20,20,20,.18);cursor:pointer;line-height:1}
-.maphint{position:absolute;left:10px;bottom:10px;z-index:5;background:rgba(255,255,255,.88);border-radius:999px;padding:4px 10px;font-size:10.5px;font-weight:700;color:#55524C}
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:13px;margin-top:14px}
-.card{background:#FFFFFF;border:1px solid #E7E1CF;border-radius:14px;padding:13px 15px 14px;box-shadow:0 1px 4px rgba(20,20,20,.06)}
-.card.flash{animation:cardflash 1.6s ease}
-@keyframes cardflash{0%,60%{box-shadow:0 0 0 3px #81660D}100%{box-shadow:0 1px 4px rgba(20,20,20,.06)}}
-.cardtop{display:flex;align-items:center;gap:8px}
-.numbadge{width:26px;height:26px;flex:none;border:0;border-radius:7px;background:#81660D;color:#FFFFFF;font-size:14px;font-weight:800;cursor:pointer}
-.genre{margin-right:auto;font-size:10px;font-weight:800;letter-spacing:.07em;color:#81660D;border:1.4px solid #81660D;border-radius:999px;padding:3px 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.gmapbtn{width:31px;height:31px;flex:none;border-radius:50%;background:#141414;color:#FFFFFF;display:flex;align-items:center;justify-content:center;text-decoration:none}
-.card h3{margin:9px 0 0;font-size:16.5px;line-height:1.3}
-.card .jp{color:#8A8578;font-size:12px;margin-top:1px}
-.card .note{font-size:13.5px;line-height:1.6;color:#33322E;margin:8px 0 0}
-.meta{margin-top:9px;font-size:12.5px;color:#3B382E}
-.mrow{display:flex;gap:7px;margin-top:4px;align-items:baseline}
-.mic{width:16px;flex:none;text-align:center}
-.mrow.addr{color:#8A8578;font-size:11.5px}
-.openbadge{margin-left:2px;font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:999px;white-space:nowrap}
-.openbadge.on{background:#E3F1E3;color:#1E7D32}
-.openbadge.off{background:#EFEDE8;color:#8A8578}
-.openbadge.soon{background:#FDF3D7;color:#8A6D00}
-.srclink{display:inline-block;margin-top:9px;font-size:12.5px;font-weight:700;color:#81660D;text-decoration:none}
-footer{margin-top:44px;text-align:center;color:#8A8578;font-size:12px;line-height:1.8}
-footer .brand{color:#5C5322;font-weight:800}
-@media (max-width:560px){.howto{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.areahead h2{font-size:22px}}
+.pzb{width:34px;height:34px;border-radius:50%;border:2px solid var(--ink);background:#fff;font-size:17px;font-weight:700;color:var(--ink);cursor:pointer;line-height:1}
+.maphint{position:absolute;left:10px;bottom:10px;z-index:5;background:rgba(255,255,255,.9);padding:4px 10px;font-size:10.5px;font-weight:700;color:#55524C}
+.card{padding:22px 0 24px;border-bottom:4px solid var(--ink);scroll-margin-top:8px}
+.card.hit{outline:4px solid var(--ac);outline-offset:6px}
+.hd{display:flex;gap:12px;align-items:flex-start;margin-bottom:10px}
+.big{font-size:64px;line-height:.85;color:var(--ac);background:none;border:0;padding:0;cursor:pointer;font-family:Archivo,"Noto Sans JP",sans-serif;font-stretch:62%;font-weight:900;letter-spacing:-.01em}
+.hdtx{min-width:0}
+.genre{display:inline-block;background:var(--ac);color:#fff;font:900 12.5px/1 Archivo,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:6px 9px}
+.hd h3{margin:7px 0 0;font-size:22px;line-height:1.05}
+.hd .jp{color:var(--mu);font-size:12.5px;font-weight:700;margin-top:3px}
+.car{position:relative;aspect-ratio:16/10;background:#222;margin:0 0 4px}
+.ph{display:block;width:100%;height:100%;object-fit:cover}
+.st{position:absolute;right:8px;top:8px;z-index:2;font:800 11px/1 Archivo,sans-serif;letter-spacing:.08em;padding:5px 7px;background:#fff;color:var(--ink)}
+.st.o{background:#1F8A4C;color:#fff}
+.st.c{background:#c9c5bc;color:#3a3833}
+.cn{position:absolute;left:0;bottom:0;background:rgba(18,18,18,.78);color:#fff;font:700 12px/1 Archivo,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:7px 10px}
+.tx{margin:10px 0;font-size:16px;line-height:1.55}
+.strip{display:flex;flex-wrap:wrap;gap:4px 0;margin:0;background:var(--ink);color:#fff;padding:9px 10px;font-size:14px;font-weight:700;line-height:1.3}
+.strip span{display:inline-flex;align-items:center;gap:6px}
+.strip span+span:before{content:"";display:inline-block;width:4px;height:4px;background:var(--ac2);margin:0 8px;flex:none}
+.strip svg{flex:none;color:var(--ac2)}
+.strip .today{font-weight:800}
+.hrs{margin:6px 0 0;font-size:13px;color:var(--mu);line-height:1.55}
+.bt{display:flex;gap:6px;margin-top:10px}
+.bt>*{flex:1 1 0;min-width:0}
+.btn{display:flex;align-items:center;justify-content:center;gap:6px;min-height:46px;padding:0 8px;background:var(--ink);color:#fff;text-decoration:none;font:800 13px Archivo,sans-serif;letter-spacing:.04em;text-transform:uppercase;border:0;cursor:pointer;white-space:nowrap}
+.btn i{font-style:normal;color:var(--ac2)}
+.btn.tg{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 3px var(--ink)}
+.btn.tg i{color:var(--ac)}
+.know{background:var(--ink);color:#fff;margin-top:34px;padding:28px 0 32px}
+.know h2{margin:0 0 10px;font-size:30px;color:#fff}
+.know ul{margin:0;padding-left:20px}
+.know li{margin:8px 0;font-size:15px;line-height:1.6}
+footer{padding:20px 0 40px;color:var(--mu);font-size:12.5px;line-height:1.8}
+footer .brand{color:var(--ac);font-weight:800}
+@media (max-width:560px){.howto{grid-template-columns:1fr}.maphd h2.map{font-size:27px}.big{font-size:52px}.hd h3{font-size:19px}}
+@media (min-width:700px){.col{max-width:760px}}
 """
 
 JS = """
@@ -264,19 +323,38 @@ function statusFor(h){
   const now=new Date();const day=(now.getDay()+6)%7;const cur=now.getHours()*60+now.getMinutes();
   const ent=h.find(e=>e.d.includes(day));
   if(ent){const o=+ent.o.split(':')[0]*60+(+ent.o.split(':')[1]);let c=+ent.c.split(':')[0]*60+(+ent.c.split(':')[1]);if(c<=o)c+=1440;
-    if(cur>=o&&cur<c){return c-cur<=45?['soon','Closes '+t12(c%1440)]:['on','Open now · until '+t12(c%1440)]}
-    if(cur<o)return ['off','Opens '+t12(o)+' today'];}
+    if(cur>=o&&cur<c)return{open:true,today:'Today '+t12(o)+' \\u2013 '+t12(c%1440),label:c-cur<=45?'Closes '+t12(c%1440):'Open now'};
+    if(cur<o)return{open:false,today:'Today '+t12(o)+' \\u2013 '+t12(c%1440),label:'Opens '+t12(o)};}
   for(let k=1;k<=7;k++){const d2=(day+k)%7;const e2=h.find(e=>e.d.includes(d2));
     if(e2){const o2=+e2.o.split(':')[0]*60+(+e2.o.split(':')[1]);
-      return ['off',(k===1?'Opens '+t12(o2)+' tomorrow':'Opens '+t12(o2))];}}
+      return{open:false,today:null,label:k===1?'Opens '+t12(o2)+' tomorrow':'Closed today'};}}
   return null;}
-document.querySelectorAll('[data-open]').forEach(el=>{
-  const rec=HOURS[el.dataset.open];const st=rec&&statusFor(rec.h);
-  if(!st){el.remove();return}
-  el.className='openbadge '+st[0];el.textContent=st[1];});
-function focusPin(wrap,area,n){
+document.querySelectorAll('section.area').forEach(sec=>{
+  let openN=0,totalN=0;
+  sec.querySelectorAll('.card').forEach(card=>{
+    const id=card.dataset.id;const rec=HOURS[id];const st=rec&&statusFor(rec.h);
+    totalN++;
+    const badge=card.querySelector('[data-st]');
+    const todayEl=card.querySelector('[data-today]');
+    if(st){
+      if(st.today&&todayEl)todayEl.textContent=st.today;
+      if(badge){badge.textContent=st.open?'OPEN NOW':'CLOSED';badge.classList.add(st.open?'o':'c');}
+      if(st.open)openN++;else{
+        card.classList.add('closed');
+        const pin=sec.querySelector('.pin[data-id="'+id+'"]');if(pin)pin.classList.add('closed');}
+    } else { if(badge)badge.remove(); openN++; }
+  });
+  const nl=sec.querySelector('.nowlist');
+  if(nl)nl.textContent='Open now: '+openN+' of '+totalN+' shops in this area';
+  const sw=sec.querySelector('.sw');
+  if(sw)sw.addEventListener('click',()=>{
+    const on=sw.getAttribute('aria-checked')!=='true';
+    sw.setAttribute('aria-checked',on);sec.classList.toggle('filter',on);
+    if(nl)nl.classList.toggle('off',false);});
+});
+function focusPin(wrap,n){
   const pin=wrap.querySelector('.pin[data-n="'+n+'"]');if(!pin)return;
-  const pz=wrap.querySelector('.pz'),inner=wrap.querySelector('.pz-inner');
+  const pz=wrap.querySelector('.pz');
   const st=wrap._pz;const k=2.1;
   const px=parseFloat(pin.style.left)/100*pz.clientWidth, py=parseFloat(pin.style.top)/100*pz.clientHeight;
   st.k=k;st.x=pz.clientWidth/2-px*k;st.y=pz.clientHeight/2-py*k;clampPZ(wrap);applyPZ(wrap,true);
@@ -289,7 +367,7 @@ function clampPZ(wrap){const pz=wrap.querySelector('.pz');const st=wrap._pz;
 function applyPZ(wrap,anim){const inner=wrap.querySelector('.pz-inner');const st=wrap._pz;
   inner.style.transition=anim?'transform .38s ease':'';
   inner.style.transform='translate('+st.x+'px,'+st.y+'px) scale('+st.k+')';
-  inner.style.setProperty('--pk',Math.max(.5,1/st.k));}
+  inner.style.setProperty('--pk',Math.max(.55,1/Math.sqrt(st.k)));}
 document.querySelectorAll('.mapwrap').forEach(wrap=>{
   wrap._pz={k:1,x:0,y:0};
   const pz=wrap.querySelector('.pz');
@@ -326,12 +404,13 @@ document.querySelectorAll('.pin').forEach(pin=>{
   pin.addEventListener('click',()=>{
     const card=document.getElementById('card-'+pin.dataset.id);
     if(card){card.scrollIntoView({behavior:'smooth',block:'center'});
-      card.classList.remove('flash');void card.offsetWidth;card.classList.add('flash');}});});
-document.querySelectorAll('.numbadge').forEach(b=>{
+      card.classList.remove('hit');void card.offsetWidth;card.classList.add('hit');
+      setTimeout(()=>card.classList.remove('hit'),1800);}});});
+document.querySelectorAll('.big').forEach(b=>{
   b.addEventListener('click',()=>{
     const wrap=document.querySelector('.mapwrap[data-area="'+b.dataset.goto+'"]');
     if(wrap){wrap.scrollIntoView({behavior:'smooth',block:'center'});
-      setTimeout(()=>focusPin(wrap,b.dataset.goto,b.dataset.n),450);}});});
+      setTimeout(()=>focusPin(wrap,b.dataset.n),450);}});});
 """
 
 def main():
@@ -368,8 +447,9 @@ def main():
         nav.append(f'<a href="#area-{area["key"]}">{escape(area["name"])} <b>{len(area["shops"])}</b></a>')
         sections.append(
             f'<section class="area" id="area-{area["key"]}">'
-            f'<div class="areahead"><h2>{escape(area["name"])}</h2><span class="ajp">{escape(area["jp"])}</span>'
-            f'<span class="cnt">{len(area["shops"])} shops</span></div>'
+            f'<div class="maphd"><h2 class="map">{escape(area["name"])}<span class="ajp">{escape(area["jp"])}</span></h2>'
+            f'<span class="nowmini">Open now <button type="button" class="sw" role="switch" aria-checked="false" aria-label="Show only shops open now in {escape(area["name"])}"></button></span></div>'
+            f'<p class="nowlist off"></p>'
             f'<div class="access"><p><span class="lab">GETTING THERE</span>{escape(area["access"])}</p>'
             f'<p><span class="lab">THE AREA</span>{escape(area["walk"])}</p>'
             f'<p><span class="lab">STATION</span>{escape(area["station"]["name"])} — {escape(area["lines"])}</p></div>'
@@ -385,6 +465,9 @@ def main():
 <meta name="description" content="A hand-drawn map of Tokyo's best vintage and thrift shops: Shimokitazawa, Koenji, Harajuku, Akihabara, Ikebukuro and Ueno — {total} shops, checked November 2026.">
 <link rel="icon" type="image/png" href="img/favicon.png">
 <link rel="apple-touch-icon" href="img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&family=Noto+Sans+JP:wght@500;700;900&display=swap" rel="stylesheet">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Anime Sensei">
 <meta property="og:title" content="Thrift Map — Tokyo Vintage &amp; Thrift Shops">
@@ -395,19 +478,31 @@ def main():
 <style>{CSS}</style>
 </head>
 <body>
-<div class="wrap">
+<div class="col">
+<div class="top"><span>ANIME SENSEI</span><span>TOKYO GUIDE</span></div>
 <header class="hero">
 <img class="logo" src="img/logo.png" alt="THRIFT MAP">
 <p class="tagline">{escape(data["tagline"])}</p>
 <p class="subline">{total} shops · 6 areas · {counts}</p>
 <nav class="areanav">{"".join(nav)}</nav>
 <div class="howto">
-<div><b>HOW TO USE</b>Tap a numbered pin on a map to jump to that shop's card. Tap the number on a card to find it back on the map.</div>
-<div><b>OPEN NOW</b>The badge on each card is live — it reads the shop's hours and tells you if it is open right now.</div>
-<div><b>GOOD TO KNOW</b>Many Tokyo thrift shops open at 11 AM or noon, and small ones close early. Hours were checked on Nov 24, 2026 — a quick look at the Google listing before a long trip is wise.</div>
+<div><b>HOW TO USE</b>Tap a photo pin on a map to jump to that shop's card. Tap the big number on a card to find it back on the map.</div>
+<div><b>OPEN NOW</b>Flip the switch next to an area name to hide shops that are closed right now. The badge on each photo is live, too.</div>
+<div><b>PHOTOS</b>Shop photos come from the shops' own sites and listings, checked on Nov 24, 2026.</div>
 </div>
 </header>
 {"".join(sections)}
+</div>
+<div class="know"><div class="col">
+<h2>Good to know</h2>
+<ul>
+<li>Many Tokyo thrift shops open at 11 AM or noon, and small ones close early — check the live badge before a long trip.</li>
+<li>Shimokitazawa and Koenji are dense enough to cover on foot in one afternoon each. Start with the shops marked OPEN NOW.</li>
+<li>Most shops take cards, but small vintage stores may be cash only. Tax-free shopping is rare in thrift stores.</li>
+<li>Hours were checked on Nov 24, 2026 — a quick look at the Google listing before you go is wise.</li>
+</ul>
+</div></div>
+<div class="col">
 <footer>
 <p><span class="brand">THRIFT MAP</span> — a guest guide by Anime Sensei<br>
 {escape(data["checked"])}<br>
@@ -420,7 +515,10 @@ Map sketches are schematic. Coordinates: GSI address search. Always confirm the 
     out = os.path.join(HERE, "index.html")
     with open(out, "w", encoding="utf-8") as f:
         f.write(html)
-    print(f"built {out}: {total} shops, {len(data['areas'])} areas")
+    nophoto = [sh["id"] for area in data["areas"] for sh in area["shops"] if not has_photo(sh["id"])]
+    print(f"built {out}: {total} shops, {len(data['areas'])} areas, photos {total - len(nophoto)}/{total}")
+    if nophoto:
+        print("no photo (tag-icon pin, no photo block):", ", ".join(nophoto))
     if fallbacks:
         print("fallback coords used:", ", ".join(fallbacks))
 
