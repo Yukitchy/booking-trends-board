@@ -1,0 +1,49 @@
+/* Shared variant styles — design tokens copied from akiba-tour-welcome */
+:root{--bg:#F1EFEA;--ink:#121212;--red:#D9342B;--mu:#5D5A54}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Archivo,"Noto Sans JP",sans-serif}
+h2{font-family:Archivo,"Noto Sans JP",sans-serif;font-stretch:62%;font-weight:900;letter-spacing:-.01em;text-transform:uppercase}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:48px;padding:0 22px;text-decoration:none;font-weight:800;font-size:14px;letter-spacing:.05em;text-transform:uppercase;text-align:center;font-family:Archivo,sans-serif}
+.frame{max-width:640px;margin:0 auto}
+p{margin:0}
+
+/* ---- Variant 1: red banner band ---- */
+.v1{background:var(--red);color:#fff;padding:30px 20px 34px}
+.v1 h2{margin:0 0 10px;font-size:32px;line-height:1.02}
+.v1 p{font-size:16px;margin:0 0 18px}
+.v1 .btn{background:#fff;color:var(--ink)}
+
+/* ---- Variant 2: thick black border card + offset shadow ---- */
+.v2wrap{padding:6px 18px 20px 6px}
+.v2{background:#fff;border:3px solid var(--ink);box-shadow:10px 10px 0 var(--ink);padding:26px 22px 28px}
+.v2 h2{margin:0 0 8px;font-size:30px;line-height:1.02}
+.v2 .rule{width:56px;height:6px;background:var(--red);margin:0 0 14px}
+.v2 p{font-size:16px;margin:0 0 18px}
+.v2 .btn{background:var(--red);color:#fff}
+
+/* ---- Variant 3: dark section ---- */
+.v3{background:var(--ink);color:#fff;padding:30px 20px 34px}
+.v3 h2{margin:0 0 10px;font-size:32px;line-height:1.02}
+.v3 h2 em{font-style:normal;color:#FF7A6E}
+.v3 p{font-size:16px;margin:0 0 18px;color:#E9E7E1}
+.v3 .btn{background:var(--red);color:#fff}
+
+/* ---- Variant 4: minimal centered, big typography ---- */
+.v4{padding:38px 16px 40px;text-align:center}
+.v4 h2{margin:0 0 14px;font-size:46px;line-height:.98}
+.v4 .rule{width:56px;height:5px;background:var(--red);margin:0 auto 16px}
+.v4 p{font-size:16px;margin:0 auto 20px;max-width:480px}
+.v4 .btn{background:var(--ink);color:#fff;padding:0 30px}
+
+/* ---- Variant 5: ticket / coupon ---- */
+.v5wrap{padding:6px 16px 16px}
+.v5{position:relative;background:#fff;border:2px dashed var(--ink);display:flex;align-items:stretch}
+.v5 .stub{flex:none;width:84px;border-right:2px dashed var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:18px 0}
+.v5 .stub .q{font-family:Archivo,sans-serif;font-stretch:62%;font-weight:900;font-size:52px;line-height:1;color:var(--red)}
+.v5 .stub .mins{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--mu)}
+.v5 .main{flex:1;padding:22px 20px 24px;min-width:0}
+.v5 h2{margin:0 0 8px;font-size:26px;line-height:1.05}
+.v5 p{font-size:15px;margin:0 0 16px}
+.v5 .btn{background:var(--red);color:#fff}
+.v5 .notch{position:absolute;top:50%;width:22px;height:22px;border-radius:50%;background:var(--bg);transform:translateY(-50%)}
+.v5 .notch.l{left:-13px}.v5 .notch.r{right:-13px}
