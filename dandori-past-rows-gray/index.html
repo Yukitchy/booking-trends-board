@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>だんどりー 終わったツアー行 グレースケール 5案</title>
+<meta property="og:title" content="だんどりー 終わったツアー行 グレースケール 5案">
+<meta property="og:description" content="ゲスト一覧で実施済みの行をどうグレーにするか、掛け方の違う5案の見比べ。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/dandori-past-rows-gray/">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/dandori-past-rows-gray/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;background:#F6F3EE;color:#1c1a17;line-height:1.7}
+header{background:#111;color:#fff;padding:34px 20px 28px}
+header .inner{max-width:1060px;margin:0 auto}
+h1{font-size:clamp(21px,4.6vw,34px);font-weight:800;letter-spacing:.01em}
+.redline{width:72px;height:5px;background:#e60012;margin:14px 0}
+header p{color:#d8d4cc;font-size:14.5px;max-width:760px}
+main{max-width:1060px;margin:0 auto;padding:24px 16px 48px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px}
+.card{background:#fff;border:1px solid #e7e1d6;border-radius:16px;padding:18px}
+.card-h{display:flex;align-items:center;gap:10px}
+.num{background:#111;color:#fff;font-weight:800;font-size:18px;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none}
+.card h2{font-size:17px;font-weight:800}
+.how{font-size:13.5px;color:#4c463e;margin:10px 0 12px}
+.shot{width:100%;max-width:390px;display:block;border:1px solid #e7e1d6;border-radius:12px}
+.note{font-size:13px;color:#6d675e;margin-top:12px}
+.spec{background:#fff;border:1px solid #e7e1d6;border-radius:16px;padding:20px;margin-top:26px}
+.spec h2{font-size:16px;font-weight:800;margin-bottom:8px}
+.spec p,.spec li{font-size:13.5px;color:#4c463e}
+.spec ul{padding-left:20px}
+</style>
+</head>
+<body>
+<header><div class="inner">
+<h1>だんどりー｜終わったツアー行のグレースケール 5案</h1>
+<div class="redline"></div>
+<p>ゲスト一覧で「終わったツアー（実施済み）」の行だけをグレーにする見た目の見比べです。判定はツアー日時を過ぎたゲスト。上の3行（これから）は全案共通で通常表示、下の4行（実施済み）だけ掛け方が変わります。番号で選んでください。</p>
+</div></header>
+<main>
+<div class="grid">
+<section class="card">
+  <div class="card-h"><span class="num">1</span><h2>案1｜行全体グレー＋薄く</h2></div>
+  <p class="how">実施済みの行全体に <b>grayscale(100%)</b> をかけ、さらに <b>opacity .55</b> で薄くする。</p>
+  <img class="shot" src="shot1.png" alt="案1 行全体グレー＋薄く のゲスト一覧モック">
+  <p class="note">終わった感がいちばん強い。名前も日付も薄くなるので、読み返すときは少し目を凝らす。</p>
+</section>
+<section class="card">
+  <div class="card-h"><span class="num">2</span><h2>案2｜アイコンだけグレー</h2></div>
+  <p class="how">チャネルアイコン（経由タイル）だけに <b>grayscale(100%)</b>。文字も背景も通常のまま。</p>
+  <img class="shot" src="shot2.png" alt="案2 アイコンだけグレー のゲスト一覧モック">
+  <p class="note">変化は控えめ。今後の行との差はタイルの色だけなので、ぱっと見で見分けにくい。</p>
+</section>
+<section class="card">
+  <div class="card-h"><span class="num">3</span><h2>案3｜画像要素だけグレー</h2></div>
+  <p class="how">タイルの中のロゴ・画像だけをグレーにし、<b>タイルの色と文字はそのまま</b>残す。</p>
+  <img class="shot" src="shot3.png" alt="案3 画像要素だけグレー のゲスト一覧モック">
+  <p class="note">いちばん控えめ。白抜きロゴのタイルはほぼ変化せず、画像タイル（自社サイト等）だけがグレーになる。</p>
+</section>
+<section class="card">
+  <div class="card-h"><span class="num">4</span><h2>案4｜行全体グレー＋「済」バッジ</h2></div>
+  <p class="how">行全体に <b>grayscale(100%)</b>（薄くはしない）＋名前の横に <b>「済」バッジ</b>。</p>
+  <img class="shot" src="shot4.png" alt="案4 行全体グレー＋「済」バッジ のゲスト一覧モック">
+  <p class="note">文字の濃さは保たれるので読み返しやすい。終わったことが言葉でも明示される。</p>
+</section>
+<section class="card">
+  <div class="card-h"><span class="num">5</span><h2>案5｜背景だけグレー</h2></div>
+  <p class="how">行の <b>背景だけをグレー</b> に落とす。文字もアイコンの色も濃いまま。</p>
+  <img class="shot" src="shot5.png" alt="案5 背景だけグレー のゲスト一覧モック">
+  <p class="note">色は全部残るので情報は読みやすい。帯で面として区切れるので一覧で追いやすい。</p>
+</section>
+</div>
+<section class="spec">
+<h2>モックの作りと前提</h2>
+<ul>
+<li>土台は本番 server.py のゲスト行（.grow／ch-tile-md 56px・名前16px・日付＋人数のサブ行・シェブロン）の構造とCSSを再現したHTMLモック（幅390px）を、ヘッドレスChromeで撮影したものです。</li>
+<li>ゲストは実データ（/api/guests）から：実施済み＝Jennifer West（2026-11-24 14:00・3名・Cal.com）／Pamela A McGrogan（11月22日・2名）／Michaela（11月19日・2名・Airbnb）／Alicia（11月14日・2名・Airbnb）。これから＝Victor Gonzalez（11月25日・2名・Oshinobi）／Luis Gonzalez（12月1日・1名）／Mike Fittler（12月10日・3名・Japan Local Experience）。</li>
+<li>キャンセル済みには既存表示があります（status=cancelled の行に「取消済み」バッジ。ゲスト一覧の行にも付く）。今回のグレー判定は「実施済み（日時経過）」だけが対象で、取消済み行はモックに入れていません。実装時は取消済みバッジ表示が優先される想定です。</li>
+</ul>
+</section>
+</main>
+</body>
+</html>
