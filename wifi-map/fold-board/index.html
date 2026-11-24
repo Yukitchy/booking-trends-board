@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ワイスピ 任意項目トグル 目立たせ5案｜実測Wi-Fiマップ</title>
+<meta name="description" content="実測Wi-Fiマップ「ワイスピ」の追加フォームで、任意項目の開閉トグルを目立たせる見た目5案の見比べボード。欄は折りたたんだまま、トグルの見た目だけを変えた5案。">
+<meta property="og:title" content="ワイスピ 任意項目トグル 目立たせ5案｜実測Wi-Fiマップ">
+<meta property="og:description" content="任意項目トグルの見た目5案（黒塗りボタン／緑＋⚡／大きめバー＋注記／未入力バッジ／上部ショートカット）。番号で選んでください。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/wifi-map/fold-board/">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/wifi-map/fold-board/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+*{box-sizing:border-box; margin:0; padding:0;}
+body{background:#c9d4c9; color:#101410; font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif; line-height:1.6;}
+:root{--ink:#101410; --grn:#16c95c; --neon:#34f27b; --deep:#0b7a38; --pale:#c9f7da; --mint:#8fe8b1; --line:#e2eae3;}
+button{font:inherit; cursor:pointer; border:1px solid var(--line); background:#fff; color:var(--ink); border-radius:999px; padding:7px 12px; font-size:13.5px; font-weight:700;}
+button.on{background:var(--grn); border-color:var(--grn); color:#06130a;}
+.panel{background:#fff; border:1px solid var(--line); border-radius:16px; padding:12px; box-shadow:0 8px 30px rgba(16,20,16,.14); margin:8px;}
+.panel h2{font-size:15px; font-weight:800;}
+.panel .hint{font-size:11.5px; line-height:1.45; color:#5c6b5e; margin-top:4px;}
+.f-row{margin:6px 0;}
+.f-row label{display:block; font-size:12px; color:#5c6b5e; margin-bottom:2px;}
+.f-row input{width:100%; font:inherit; font-size:15px; color:var(--ink); background:#f7faf7; border:1px solid var(--line); border-radius:9px; padding:7px 9px;}
+.f-2col{display:flex; gap:8px;}
+.f-2col .f-row{flex:1; min-width:0;}
+.f-btns{display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;}
+.shortcut{display:block; text-align:center; background:#101410; color:#fff; border-radius:10px; padding:8px; font-size:13.5px; font-weight:700; text-decoration:none; margin:2px 0 4px;}
+#guess{font-size:13px; padding:5px 11px; border-radius:999px; margin-top:2px;}
+.fold-current{width:100%; font:inherit; font-size:13px; font-weight:700; padding:8px; border:1.5px dashed var(--line); border-radius:10px; background:#fbfdfb; color:var(--ink); margin:8px 0 2px;}
+
+body{background:#f7f8fa;}
+</style>
+</head>
+<body style="background:#f7f8fa;">
+<header style="background:#fff; border-bottom:1px solid #e5e7eb; padding:26px 16px 20px; text-align:center;">
+<h1 style="font-size:clamp(18px,5.4vw,25px); font-weight:900; margin:0 0 8px;">ワイスピ 任意項目トグル 目立たせ5案</h1>
+<p style="font-size:13.5px; color:#5c6b5e; max-width:560px; margin:0 auto;">「今いる場所のWi-Fiを追加」フォームの任意項目（速度・電源・写真など）は折りたたんだまま、開閉トグルの見た目だけを変えた5案です。モックは実物サイズ・現行フォームの形のままです。気に入った案を番号で選んでください。</p>
+</header>
+<main style="padding:20px 10px 30px;">
+
+<section style="background:#fff; border:1px solid #e5e7eb; border-radius:16px; padding:18px 14px 20px; margin:0 auto 22px; max-width:440px;">
+<div style="display:flex; align-items:center; gap:10px; margin:0 2px 4px;">
+<span style="flex:0 0 auto; width:30px; height:30px; border-radius:50%; background:#101410; color:#fff; font-weight:800; font-size:15px; display:flex; align-items:center; justify-content:center;">1</span>
+<h2 style="font-size:17px; font-weight:800;">黒い塗りボタン</h2>
+</div>
+<p style="font-size:13px; color:#5c6b5e; margin:0 2px 10px;">中身が分かる黒ベタの大きなボタン。フォームの中で一番目立つ置き方。</p>
+<div style="background:#c9d4c9; border-radius:14px; padding:2px;">
+<div style="max-width:390px; margin:0 auto;">
+
+<div class="panel">
+<h2>今いる場所のWi-Fiを追加</h2>
+<a class="shortcut" href="#">📶 接続中のWi-Fiで自動入力（ショートカット）</a>
+<p class="hint">SSIDとパスワードは手入力。追加分はこの端末に保存される（恒久化はカードの「コピー」を Muse に送る）。</p>
+
+<div class="f-row">
+<label>スポット名（必須）</label>
+<input type="text" value="猿田彦珈琲 アトレ秋葉原1店">
+</div>
+<div class="f-row">
+<button type="button" id="guess">🔍 近くの場所を推測</button>
+</div>
+<div class="f-row">
+<label>SSID</label>
+<input type="text" value="SARUTAHIKOCOFFEE">
+</div>
+<div class="f-2col">
+<div class="f-row">
+<label>緯度（必須）</label>
+<input type="text" value="35.698364">
+</div>
+<div class="f-row">
+<label>経度（必須）</label>
+<input type="text" value="139.773152">
+</div>
+</div>
+<div class="f-btns">
+<button type="button">📍 現在地を入れる</button>
+</div>
+
+<button type="button" style="width:100%; background:#101410; color:#fff; border:2px solid #101410; border-radius:12px; padding:13px 14px; font-size:14.5px; font-weight:800; display:flex; align-items:center; justify-content:space-between; margin:10px 0 2px;">
+<span>＋ 速度・写真などの任意項目</span><span style="font-size:13px;">▽ 開く</span>
+</button>
+
+<div class="f-btns">
+<button type="button" class="on">保存して地図に追加</button>
+<button type="button">キャンセル</button>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<section style="background:#fff; border:1px solid #e5e7eb; border-radius:16px; padding:18px 14px 20px; margin:0 auto 22px; max-width:440px;">
+<div style="display:flex; align-items:center; gap:10px; margin:0 2px 4px;">
+<span style="flex:0 0 auto; width:30px; height:30px; border-radius:50%; background:#101410; color:#fff; font-weight:800; font-size:15px; display:flex; align-items:center; justify-content:center;">2</span>
+<h2 style="font-size:17px; font-weight:800;">緑アクセント＋⚡</h2>
+</div>
+<p style="font-size:13px; color:#5c6b5e; margin:0 2px 10px;">緑の面と⚡アイコンで「速度が測れる」ことを先に伝える形。</p>
+<div style="background:#c9d4c9; border-radius:14px; padding:2px;">
+<div style="max-width:390px; margin:0 auto;">
+
+<div class="panel">
+<h2>今いる場所のWi-Fiを追加</h2>
+<a class="shortcut" href="#">📶 接続中のWi-Fiで自動入力（ショートカット）</a>
+<p class="hint">SSIDとパスワードは手入力。追加分はこの端末に保存される（恒久化はカードの「コピー」を Muse に送る）。</p>
+
+<div class="f-row">
+<label>スポット名（必須）</label>
+<input type="text" value="猿田彦珈琲 アトレ秋葉原1店">
+</div>
+<div class="f-row">
+<button type="button" id="guess">🔍 近くの場所を推測</button>
+</div>
+<div class="f-row">
+<label>SSID</label>
+<input type="text" value="SARUTAHIKOCOFFEE">
+</div>
+<div class="f-2col">
+<div class="f-row">
+<label>緯度（必須）</label>
+<input type="text" value="35.698364">
+</div>
+<div class="f-row">
+<label>経度（必須）</label>
+<input type="text" value="139.773152">
+</div>
+</div>
+<div class="f-btns">
+<button type="button">📍 現在地を入れる</button>
+</div>
+
+<button type="button" style="width:100%; background:#e9fdf1; border:2px solid #16c95c; border-radius:12px; padding:10px 12px; display:flex; align-items:center; gap:10px; text-align:left; margin:10px 0 2px;">
+<span style="flex:0 0 auto; width:38px; height:38px; border-radius:50%; background:#16c95c; color:#06130a; display:flex; align-items:center; justify-content:center; font-size:20px;">⚡</span>
+<span style="flex:1; min-width:0;">
+<span style="display:block; font-size:14.5px; font-weight:800; color:#0b5c2c;">速度も測れます</span>
+<span style="display:block; font-size:11.5px; font-weight:700; color:#3c6b4a;">任意項目をひらく（速度・電源・写真・メモ）</span>
+</span>
+<span style="font-size:15px; color:#0b7a38; font-weight:800;">▽</span>
+</button>
+
+<div class="f-btns">
+<button type="button" class="on">保存して地図に追加</button>
+<button type="button">キャンセル</button>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<section style="background:#fff; border:1px solid #e5e7eb; border-radius:16px; padding:18px 14px 20px; margin:0 auto 22px; max-width:440px;">
+<div style="display:flex; align-items:center; gap:10px; margin:0 2px 4px;">
+<span style="flex:0 0 auto; width:30px; height:30px; border-radius:50%; background:#101410; color:#fff; font-weight:800; font-size:15px; display:flex; align-items:center; justify-content:center;">3</span>
+<h2 style="font-size:17px; font-weight:800;">大きめバー＋注記</h2>
+</div>
+<p style="font-size:13px; color:#5c6b5e; margin:0 2px 10px;">太枠の大きなバーに「速度が測れます」の注記を付けた形。</p>
+<div style="background:#c9d4c9; border-radius:14px; padding:2px;">
+<div style="max-width:390px; margin:0 auto;">
+
+<div class="panel">
+<h2>今いる場所のWi-Fiを追加</h2>
+<a class="shortcut" href="#">📶 接続中のWi-Fiで自動入力（ショートカット）</a>
+<p class="hint">SSIDとパスワードは手入力。追加分はこの端末に保存される（恒久化はカードの「コピー」を Muse に送る）。</p>
+
+<div class="f-row">
+<label>スポット名（必須）</label>
+<input type="text" value="猿田彦珈琲 アトレ秋葉原1店">
+</div>
+<div class="f-row">
+<button type="button" id="guess">🔍 近くの場所を推測</button>
+</div>
+<div class="f-row">
+<label>SSID</label>
+<input type="text" value="SARUTAHIKOCOFFEE">
+</div>
+<div class="f-2col">
+<div class="f-row">
+<label>緯度（必須）</label>
+<input type="text" value="35.698364">
+</div>
+<div class="f-row">
+<label>経度（必須）</label>
+<input type="text" value="139.773152">
+</div>
+</div>
+<div class="f-btns">
+<button type="button">📍 現在地を入れる</button>
+</div>
+
+<button type="button" style="width:100%; background:#fff; border:2px solid #101410; border-radius:12px; padding:12px 14px; text-align:left; margin:10px 0 2px;">
+<span style="display:flex; align-items:center; justify-content:space-between;">
+<span style="font-size:15.5px; font-weight:800;">任意項目をひらく</span>
+<span style="font-size:15px; font-weight:800;">▽</span>
+</span>
+<span style="display:block; margin-top:3px; font-size:12.5px; font-weight:700; color:#0b7a38;">⚡ 速度が測れます ・ 📷 写真も付けられます</span>
+</button>
+
+<div class="f-btns">
+<button type="button" class="on">保存して地図に追加</button>
+<button type="button">キャンセル</button>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<section style="background:#fff; border:1px solid #e5e7eb; border-radius:16px; padding:18px 14px 20px; margin:0 auto 22px; max-width:440px;">
+<div style="display:flex; align-items:center; gap:10px; margin:0 2px 4px;">
+<span style="flex:0 0 auto; width:30px; height:30px; border-radius:50%; background:#101410; color:#fff; font-weight:800; font-size:15px; display:flex; align-items:center; justify-content:center;">4</span>
+<h2 style="font-size:17px; font-weight:800;">未入力バッジつき</h2>
+</div>
+<p style="font-size:13px; color:#5c6b5e; margin:0 2px 10px;">今の見た目に「未入力 6項目」の赤バッジを足し、開く理由を作る形。</p>
+<div style="background:#c9d4c9; border-radius:14px; padding:2px;">
+<div style="max-width:390px; margin:0 auto;">
+
+<div class="panel">
+<h2>今いる場所のWi-Fiを追加</h2>
+<a class="shortcut" href="#">📶 接続中のWi-Fiで自動入力（ショートカット）</a>
+<p class="hint">SSIDとパスワードは手入力。追加分はこの端末に保存される（恒久化はカードの「コピー」を Muse に送る）。</p>
+
+<div class="f-row">
+<label>スポット名（必須）</label>
+<input type="text" value="猿田彦珈琲 アトレ秋葉原1店">
+</div>
+<div class="f-row">
+<button type="button" id="guess">🔍 近くの場所を推測</button>
+</div>
+<div class="f-row">
+<label>SSID</label>
+<input type="text" value="SARUTAHIKOCOFFEE">
+</div>
+<div class="f-2col">
+<div class="f-row">
+<label>緯度（必須）</label>
+<input type="text" value="35.698364">
+</div>
+<div class="f-row">
+<label>経度（必須）</label>
+<input type="text" value="139.773152">
+</div>
+</div>
+<div class="f-btns">
+<button type="button">📍 現在地を入れる</button>
+</div>
+
+<button type="button" style="width:100%; font:inherit; padding:10px 12px; border:1.5px dashed #b9c9bb; border-radius:10px; background:#fbfdfb; color:#101410; margin:10px 0 2px; display:flex; align-items:center; justify-content:space-between;">
+<span style="font-size:13.5px; font-weight:700;">▽ 任意項目を開く</span>
+<span style="background:#e5484d; color:#fff; font-size:11.5px; font-weight:800; border-radius:999px; padding:2px 10px;">未入力 6項目</span>
+</button>
+
+<div class="f-btns">
+<button type="button" class="on">保存して地図に追加</button>
+<button type="button">キャンセル</button>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<section style="background:#fff; border:1px solid #e5e7eb; border-radius:16px; padding:18px 14px 20px; margin:0 auto 22px; max-width:440px;">
+<div style="display:flex; align-items:center; gap:10px; margin:0 2px 4px;">
+<span style="flex:0 0 auto; width:30px; height:30px; border-radius:50%; background:#101410; color:#fff; font-weight:800; font-size:15px; display:flex; align-items:center; justify-content:center;">5</span>
+<h2 style="font-size:17px; font-weight:800;">上部ショートカット</h2>
+</div>
+<p style="font-size:13px; color:#5c6b5e; margin:0 2px 10px;">フォーム上部に「速度を測るなら任意項目へ」のリンクを置く形。トグル自体は現行のまま。</p>
+<div style="background:#c9d4c9; border-radius:14px; padding:2px;">
+<div style="max-width:390px; margin:0 auto;">
+
+<div class="panel">
+<h2>今いる場所のWi-Fiを追加</h2>
+<a class="shortcut" href="#">📶 接続中のWi-Fiで自動入力（ショートカット）</a>
+<p class="hint">SSIDとパスワードは手入力。追加分はこの端末に保存される（恒久化はカードの「コピー」を Muse に送る）。</p>
+
+<a href="#" style="display:block; text-align:center; background:#c9f7da; color:#0b5c2c; border:1.5px solid #16c95c; border-radius:10px; padding:9px 8px; font-size:13.5px; font-weight:800; text-decoration:none; margin:8px 0 2px;">⚡ 速度を測るなら「任意項目」へ ↓</a>
+
+<div class="f-row">
+<label>スポット名（必須）</label>
+<input type="text" value="猿田彦珈琲 アトレ秋葉原1店">
+</div>
+<div class="f-row">
+<button type="button" id="guess">🔍 近くの場所を推測</button>
+</div>
+<div class="f-row">
+<label>SSID</label>
+<input type="text" value="SARUTAHIKOCOFFEE">
+</div>
+<div class="f-2col">
+<div class="f-row">
+<label>緯度（必須）</label>
+<input type="text" value="35.698364">
+</div>
+<div class="f-row">
+<label>経度（必須）</label>
+<input type="text" value="139.773152">
+</div>
+</div>
+<div class="f-btns">
+<button type="button">📍 現在地を入れる</button>
+</div>
+
+<button type="button" class="fold-current">▽ 任意項目を開く（エリア・パスワード・速度・電源・写真・メモ）</button>
+
+<div class="f-btns">
+<button type="button" class="on">保存して地図に追加</button>
+<button type="button">キャンセル</button>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<p style="text-align:center; font-size:12.5px; color:#8a978c;">※ 本番ページにはまだ反映していません。選ばれた案だけを反映します。</p>
+</main>
+</body>
+</html>
