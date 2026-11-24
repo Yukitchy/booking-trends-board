@@ -88,7 +88,11 @@ button:disabled{opacity:.55; cursor:wait;}
 #guess-status{margin-top:4px;}
 #f-speed-status{margin-top:2px; min-height:1.2em; font-size:12.5px;}
 #f-form-status{margin-top:4px;}
-#f-fold-toggle{width:100%; font:inherit; font-size:13px; font-weight:700; padding:8px; border:1.5px dashed var(--line); border-radius:10px; background:#fbfdfb; color:var(--ink); margin:8px 0 2px;}
+#f-fold-toggle{width:100%; font:inherit; background:#fff; border:2px solid var(--ink); border-radius:12px; padding:12px 14px; text-align:left; color:var(--ink); margin:10px 0 2px;}
+#f-fold-toggle .ft-top{display:flex; align-items:center; justify-content:space-between;}
+#f-fold-toggle .ft-label{font-size:15.5px; font-weight:800;}
+#f-fold-toggle .ft-arrow{font-size:15px; font-weight:800;}
+#f-fold-toggle .ft-note{display:block; margin-top:3px; font-size:12.5px; font-weight:700; color:var(--deep);}
 #add-panel{position:fixed; left:8px; right:8px; bottom:8px; max-height:82dvh; overflow-y:auto; z-index:1500;}
 #edit-panel{position:fixed; left:8px; right:8px; bottom:8px; max-height:82dvh; overflow-y:auto; z-index:1500;}
 .photo-prev{width:100%; max-height:180px; object-fit:cover; border-radius:10px; display:block; margin-top:6px;}
@@ -330,7 +334,7 @@ body.hasmine .leaflet-control-zoom{margin-bottom:162px !important;}
 <div class="f-btns">
 <button type="button" id="f-locate">📍 現在地を入れる</button>
 </div>
-<button type="button" id="f-fold-toggle">▽ 任意項目を開く（エリア・パスワード・速度・電源・写真・メモ）</button>
+<button type="button" id="f-fold-toggle"><span class="ft-top"><span class="ft-label">任意項目をひらく</span><span class="ft-arrow">▽</span></span><span class="ft-note">⚡ 速度が測れます ・ 📷 写真も付けられます</span></button>
 <div id="f-optional" hidden>
 <div class="f-row">
 <label for="f-area">エリア（任意）</label>
@@ -874,7 +878,8 @@ document.getElementById('f-fold-toggle').addEventListener('click', function(){
   var box = document.getElementById('f-optional');
   var opening = box.hidden;
   box.hidden = !opening;
-  this.textContent = opening ? '△ 任意項目を閉じる' : '▽ 任意項目を開く（エリア・パスワード・速度・電源・写真・メモ）';
+  this.querySelector('.ft-label').textContent = opening ? '任意項目をとじる' : '任意項目をひらく';
+  this.querySelector('.ft-arrow').textContent = opening ? '△' : '▽';
 });
 document.getElementById('f-guess').addEventListener('click', function(){
 var lat = parseFloat(document.getElementById('f-lat').value);
