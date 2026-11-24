@@ -143,7 +143,7 @@ button.use{font-family:var(--jp);font-size:11.5px;font-weight:900;border-radius:
 <div><p class="en">TSUAROGU</p><h1>つあろぐ</h1></div></div>
 <p class="cnt">読み物の紹介は <a href="https://yukitchy.github.io/kyo-no-koe/">つあろぐLP</a> へ</p>
 </header>
-<div class="steps"><div class="stp">録る</div><div class="stp">文字に</div><div class="stp">まとめる</div><div class="stp last">読む</div></div>
+<div class="steps"><div class="stp">録る</div><div class="stp">まとめる</div><div class="stp">読む</div><div class="stp last">改善する</div></div>
 <label class="up"><span class="n">1</span><span class="uptx"><b>＋ 録音をアップ</b><span>ステップ1「録る」から新しい1本が付きます</span></span><input type="file" id="upfile" accept="audio/*" multiple></label>
 <div class="cv1" id="cal"></div>
 <div class="search"><input type="search" id="q" placeholder="ゲスト名・題・本音で検索 — 再訪の人の前回ログがすぐ開けます"></div>
@@ -1597,7 +1597,7 @@ function render(){
 function renderPending(){
   const box = document.getElementById("pending");
   if(!state.uploads.length){ box.innerHTML = ""; return; }
-  box.innerHTML = '<section class="pend-sec"><h3>処理待ちの録音</h3><p class="note">この端末に控えがあります。Muse へ送ると「文字に→まとめる」が始まります。</p>' +
+  box.innerHTML = '<section class="pend-sec"><h3>処理待ちの録音</h3><p class="note">この端末に控えがあります。Muse へ送ると「まとめる」が始まります。</p>' +
     state.uploads.map((u,i) =>
       '<article class="entry pend"><div class="ephoto" style="background:#8A8578;font-size:18px">録</div><div class="ebody">' +
       '<h4>' + esc(u.name) + '</h4><p class="edate2">' + esc(u.added) + ' 追加 ・ ' + esc(u.size) + '</p>' +
