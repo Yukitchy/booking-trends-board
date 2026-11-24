@@ -5,19 +5,19 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
 <title>つあろぐ｜自分用管理</title>
-<meta name="description" content="ツアーの記録（つあろぐ）をゲストごとに管理する自分用ページ。申し送り・前回ログ・お礼の下書き。">
+<meta name="description" content="ツアーの記録（つあろぐ）をゲストごとに管理する自分用ページ。前回ログ・お礼の下書き。">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="つあろぐ">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:title" content="つあろぐ｜自分用管理">
-<meta property="og:description" content="ツアーの記録をゲストごとに。前回ログと申し送りが残る自分用の帳面。">
+<meta property="og:description" content="ツアーの記録をゲストごとに。前回ログが残る自分用の帳面。">
 <meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/tsuarogu-guestbook/">
 <meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/tsuarogu-guestbook/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="つあろぐ｜自分用管理">
-<meta name="twitter:description" content="ツアーの記録をゲストごとに。前回ログと申し送りが残る自分用の帳面。">
+<meta name="twitter:description" content="ツアーの記録をゲストごとに。前回ログが残る自分用の帳面。">
 <meta name="twitter:image" content="https://yukitchy.github.io/booking-trends-board/tsuarogu-guestbook/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800;900&family=Shippori+Mincho:wght@500;800&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" rel="stylesheet">
 <link rel="icon" href="favicon.png" type="image/png">
@@ -45,7 +45,6 @@ header .cnt a{color:var(--ink);font-weight:900}
 .up b{font-size:15px;font-weight:900;display:block;line-height:1.4}
 .up .uptx span{display:block;font-size:11.5px;color:var(--sub);font-weight:700}
 .up input{display:none}
-.upnote{font-size:10.5px;color:var(--sub);font-weight:700;margin-top:6px;line-height:1.5}
 .cal{display:flex;gap:6px;padding:12px 0 4px;overflow-x:auto;scrollbar-width:none}
 .cal::-webkit-scrollbar{display:none}
 .cal button{flex:1 0 auto;min-width:44px;text-align:center;padding:7px 4px;border-radius:10px;font-size:11px;color:#8A8578;background:none;border:1px solid transparent;font-family:inherit;cursor:pointer}
@@ -64,21 +63,6 @@ header .cnt a{color:var(--ink);font-weight:900}
 .gava{width:42px;height:42px;border-radius:50%;border:2.5px solid var(--ink);flex:none;display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--en);font-weight:900;font-size:19px}
 .ghead h3{font-size:18px;font-weight:900;line-height:1.35;flex:1;min-width:0}
 .ghead .gsub{display:block;font-size:11.5px;color:var(--sub);font-weight:700}
-.revisit{font-family:var(--jp);font-size:10.5px;font-weight:900;background:var(--orange);color:var(--ink);border:2px solid var(--ink);border-radius:999px;padding:2px 9px;white-space:nowrap}
-.memo{margin-top:12px;background:var(--beige);border:2.5px solid var(--ink);border-radius:14px;padding:10px 12px;font-size:12.5px;font-weight:700;line-height:1.6;white-space:pre-wrap;word-break:break-word}
-.memo b{font-size:10px;letter-spacing:.14em;font-weight:900;display:block;margin-bottom:2px}
-.memo.empty{background:var(--card);border-style:dashed;color:var(--sub)}
-.memo .nextline{font-size:11.5px;font-weight:900;margin-top:4px}
-.memoedit{margin-left:0;background:var(--card);border:2px solid var(--ink);border-radius:999px;font-family:var(--jp);font-size:11.5px;font-weight:900;padding:2px 10px;line-height:1.6;cursor:pointer;color:var(--ink)}
-.memoform{margin-top:8px;background:var(--beige);border:2.5px solid var(--ink);border-radius:14px;padding:11px 12px;font-family:var(--jp)}
-.memoform label{font-size:10px;letter-spacing:.1em;font-weight:900;display:block;margin:8px 0 3px}
-.memoform label:first-child{margin-top:0}
-.memoform textarea,.memoform input{width:100%;border:2px solid var(--ink);border-radius:10px;padding:8px;font-size:12.5px;font-family:var(--jp);background:#fff;color:var(--ink)}
-.memoform textarea{min-height:64px;resize:vertical}
-.memoform .row{display:flex;gap:8px;margin-top:10px}
-.memoform button{flex:1;border-radius:999px;padding:7px;font-size:12px;font-weight:900;cursor:pointer;border:2px solid var(--ink);font-family:var(--jp)}
-.memoform .save{background:var(--orange);color:var(--ink)}
-.memoform .cancel{background:var(--card);color:var(--ink)}
 .entry{display:flex;gap:11px;margin-top:14px;border-top:2px dashed var(--ink);padding-top:14px}
 .ephoto{width:86px;height:86px;border-radius:14px;border:2.5px solid var(--ink);flex:none;position:relative;display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--en);font-weight:900;font-size:30px}
 .ephoto .pcount{position:absolute;right:6px;bottom:6px;background:rgba(21,21,21,.85);color:#fff;font-family:var(--jp);font-size:10.5px;font-weight:700;border-radius:999px;padding:1px 8px;line-height:1.6}
@@ -141,12 +125,11 @@ button.use{font-family:var(--jp);font-size:11.5px;font-weight:900;border-radius:
 <header>
 <div class="brandrow"><span class="mk"><img src="logo-tp.png" alt=""></span>
 <div><p class="en">TSUAROGU</p><h1>つあろぐ</h1></div></div>
-<p class="cnt">ゲストごとに前回のログと申し送りが残ります ・ 全10本（2026.10.30〜11.06）<br>読み物の紹介は <a href="https://yukitchy.github.io/kyo-no-koe/">つあろぐLP</a> へ</p>
+<p class="cnt">読み物の紹介は <a href="https://yukitchy.github.io/kyo-no-koe/">つあろぐLP</a> へ</p>
 </header>
 <div class="steps"><div class="stp">録る</div><div class="stp">文字に</div><div class="stp">まとめる</div><div class="stp last">読む</div></div>
 <label class="up"><span class="n">1</span><span class="uptx"><b>＋ 録音をアップ</b><span>ステップ1「録る」から新しい1本が付きます</span></span><input type="file" id="upfile" accept="audio/*" multiple></label>
 <div class="cal" id="cal"></div>
-<p class="upnote">選んだ録音は「処理待ち」としてこの端末に控えが残ります。処理と恒久化は、控えを Muse へ送ってから始まります（ワイスピの追加フォームと同じ流儀）。</p>
 <div class="search"><input type="search" id="q" placeholder="ゲスト名・題・本音で検索 — 再訪の人の前回ログがすぐ開けます"></div>
 <div class="filters" id="filters">
 <button data-f="all" class="on">すべて</button>
@@ -158,9 +141,9 @@ button.use{font-family:var(--jp);font-size:11.5px;font-weight:900;border-radius:
 <main id="list"></main>
 <p class="empty" id="empty" style="display:none">見つかりませんでした</p>
 <div class="foot">
-特化: ゲスト別アーカイブ — 再訪時に前回ログと申し送りが開け、本音から翌日のお礼につながる<br>
-データ: 2026.10.30〜11.06 に作成した10本（m2 の voice-inbox の解析データと、だんどりーのカルテ・写真アルバムから集計）。公開範囲は全て「自分だけ」（読み物ページは非公開が基本で、11/6 Yuliaさんの回だけ読み物ページを生成済み）。申し送りと処理待ちの控えはこの端末の中だけに保存されます。
-<button id="export">メモと処理待ちをコピー（Muse送付用）</button><br>
+特化: ゲスト別アーカイブ — 再訪時に前回ログが開け、本音から翌日のお礼につながる<br>
+データ: 2026.10.30〜11.06 に作成した10本（m2 の voice-inbox の解析データと、だんどりーのカルテ・写真アルバムから集計）。公開範囲は全て「自分だけ」（読み物ページは非公開が基本で、11/6 Yuliaさんの回だけ読み物ページを生成済み）。処理待ちの控えはこの端末の中だけに保存されます。
+<button id="export">処理待ちをコピー（Muse送付用）</button><br>
 <a href="https://yukitchy.github.io/kyo-no-koe/">つあろぐLP（公開ページ）</a>
 </div>
 </div>
@@ -1469,8 +1452,8 @@ const GUESTS = [
  }
 ];
 const LS_KEY = "tsuarogu_guestbook_v1";
-let state = {memos:{}, uploads:[]};
-try{ const s = JSON.parse(localStorage.getItem(LS_KEY)); if(s && s.memos) state = s; }catch(e){}
+let state = {uploads:[]};
+try{ const s = JSON.parse(localStorage.getItem(LS_KEY)); if(s && Array.isArray(s.uploads)) state.uploads = s.uploads; }catch(e){}
 function save(){ try{ localStorage.setItem(LS_KEY, JSON.stringify(state)); }catch(e){} }
 const WD = ["日","月","火","水","木","金","土"];
 function dstr(ds){ const d = new Date(ds+"T00:00:00"); return ds.replace(/-/g,".").slice(5) + " " + WD[d.getDay()]; }
@@ -1525,30 +1508,13 @@ function entryHTML(g, e){
     (e.tour ? '<button class="use" data-draft="' + e.rec + '">お礼の下書きに使う</button>' : '') +
     '<button class="read" data-read="' + e.rec + '">読む <span class="arw">›</span></button>' + pairOf(e) + '</p></div></article>';
 }
-function memoHTML(g){
-  const m = state.memos[g.id] || {};
-  let h = "";
-  if(m.memo || m.next){
-    h += '<div class="memo"><b>次回への申し送り</b>' + esc(m.memo || "") +
-      (m.next ? '<div class="nextline">次回予定: ' + esc(m.next) + '</div>' : "") +
-      '<br><button class="memoedit" data-edit="' + g.id + '">編集する</button></div>';
-  } else {
-    h += '<div class="memo empty"><b>次回への申し送り</b>まだ書かれていません<br><button class="memoedit" data-edit="' + g.id + '">申し送りを書く</button></div>';
-  }
-  return h + '<div class="memoform" id="mf-' + g.id + '" style="display:none">' +
-    '<label>申し送りメモ</label><textarea id="mm-' + g.id + '" placeholder="次のツアーで気をつけること、覚えておくこと">' + esc(m.memo||"") + '</textarea>' +
-    '<label>次回予定（例: 11/8 再訪予定・中野のカードショップ）</label><input id="mn-' + g.id + '" value="' + esc(m.next||"") + '" placeholder="未定なら空でOK">' +
-    '<div class="row"><button class="save" data-save="' + g.id + '">保存</button><button class="cancel" data-cancel="' + g.id + '">やめる</button></div></div>';
-}
 function render(){
   const main = document.getElementById("list");
   main.innerHTML = GUESTS.map(g => {
-    const m = state.memos[g.id] || {};
     return '<section class="guest-sec" data-guest="' + g.id + '"><div class="ghead">' +
       '<div class="gava" style="background:' + g.color + '">' + esc(g.initial) + '</div>' +
       '<h3>' + esc(g.name) + '<span class="gsub">' + esc(g.sub) + '</span></h3>' +
-      (m.next ? '<span class="revisit">' + esc(m.next.length > 14 ? m.next.slice(0,14) + "…" : m.next) + '</span>' : "") +
-      '</div>' + memoHTML(g) +
+      '</div>' +
       g.episodes.map(e => entryHTML(g, e)).join("") + '</section>';
   }).join("");
   bind();
@@ -1569,17 +1535,6 @@ function renderPending(){
   }));
 }
 function bind(){
-  document.querySelectorAll("[data-edit]").forEach(b => b.addEventListener("click", () => {
-    const f = document.getElementById("mf-" + b.dataset.edit); f.style.display = "block"; f.querySelector("textarea").focus();
-  }));
-  document.querySelectorAll("[data-cancel]").forEach(b => b.addEventListener("click", () => {
-    document.getElementById("mf-" + b.dataset.cancel).style.display = "none";
-  }));
-  document.querySelectorAll("[data-save]").forEach(b => b.addEventListener("click", () => {
-    const id = b.dataset.save;
-    state.memos[id] = { memo: document.getElementById("mm-" + id).value.trim(), next: document.getElementById("mn-" + id).value.trim() };
-    save(); render(); toast("申し送りを保存しました");
-  }));
   document.querySelectorAll("[data-read]").forEach(b => b.addEventListener("click", () => openReader(Number(b.dataset.read))));
   document.querySelectorAll("[data-draft]").forEach(b => b.addEventListener("click", () => openDraft(Number(b.dataset.draft))));
   document.querySelectorAll("[data-goto]").forEach(b => b.addEventListener("click", () => {
@@ -1690,9 +1645,9 @@ document.querySelectorAll("[data-close]").forEach(b => b.addEventListener("click
 document.querySelectorAll(".sheet").forEach(s => s.addEventListener("click", ev => { if(ev.target === s) s.classList.remove("open"); }));
 /* Muse送付用コピー */
 document.getElementById("export").addEventListener("click", async () => {
-  const payload = { tool: "つあろぐ", memos: state.memos, uploads: state.uploads };
+  const payload = { tool: "つあろぐ", uploads: state.uploads };
   const t = JSON.stringify(payload, null, 1);
-  try{ await navigator.clipboard.writeText(t); toast("メモと処理待ちをコピーしました"); }
+  try{ await navigator.clipboard.writeText(t); toast("処理待ちをコピーしました"); }
   catch(e){ toast("コピーできませんでした"); }
 });
 render();
