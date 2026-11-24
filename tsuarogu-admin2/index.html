@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>つあろぐ管理UI 磨き込み5案</title>
+<meta name="description" content="つあろぐ管理UIの選定案（Day One風ジャーナル）を土台に、ツアーガイド業へ特化させて磨いた5案。予約台帳／朱書きバンク／ゲスト帳／研修ノート／今日の仕事ボード。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="つあろぐ管理UI 磨き込み5案">
+<meta property="og:description" content="Day One風ジャーナルの骨格はそのままに、日記ではなくガイドの仕事道具として磨いた5案。">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/tsuarogu-admin2/og.jpg">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/tsuarogu-admin2/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23111'/><circle cx='50' cy='50' r='17' fill='%23e61e28'/></svg>">
+<style>
+:root{--paper:#F1EFEA;--ink:#141414;--red:#E61E28;--card:#fff;--line:#141414}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:"Helvetica Neue",Arial,"Noto Sans JP",sans-serif;line-height:1.65}
+.wrap{max-width:1080px;margin:0 auto;padding:28px 18px 64px}
+header{border-bottom:3px solid var(--line);padding-bottom:18px;margin-bottom:26px}
+.kicker{font-size:12px;letter-spacing:.18em;font-weight:700;color:var(--red)}
+h1{font-size:clamp(21px,5.4vw,38px);font-weight:900;letter-spacing:.01em;white-space:nowrap;overflow:hidden}
+.sub{margin-top:8px;font-size:14px;max-width:780px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}}
+.card{background:var(--card);border:2px solid var(--line);display:flex;flex-direction:column}
+.card a{display:block}
+.card img{width:100%;height:auto;display:block;border-bottom:2px solid var(--line)}
+.card .body{padding:12px 13px 14px}
+.card h3{font-size:15px;font-weight:900;line-height:1.4}
+.badge{display:inline-block;background:var(--red);color:#fff;font-size:11px;font-weight:900;padding:1px 8px;margin-bottom:6px}
+.note{font-size:12.5px;margin-top:7px}
+.open{font-size:11px;font-weight:700;margin-top:8px;color:var(--red)}
+.foot{margin-top:34px;border-top:3px solid var(--line);padding-top:14px;font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<div class="kicker">TSUAROGU — ADMIN UI ROUND 2</div>
+<h1>つあろぐ管理UI 磨き込み5案</h1>
+<p class="sub">前回選ばれた「案1 Day One風ジャーナル」の骨格（カレンダーの帯＋日付カード＋明朝の読み物感）は全案で保ったまま、日記一般ではなくツアーガイドの仕事道具として磨いた5案です。案ごとに特化の切り口が違います。全案に共通で「録音をアップする入口」「ログ一覧（日付・ゲスト／場面数／写真数／公開範囲／状態）」「検索・絞り込み」「読み物ページへの導線」が入っています。一覧の先頭は実物の Yuliaさん回（2026.11.06）で、残りはモックです。カードをタップすると実寸の案が開きます。</p>
+</header>
+<div class="grid">
+
+<div class="card">
+<a href="r1.html"><img src="shot-r1.png" alt="R1 台帳ジャーナル"></a>
+<div class="body">
+<span class="badge">R1</span>
+<h3>台帳ジャーナル</h3>
+<p class="note">特化: 予約台帳との一体感。予約元（Airbnb／Viator／GYG／直接）・人数・集合場所がカードに並び、月カレンダーと「今月6本・ゲスト14名・14.6時間」の仕事の数字が付く。台帳と日記が1冊になった形。</p>
+<p class="open">実寸で開く ›</p>
+</div>
+</div>
+
+<div class="card">
+<a href="r2.html"><img src="shot-r2.png" alt="R2 朱書きバンク"></a>
+<div class="body">
+<span class="badge">R2</span>
+<h3>朱書きバンク</h3>
+<p class="note">特化: 英語の直しの資産化。累計47件の朱書きと「受け身14・冠詞11」のよく出る型がトップに見え、各ログには言い直しの実例が引用で付く。直しがフレーズ帳として貯まっていく形。</p>
+<p class="open">実寸で開く ›</p>
+</div>
+</div>
+
+<div class="card">
+<a href="r3.html"><img src="shot-r3.png" alt="R3 ゲスト帳"></a>
+<div class="body">
+<span class="badge">R3</span>
+<h3>ゲスト帳</h3>
+<p class="note">特化: ゲスト別アーカイブ。ゲストごとに前回ログ・申し送りメモ・再訪バッジがまとまり、ゲストの本音（太字）から翌日のお礼の下書きにつながる。再訪の多いガイドの帳面の形。</p>
+<p class="open">実寸で開く ›</p>
+</div>
+</div>
+
+<div class="card">
+<a href="r4.html"><img src="shot-r4.png" alt="R4 研修ノート"></a>
+<div class="body">
+<span class="badge">R4</span>
+<h3>研修ノート</h3>
+<p class="note">特化: 研修・育成での使い回し。要確認は「残件リスト」として上に残り、各ログの場面には「値段の説明」「子連れ対応」の型タグと教材向きの場面ピックアップが付く。現場の記録がそのまま教材になる形。</p>
+<p class="open">実寸で開く ›</p>
+</div>
+</div>
+
+<div class="card">
+<a href="r5.html"><img src="shot-r5.png" alt="R5 今日の仕事ボード"></a>
+<div class="body">
+<span class="badge">R5</span>
+<h3>今日の仕事ボード</h3>
+<p class="note">特化: 当日の仕事ボード感。開いた瞬間に「次のツアー（申し送り＋前回ログへの導線）」「フォロー待ちのお礼ネタ」「要確認の残件数」が見える。朝イチの確認がこの1画面で終わる形。</p>
+<p class="open">実寸で開く ›</p>
+</div>
+</div>
+
+</div>
+<p class="foot">番号で選んでください。選ばれた案を土台に、管理ページ本体を実装します。これはデザイン案のボードで、本体（kyo-no-koe）には触っていません。</p>
+</div>
+</body>
+</html>

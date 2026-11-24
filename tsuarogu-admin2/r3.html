@@ -1,0 +1,73 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>R3 ゲスト帳｜つあろぐ管理</title><style>
+*{box-sizing:border-box;margin:0;padding:0}body{width:390px;margin:0 auto;background:#FAF6EF;color:#2B2B28;font-family:"Hiragino Mincho ProN",serif}
+header{padding:22px 20px 6px}header .brand{font-family:-apple-system,"Hiragino Kaku Gothic ProN",sans-serif;font-size:11px;letter-spacing:.18em;color:#8A8578}
+header h1{font-size:27px;font-weight:600;margin-top:4px}
+header .cnt{font-family:-apple-system,sans-serif;font-size:11.5px;color:#8A8578;margin-top:3px}
+.cal{display:flex;gap:6px;padding:12px 20px 4px;font-family:-apple-system,sans-serif}
+.cal div{flex:1;text-align:center;padding:7px 0;border-radius:10px;font-size:11px;color:#8A8578}
+.cal div b{display:block;font-size:15px;color:#2B2B28}.cal .on{background:#7A4A21;color:#fff}.cal .on b{color:#fff}.cal .has{border:1px solid #DCD2BE}
+.up{margin:14px 20px 4px;background:#7A4A21;color:#fff;border-radius:16px;padding:15px;text-align:center;font-family:-apple-system,sans-serif}
+.up b{font-size:16px;display:block}.up span{font-size:11px;opacity:.85}
+.search{margin:12px 20px 2px;background:#fff;border:1px solid #E4DFD2;border-radius:10px;padding:9px 12px;font-family:-apple-system,sans-serif;font-size:12px;color:#8A8578}
+.guest-sec{margin:16px 20px 0}
+.ghead{display:flex;align-items:center;gap:9px}
+.gava{width:34px;height:34px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;color:#fff;font-family:-apple-system,sans-serif;font-weight:700;font-size:14px}
+.ghead h3{font-size:16.5px;flex:1}
+.revisit{font-family:-apple-system,sans-serif;font-size:10px;font-weight:700;background:#F3E3C2;color:#7A4A21;border-radius:99px;padding:2.5px 8px}
+.ghead .gsub{font-family:-apple-system,sans-serif;font-size:10.5px;color:#8A8578}
+.memo{margin-top:8px;background:#FFF8E8;border:1px solid #EBDCB4;border-radius:10px;padding:9px 11px;font-size:12px;line-height:1.55}
+.memo b{font-family:-apple-system,sans-serif;font-size:10px;color:#9A7B1E;letter-spacing:.06em;display:block;margin-bottom:2px}
+.entry{display:flex;gap:12px;background:#fff;margin-top:9px;border-radius:14px;padding:12px;border:1px solid #EDE4D2}
+.ephoto{width:74px;height:74px;border-radius:10px;flex:none}
+.ebody{flex:1;min-width:0}.ebody h4{font-size:14px;line-height:1.45}
+.edate2{font-family:-apple-system,sans-serif;font-size:10.5px;color:#8A8578;margin-top:1px}
+.honne{font-size:12px;margin-top:5px;line-height:1.55}.honne b{background:linear-gradient(transparent 62%,#F3DFA8 62%)}
+.meta{font-size:11px;color:#6B675C;margin-top:5px;font-family:-apple-system,sans-serif}
+.tags{margin-top:7px;display:flex;gap:5px;flex-wrap:wrap}.scope,.st,.use{font-family:-apple-system,sans-serif;font-size:10px;padding:2.5px 8px;border-radius:99px;border:1px solid #D8D2C4;color:#6B675C}
+.use{border-color:#C9B98A;color:#7A5A14;background:#FDF6DF}
+.st-done{background:#EAF2E4;border-color:#B9D2A8;color:#3E6B2F}.st-warn{background:#FDF0E2;border-color:#EBCB9E;color:#9A6414}.st-proc{background:#E8EEF5;border-color:#B9CBDE;color:#2F5D8A}
+.warn{color:#C0392B;font-weight:700}.read{font-family:-apple-system,sans-serif;font-size:10.5px;color:#7A4A21;font-weight:700}
+.foot{padding:18px 20px 26px;font-size:10px;color:#A39C8B;font-family:-apple-system,sans-serif}
+</style></head>
+<body><header><p class="brand">TSUAROGU ・ 自分用</p><h1>つあろぐ ゲスト帳</h1><p class="cnt">ゲストごとに前回のログと申し送りが残ります ・ 直近6組</p></header>
+<div class="cal"><div>10月<b>30</b></div><div>10月<b>31</b></div><div class="has">11月<b>2</b></div><div class="has">11月<b>4</b></div><div class="has">11月<b>5</b></div><div class="on">11月<b>6</b></div></div>
+<div class="up"><b>＋ 録音をアップ</b><span>ゲストの帳面に新しい1本が付きます（1録る→2文字に→3まとめる→4読む）</span></div>
+<div class="search">ゲスト名で検索 — 再訪の人の前回ログがすぐ開けます</div>
+
+<section class="guest-sec"><div class="ghead"><div class="gava" style="background:#B4552D">Y</div><h3>Yuliaさん</h3><span class="revisit">再訪あり</span></div>
+<div class="memo"><b>次回への申し送り</b>息子さんが欲しがっていたカードは在庫確認を先に。値段の説明は「店ごとに違う理由」から入ると納得が早い。</div>
+<article class="entry"><div class="ephoto" style="background:#B4552D"></div><div class="ebody"><h4>デンマーク親子のアキバツアー</h4>
+<p class="edate2">2026.11.06 木 ・ 144分 ・ Airbnb</p>
+<p class="honne">本音: 息子が<b>「この景品は、日本でしか取れないの？」</b></p>
+<p class="meta">20場面 ・ 写真31枚 ・ 朱書き12件</p>
+<p class="tags"><span class="scope">ゲスト共有</span><span class="st st-done">完成</span><span class="use">お礼の下書きに使う</span><span class="read">読む ›</span></p></div></article></section>
+
+<section class="guest-sec"><div class="ghead"><div class="gava" style="background:#2D5A7B">M</div><h3>Marcusさん</h3></div>
+<article class="entry"><div class="ephoto" style="background:#2D5A7B"></div><div class="ebody"><h4>ゲーセン案内ツアー</h4>
+<p class="edate2">2026.11.05 水 ・ 121分 ・ Viator</p>
+<p class="honne">本音: <b>「太鼓の達人の上級が叩きたい」</b> — 次は上級台のある店へ</p>
+<p class="meta">18場面 ・ 写真24枚 ・ 朱書き9件 <span class="warn">要確認 2</span></p>
+<p class="tags"><span class="scope">自分だけ</span><span class="st st-warn">要確認</span><span class="read">読む ›</span></p></div></article></section>
+
+<section class="guest-sec"><div class="ghead"><div class="gava" style="background:#5B7A3A">C</div><h3>Chen家</h3><span class="revisit">11/8 再訪予定</span></div>
+<div class="memo"><b>次回への申し送り</b>11/8は中野のカードショップ希望。前回の価格の話を踏まえて、状態表示の見方から案内する。</div>
+<article class="entry"><div class="ephoto" style="background:#5B7A3A"></div><div class="ebody"><h4>カードショップ巡り</h4>
+<p class="edate2">2026.11.04 火 ・ 118分 ・ GYG</p>
+<p class="honne">本音: <b>「状態のランク表示が国と違う」</b>と驚いていた</p>
+<p class="meta">16場面 ・ 写真22枚 ・ 朱書き7件</p>
+<p class="tags"><span class="scope">チーム</span><span class="st st-done">完成</span><span class="read">読む ›</span></p></div></article></section>
+
+<section class="guest-sec"><div class="ghead"><div class="gava" style="background:#7A3A5E">E</div><h3>Emmaさん</h3></div>
+<article class="entry"><div class="ephoto" style="background:#7A3A5E"></div><div class="ebody"><h4>初めてのアキバ家族ツアー</h4>
+<p class="edate2">2026.11.02 日 ・ 152分 ・ 直接</p>
+<p class="honne">本音: 子どもたちが<b>「また来たい」</b> — お礼に写真ページのリンクを添える</p>
+<p class="meta">21場面 ・ 写真35枚 ・ 朱書き14件</p>
+<p class="tags"><span class="scope">自分だけ</span><span class="st st-done">完成</span><span class="use">お礼の下書きに使う</span><span class="read">読む ›</span></p></div></article></section>
+
+<section class="guest-sec"><div class="ghead"><div class="gava" style="background:#3A6B6B">L</div><h3>Lucasさん</h3></div>
+<article class="entry"><div class="ephoto" style="background:#3A6B6B"></div><div class="ebody"><h4>ハロウィン夜の秋葉原</h4>
+<p class="edate2">2026.10.31 金 ・ 97分 ・ Airbnb</p>
+<p class="meta">14場面 ・ 写真19枚 ・ 朱書き0件 — 生成が終わると本音が付きます</p>
+<p class="tags"><span class="scope">ゲスト共有</span><span class="st st-proc">処理中</span><span class="read">読む ›</span></p></div></article></section>
+<p class="foot">特化: ゲスト別アーカイブ — 再訪時に前回ログと申し送りが開け、本音から翌日のお礼につながる</p></body></html>
