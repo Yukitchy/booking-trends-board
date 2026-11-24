@@ -1,0 +1,1685 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>つあろぐ ゲスト帳｜自分用管理</title>
+<meta name="description" content="ツアーの記録（つあろぐ）をゲストごとに管理する自分用ページ。申し送り・前回ログ・お礼の下書き。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="つあろぐ">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="つあろぐ ゲスト帳｜自分用管理">
+<meta property="og:description" content="ツアーの記録をゲストごとに。前回ログと申し送りが残る自分用の帳面。">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/tsuarogu-guestbook/">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/tsuarogu-guestbook/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="つあろぐ ゲスト帳｜自分用管理">
+<meta name="twitter:description" content="ツアーの記録をゲストごとに。前回ログと申し送りが残る自分用の帳面。">
+<meta name="twitter:image" content="https://yukitchy.github.io/booking-trends-board/tsuarogu-guestbook/og.png">
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+.gb,.gb *{box-sizing:border-box}
+.gb{margin:0;background:#FAF6EF;color:#2B2B28;font-family:"Hiragino Mincho ProN","Shippori Mincho",serif;-webkit-text-size-adjust:100%}
+.gb h1,.gb h3,.gb h4,.gb p{margin:0}
+.wrap{max-width:520px;margin:0 auto;padding:0 20px}
+header{padding:22px 0 6px}
+header .brand{font-family:-apple-system,"Hiragino Kaku Gothic ProN",sans-serif;font-size:11px;letter-spacing:.18em;color:#8A8578}
+header h1{font-size:27px;font-weight:600;margin-top:4px}
+header .cnt{font-family:-apple-system,sans-serif;font-size:11.5px;color:#8A8578;margin-top:3px}
+header .cnt a{color:#7A4A21;font-weight:700;text-decoration:none}
+.cal{display:flex;gap:6px;padding:12px 0 4px;font-family:-apple-system,sans-serif;overflow-x:auto;scrollbar-width:none}
+.cal::-webkit-scrollbar{display:none}
+.cal button{flex:1 0 auto;min-width:44px;text-align:center;padding:7px 4px;border-radius:10px;font-size:11px;color:#8A8578;background:none;border:1px solid transparent;font-family:inherit;cursor:pointer}
+.cal button b{display:block;font-size:15px;color:#2B2B28}
+.cal button.has{border-color:#DCD2BE}
+.cal button.on{background:#7A4A21;color:#fff}
+.cal button.on b{color:#fff}
+.up{display:block;margin:14px 0 4px;background:#7A4A21;color:#fff;border-radius:16px;padding:15px;text-align:center;font-family:-apple-system,sans-serif;cursor:pointer}
+.up b{font-size:16px;display:block}
+.up span{font-size:11px;opacity:.85}
+.up input{display:none}
+.upnote{font-family:-apple-system,sans-serif;font-size:10.5px;color:#8A8578;margin-top:6px;line-height:1.5}
+.search{margin:12px 0 2px}
+.search input{width:100%;background:#fff;border:1px solid #E4DFD2;border-radius:10px;padding:10px 12px;font-family:-apple-system,sans-serif;font-size:13px;color:#2B2B28;outline:none}
+.search input:focus{border-color:#7A4A21}
+.filters{display:flex;gap:6px;margin-top:10px;font-family:-apple-system,sans-serif;flex-wrap:wrap}
+.filters button{border:1px solid #D8D2C4;background:#fff;color:#6B675C;border-radius:99px;padding:5px 12px;font-size:11.5px;cursor:pointer}
+.filters button.on{background:#2B2B28;color:#fff;border-color:#2B2B28}
+.guest-sec{margin:18px 0 0}
+.ghead{display:flex;align-items:center;gap:9px}
+.gava{width:34px;height:34px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;color:#fff;font-family:-apple-system,sans-serif;font-weight:700;font-size:14px}
+.ghead h3{font-size:16.5px;flex:1;min-width:0}
+.ghead .gsub{font-family:-apple-system,sans-serif;font-size:10.5px;color:#8A8578;display:block;font-weight:400}
+.revisit{font-family:-apple-system,sans-serif;font-size:10px;font-weight:700;background:#F3E3C2;color:#7A4A21;border-radius:99px;padding:2.5px 8px;white-space:nowrap}
+.memo{margin-top:8px;background:#FFF8E8;border:1px solid #EBDCB4;border-radius:10px;padding:9px 11px;font-size:12px;line-height:1.55;white-space:pre-wrap;word-break:break-word}
+.memo b{font-family:-apple-system,sans-serif;font-size:10px;color:#9A7B1E;letter-spacing:.06em;display:block;margin-bottom:2px}
+.memo .nextline{font-family:-apple-system,sans-serif;font-size:11px;color:#7A4A21;font-weight:700;margin-top:4px}
+.memoedit{font-family:-apple-system,sans-serif;font-size:10.5px;color:#9A7B1E;background:none;border:none;cursor:pointer;padding:2px 0 0;text-decoration:underline}
+.memoform{margin-top:8px;background:#FFF8E8;border:1px solid #EBDCB4;border-radius:10px;padding:10px 11px;font-family:-apple-system,sans-serif}
+.memoform label{font-size:10px;color:#9A7B1E;letter-spacing:.06em;display:block;margin:6px 0 3px}
+.memoform label:first-child{margin-top:0}
+.memoform textarea,.memoform input{width:100%;border:1px solid #E4DFD2;border-radius:8px;padding:8px;font-size:12.5px;font-family:inherit;background:#fff;color:#2B2B28}
+.memoform textarea{min-height:64px;resize:vertical}
+.memoform .row{display:flex;gap:8px;margin-top:10px}
+.memoform button{flex:1;border-radius:8px;padding:8px;font-size:12px;cursor:pointer;border:1px solid #7A4A21}
+.memoform .save{background:#7A4A21;color:#fff}
+.memoform .cancel{background:#fff;color:#7A4A21}
+.entry{display:flex;gap:12px;background:#fff;margin-top:9px;border-radius:14px;padding:12px;border:1px solid #EDE4D2}
+.ephoto{width:74px;height:74px;border-radius:10px;flex:none;position:relative;display:flex;align-items:center;justify-content:center;color:#fff;font-family:-apple-system,sans-serif;font-weight:700;font-size:24px}
+.ephoto .pcount{position:absolute;left:0;right:0;bottom:0;background:rgba(0,0,0,.45);color:#fff;font-size:9.5px;font-weight:700;text-align:center;padding:2px 0;border-radius:0 0 10px 10px;letter-spacing:.04em}
+.ebody{flex:1;min-width:0}
+.ebody h4{font-size:14px;line-height:1.45}
+.edate2{font-family:-apple-system,sans-serif;font-size:10.5px;color:#8A8578;margin-top:1px}
+.honne{font-size:12px;margin-top:5px;line-height:1.55;word-break:break-word}
+.honne b{background:linear-gradient(transparent 62%,#F3DFA8 62%);font-weight:700}
+.honne .why{display:block;font-size:10.5px;color:#8A8578;font-family:-apple-system,sans-serif;margin-top:1px}
+.meta{font-size:11px;color:#6B675C;margin-top:5px;font-family:-apple-system,sans-serif}
+.tags{margin-top:7px;display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+.scope,.st,.use{font-family:-apple-system,sans-serif;font-size:10px;padding:2.5px 8px;border-radius:99px;border:1px solid #D8D2C4;color:#6B675C}
+button.use{cursor:pointer}
+.use{border-color:#C9B98A;color:#7A5A14;background:#FDF6DF}
+.st-done{background:#EAF2E4;border-color:#B9D2A8;color:#3E6B2F}
+.st-warn{background:#FDF0E2;border-color:#EBCB9E;color:#9A6414}
+.st-proc{background:#E8EEF5;border-color:#B9CBDE;color:#2F5D8A}
+.warn{color:#C0392B;font-weight:700}
+.read{font-family:-apple-system,sans-serif;font-size:10.5px;color:#7A4A21;font-weight:700;background:none;border:none;cursor:pointer;padding:2.5px 4px}
+.pairlink{font-family:-apple-system,sans-serif;font-size:10.5px;color:#7A4A21;background:none;border:none;cursor:pointer;padding:2.5px 4px;text-decoration:underline}
+.pend-sec{margin:18px 0 0}
+.pend-sec h3{font-size:14px}
+.pend-sec .note{font-family:-apple-system,sans-serif;font-size:10.5px;color:#8A8578;margin-top:2px}
+.pend .del{margin-left:auto;font-family:-apple-system,sans-serif;font-size:10.5px;color:#C0392B;background:none;border:none;cursor:pointer}
+.empty{font-family:-apple-system,sans-serif;font-size:12px;color:#8A8578;text-align:center;padding:26px 0}
+.foot{padding:22px 0 30px;font-size:10.5px;color:#A39C8B;font-family:-apple-system,sans-serif;line-height:1.7}
+.foot a{color:#7A4A21;font-weight:700;text-decoration:none}
+.foot button{margin-top:10px;width:100%;background:#fff;border:1px solid #D8D2C4;color:#6B675C;border-radius:10px;padding:10px;font-size:12px;cursor:pointer;font-family:inherit}
+.sheet{position:fixed;inset:0;background:rgba(30,25,18,.5);z-index:50;display:none}
+.sheet.open{display:block}
+.sheet .panel{position:absolute;left:0;right:0;bottom:0;top:5%;background:#FAF6EF;border-radius:18px 18px 0 0;overflow-y:auto;padding:18px 20px 34px;max-width:520px;margin:0 auto}
+.sheet h2{font-size:18px;line-height:1.45;margin:0 26px 4px 0}
+.sheet .smeta{font-family:-apple-system,sans-serif;font-size:11px;color:#8A8578}
+.sheet h5{font-family:-apple-system,sans-serif;font-size:11px;letter-spacing:.1em;color:#7A4A21;margin:18px 0 6px}
+.sheet ul{margin:0;padding-left:18px;font-size:13px;line-height:1.7}
+.sheet .toclist{list-style:none;padding:0}
+.sheet .toclist li{display:flex;gap:10px;font-size:13px;padding:5px 0;border-bottom:1px dashed #E4DFD2}
+.sheet .toclist .tm{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;color:#7A4A21;flex:none;padding-top:2px}
+.sheet .fix{font-size:12.5px;line-height:1.6;margin-bottom:8px}
+.sheet .fix s{color:#B03A2A}
+.sheet .fix .better{color:#176B3A;font-weight:700}
+.sheet .fix .why,.sheet .mk .why{display:block;font-size:11px;color:#8A8578;font-family:-apple-system,sans-serif}
+.sheet .mk{font-size:12.5px;line-height:1.6;margin-bottom:8px}
+.sheet .mk b{background:linear-gradient(transparent 62%,#F3DFA8 62%)}
+.sheet .close{position:absolute;top:12px;right:14px;width:34px;height:34px;border-radius:50%;border:1px solid #D8D2C4;background:#fff;font-size:16px;cursor:pointer}
+.sheet pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #EDE4D2;border-radius:12px;padding:14px;font-size:13px;line-height:1.7;font-family:-apple-system,sans-serif}
+.sheet .copybtn{margin-top:10px;width:100%;background:#7A4A21;color:#fff;border:none;border-radius:10px;padding:12px;font-size:13px;cursor:pointer;font-family:-apple-system,sans-serif;font-weight:700}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:#2B2B28;color:#fff;font-family:-apple-system,sans-serif;font-size:12px;padding:9px 16px;border-radius:99px;opacity:0;pointer-events:none;transition:.25s;z-index:99}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.flash{animation:fl 1.2s}
+@keyframes fl{0%{background:#F3E3C2}100%{background:#fff}}
+</style>
+</head>
+<body class="gb">
+<div class="wrap">
+<header>
+<p class="brand">TSUAROGU ・ 自分用</p>
+<h1>つあろぐ ゲスト帳</h1>
+<p class="cnt">ゲストごとに前回のログと申し送りが残ります ・ 全10本（2026.10.30〜11.06）<br>読み物の紹介は <a href="https://yukitchy.github.io/kyo-no-koe/">つあろぐLP</a> へ</p>
+</header>
+<div class="cal" id="cal"></div>
+<label class="up"><b>＋ 録音をアップ</b><span>ゲストの帳面に新しい1本が付きます（1録る→2文字に→3まとめる→4読む）</span><input type="file" id="upfile" accept="audio/*" multiple></label>
+<p class="upnote">選んだ録音は「処理待ち」としてこの端末に控えが残ります。処理と恒久化は、控えを Muse へ送ってから始まります（ワイスピの追加フォームと同じ流儀）。</p>
+<div class="search"><input type="search" id="q" placeholder="ゲスト名・題・本音で検索 — 再訪の人の前回ログがすぐ開けます"></div>
+<div class="filters" id="filters">
+<button data-f="all" class="on">すべて</button>
+<button data-f="tour">ツアー</button>
+<button data-f="nontour">ツアー以外</button>
+<button data-f="warn">要確認あり</button>
+</div>
+<div id="pending"></div>
+<main id="list"></main>
+<p class="empty" id="empty" style="display:none">見つかりませんでした</p>
+<div class="foot">
+特化: ゲスト別アーカイブ — 再訪時に前回ログと申し送りが開け、本音から翌日のお礼につながる<br>
+データ: 2026.10.30〜11.06 に作成した10本（m2 の voice-inbox の解析データと、だんどりーのカルテ・写真アルバムから集計）。公開範囲は全て「自分だけ」（読み物ページは非公開が基本で、11/6 Yuliaさんの回だけ読み物ページを生成済み）。申し送りと処理待ちの控えはこの端末の中だけに保存されます。
+<button id="export">メモと処理待ちをコピー（Muse送付用）</button><br>
+<a href="https://yukitchy.github.io/kyo-no-koe/">つあろぐLP（公開ページ）</a>
+</div>
+</div>
+
+<div class="sheet" id="reader"><div class="panel"><button class="close" data-close="reader">✕</button><div id="reader-body"></div></div></div>
+<div class="sheet" id="draft"><div class="panel"><button class="close" data-close="draft">✕</button><h2>お礼の下書き</h2><p class="smeta">本音と要点から自動で組みました。送る前に直してください。</p><pre id="draft-text"></pre><button class="copybtn" id="draft-copy">コピーする</button></div></div>
+<div class="toast" id="toast">コピーしました</div>
+
+<script>
+const GUESTS = [
+ {
+  "id": "yulia",
+  "name": "Yuliaさん",
+  "sub": "デンマーク・オーデンセ／親子2名",
+  "color": "#B4552D",
+  "initial": "Y",
+  "episodes": [
+   {
+    "rec": 115,
+    "date": "2026-11-06",
+    "start": "11:02",
+    "min": 144,
+    "title": "デンマーク親子とのアキバツアー",
+    "channel": "Airbnb",
+    "tour": true,
+    "toc": [
+     {
+      "time": "11:02",
+      "t": "買い物の相談と、ワンピースの好きなキャラ"
+     },
+     {
+      "time": "11:10",
+      "t": "犬と猫、お土産、食べ物の好み、少年漫画とは"
+     },
+     {
+      "time": "11:17",
+      "t": "姉のテニス、母親の仕事の話"
+     },
+     {
+      "time": "11:25",
+      "t": "日本の電車の静けさとサービス文化"
+     },
+     {
+      "time": "11:36",
+      "t": "ポケモンセンターの買い物とマンガ店"
+     },
+     {
+      "time": "11:46",
+      "t": "ゲームやカードの中古価格、転売の話"
+     },
+     {
+      "time": "11:56",
+      "t": "日本の物価と、鉄道好きの家族"
+     },
+     {
+      "time": "12:01",
+      "t": "明日の日光と、息子のミュウツーのカード"
+     },
+     {
+      "time": "12:06",
+      "t": "注文の流れと日本の冬"
+     },
+     {
+      "time": "12:11",
+      "t": "アニメフロアの案内とクイズ"
+     },
+     {
+      "time": "12:19",
+      "t": "時差ぼけ、フィギュア選びと支払い"
+     },
+     {
+      "time": "12:31",
+      "t": "ネコ版エースやチョッパーのグッズ"
+     },
+     {
+      "time": "12:39",
+      "t": "リズムゲームの遊び方を教える"
+     },
+     {
+      "time": "12:52",
+      "t": "リズムゲームで上達する子ども"
+     },
+     {
+      "time": "13:00",
+      "t": "止まったゲーム機とドラムの思い出"
+     },
+     {
+      "time": "13:05",
+      "t": "カードの状態表示を確かめる"
+     },
+     {
+      "time": "13:12",
+      "t": "電車好きの妹と、駅舎の商業施設"
+     },
+     {
+      "time": "13:18",
+      "t": "日本語レッスンと呪術廻戦の話"
+     },
+     {
+      "time": "13:23",
+      "t": "パックの値段差"
+     },
+     {
+      "time": "13:25",
+      "t": "Instagramの投稿許可を確認"
+     }
+    ],
+    "toc_n": 20,
+    "chunks": 57,
+    "photos": 31,
+    "photos_total": 31,
+    "fixes_n": 66,
+    "fixes_sample": [
+     {
+      "said": "You guys also with any fancy restaurant like the wagyu big something?",
+      "better": "Did you guys go to any fancy restaurant, like with wagyu or something?",
+      "why": "前置詞と文法構造が不自然"
+     },
+     {
+      "said": "Yeah, I like to say ramen and sushi is something that we always go to.",
+      "better": "I'd say ramen and sushi are places we always go to.",
+      "why": "構文と主語動詞の一致エラー"
+     },
+     {
+      "said": "So you get used to eating noodles like slapping noodles.",
+      "better": "So you get used to eating noodles by slurping them.",
+      "why": "slappingではなくslurpingが正しい"
+     }
+    ],
+    "marks_sample": [
+     {
+      "quote": "Maybe we had like 10 to 20.",
+      "type": "客の声",
+      "why": "ツアー中のゲスト食事量を把握できる、写真やポッドキャストのネタになる。"
+     },
+     {
+      "quote": "I got really sad and Ace got killed by a kind.",
+      "type": "客の声",
+      "why": "11歳の子のアニメへの深い感情的入り込み、年代別の推し変わり追跡ポイント"
+     },
+     {
+      "quote": "does he play any sports only e-sports only e-sports",
+      "type": "客の声",
+      "why": "ゲストの子どもの実際のスポーツ活動が限定的（デジタル世代の特徴）"
+     },
+     {
+      "quote": "I spent 10,000 yen on Pokemon.",
+      "type": "客の声",
+      "why": "ゲストの消費行動把握、ツアー中の予算アドバイスの重要ポイント。"
+     }
+    ],
+    "talk": [
+     "デンマークから来た親子とアキバでツアーをした",
+     "ポケモンセンターで30周年記念パックを10パック買った",
+     "リズムゲームを子どもに教え、短時間で上達した",
+     "カードの状態表示を店員と一緒に確認した",
+     "明日の日光の予定と、Instagramの投稿許可を確認した"
+    ],
+    "know": [
+     "参加者の年齢層を事前に確認し、作品の紹介を選ぶ",
+     "カードの傷の確認と保管方法を、複数回客に伝える",
+     "リズムゲームは見る人も多く踊らなくてよいと伝える",
+     "英語版マンガは少なく高いので、買い方を案内する"
+    ],
+    "doubts": 47,
+    "page": true,
+    "honne_pre": "息子が",
+    "honne_q": "「この景品は、日本でしか取れないの？」",
+    "honne_why": "景品が非売品で店ごとに値段が違う理由を説明する場面。LPの見本にも採用",
+    "scope": "自分だけ",
+    "status": "要確認"
+   }
+  ]
+ },
+ {
+  "id": "carola",
+  "name": "Carolaさん",
+  "sub": "ドイツ・ミュンヘン／親子2名",
+  "color": "#2D5A7B",
+  "initial": "C",
+  "episodes": [
+   {
+    "rec": 106,
+    "date": "2026-10-31",
+    "start": "14:39",
+    "min": 180,
+    "title": "ドイツ人客と巡る秋葉原",
+    "channel": "直接",
+    "tour": true,
+    "toc": [
+     {
+      "time": "14:39",
+      "t": "客の家族と東京滞在"
+     },
+     {
+      "time": "14:52",
+      "t": "ポケモンカードの購入事情"
+     },
+     {
+      "time": "15:04",
+      "t": "ポケモンの紹介とカード談義"
+     },
+     {
+      "time": "15:14",
+      "t": "アニメ文化の説明"
+     },
+     {
+      "time": "15:25",
+      "t": "景品ゲームとカプセルトイ"
+     },
+     {
+      "time": "15:35",
+      "t": "カードゲームとパチンコ"
+     },
+     {
+      "time": "15:43",
+      "t": "中古店で漫画やゲーム探し"
+     },
+     {
+      "time": "15:55",
+      "t": "レトロゲームと商品の相場"
+     },
+     {
+      "time": "16:06",
+      "t": "FF14の展示と秋葉原散策"
+     },
+     {
+      "time": "16:21",
+      "t": "カード購入と日本語練習"
+     },
+     {
+      "time": "16:33",
+      "t": "注文待ちと来日予定の話"
+     },
+     {
+      "time": "16:49",
+      "t": "ゲームや音楽のチケット談義"
+     },
+     {
+      "time": "16:56",
+      "t": "ドール探しと昼食の相談"
+     },
+     {
+      "time": "17:04",
+      "t": "メイドカフェで昼食"
+     },
+     {
+      "time": "17:20",
+      "t": "メイドカフェの体験とライブ"
+     }
+    ],
+    "toc_n": 15,
+    "chunks": 71,
+    "photos": 24,
+    "photos_total": 33,
+    "fixes_n": 66,
+    "fixes_sample": [
+     {
+      "said": "And it's like on the cheaper.",
+      "better": "And it's one of the cheaper options.",
+      "why": "「安いほうの選択肢」は one of the cheaper options と言う。"
+     },
+     {
+      "said": "I think that buying single packs in Japan is very dangerous because Japanese cars are a lot easier to detect if there's a hit.",
+      "better": "I think buying single packs in Japan is risky because it's much easier to detect which packs contain a rare card.",
+      "why": "cars はカードの誤りで、意味が伝わる自然な表現にする。"
+     },
+     {
+      "said": "I mean, you have to decide what your other favorite Pokemon, right?",
+      "better": "I mean, you have to decide which other Pokémon is your favorite, right?",
+      "why": "「どのポケモンが好きか」は which を使う。"
+     }
+    ],
+    "marks_sample": [
+     {
+      "quote": "I won't be able to hold a proper conversation, but I'll survive.",
+      "type": "客の声",
+      "why": "旅行中の日本語力について本人の実感が語られた。"
+     },
+     {
+      "quote": "I just sat for two hours and I watched the painters.",
+      "type": "客の声",
+      "why": "客が楽しめた過ごし方が具体的に分かる。"
+     },
+     {
+      "quote": "For me this borderless team that's not the museum.",
+      "type": "客の声",
+      "why": "客の好みに合わせた行き先選びに役立つ。"
+     },
+     {
+      "quote": "An Ascendate Hero pack in English was 15 euros.",
+      "type": "客の声",
+      "why": "国ごとのポケモンカード価格を比べる材料。"
+     }
+    ],
+    "talk": [
+     "ドイツ人の母親と息子たちの客と秋葉原を回った",
+     "ポケモンカードの購入事情や転売目的の行列を説明した",
+     "ゲームセンター、中古店、レトロゲーム売り場、カプセルトイを案内した",
+     "客がカードパックを買う日本語を練習し、ポケモンセンターの空く時間帯も案内した",
+     "昼食はメイドカフェで、動物の絵の希望やライブ開始の案内をした"
+    ],
+    "know": [
+     "ポケモンセンターは週末を避け平日午前10時か11時ごろを勧める",
+     "パックは単品を避けコンビニやポケモンセンターで買う方法を伝える",
+     "客が体験直後に出した感想はレビューや紹介文に使える",
+     "メイドカフェでは描いてほしい絵を客に選んでもらい写真の受け取り方も確認する"
+    ],
+    "doubts": 0,
+    "page": false,
+    "honne_pre": "",
+    "honne_q": "I won't be able to hold a proper conversation, but I'll survive.",
+    "honne_why": "旅行中の日本語力について本人の実感が語られた",
+    "scope": "自分だけ",
+    "status": "完成"
+   },
+   {
+    "rec": 108,
+    "date": "2026-10-31",
+    "start": "17:39",
+    "min": 115,
+    "title": "ミュンヘンの客とアキバツアー",
+    "channel": "直接",
+    "tour": true,
+    "toc": [
+     {
+      "time": "17:39",
+      "t": "メイドカフェのショーと撮影ルール"
+     },
+     {
+      "time": "17:45",
+      "t": "注文の行き違いとAirDrop"
+     },
+     {
+      "time": "17:55",
+      "t": "会計と客の家族の話"
+     },
+     {
+      "time": "18:00",
+      "t": "秋葉原の歴史とポケカ売り場"
+     },
+     {
+      "time": "18:05",
+      "t": "ミュンヘンの天気と地震警報の話"
+     },
+     {
+      "time": "18:10",
+      "t": "パックマン風4人対戦"
+     },
+     {
+      "time": "18:20",
+      "t": "ゲームセンターで音ゲー挑戦"
+     },
+     {
+      "time": "18:40",
+      "t": "ちいかわグッズの店を案内"
+     },
+     {
+      "time": "18:45",
+      "t": "フェルンとフリーレンの話"
+     },
+     {
+      "time": "18:47",
+      "t": "帰り道の感想と翌日の相談"
+     },
+     {
+      "time": "18:52",
+      "t": "名刺と別れの挨拶"
+     },
+     {
+      "time": "18:55",
+      "t": "ほぼ無内容の誤認識区間"
+     },
+     {
+      "time": "19:24",
+      "t": "食事の準備らしき断片"
+     }
+    ],
+    "toc_n": 13,
+    "chunks": 44,
+    "photos": 9,
+    "photos_total": 33,
+    "fixes_n": 16,
+    "fixes_sample": [
+     {
+      "said": "What is your dad really like about Japan here?",
+      "better": "What does your dad like most about Japan?",
+      "why": "「What is ... like」は「〜はどんな人か」になる。「何が好きか」は What does ... like"
+     },
+     {
+      "said": "this is one of the oldest part of this town",
+      "better": "this is one of the oldest parts of this town",
+      "why": "one of the の後ろは複数形(parts)にする"
+     },
+     {
+      "said": "Can I even tag your account?",
+      "better": "Can I also tag your account?",
+      "why": "「〜も」と頼むときは even ではなく also。even だと不自然な強調になる"
+     }
+    ],
+    "marks_sample": [
+     {
+      "quote": "I can always come back here",
+      "type": "客の声",
+      "why": "気を遣いつつ、また来る前提で楽しんでいる本音"
+     },
+     {
+      "quote": "I have sensory overload",
+      "type": "客の声",
+      "why": "刺激が強すぎるサイン。ツアーの終わり方や休憩のタイミングを調整する材料"
+     },
+     {
+      "quote": "you had a better time than before",
+      "type": "客の声",
+      "why": "前回の訪問と比べた満足度。店選びの手応えになる"
+     },
+     {
+      "quote": "This was a lot more exciting.",
+      "type": "客の声",
+      "why": "メイドカフェへの率直な評価。ツアーの売りとして使える"
+     }
+    ],
+    "talk": [
+     "ミュンヘンの客とメイドカフェのショーと撮影ルールを楽しんだ",
+     "秋葉原の歴史やポケカ売り場を案内し、ミュンヘンの天気や地震警報の話もした",
+     "ゲームセンターで4人対戦や音楽ゲームに挑戦した",
+     "ちいかわグッズの店を案内し、フェルンとフリーレンの話をした",
+     "帰り道に感想を聞き、翌日の相談と名刺交換をして別れた"
+    ],
+    "know": [
+     "ツアー後にレビューを頼む習慣は集客に直結する",
+     "別れ際の締めの一言を決めておく",
+     "リピートや紹介につながりそうな客の話は記録しておく",
+     "音楽ゲームの激しいプレイをスポーツにたとえると盛り上がる"
+    ],
+    "doubts": 0,
+    "page": false,
+    "honne_pre": "",
+    "honne_q": "I can always come back here",
+    "honne_why": "また来る前提で楽しんでいる本音。メイドカフェのショーへの評価も上々",
+    "scope": "自分だけ",
+    "status": "完成"
+   }
+  ]
+ },
+ {
+  "id": "samuel",
+  "name": "Samuelさん",
+  "sub": "カナダ／2名",
+  "color": "#5B7A3A",
+  "initial": "S",
+  "episodes": [
+   {
+    "rec": 111,
+    "date": "2026-11-03",
+    "start": "12:55",
+    "min": 180,
+    "title": "カナダ人客と秋葉原・買い物ツアー",
+    "channel": "Oshinobi",
+    "tour": true,
+    "toc": [
+     {
+      "time": "12:55",
+      "t": "声優の話と趣味の雑談"
+     },
+     {
+      "time": "13:00",
+      "t": "買い物相談と映画の話"
+     },
+     {
+      "time": "13:05",
+      "t": "医療の体験談と肩の脱臼"
+     },
+     {
+      "time": "13:15",
+      "t": "ドンキ・カード・包丁の案内"
+     },
+     {
+      "time": "13:20",
+      "t": "出発前の確認とアニメ・音楽の話"
+     },
+     {
+      "time": "13:25",
+      "t": "渋谷の罠とフィギュア談義"
+     },
+     {
+      "time": "13:56",
+      "t": "買取店と古本屋の説明"
+     },
+     {
+      "time": "14:01",
+      "t": "漫画の違いと子ども時代の話"
+     },
+     {
+      "time": "14:37",
+      "t": "買取店と災害・地震の話"
+     },
+     {
+      "time": "14:44",
+      "t": "かわいい系の店と動物カフェ"
+     },
+     {
+      "time": "14:52",
+      "t": "ブラックロータスとビール休憩"
+     },
+     {
+      "time": "15:17",
+      "t": "米加の政治と家族の話"
+     },
+     {
+      "time": "15:27",
+      "t": "米加関係の悪化と若者世代"
+     },
+     {
+      "time": "15:37",
+      "t": "退職代行とキャリア・口コミ"
+     }
+    ],
+    "toc_n": 14,
+    "chunks": 71,
+    "photos": 22,
+    "photos_total": 36,
+    "fixes_n": 73,
+    "fixes_sample": [
+     {
+      "said": "What else we need to get for you?",
+      "better": "What else do we need to get for you?",
+      "why": "疑問文なので do we の語順にする"
+     },
+     {
+      "said": "You're catching up until the newest art so far?",
+      "better": "Are you caught up to the newest arc so far?",
+      "why": "art ではなく arc(ストーリーの章)。「追いついている」は be caught up to"
+     },
+     {
+      "said": "You watched a horror movie called Obsession this year?",
+      "better": "Did you watch a horror movie called Obsession this year?",
+      "why": "過去の経験を聞く時は Did you ... で始める"
+     }
+    ],
+    "marks_sample": [
+     {
+      "quote": "2018, together since 2014",
+      "type": "客の声",
+      "why": "相手の結婚歴が分かる。打ち解けるきっかけになる個人情報"
+     },
+     {
+      "quote": "You like Berserk. Berserk? You gotta like the gory stuff, eh?",
+      "type": "客の声",
+      "why": "相手夫婦の好みが分かる。作品の案内やグッズ提案に使える"
+     },
+     {
+      "quote": "ADD, attention deficit, hyperactivity disorder",
+      "type": "客の声",
+      "why": "集中が続きにくい人には、短めの見どころでツアーを組むと合う"
+     },
+     {
+      "quote": "No, I'm a doctor. What department? Family medicine.",
+      "type": "客の声",
+      "why": "相手の職業が分かった。医療の話題で深く話せる"
+     }
+    ],
+    "talk": [
+     "カナダ出身の医療関係のゲストと秋葉原で買い物をした",
+     "ドン・キホーテやカード売り場、包丁を買う店を案内した",
+     "買取店と古本屋、動物カフェを回りビール休憩を取った",
+     "ツアー中に肩が外れた客がいた話と、寒冷地の医療の話が出た",
+     "米加関係の悪化や退職代行など、日本とカナダの違いを話した"
+    ],
+    "know": [
+     "客の夕食と音楽の希望に備え、店の場所と予約情報を事前に調べる",
+     "医師の言葉が効いた経験から、助言は専門家の言葉を借りて伝える",
+     "きわどい売り場は断り方を決めておき、案内前に客へ一言伝える",
+     "買い物の量とサイズの提案は、客の持ち帰り条件を聞いてから行う"
+    ],
+    "doubts": 0,
+    "page": false,
+    "honne_pre": "",
+    "honne_q": "You like Berserk. Berserk? You gotta like the gory stuff, eh?",
+    "honne_why": "相手夫婦の作品の好みが分かる。案内やグッズ提案に使える",
+    "scope": "自分だけ",
+    "status": "完成"
+   },
+   {
+    "rec": 110,
+    "date": "2026-11-03",
+    "start": "15:55",
+    "min": 47,
+    "title": "カナダ人客とのアキバゲーセンツアー",
+    "channel": "Oshinobi",
+    "tour": true,
+    "toc": [
+     {
+      "time": "15:55",
+      "t": "客との雑談とチョッパーのグッズ探し"
+     },
+     {
+      "time": "16:03",
+      "t": "お土産の相談とツアー客の話"
+     },
+     {
+      "time": "16:08",
+      "t": "レトロゲームと格闘ゲーム"
+     },
+     {
+      "time": "16:16",
+      "t": "リズムゲームに挑戦"
+     },
+     {
+      "time": "16:26",
+      "t": "写真撮影と新しいゲーム体験"
+     },
+     {
+      "time": "16:36",
+      "t": "記念写真とステッカー、別れの挨拶"
+     }
+    ],
+    "toc_n": 6,
+    "chunks": 19,
+    "photos": 10,
+    "photos_total": 36,
+    "fixes_n": 19,
+    "fixes_sample": [
+     {
+      "said": "He don't know anything.",
+      "better": "He doesn't know anything.",
+      "why": "主語がheなので動詞はdoesn'tになる。"
+     },
+     {
+      "said": "There's a Chopper main Mugiwara store in Harajuku.",
+      "better": "There's a main Mugiwara Store in Harajuku, and it has a lot of Chopper stuff.",
+      "why": "「Chopper main」は不自然。店の説明を文で言うほうが伝わる。"
+     },
+     {
+      "said": "Yeah, so which one you're looking for?",
+      "better": "So, which one are you looking for?",
+      "why": "疑問文なのでare you lookingの語順にする。"
+     }
+    ],
+    "marks_sample": [
+     {
+      "quote": "So fishing is a big culture.",
+      "type": "客の声",
+      "why": "客の地元の名物を知るきっかけ。釣り好きの客には話題にしやすい。"
+     },
+     {
+      "quote": "The convenience store. Yeah, in Pamlin Mark.",
+      "type": "客の声",
+      "why": "外国人客が日本で恋しくなるものの本音。ツアーのコンビニ立ち寄りに使える。"
+     },
+     {
+      "quote": "I was hoping they have something with Chopper on it.",
+      "type": "客の声",
+      "why": "客の具体的な推しキャラ。次のおすすめ店を選ぶ材料になる。"
+     },
+     {
+      "quote": "I don't know that I can make a purchase today.",
+      "type": "客の声",
+      "why": "買い物を迷う本音。無理に勧めず、後日の案内につなげられる。"
+     }
+    ],
+    "talk": [
+     "カナダ人の家族客とチョッパーのグッズを探した",
+     "お土産の相談をし、レトロゲームと格闘ゲームを遊んだ",
+     "リズムゲームに全員で挑戦し、新しいゲームも体験した",
+     "最後に全員で記念写真を撮りステッカーを印刷して渡した",
+     "客はInstagramに写真を載せユウキのタグ付けを確認した"
+    ],
+    "know": [
+     "撮影した写真や動画は後で全データを共有すると約束して送り忘れを防ぐ",
+     "解散時にSuicaを持っているか確認する",
+     "解散時に翌朝に備えて休むよう声をかける定型にする",
+     "大家族の客は次回に別の家族を案内できる可能性がある"
+    ],
+    "doubts": 0,
+    "page": false,
+    "honne_pre": "",
+    "honne_q": "I was hoping they have something with Chopper on it.",
+    "honne_why": "客の具体的な推しキャラ。次のおすすめ店を選ぶ材料になる",
+    "scope": "自分だけ",
+    "status": "完成"
+   }
+  ]
+ },
+ {
+  "id": "alan",
+  "name": "Alan家",
+  "sub": "アメリカ・ボストン／3名",
+  "color": "#7A3A5E",
+  "initial": "A",
+  "episodes": [
+   {
+    "rec": 112,
+    "date": "2026-11-05",
+    "start": "11:28",
+    "min": 180,
+    "title": "ボストンの家族と秋葉原アニメツアー",
+    "channel": "Viator",
+    "tour": true,
+    "toc": [
+     {
+      "time": "11:28",
+      "t": "挨拶・旅程・今日の予定"
+     },
+     {
+      "time": "11:48",
+      "t": "写真・好きなアニメの話"
+     },
+     {
+      "time": "11:58",
+      "t": "ガチャポン体験"
+     },
+     {
+      "time": "12:08",
+      "t": "カード・ビル案内・パチンコ"
+     },
+     {
+      "time": "12:16",
+      "t": "中古書店でマンガ選び"
+     },
+     {
+      "time": "12:29",
+      "t": "ガンダムとマクロス探し"
+     },
+     {
+      "time": "12:37",
+      "t": "店をはしごしレトロゲーム"
+     },
+     {
+      "time": "12:44",
+      "t": "会計と景品の値段"
+     },
+     {
+      "time": "12:52",
+      "t": "昼食探しと雑談"
+     },
+     {
+      "time": "13:00",
+      "t": "服・無印良品の話"
+     },
+     {
+      "time": "13:10",
+      "t": "アニメTシャツ売り場"
+     },
+     {
+      "time": "13:20",
+      "t": "売り場巡りと夜の相談"
+     },
+     {
+      "time": "13:28",
+      "t": "夕食の店決めと予約"
+     },
+     {
+      "time": "13:38",
+      "t": "居酒屋での注文と雑談"
+     },
+     {
+      "time": "13:46",
+      "t": "仕事の話と乾杯"
+     },
+     {
+      "time": "13:51",
+      "t": "出身地と訛りの雑談"
+     },
+     {
+      "time": "14:11",
+      "t": "お土産とドン・キホーテ"
+     },
+     {
+      "time": "14:16",
+      "t": "食後の予定と会計"
+     },
+     {
+      "time": "14:21",
+      "t": "ゲームセンターで対戦"
+     }
+    ],
+    "toc_n": 19,
+    "chunks": 71,
+    "photos": 24,
+    "photos_total": 37,
+    "fixes_n": 69,
+    "fixes_sample": [
+     {
+      "said": "Would you like I get?",
+      "better": "Would you like me to get you something?",
+      "why": "「Would you like 人 to ~」の形にする。「Would you like I get」は文法が崩れている"
+     },
+     {
+      "said": "Just arrived to Japan?",
+      "better": "Did you just arrive in Japan?",
+      "why": "arriveの後ろは to ではなく in(国・都市)を使う。疑問文の形にもする"
+     },
+     {
+      "said": "I mean, not only you guys come to Japan, maybe you came with the other families to Japan.",
+      "better": "Did you come to Japan with other families too, or is it just you guys?",
+      "why": "言いたいことを一文で短く聞くほうが伝わる。元の文は語順が崩れて回りくどい"
+     }
+    ],
+    "marks_sample": [
+     {
+      "quote": "Day three, no more jet lag then.",
+      "type": "客の声",
+      "why": "到着3日目で体調は問題なく、ツアーに集中できる状態だと分かる"
+     },
+     {
+      "quote": "They don't watch any anime.",
+      "type": "客の声",
+      "why": "同行者の一部はアニメに興味がないので、ツアー内容に幅を持たせる必要がある"
+     },
+     {
+      "quote": "Oh, obviously ramen.",
+      "type": "客の声",
+      "why": "日本食はまずラーメンを選んでいる。昼食の案を考える材料になる"
+     },
+     {
+      "quote": "maybe we can just go with the flow",
+      "type": "客の声",
+      "why": "昼食はあらかじめ決めず、歩きながら選ぶ方針になった"
+     }
+    ],
+    "talk": [
+     "ボストンから来た家族と秋葉原でアニメツアーをした",
+     "ガチャポンやパチンコとアニメのコラボを説明した",
+     "中古書店でマンガ選びをし、ワンピース初版の希少性を話した",
+     "餃子の店の予約リンクを送り、居酒屋で乾杯した",
+     "ゲームセンターで対戦し、ドン・キホーテも案内した"
+    ],
+    "know": [
+     "開始時に後の予定を聞き、延びやすい時間配分に備える",
+     "別会計とカード可否を、会計前に店へ確認しておく",
+     "ゲームは1人でも遊べると説明し、自信のない客にも勧める",
+     "家族ツアーでは同行する大人の休憩にも気を配る"
+    ],
+    "doubts": 0,
+    "page": false,
+    "honne_pre": "",
+    "honne_q": "Oh, obviously ramen.",
+    "honne_why": "日本食はまずラーメンを選んでいる。昼食の案を考える材料",
+    "scope": "自分だけ",
+    "status": "完成"
+   },
+   {
+    "rec": 113,
+    "date": "2026-11-05",
+    "start": "14:28",
+    "min": 58,
+    "title": "ゲーム対戦とフィギュア買い物ツアー",
+    "channel": "Viator",
+    "tour": true,
+    "toc": [
+     {
+      "time": "14:28",
+      "t": "ゲームの対戦開始と操作確認"
+     },
+     {
+      "time": "14:38",
+      "t": "白熱するコンボ対戦"
+     },
+     {
+      "time": "14:46",
+      "t": "ゲームのメンテ中説明と買い物へ"
+     },
+     {
+      "time": "14:48",
+      "t": "フィギュア店と人気キャラの値段"
+     },
+     {
+      "time": "14:56",
+      "t": "ワンピース・ナルトのフィギュア選び"
+     },
+     {
+      "time": "15:02",
+      "t": "最後の店での会計と日米の価格比較"
+     },
+     {
+      "time": "15:09",
+      "t": "駅へ戻る道とスーツケースの話"
+     },
+     {
+      "time": "15:14",
+      "t": "スーツケース購入と配送方法"
+     },
+     {
+      "time": "15:19",
+      "t": "新幹線の切符相談と別れ"
+     }
+    ],
+    "toc_n": 9,
+    "chunks": 23,
+    "photos": 13,
+    "photos_total": 37,
+    "fixes_n": 14,
+    "fixes_sample": [
+     {
+      "said": "I don't know how should I do that",
+      "better": "I don't know how I should do that.",
+      "why": "間接疑問文では「how I should」の語順になる"
+     },
+     {
+      "said": "Now you beat me again then.",
+      "better": "You beat me again!",
+      "why": "「now」と「then」は不要で、過去形の「You beat me again」が自然"
+     },
+     {
+      "said": "oh yeah I'm back to old good times",
+      "better": "Oh yeah, I'm back to the good old times.",
+      "why": "定型表現は「the good old times(days)」の語順"
+     }
+    ],
+    "marks_sample": [
+     {
+      "quote": "Can you use your Suga car here?",
+      "type": "客の声",
+      "why": "ゲームの支払い方法は、ツアー参加者がよく気にする質問になりそう"
+     },
+     {
+      "quote": "It's a good game!",
+      "type": "客の声",
+      "why": "相手の素直な好反応で、ツアーで勧めるときの材料になる"
+     },
+     {
+      "quote": "I like the old guy.",
+      "type": "客の声",
+      "why": "古いキャラが好まれるという声で、客層の好みのヒントになる"
+     },
+     {
+      "quote": "Oh yeah one more one more one more",
+      "type": "客の声",
+      "why": "もう一回と言いたくなるほど夢中になった本音"
+     }
+    ],
+    "talk": [
+     "ゲームセンターで客と対戦ゲームを楽しんだ",
+     "フィギュア店で呪術廻戦とワンピース、ナルトの商品を選んだ",
+     "フィギュアは自国より日本で買うほうが得だと客が話した",
+     "持ち帰り用のスーツケースを買い、配送方法を相談した",
+     "翌日の新幹線の切符について相談して別れた"
+    ],
+    "know": [
+     "案内の前にゲームのオンラインモードを自分で確認する",
+     "ツアー用の標準設定を決めて、店側に伝えておく",
+     "値段が高い理由は人気に加えて希少性だと客に説明する",
+     "新幹線の指定席の買い方は、毎回客へ伝える"
+    ],
+    "doubts": 0,
+    "page": false,
+    "honne_pre": "",
+    "honne_q": "Can you use your Suga car here?",
+    "honne_why": "Suicaの聞き違い。支払い方法はツアー参加者がよく気にする質問",
+    "scope": "自分だけ",
+    "status": "完成"
+   }
+  ]
+ },
+ {
+  "id": "friends",
+  "name": "地元の友人たち",
+  "sub": "ツアー以外／地元での会食と映画談義",
+  "color": "#3A6B6B",
+  "initial": "友",
+  "episodes": [
+   {
+    "rec": 105,
+    "date": "2026-10-30",
+    "start": "18:44",
+    "min": 180,
+    "title": "映画談義と友人の再会",
+    "channel": null,
+    "tour": false,
+    "toc": [
+     {
+      "time": "18:44",
+      "t": "歯の治療と友人の集まり"
+     },
+     {
+      "time": "18:49",
+      "t": "飲酒と映画のおすすめ"
+     },
+     {
+      "time": "19:04",
+      "t": "映画館と記憶の話"
+     },
+     {
+      "time": "19:11",
+      "t": "借金返済と努力観"
+     },
+     {
+      "time": "19:19",
+      "t": "仕事の振り返りとアニメ映画"
+     },
+     {
+      "time": "19:27",
+      "t": "オーロラ旅行と休暇"
+     },
+     {
+      "time": "19:34",
+      "t": "飲食店とトイレの不安"
+     },
+     {
+      "time": "19:49",
+      "t": "目のけがと店での雑談"
+     },
+     {
+      "time": "19:57",
+      "t": "事故後のAI談義と歯科"
+     },
+     {
+      "time": "20:07",
+      "t": "健康管理と近所の問題"
+     },
+     {
+      "time": "20:27",
+      "t": "いじめの記憶と録音"
+     },
+     {
+      "time": "20:37",
+      "t": "結婚と友人の合流"
+     },
+     {
+      "time": "20:53",
+      "t": "親子の来院と友人の再会"
+     },
+     {
+      "time": "21:03",
+      "t": "渡辺とのラジオ収録"
+     },
+     {
+      "time": "21:10",
+      "t": "職場の人間関係と予約対応"
+     },
+     {
+      "time": "21:18",
+      "t": "税制と行政サービス"
+     },
+     {
+      "time": "21:25",
+      "t": "税制から海外旅行の話へ"
+     },
+     {
+      "time": "21:38",
+      "t": "訪日客に伝えたい日本の魅力"
+     }
+    ],
+    "toc_n": 18,
+    "chunks": 72,
+    "photos": 0,
+    "photos_total": 0,
+    "fixes_n": 0,
+    "fixes_sample": [],
+    "marks_sample": [
+     {
+      "quote": "やっぱり見たら楽しいなっていう。",
+      "type": "客の声",
+      "why": "久しぶりに映画を見た人の率直な感想。"
+     },
+     {
+      "quote": "あの時は1年間、まじで本当に嘘、 偽りなく、 1食も、1円も使わなかった。",
+      "type": "客の声",
+      "why": "借金返済のための厳しい生活が具体的に語られている。"
+     },
+     {
+      "quote": "成長してるなって",
+      "type": "客の声",
+      "why": "前回との比較からスタッフの成長に気づいている。"
+     },
+     {
+      "quote": "警察は騒音とかも相手してくれない",
+      "type": "客の声",
+      "why": "近隣の騒音への困りごとが表れている。"
+     }
+    ],
+    "talk": [
+     "友人との食事で歯の治療や飲酒の話から映画の話に移った",
+     "ユウキはいじめを描いたアニメ映画を勧め難しい作品は考察を見て楽しむ話が出た",
+     "池袋の映画館の音響や座席の違い、U-NEXTのポイントで映画を見る話題",
+     "借金返済の経験や子どもへの接し方など努力観の話",
+     "後半は税制や海外旅行から訪日客に伝えたい日本の魅力に移った"
+    ],
+    "know": [
+     "訪日客向けの商品は価格の驚きが話題になるため具体的な金額例を用意する",
+     "清潔なトイレや学校の掃除と給食は日本文化の説明題材になる",
+     "ツアーで受け取るチップの額が話のタネになるため事例を持っておく"
+    ],
+    "doubts": 0,
+    "page": false,
+    "honne_pre": "",
+    "honne_q": "やっぱり見たら楽しいなっていう。",
+    "honne_why": "久しぶりに映画を見た人の率直な感想",
+    "scope": "自分だけ",
+    "status": "完成"
+   }
+  ]
+ },
+ {
+  "id": "kumi",
+  "name": "クミさん",
+  "sub": "ツアー以外／集客サイトとAI環境の相談",
+  "color": "#8A6D3B",
+  "initial": "ク",
+  "episodes": [
+   {
+    "rec": 107,
+    "date": "2026-11-02",
+    "start": "13:57",
+    "min": 106,
+    "title": "ハイヤー集客サイトとAI環境の相談",
+    "channel": null,
+    "tour": false,
+    "toc": [
+     {
+      "time": "13:57",
+      "t": "部屋の雑談とPC環境(Wi-Fi・メモリ)"
+     },
+     {
+      "time": "14:05",
+      "t": "Claudeの契約プランとトークン、増設案"
+     },
+     {
+      "time": "14:15",
+      "t": "ホームページを作る理由と現状の集客"
+     },
+     {
+      "time": "14:23",
+      "t": "モデルコース案とOTA登録の見送り"
+     },
+     {
+      "time": "14:28",
+      "t": "AIに仕事を教える・商品と料金"
+     },
+     {
+      "time": "14:38",
+      "t": "指名増加の目標とサイト方針"
+     },
+     {
+      "time": "14:59",
+      "t": "サイトのゴールとアカウント利用の相談"
+     },
+     {
+      "time": "15:07",
+      "t": "情報蓄積の懸念とAmazon Photos確認"
+     },
+     {
+      "time": "15:12",
+      "t": "YouTube編集と写真の同期・アップロード"
+     },
+     {
+      "time": "15:22",
+      "t": "参考サイトとポータルページ作成"
+     },
+     {
+      "time": "15:30",
+      "t": "やることの整理とカード決済の方法"
+     },
+     {
+      "time": "15:40",
+      "t": "レビュー集めとGoogleマップ登録"
+     }
+    ],
+    "toc_n": 12,
+    "chunks": 42,
+    "photos": 0,
+    "photos_total": 0,
+    "fixes_n": 0,
+    "fixes_sample": [],
+    "marks_sample": [
+     {
+      "quote": "大丈夫なんか高額なセミナー料金とか表されてない",
+      "type": "客の声",
+      "why": "ユウキが抱いた率直な不安。怪しい話でないか確認が必要"
+     },
+     {
+      "quote": "ほぼほぼ使い切ってその人怒ったり",
+      "type": "客の声",
+      "why": "借りたアカウントの使いすぎへの不安。ルール確認が必要"
+     },
+     {
+      "quote": "自分で直接営業できるようになって",
+      "type": "客の声",
+      "why": "集客を会社任せにせず個人で取れるようになったという変化。ホームページ制作の動機"
+     },
+     {
+      "quote": "そもそも調べようと思ったこともない",
+      "type": "客の声",
+      "why": "競合調査ゼロが出発点。最初の宿題になる"
+     }
+    ],
+    "talk": [
+     "Claudeの契約プランとトークンの使い方、PC環境の増設案を相談した",
+     "ハイヤー集客のホームページを作る理由と現状の集客を整理した",
+     "モデルコース案を考え、OTA登録は見送る方針になった",
+     "名前や顔、車両の掲載許可と会社への確認事項を整理した",
+     "Googleマップの登録とレビュー集めを今後の予定に挙げた"
+    ],
+    "know": [
+     "サイトは目的と必要なページをClaudeとの対話で固めてから作る",
+     "掲載許可の確認は完成したページを会社に見せてから行う案がある",
+     "特定商取引法の表記は詳しい人に確認する",
+     "写真や動画、Instagramの連携素材を先に集める"
+    ],
+    "doubts": 0,
+    "page": false,
+    "honne_pre": "",
+    "honne_q": "自分で直接営業できるようになって",
+    "honne_why": "集客を会社任せにせず個人で取れるようになったという変化。ホームページ制作の動機",
+    "scope": "自分だけ",
+    "status": "完成"
+   }
+  ]
+ },
+ {
+  "id": "fm",
+  "name": "ラジオ関係の友人",
+  "sub": "ツアー以外／FM番組とAI活用の談義",
+  "color": "#4A4A6B",
+  "initial": "F",
+  "episodes": [
+   {
+    "rec": 109,
+    "date": "2026-11-04",
+    "start": "13:57",
+    "min": 93,
+    "title": "FM番組初回とAI活用アイデア談義",
+    "channel": null,
+    "tour": false,
+    "toc": [
+     {
+      "time": "13:57",
+      "t": "雑談とアニメボストンの誘い"
+     },
+     {
+      "time": "14:02",
+      "t": "浅草3回目開催と年末告知"
+     },
+     {
+      "time": "14:04",
+      "t": "FM番組『アキバトゥーザワールド』初回"
+     },
+     {
+      "time": "14:58",
+      "t": "ツアー企画と会話ログの活用"
+     },
+     {
+      "time": "15:08",
+      "t": "イベント配信のデータ化と配信AI"
+     },
+     {
+      "time": "15:18",
+      "t": "AIアニメと権利の話"
+     },
+     {
+      "time": "15:26",
+      "t": "見守りカメラと密着配信の案"
+     }
+    ],
+    "toc_n": 7,
+    "chunks": 37,
+    "photos": 0,
+    "photos_total": 0,
+    "fixes_n": 0,
+    "fixes_sample": [],
+    "marks_sample": [
+     {
+      "quote": "それ見てちょっと感動した",
+      "type": "客の声",
+      "why": "2回空いても待ってくれていた参加者への素直な気持ち"
+     },
+     {
+      "quote": "終わった後に自分の名前で1時間に1回ぐらい出されてしまう",
+      "type": "客の声",
+      "why": "SNS露出の実態。参加者の価値を数値化できる可能性"
+     },
+     {
+      "quote": "今でこれだからもっとしたらもうアニメ会社どうなっちゃう",
+      "type": "客の声",
+      "why": "アニメ業界の将来への率直な不安で、ツアーやPodcastの話題にできる。"
+     },
+     {
+      "quote": "高校生とか大好きやねこんなの",
+      "type": "客の声",
+      "why": "想定ユーザー層についての反応で、企画の方向性の手がかりになる。"
+     }
+    ],
+    "talk": [
+     "アニメ好きの友人とボストンの誘いや浅草の3回目開催を話した",
+     "FM番組『アキバトゥーザワールド』初回の話をした",
+     "ツアーの会話ログやイベント配信をデータ化して活用する案を出した",
+     "バーモント州の警察官の父親と16〜17歳の娘の客の話をした",
+     "秋葉原のスマートゴミ箱や座れる場所の少なさを話題にした"
+    ],
+    "know": [
+     "秋葉原は座れる場所が少ないため休憩場所の案内を用意する",
+     "ゲームボーイ作りは訪日客向け体験の案として具体的",
+     "有料で休める場所を増やす案は街の課題への提案になる",
+     "ハロウィン時のバイクの迷惑など街の変化を客に伝える材料にする"
+    ],
+    "doubts": 0,
+    "page": false,
+    "honne_pre": "",
+    "honne_q": "それ見てちょっと感動した",
+    "honne_why": "2回空いても待ってくれていた参加者への素直な気持ち",
+    "scope": "自分だけ",
+    "status": "完成"
+   }
+  ]
+ }
+];
+const LS_KEY = "tsuarogu_guestbook_v1";
+let state = {memos:{}, uploads:[]};
+try{ const s = JSON.parse(localStorage.getItem(LS_KEY)); if(s && s.memos) state = s; }catch(e){}
+function save(){ try{ localStorage.setItem(LS_KEY, JSON.stringify(state)); }catch(e){} }
+const WD = ["日","月","火","水","木","金","土"];
+function dstr(ds){ const d = new Date(ds+"T00:00:00"); return ds.replace(/-/g,".").slice(5) + " " + WD[d.getDay()]; }
+function dfull(ds){ const d = new Date(ds+"T00:00:00"); return ds.replace(/-/g,".") + " " + WD[d.getDay()]; }
+function esc(s){ return String(s||"").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function toast(msg){ const t = document.getElementById("toast"); t.textContent = msg; t.classList.add("show"); setTimeout(()=>t.classList.remove("show"), 1800); }
+
+const EP = {}; // rec -> {guest, ep}
+GUESTS.forEach(g => g.episodes.forEach(e => EP[e.rec] = {g, e}));
+
+/* カレンダー帯 */
+(function(){
+  const days = [];
+  GUESTS.forEach(g => g.episodes.forEach(e => { if(!days.includes(e.date)) days.push(e.date); }));
+  days.sort();
+  document.getElementById("cal").innerHTML = days.map((ds,i) => {
+    const d = new Date(ds+"T00:00:00");
+    return '<button class="has' + (i===days.length-1 ? " on" : "") + '" data-day="' + ds + '">' + (d.getMonth()+1) + '月<b>' + d.getDate() + '</b></button>';
+  }).join("");
+  document.querySelectorAll("#cal button").forEach(b => b.addEventListener("click", () => {
+    const el = document.querySelector('[data-date="' + b.dataset.day + '"]');
+    if(el){ el.scrollIntoView({behavior:"smooth", block:"center"}); el.classList.remove("flash"); void el.offsetWidth; el.classList.add("flash"); }
+  }));
+})();
+
+function stChip(e){
+  if(e.status === "完成") return '<span class="st st-done">完成</span>';
+  if(e.status === "要確認") return '<span class="st st-warn">要確認</span>';
+  return '<span class="st st-proc">' + esc(e.status) + '</span>';
+}
+function pairOf(e){
+  const g = EP[e.rec].g;
+  if(g.episodes.length < 2) return "";
+  const other = g.episodes.find(x => x.rec !== e.rec);
+  const label = g.episodes[0].rec === e.rec ? "後半へ ›" : "前半へ ›";
+  return '<button class="pairlink" data-goto="ep-' + other.rec + '">' + label + '</button>';
+}
+function entryHTML(g, e){
+  const meta = [];
+  meta.push("目次" + e.toc_n + "行");
+  meta.push(e.photos > 0 ? "写真" + e.photos + "枚" : "写真なし");
+  if(e.fixes_n > 0) meta.push("朱書き" + e.fixes_n + "件");
+  const warn = e.doubts > 0 ? ' <span class="warn">要確認 ' + e.doubts + '</span>' : "";
+  const sub = [dfull(e.date), e.min + "分", e.channel].filter(Boolean).join(" ・ ");
+  return '<article class="entry" id="ep-' + e.rec + '" data-date="' + e.date + '" data-tour="' + (e.tour?1:0) + '" data-warn="' + (e.doubts>0?1:0) + '">' +
+    '<div class="ephoto" style="background:' + g.color + '">' + esc(g.initial) + (e.photos>0 ? '<span class="pcount">写真' + e.photos + '枚</span>' : '') + '</div>' +
+    '<div class="ebody"><h4>' + esc(e.title) + '</h4>' +
+    '<p class="edate2">' + sub + '</p>' +
+    '<p class="honne">本音: ' + esc(e.honne_pre) + '<b>' + esc(e.honne_q) + '</b><span class="why">' + esc(e.honne_why) + '</span></p>' +
+    '<p class="meta">' + meta.join(" ・ ") + warn + '</p>' +
+    '<p class="tags"><span class="scope">' + esc(e.scope) + '</span>' + stChip(e) +
+    (e.tour ? '<button class="use" data-draft="' + e.rec + '">お礼の下書きに使う</button>' : '') +
+    '<button class="read" data-read="' + e.rec + '">読む ›</button>' + pairOf(e) + '</p></div></article>';
+}
+function memoHTML(g){
+  const m = state.memos[g.id] || {};
+  let h = "";
+  if(m.memo || m.next){
+    h += '<div class="memo"><b>次回への申し送り</b>' + esc(m.memo || "") +
+      (m.next ? '<div class="nextline">次回予定: ' + esc(m.next) + '</div>' : "") +
+      '<br><button class="memoedit" data-edit="' + g.id + '">編集する</button></div>';
+  } else {
+    h += '<div class="memo" style="background:#FBF9F3;border-style:dashed;color:#A39C8B"><b>次回への申し送り</b>まだ書かれていません<br><button class="memoedit" data-edit="' + g.id + '">申し送りを書く</button></div>';
+  }
+  return h + '<div class="memoform" id="mf-' + g.id + '" style="display:none">' +
+    '<label>申し送りメモ</label><textarea id="mm-' + g.id + '" placeholder="次のツアーで気をつけること、覚えておくこと">' + esc(m.memo||"") + '</textarea>' +
+    '<label>次回予定（例: 11/8 再訪予定・中野のカードショップ）</label><input id="mn-' + g.id + '" value="' + esc(m.next||"") + '" placeholder="未定なら空でOK">' +
+    '<div class="row"><button class="save" data-save="' + g.id + '">保存</button><button class="cancel" data-cancel="' + g.id + '">やめる</button></div></div>';
+}
+function render(){
+  const main = document.getElementById("list");
+  main.innerHTML = GUESTS.map(g => {
+    const m = state.memos[g.id] || {};
+    return '<section class="guest-sec" data-guest="' + g.id + '"><div class="ghead">' +
+      '<div class="gava" style="background:' + g.color + '">' + esc(g.initial) + '</div>' +
+      '<h3>' + esc(g.name) + '<span class="gsub">' + esc(g.sub) + '</span></h3>' +
+      (m.next ? '<span class="revisit">' + esc(m.next.length > 14 ? m.next.slice(0,14) + "…" : m.next) + '</span>' : "") +
+      '</div>' + memoHTML(g) +
+      g.episodes.map(e => entryHTML(g, e)).join("") + '</section>';
+  }).join("");
+  bind();
+  renderPending();
+  applyFilter();
+}
+function renderPending(){
+  const box = document.getElementById("pending");
+  if(!state.uploads.length){ box.innerHTML = ""; return; }
+  box.innerHTML = '<section class="pend-sec"><h3>処理待ちの録音</h3><p class="note">この端末に控えがあります。Muse へ送ると「文字に→まとめる」が始まります。</p>' +
+    state.uploads.map((u,i) =>
+      '<article class="entry pend"><div class="ephoto" style="background:#8A8578;font-size:18px">録</div><div class="ebody">' +
+      '<h4>' + esc(u.name) + '</h4><p class="edate2">' + esc(u.added) + ' 追加 ・ ' + esc(u.size) + '</p>' +
+      '<p class="tags"><span class="scope">自分だけ</span><span class="st st-proc">処理中</span>' +
+      '<button class="del" data-delup="' + i + '">控えを消す</button></p></div></article>').join("") + '</section>';
+  box.querySelectorAll("[data-delup]").forEach(b => b.addEventListener("click", () => {
+    state.uploads.splice(Number(b.dataset.delup), 1); save(); renderPending();
+  }));
+}
+function bind(){
+  document.querySelectorAll("[data-edit]").forEach(b => b.addEventListener("click", () => {
+    const f = document.getElementById("mf-" + b.dataset.edit); f.style.display = "block"; f.querySelector("textarea").focus();
+  }));
+  document.querySelectorAll("[data-cancel]").forEach(b => b.addEventListener("click", () => {
+    document.getElementById("mf-" + b.dataset.cancel).style.display = "none";
+  }));
+  document.querySelectorAll("[data-save]").forEach(b => b.addEventListener("click", () => {
+    const id = b.dataset.save;
+    state.memos[id] = { memo: document.getElementById("mm-" + id).value.trim(), next: document.getElementById("mn-" + id).value.trim() };
+    save(); render(); toast("申し送りを保存しました");
+  }));
+  document.querySelectorAll("[data-read]").forEach(b => b.addEventListener("click", () => openReader(Number(b.dataset.read))));
+  document.querySelectorAll("[data-draft]").forEach(b => b.addEventListener("click", () => openDraft(Number(b.dataset.draft))));
+  document.querySelectorAll("[data-goto]").forEach(b => b.addEventListener("click", () => {
+    const el = document.getElementById(b.dataset.goto);
+    if(el){ el.scrollIntoView({behavior:"smooth", block:"center"}); el.classList.remove("flash"); void el.offsetWidth; el.classList.add("flash"); }
+  }));
+}
+/* 検索と絞り込み */
+let curFilter = "all";
+function applyFilter(){
+  const q = document.getElementById("q").value.trim().toLowerCase();
+  let anyVisible = false;
+  document.querySelectorAll(".guest-sec").forEach(sec => {
+    const g = GUESTS.find(x => x.id === sec.dataset.guest);
+    let secVisible = false;
+    sec.querySelectorAll(".entry").forEach(en => {
+      const e = EP[Number(en.id.replace("ep-",""))].e;
+      let ok = true;
+      if(curFilter === "tour" && !e.tour) ok = false;
+      if(curFilter === "nontour" && e.tour) ok = false;
+      if(curFilter === "warn" && !(e.doubts > 0)) ok = false;
+      if(ok && q){
+        const hay = (g.name + g.sub + e.title + e.honne_q + (e.talk||[]).join(" ")).toLowerCase();
+        ok = hay.includes(q);
+      }
+      en.style.display = ok ? "" : "none";
+      if(ok) secVisible = true;
+    });
+    sec.style.display = secVisible ? "" : "none";
+    if(secVisible) anyVisible = true;
+  });
+  document.getElementById("empty").style.display = anyVisible ? "none" : "";
+}
+document.getElementById("q").addEventListener("input", applyFilter);
+document.querySelectorAll("#filters button").forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll("#filters button").forEach(x => x.classList.remove("on"));
+  b.classList.add("on"); curFilter = b.dataset.f; applyFilter();
+}));
+/* アップロード */
+document.getElementById("upfile").addEventListener("change", ev => {
+  const files = Array.from(ev.target.files || []);
+  if(!files.length) return;
+  const today = new Date();
+  const ds = today.getFullYear() + "-" + String(today.getMonth()+1).padStart(2,"0") + "-" + String(today.getDate()).padStart(2,"0");
+  files.forEach(f => state.uploads.unshift({ name: f.name, size: (f.size/1048576).toFixed(1) + "MB", added: ds }));
+  save(); renderPending();
+  document.getElementById("pending").scrollIntoView({behavior:"smooth"});
+  toast(files.length + "本を処理待ちに足しました");
+  ev.target.value = "";
+});
+/* 読む（ページ内リーダー: 目次・要点・抜粋の実データ） */
+function openReader(rec){
+  const {g, e} = EP[rec];
+  const sub = [dfull(e.date), e.start + "〜", e.min + "分", e.channel].filter(Boolean).join(" ・ ");
+  let h = "<h2>" + esc(e.title) + '</h2><p class="smeta">' + esc(g.name) + " ・ " + sub + "</p>";
+  if(e.page) h += '<p class="smeta" style="margin-top:4px">読み物ページは生成済み（m2のローカルに保存）。ここでは目次と要点を表示します。</p>';
+  if(e.doubts > 0) h += '<p class="smeta" style="color:#C0392B;font-weight:700;margin-top:4px">要確認 ' + e.doubts + '件が残っています（聞き取りの裏取り待ち）</p>';
+  if(e.talk && e.talk.length){
+    h += "<h5>今日の要点</h5><ul>" + e.talk.map(t => "<li>" + esc(t) + "</li>").join("") + "</ul>";
+  }
+  h += '<h5>目次（' + e.toc_n + '行）</h5><ul class="toclist">' + e.toc.map(t =>
+    '<li><span class="tm">' + esc(t.time) + '</span><span>' + esc(t.t) + "</span></li>").join("") + "</ul>";
+  if(e.fixes_sample && e.fixes_sample.length){
+    h += "<h5>朱書きの抜粋（全" + e.fixes_n + "件）</h5>" + e.fixes_sample.map(f =>
+      '<p class="fix"><s>' + esc(f.said) + '</s> → <span class="better">' + esc(f.better) + '</span><span class="why">' + esc(f.why) + "</span></p>").join("");
+  }
+  if(e.marks_sample && e.marks_sample.length){
+    h += "<h5>マークの抜粋（本音・ネタ）</h5>" + e.marks_sample.map(m =>
+      '<p class="mk"><b>' + esc(m.quote) + '</b><span class="why">' + esc(m.type) + " ・ " + esc(m.why) + "</span></p>").join("");
+  }
+  if(e.know && e.know.length){
+    h += "<h5>次に活かす</h5><ul>" + e.know.map(t => "<li>" + esc(t) + "</li>").join("") + "</ul>";
+  }
+  const other = g.episodes.find(x => x.rec !== rec);
+  if(other) h += '<h5>同じ相手のログ</h5><p><button class="pairlink" id="reader-pair">' + esc(other.title) + "（" + dstr(other.date) + "）を開く ›</button></p>";
+  document.getElementById("reader-body").innerHTML = h;
+  document.getElementById("reader").classList.add("open");
+  const pb = document.getElementById("reader-pair");
+  if(pb) pb.addEventListener("click", () => openReader(other.rec));
+  document.querySelector("#reader .panel").scrollTop = 0;
+}
+/* お礼の下書き */
+function openDraft(rec){
+  const {g, e} = EP[rec];
+  const first = g.name.replace(/さん$|家$/, "");
+  const d = new Date(e.date + "T00:00:00");
+  const mon = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][d.getMonth()];
+  let text;
+  if(/^[ -~]+$/.test(e.honne_q)){
+    text = "Hi " + first + ", thank you so much for joining my Akihabara tour on " + mon + " " + d.getDate() + "!\n" +
+      "One moment I keep thinking about is when you said, \"" + e.honne_q + "\"\n" +
+      "I hope you enjoyed the rest of your time in Japan. Please come back anytime — I would love to show you around again!\n— Yuuki (Anime Sensei)";
+  } else if(e.tour){
+    text = "Hi " + first + ", thank you so much for joining my Akihabara tour on " + mon + " " + d.getDate() + "!\n" +
+      "I had a great time showing you around. I hope you enjoyed the rest of your time in Japan.\nPlease come back anytime — I would love to see you again!\n— Yuuki (Anime Sensei)";
+  } else {
+    text = g.name.replace(/さん$/, "") + "さん、先日はありがとうございました。\n「" + e.honne_q + "」という言葉が印象に残っています。\nまたぜひお話ししましょう。\n— ユウキ";
+  }
+  document.getElementById("draft-text").textContent = text;
+  document.getElementById("draft").classList.add("open");
+}
+document.getElementById("draft-copy").addEventListener("click", async () => {
+  const t = document.getElementById("draft-text").textContent;
+  try{ await navigator.clipboard.writeText(t); toast("下書きをコピーしました"); }
+  catch(e){ const r = document.createRange(); r.selectNodeContents(document.getElementById("draft-text")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); toast("選択しました。そのままコピーしてください"); }
+});
+document.querySelectorAll("[data-close]").forEach(b => b.addEventListener("click", () => document.getElementById(b.dataset.close).classList.remove("open")));
+document.querySelectorAll(".sheet").forEach(s => s.addEventListener("click", ev => { if(ev.target === s) s.classList.remove("open"); }));
+/* Muse送付用コピー */
+document.getElementById("export").addEventListener("click", async () => {
+  const payload = { tool: "つあろぐ ゲスト帳", memos: state.memos, uploads: state.uploads };
+  const t = JSON.stringify(payload, null, 1);
+  try{ await navigator.clipboard.writeText(t); toast("メモと処理待ちをコピーしました"); }
+  catch(e){ toast("コピーできませんでした"); }
+});
+render();
+</script>
+</body>
+</html>
