@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>だんどりー ストーリーコラージュ検討ボード</title>
+<meta name="description" content="だんどりー「ストーリーを作り直す」画面にコラージュ投稿を追加する新機能の検討ボード。枚数別レイアウト13型を実写真モックで提示。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="だんどりー ストーリーコラージュ検討ボード">
+<meta property="og:description" content="ストーリーでもコラージュを。枚数→レイアウト→セル編集の3ステップと、枚数別13型の実写真モック。">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/dandori-story-collage/og.jpg">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/dandori-story-collage/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23111'/><rect x='14' y='14' width='72' height='20' fill='%23fff'/><rect x='14' y='40' width='72' height='20' fill='%23e61e28'/><rect x='14' y='66' width='72' height='20' fill='%23fff'/></svg>">
+<style>
+:root{--paper:#F1EFEA;--ink:#141414;--red:#E61E28;--card:#fff;--line:#141414}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:"Helvetica Neue",Arial,"Noto Sans JP",sans-serif;line-height:1.65}
+.wrap{max-width:1080px;margin:0 auto;padding:28px 18px 64px}
+header{border-bottom:3px solid var(--line);padding-bottom:18px;margin-bottom:26px}
+.kicker{font-size:12px;letter-spacing:.18em;font-weight:700;color:var(--red)}
+h1{font-size:clamp(21px,5.4vw,38px);font-weight:900;letter-spacing:.01em;white-space:nowrap;overflow:hidden}
+.sub{margin-top:8px;font-size:14px;max-width:760px}
+h2{font-size:clamp(18px,4.4vw,26px);font-weight:900;margin:38px 0 6px;white-space:nowrap;overflow:hidden}
+h2 .no{color:var(--red)}
+.lead{font-size:14px;margin-bottom:16px;max-width:820px}
+.box{background:var(--card);border:2px solid var(--line);padding:16px 18px;margin:14px 0}
+.box b{font-weight:800}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 4px}
+.chip{border:2px solid var(--line);background:#fff;padding:5px 12px;font-size:13px;font-weight:700}
+.chip.now{background:#eee;color:#555}
+.chip.new{background:var(--red);border-color:var(--red);color:#fff}
+.arrow{align-self:center;font-weight:900}
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.step{background:var(--card);border:2px solid var(--line);padding:14px}
+.step .sn{display:inline-block;background:var(--ink);color:#fff;font-weight:900;font-size:12px;padding:2px 9px;margin-bottom:8px}
+.step h3{font-size:15px;font-weight:900;margin-bottom:6px}
+.step p{font-size:13px}
+.numchips{display:flex;gap:6px;margin:10px 0 2px}
+.numchips span{border:2px solid var(--line);width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-weight:900;background:#fff}
+.numchips span.on{background:var(--red);border-color:var(--red);color:#fff}
+.minilayouts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0 2px}
+.ml{border:2px solid #999;background:#fff;aspect-ratio:9/16;display:grid;gap:2px;padding:2px}
+.ml i{background:#d9d9d9;display:block}
+.ml.sel{border-color:var(--red)}
+.ml.sel i{background:#f3b7ba}
+.celledit{margin:10px 0 2px;border:2px dashed var(--red);background:#fdf3f3;padding:8px;font-size:12px}
+.celledit b{color:var(--red)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:var(--card);border:2px solid var(--line);display:flex;flex-direction:column}
+.card img{width:100%;aspect-ratio:9/16;object-fit:cover;display:block;border-bottom:2px solid var(--line)}
+.card .body{padding:12px 13px 14px}
+.card h3{font-size:15px;font-weight:900;line-height:1.4}
+.badge{display:inline-block;background:var(--red);color:#fff;font-size:11px;font-weight:900;padding:1px 8px;margin-bottom:6px}
+.badge.gray{background:#666}
+.note{font-size:12.5px;margin-top:7px}
+.note b{display:inline-block;background:var(--ink);color:#fff;font-size:11px;padding:0 6px;margin-right:5px}
+table{width:100%;border-collapse:collapse;background:#fff;border:2px solid var(--line);font-size:13.5px}
+th,td{border:1px solid #bbb;padding:9px 11px;text-align:left;vertical-align:top}
+th{background:var(--ink);color:#fff;font-weight:800}
+td.rank{font-weight:900;color:var(--red);white-space:nowrap}
+footer{margin-top:44px;border-top:2px solid var(--line);padding-top:14px;font-size:12.5px;color:#444}
+@media(max-width:760px){.flow{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<div class="kicker">DANDORI — NEW FEATURE CONCEPT BOARD</div>
+<h1>ストーリーコラージュ検討ボード</h1>
+<p class="sub">だんどりー「ストーリーを作り直す」画面に、<b>ストーリーでもコラージュを投稿できる</b>新機能を追加する検討ボード。参考アプリ InSpic の選び方（枚数→レイアウト→セル編集）を、だんどりーのストーリー編集の文脈に落とし込んだ。モックの写真はすべて実際のツアー写真（Jennifer West 回・2026-11-24、秋葉原）で、画布はストーリー実寸 1080×1920（9:16）。</p>
+</header>
+
+<h2><span class="no">■</span> 現行の「形」に足す位置づけ</h2>
+<p class="lead">現行のストーリー編集は「形」の選択（日付を大きく／立ち寄り先つき／ありがとう系）＋主役写真1枚＋一文＋タグ付け。新機能はこの「形」の選択肢に<b>コラージュ系を足す</b>だけで、既存の3種はそのまま残す。コラージュを選んだときだけ、写真が1枚→複数枚になり、下の3ステップが開く。</p>
+<div class="box">
+<b>「形」の選択肢（新旧）</b>
+<div class="chips">
+<span class="chip now">日付を大きく（現行）</span>
+<span class="chip now">立ち寄り先つき（現行）</span>
+<span class="chip now">ありがとう系（現行）</span>
+<span class="arrow">＋</span>
+<span class="chip new">コラージュ（新機能）</span>
+</div>
+<p style="font-size:13px;margin-top:8px">一文・日付・タグ付けの入力欄は現行のまま流用する。コラージュ側は「写真の置き方」だけを担当し、文字要素はレイアウト側の決まった置き場に現行の値を流し込む。</p>
+</div>
+
+<h2><span class="no">■</span> 選び方の流れ（InSpic方式）</h2>
+<div class="flow">
+<div class="step">
+<span class="sn">STEP 1</span>
+<h3>枚数を選ぶ</h3>
+<p>まず写真の枚数を決める。選んだ枚数でレイアウト候補が絞り込まれる（InSpic の下段フィルタと同じ考え方）。だんどりーでは 2〜6 枚に絞る。</p>
+<div class="numchips"><span>2</span><span class="on">3</span><span>4</span><span>5</span><span>6</span></div>
+</div>
+<div class="step">
+<span class="sn">STEP 2</span>
+<h3>レイアウトを選ぶ</h3>
+<p>枚数ごとのテンプレートから1つ選ぶ。候補は各2〜3型に厳選し、迷わせない（全型は下の枚数別セクション）。</p>
+<div class="minilayouts">
+<div class="ml sel"><i></i><i></i><i></i></div>
+<div class="ml" style="grid-template-columns:1fr 1fr 1fr"><i></i><i></i><i></i></div>
+<div class="ml" style="grid-template-rows:1.2fr 1fr"><i></i><i style="display:grid;grid-template-columns:1fr 1fr;gap:2px;background:none"><i></i><i></i></i></div>
+</div>
+</div>
+<div class="step">
+<span class="sn">STEP 3</span>
+<h3>セルにはめて調整する</h3>
+<p>各セルに写真をはめ、セルごとに<b>差替</b>（別の写真に入れ替え）と<b>範囲指定</b>（ドラッグ／ピンチで見せる範囲を決める）を持つ。現行の主役写真の範囲指定を、全セルに広げた形。</p>
+<div class="celledit">セルをタップ → <b>差替</b> ／ <b>範囲</b>（ドラッグ・ピンチ）／ 入替（隣セルと交換）</div>
+</div>
+</div>
+
+<h2><span class="no">3枚</span> — まずここから</h2>
+<p class="lead">本命は筆頭の「横長3段積み」。ツアー写真は横長（4:3・16:9）が大半で、段積みは横長写真をほぼそのままの比率で3枚並べられる唯一の型。</p>
+<div class="grid">
+<div class="card"><img src="img/m3a.jpg" alt="3枚 横長3段積みモック">
+<div class="body"><span class="badge">★ ユウキ本命・実装1位</span>
+<h3>3-A 横長3段積み</h3>
+<p class="note"><b>範囲指定</b>各セルが 9:5.3 相当の横長枠。横長写真を上下のわずかな範囲移動だけで収められ、顔が切れにくい。範囲指定は「上下の寄せ」中心で効く。</p>
+<p class="note"><b>一文・日付</b>日付は最上段の左上にチップ重ね、一文は最下段の下にピル重ね（モックの形）。写真の段自体は汚さない。</p></div></div>
+<div class="card"><img src="img/m3b.jpg" alt="3枚 上1下2モック">
+<div class="body"><span class="badge gray">定番</span>
+<h3>3-B 上1＋下2</h3>
+<p class="note"><b>範囲指定</b>上の主役セルは横長が活きる。下2セルは縦長寄りになるため、人物の寄り写真や看板など縦が効く写真向き。範囲は左右寄せ中心。</p>
+<p class="note"><b>一文・日付</b>上セルの上辺にエリアチップ（AKIHABARA等）、日付と一文は下段の境目に帯で置く置き場も可。</p></div></div>
+<div class="card"><img src="img/m3c.jpg" alt="3枚 縦3列モック">
+<div class="body"><span class="badge gray">人物向き</span>
+<h3>3-C 縦3列</h3>
+<p class="note"><b>範囲指定</b>各セルは細い縦長。横長写真は中央の一部分だけが残るため、範囲指定（左右スライド）が最も重要になる型。全身の立ち姿や縦看板には強い。</p>
+<p class="note"><b>一文・日付</b>日付は左列の上にチップ重ね。一文は置き場が狭く、下端に1行ピルが限界。文が長い回には不向き。</p></div></div>
+</div>
+
+<h2><span class="no">2枚</span> — 最小構成</h2>
+<div class="grid">
+<div class="card"><img src="img/m2a.jpg" alt="2枚 上下イコールモック">
+<div class="body"><span class="badge gray">実装2位タイ</span>
+<h3>2-A 上下イコール</h3>
+<p class="note"><b>範囲指定</b>各セルは 9:8 のほぼ正方形寄り。横長写真は上下が切れるため、範囲の上下寄せが効く。集合写真＋店内のような対の2枚向き。</p>
+<p class="note"><b>一文・日付</b>日付は上セル左上にチップ。一文は中央の境目に帯を置くと2枚を邪魔しない。</p></div></div>
+<div class="card"><img src="img/m2b.jpg" alt="2枚 主役大＋下帯モック">
+<div class="body"><h3>2-B 主役大＋下帯</h3>
+<p class="note"><b>範囲指定</b>上7割の主役セルは現行の1枚ストーリーに近い感覚で範囲を決められる。下帯は横に細長く、風景や店構え向き。</p>
+<p class="note"><b>一文・日付</b>一文は下帯の下端にピル重ね（モックの形）が自然。日付は主役セルの隅にチップ。</p></div></div>
+<div class="card"><img src="img/m2c.jpg" alt="2枚 左右スプリットモック">
+<div class="body"><h3>2-C 左右スプリット</h3>
+<p class="note"><b>範囲指定</b>縦長セル同士。横長写真は左右の範囲スライドが必須で、2人の人物を1人ずつ切り分けるような使い方もできる。</p>
+<p class="note"><b>一文・日付</b>文字の置き場は下端のみ。タグ付けチップを左下に置く形（モック）と相性がよい。</p></div></div>
+</div>
+
+<h2><span class="no">4枚</span> — 1日の流れを見せる</h2>
+<div class="grid">
+<div class="card"><img src="img/m4a.jpg" alt="4枚 2x2グリッドモック">
+<div class="body"><span class="badge gray">実装2位タイ</span>
+<h3>4-A 2×2グリッド</h3>
+<p class="note"><b>範囲指定</b>各セルは 9:8。4枚とも同じ重みで並ぶため、範囲指定は「顔を枠内に入れる」調整が中心。時系列で左上→右下に並べると1日の流れになる。</p>
+<p class="note"><b>一文・日付</b>日付は左上セルの隅にチップ。一文は下端ピル。グリッドの規則性が文字を置きやすくする。</p></div></div>
+<div class="card"><img src="img/m4b.jpg" alt="4枚 横4段ストリップモック">
+<div class="body"><h3>4-B 横4段ストリップ</h3>
+<p class="note"><b>範囲指定</b>各セルは 9:4 の細い横帯。横長写真の上下トリミング量が最も大きく、範囲の上下寄せが決定的に効く。パノラマ気味の風景・店内全景向きで、人物の顔アップには不向き。</p>
+<p class="note"><b>一文・日付</b>帯の合間に文字を差す余地はなく、日付チップ＋下端ピルのみ。</p></div></div>
+<div class="card"><img src="img/m4c.jpg" alt="4枚 上大中下2モック">
+<div class="body"><h3>4-C 上大＋中＋下2</h3>
+<p class="note"><b>範囲指定</b>上と中の横長セルが主役2枚を受け止め、下2セルは寄りの写真用。大きさに緩急があり「見せ場2枚＋補足2枚」の構成が作れる。</p>
+<p class="note"><b>一文・日付</b>ありがとう系と組み合わせやすく、一文（Thank youピル）は最下段に置く。日付は上セルの隅。</p></div></div>
+</div>
+
+<h2><span class="no">5枚</span> — 見せ場＋補足</h2>
+<div class="grid">
+<div class="card"><img src="img/m5a.jpg" alt="5枚 上2中ワイド下2モック">
+<div class="body"><h3>5-A 上2＋中ワイド＋下2</h3>
+<p class="note"><b>範囲指定</b>中央のワイドセルが唯一の横長枠で、当日のベスト1枚を置く場所。上下の小セルは寄り写真で範囲調整は軽めで済む。</p>
+<p class="note"><b>一文・日付</b>日付は上段左上にチップ。中ワイドの写真に文字を重ねない設計で、一文は下端ピル。</p></div></div>
+<div class="card"><img src="img/m5b.jpg" alt="5枚 左縦長＋右4段モック">
+<div class="body"><h3>5-B 左縦長＋右4段</h3>
+<p class="note"><b>範囲指定</b>左の縦長セルは全身写真専用に近い。右4段は細い横帯が続くため、右側は風景・小物の連なり向きで、範囲は上下寄せのみ。</p>
+<p class="note"><b>一文・日付</b>左セルの下端にタグ、一文は右下段に重ねるピルが置き場。日付チップは右上。</p></div></div>
+<div class="card"><img src="img/m5c.jpg" alt="5枚 上ワイド＋下2x2モック">
+<div class="body"><h3>5-C 上ワイド＋下2×2</h3>
+<p class="note"><b>範囲指定</b>上のワイドで集合写真を横長に受け、下4セルは場面の切り取り。5枚の中では範囲指定の自由度が最も高い構成。</p>
+<p class="note"><b>一文・日付</b>上ワイドの上辺にエリアチップ、日付はその横。一文は下端ピル。</p></div></div>
+</div>
+
+<h2><span class="no">6枚</span> — アルバム感</h2>
+<div class="grid">
+<div class="card"><img src="img/m6a.jpg" alt="6枚 2列3行グリッドモック">
+<div class="body"><h3>6-A 2列×3行グリッド</h3>
+<p class="note"><b>範囲指定</b>各セルは 9:8 で均等。6枚すべてに範囲指定が要るため編集手数は最大。写真が多い回（家族回など）の総集編向き。</p>
+<p class="note"><b>一文・日付</b>日付チップは左上セルの隅。一文は下端ピル1行のみで、長い文は入らない。</p></div></div>
+<div class="card"><img src="img/m6b.jpg" alt="6枚 横6段フィルムモック">
+<div class="body"><h3>6-B 横6段フィルム</h3>
+<p class="note"><b>範囲指定</b>各セルは 9:2.7 の極細帯。横長写真のごく一部しか見えず、範囲指定は「どの帯を切り取るか」の選択そのもの。映画のフィルムのような演出専用で、人物回には不向き。</p>
+<p class="note"><b>一文・日付</b>文字は下端ピルのみ。日付も帯に重ねると読みにくく、非推奨の置き場が多い型。</p></div></div>
+<div class="card"><img src="img/m6c.jpg" alt="6枚 上大＋下モザイクモック">
+<div class="body"><h3>6-C 上大＋下モザイク5</h3>
+<p class="note"><b>範囲指定</b>上の大セルが主役、下は小セル5つのモザイク。小セルは範囲より「何を入れるか」の選抜が効く。主役1枚が決まっている回向き。</p>
+<p class="note"><b>一文・日付</b>ありがとう系と好相性。一文ピルは最下段、日付は上セルの隅にチップ。</p></div></div>
+</div>
+
+<h2><span class="no">■</span> 実装のおすすめ順位</h2>
+<table>
+<tr><th>順位</th><th>型</th><th>理由</th></tr>
+<tr><td class="rank">1</td><td><b>3-A 横長3段積み</b></td><td>ユウキ本命。ツアー写真の多数派である横長写真が最も活き、セル編集（差替・範囲）の仕組みを最小構成で検証できる。まずこの1型でコラージュ基盤を作る。</td></tr>
+<tr><td class="rank">2</td><td><b>2-A 上下イコール ／ 4-A 2×2グリッド</b></td><td>どちらも等分割で実装が単純。2枚は「あと1枚足したい」需要、4枚は1日の流れ需要に応える。基盤ができれば型の追加はテンプレート定義だけで済む。</td></tr>
+<tr><td class="rank">3</td><td><b>3-B 上1＋下2 ／ 2-B 主役大＋下帯</b></td><td>主役＋補足の緩急型。集合写真を主役に置きたい回で 3-A と使い分ける。</td></tr>
+<tr><td class="rank">4</td><td><b>5-C 上ワイド＋下2×2 ／ 6-C 上大＋下モザイク5</b></td><td>枚数が多い回の受け皿。編集手数が増えるため、自動はめ込み（顔位置の初期配置）の精度が上がってから。</td></tr>
+<tr><td class="rank">見送り寄り</td><td>3-C 縦3列 ／ 4-B 横4段 ／ 6-B 横6段フィルム</td><td>横長写真の切り捨てが大きく、範囲指定の負担が最大。演出専用として将来の追加候補に残す。</td></tr>
+</table>
+
+<footer>
+<p>モックについて：写真は Jennifer West 回（2026-11-24・秋葉原ツアー）の実写真を縮小して使用。各モックは 1080×1920 画布の縮小表示で、日付チップ・一文ピル・タグは置き場の例示。本ボードは検討用で、だんどりー本番には未実装。レイアウトの型は InSpic の枚数別フィルタ画面を参考に、だんどりーのストーリー編集向けに再構成した。</p>
+</footer>
+</div>
+</body>
+</html>
