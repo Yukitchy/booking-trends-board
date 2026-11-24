@@ -33,8 +33,8 @@ header{padding-top:16px}
 .brandrow .mk img{height:46px;width:auto;display:block}
 .brandrow .en{font-family:var(--en);font-size:10.5px;font-weight:900;letter-spacing:.22em;color:var(--orange)}
 .brandrow h1{font-size:24px;font-weight:900;line-height:1.3}
-header .cnt{margin-top:10px;font-size:12.5px;color:var(--sub);font-weight:700;line-height:1.7}
-header .cnt a{color:var(--ink);font-weight:900}
+.cnt{margin-top:10px;font-size:12.5px;color:var(--sub);font-weight:700;line-height:1.7}
+.cnt a{color:var(--ink);font-weight:900}
 .up{margin-top:14px;background:var(--card);border:3px solid var(--ink);border-radius:18px;display:flex;align-items:center;gap:11px;padding:12px 15px;cursor:pointer}
 .up .n{flex:none;width:26px;height:26px;border-radius:50%;background:var(--orange);color:var(--ink);font-family:var(--en);font-weight:900;font-size:14px;line-height:26px;text-align:center}
 .up .uptx{flex:1;min-width:0}
@@ -137,14 +137,35 @@ button.use{font-family:var(--jp);font-size:11.5px;font-weight:900;border-radius:
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .flash{animation:fl 1.2s}
 @keyframes fl{0%{background:var(--peach)}100%{background:transparent}}
+/* ===== PCレイアウト 案1 操作ダッシュボード型（2026-11-24採用・ステップ帯は削除済みのため左カラムは録音アップ＋カレンダー） ===== */
+@media (min-width:1000px){
+  .wrap{max-width:1240px;padding:0 28px 8px}
+  .sheet .panel{max-width:760px}
+}
+@media (min-width:1000px){
+  .wrap{display:grid;grid-template-columns:352px 1fr;column-gap:30px;align-items:start;
+    grid-template-areas:"head head" "up search" "cal filters" "cal main" "pend main" "foot foot"}
+  header{grid-area:head}
+  .up{grid-area:up}
+  .cv1{grid-area:cal;position:sticky;top:18px}
+  .search{grid-area:search}
+  .filters{grid-area:filters;align-self:start}
+  #pending{grid-area:pend}
+  #list{grid-area:main}
+  .empty{grid-area:main}
+  .foot{grid-area:foot}
+  .guest-sec{margin-top:0;margin-bottom:22px}
+  .ephoto{width:112px;height:112px}
+  .ebody h4{font-size:17px}
+  .honne{font-size:13px}
+}
 </style>
 </head>
 <body class="gb">
 <div class="wrap">
 <header>
 <div class="brandrow"><span class="mk"><img src="mark-bubble.png" alt=""></span>
-<div><p class="en">TSUAROGU</p><h1>つあろぐ</h1></div></div>
-<p class="cnt">読み物の紹介は <a href="https://yukitchy.github.io/kyo-no-koe/">つあろぐLP</a> へ</p>
+<div><p class="en">TOUR LOG</p><h1>つあろぐ</h1></div></div>
 </header>
 <label class="up"><span class="n">1</span><span class="uptx"><b>＋ 録音をアップ</b><span>ステップ1「録る」から新しい1本が付きます</span></span><input type="file" id="upfile" accept="audio/*" multiple></label>
 <div class="cv1" id="cal"></div>
@@ -163,6 +184,7 @@ button.use{font-family:var(--jp);font-size:11.5px;font-weight:900;border-radius:
 データ: 2026.10.30〜11.06 に作成した10本（m2 の voice-inbox の解析データと、だんどりーのカルテ・写真アルバムから集計）。公開範囲は全て「自分だけ」（読み物ページは非公開が基本で、11/6 Yuliaさんの回だけ読み物ページを生成済み）。処理待ちの控えはこの端末の中だけに保存されます。
 <button id="export">処理待ちをコピー（Muse送付用）</button><br>
 <a href="https://yukitchy.github.io/kyo-no-koe/">つあろぐLP（公開ページ）</a>
+<p class="cnt">読み物の紹介は <a href="https://yukitchy.github.io/kyo-no-koe/">つあろぐLP</a> へ</p>
 </div>
 </div>
 
