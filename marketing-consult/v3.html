@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ユウイチさんに相談したいこと — マーケ作戦会議メモ｜案3 ポップ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Zen+Kaku+Gothic+New:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Hiragino Sans",sans-serif; background:#fff7f0; color:#22181f; line-height:1.75; overflow-x:hidden; }
+  img { max-width:100%; display:block; }
+  .wrap { max-width:1060px; margin:0 auto; padding:0 18px; }
+  .display { font-family:"Archivo Black","Zen Kaku Gothic New",sans-serif; }
+  /* hero */
+  .hero { position:relative; border-radius:0 0 28px 28px; overflow:hidden; margin:0 -18px; }
+  .hero img.bg { width:100%; height:480px; object-fit:cover; }
+  .hero .shade { position:absolute; inset:0; background:linear-gradient(100deg, rgba(255,81,47,.88) 0%, rgba(221,36,118,.82) 52%, rgba(124,42,214,.78) 100%); }
+  .hero-in { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; padding:34px 30px; color:#fff; }
+  .badge { align-self:flex-start; background:#ffd21f; color:#22181f; font-weight:900; font-size:12px; letter-spacing:.12em; padding:6px 14px; border-radius:999px; box-shadow:0 4px 0 rgba(0,0,0,.25); }
+  h1 { font-size:clamp(25px,5vw,46px); font-weight:900; line-height:1.3; margin-top:18px; text-shadow:0 3px 0 rgba(0,0,0,.18); white-space:nowrap; }
+  .hero-sub { font-size:clamp(15px,2.6vw,22px); font-weight:900; margin-top:8px; }
+  .hero-sub .display { color:#ffd21f; letter-spacing:.05em; }
+  .hero-lead { margin-top:16px; font-size:14px; font-weight:700; max-width:36em; }
+  .hero-nums { display:flex; gap:10px; margin-top:24px; flex-wrap:wrap; }
+  .hero-nums a { text-decoration:none; background:rgba(255,255,255,.16); border:2px solid #fff; color:#fff; font-weight:900; font-size:13px; padding:8px 16px; border-radius:999px; }
+  .hero-nums a b { font-family:"Archivo Black",sans-serif; color:#ffd21f; margin-right:6px; }
+  /* sections */
+  section { padding:58px 0 4px; }
+  .sec-head { display:flex; align-items:center; gap:14px; margin-bottom:10px; }
+  .sec-num { font-family:"Archivo Black",sans-serif; font-size:clamp(40px,7vw,64px); line-height:1; background:linear-gradient(90deg,#ff512f,#dd2476); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .sec-head h2 { font-size:clamp(22px,3.8vw,32px); font-weight:900; white-space:nowrap; }
+  .sec-chip { margin-left:auto; background:#22181f; color:#ffd21f; font-size:11px; font-weight:900; letter-spacing:.15em; padding:6px 12px; border-radius:999px; white-space:nowrap; }
+  .sec-intro { font-size:14.5px; font-weight:700; color:#5c4453; max-width:42em; margin-bottom:28px; }
+  .cards { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+  .cards2 { display:grid; grid-template-columns:repeat(2,1fr); gap:18px; }
+  .card { background:#fff; border-radius:20px; overflow:hidden; box-shadow:0 10px 24px rgba(221,36,118,.13); display:flex; flex-direction:column; }
+  .card .ph { position:relative; }
+  .card .ph img { width:100%; height:160px; object-fit:cover; }
+  .card .ph .n { position:absolute; top:12px; left:12px; font-family:"Archivo Black",sans-serif; font-size:22px; color:#fff; background:linear-gradient(90deg,#ff512f,#dd2476); padding:2px 12px; border-radius:999px; }
+  .card-body { padding:18px 18px 20px; display:flex; flex-direction:column; gap:9px; flex:1; }
+  .card .tag { align-self:flex-start; font-size:11px; font-weight:900; letter-spacing:.1em; color:#dd2476; background:#ffe3ef; padding:3px 10px; border-radius:999px; }
+  .card h3 { font-size:16.5px; font-weight:900; line-height:1.5; }
+  .card p { font-size:13px; color:#5c4453; flex:1; font-weight:500; }
+  .card a.btn { align-self:flex-start; text-decoration:none; font-weight:900; font-size:12.5px; color:#fff; background:#22181f; padding:9px 16px; border-radius:999px; }
+  .card a.btn:hover { background:#dd2476; }
+  /* diagram */
+  .diagram { margin-top:32px; border-radius:20px; padding:26px 22px; background:linear-gradient(100deg,#22181f,#3d1030); color:#fff; }
+  .diagram .cap { font-size:11px; font-weight:900; letter-spacing:.25em; color:#ffd21f; margin-bottom:18px; }
+  .formula { display:flex; align-items:center; justify-content:center; gap:12px; flex-wrap:wrap; text-align:center; }
+  .f-box { background:rgba(255,255,255,.1); border:2px solid #fff; border-radius:14px; font-weight:900; font-size:16px; padding:14px 20px; }
+  .f-box small { display:block; font-size:11px; font-weight:700; color:#ffc7dd; margin-top:3px; }
+  .f-op { font-family:"Archivo Black",sans-serif; font-size:28px; color:#ffd21f; }
+  .f-box.result { background:#ffd21f; color:#22181f; border-color:#ffd21f; }
+  .f-box.result small { color:#7a5b00; }
+  .funnel { display:flex; flex-direction:column; align-items:center; gap:8px; }
+  .f-step { border-radius:12px; padding:11px 16px; text-align:center; font-weight:900; font-size:14.5px; background:rgba(255,255,255,.1); border:2px solid #fff; }
+  .f-step small { display:block; font-size:11px; font-weight:700; color:#ffc7dd; }
+  .f-step.w1 { width:min(100%,620px); } .f-step.w2 { width:min(86%,480px); } .f-step.w3 { width:min(72%,360px); background:#ffd21f; color:#22181f; border-color:#ffd21f; }
+  .f-step.w3 small { color:#7a5b00; }
+  .f-arrow { color:#ffd21f; font-size:18px; line-height:1; font-weight:900; }
+  .steps { display:flex; align-items:stretch; gap:8px; flex-wrap:wrap; }
+  .s-box { flex:1 1 140px; text-align:center; background:rgba(255,255,255,.1); border:2px solid #fff; border-radius:14px; padding:14px 10px; }
+  .s-box .n { font-family:"Archivo Black",sans-serif; font-size:12px; color:#ffd21f; letter-spacing:.15em; }
+  .s-box .t { font-weight:900; font-size:15.5px; margin-top:5px; }
+  .s-arrow { align-self:center; color:#ffd21f; font-weight:900; font-size:18px; }
+  footer { margin-top:64px; background:linear-gradient(90deg,#ff512f,#dd2476,#7c2ad6); color:#fff; }
+  .foot-in { padding:26px 0; display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; font-size:12.5px; font-weight:700; }
+  footer a { color:#ffd21f; }
+  @media (max-width:760px){
+    .cards,.cards2 { grid-template-columns:1fr; }
+    .hero img.bg { height:420px; }
+    .sec-chip { display:none; }
+    .steps { flex-direction:column; }
+    .s-arrow { transform:rotate(90deg); align-self:center; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <img class="bg" src="https://i.pinimg.com/originals/01/9a/17/019a170b018fbf42931eed1a90ba7166.jpg" alt="秋葉原の夜景">
+    <div class="shade"></div>
+    <div class="hero-in">
+      <span class="badge">今夜の作戦会議 ｜ 2026.11.24 サウナラボ神田のあとで</span>
+      <h1>ユウイチさんに相談したいこと</h1>
+      <p class="hero-sub"><span class="display">MARKETING</span> 作戦会議メモ</p>
+      <p class="hero-lead">相談ごとは3テーマ・8項目。番組のこと、ツアー集客のこと、新事業の売り方のこと。ととのった頭で、一気に壁打ちさせてください！</p>
+      <div class="hero-nums">
+        <a href="#s1"><b>01</b>猫パンチ</a>
+        <a href="#s2"><b>02</b>ツアー事業</a>
+        <a href="#s3"><b>03</b>新規事業と営業</a>
+      </div>
+    </div>
+  </div>
+
+  <section id="s1">
+    <div class="sec-head"><span class="sec-num">01</span><h2>猫パンチ</h2><span class="sec-chip">PODCAST</span></div>
+    <p class="sec-intro">マーケの課題を「掛け算」で解く番組「愛の猫パンチ」。ゲスト回の出し方と、番組自体の次の一手を相談したい！</p>
+    <div class="cards">
+      <article class="card">
+        <div class="ph"><img src="https://i.pinimg.com/originals/e7/91/d9/e791d9d99df6c17f57afe4a72057bab3.jpg" alt="寺の庭"><span class="n">1-1</span></div>
+        <div class="card-body">
+          <span class="tag">ゲスト企画</span>
+          <h3>お寺ステイ回、やるかどうかの確定</h3>
+          <p>新規ゲスト候補は宿坊ポータル「OTERA STAY」。ゲスト候補は運営の加藤明仁さん（アッキー）、ユウキの友人で声はかけやすい間柄。やるなら日程と声かけの進め方を決めたい。</p>
+          <a class="btn" href="https://oterastay.com/" target="_blank" rel="noopener">OTERA STAY 公式サイト →</a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="ph"><img src="https://cdn.tprofile.com/content/Regions/9994530_kanazawa-/GALLERY_53cf56_kanazawa-_1.jpg" alt="金沢の街並み"><span class="n">1-2</span></div>
+        <div class="card-body">
+          <span class="tag">公開タイミング</span>
+          <h3>「看護師スキルで金沢を差別化！」の出しどき</h3>
+          <p>編集済みなのに未公開のままの一本。#7の反応を見てから出すか、先に出すか。公開の順番と間隔を相談したい。</p>
+        </div>
+      </article>
+      <article class="card">
+        <div class="ph"><img src="https://www.edo.com/hubfs/Resources/Images/podcast_mic.jpeg" alt="収録マイク"><span class="n">1-3</span></div>
+        <div class="card-body">
+          <span class="tag">拡散・集客</span>
+          <h3>#7の拡散と、番組自体の育て方</h3>
+          <p>明日公開の#7「152回の民泊ラジオを資産に変える」。初動の拡散設計と、番組自体のリスナーを増やす打ち手を聞きたい。</p>
+          <a class="btn" href="https://bunko.yuukipodcast.com/neko-punch/" target="_blank" rel="noopener">愛の猫パンチ 読み物版 →</a>
+        </div>
+      </article>
+    </div>
+    <div class="diagram">
+      <div class="cap">番組コンセプト</div>
+      <div class="formula">
+        <div class="f-box">マーケの課題<small>ゲストの事業の悩み</small></div>
+        <div class="f-op">×</div>
+        <div class="f-box">掛け算<small>別の強み・資産と組む</small></div>
+        <div class="f-op">＝</div>
+        <div class="f-box result">次の一手<small>番組で導く打ち手</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="s2">
+    <div class="sec-head"><span class="sec-num">02</span><h2>ツアー事業</h2><span class="sec-chip">ANIME SENSEI TOURS</span></div>
+    <p class="sec-intro">秋葉原のプライベートツアー「Anime Sensei Tours」。集客の軸足をOTA経由から直接予約へ移すのが大きなテーマ。</p>
+    <div class="cards">
+      <article class="card">
+        <div class="ph"><img src="https://i.pinimg.com/originals/01/9a/17/019a170b018fbf42931eed1a90ba7166.jpg" alt="秋葉原の街"><span class="n">2-1</span></div>
+        <div class="card-body">
+          <span class="tag">チャネル戦略</span>
+          <h3>OTA頼みから、直接予約を増やす打ち手</h3>
+          <p>現在はAirbnb・Viator・GetYourGuideなどOTA経由が中心で、新チャネルBookTourXにも掲載を始めた。手数料を払い続ける構造から抜ける打ち手を相談したい。</p>
+          <a class="btn" href="https://animesenseijp.com/akihabara-tour/" target="_blank" rel="noopener">ツアーLP →</a>
+          <a class="btn" href="https://booktourx.com/" target="_blank" rel="noopener">BookTourX →</a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="ph"><img src="https://d2xhtkw2dlln4s.cloudfront.net/wp-content/uploads/2017/09/Meeting-with-Boss.jpg" alt="打ち合わせ"><span class="n">2-2</span></div>
+        <div class="card-body">
+          <span class="tag">集客設計</span>
+          <h3>広告が出せない前提の集客設計</h3>
+          <p>Meta広告は2020年のアカウント制限が残り、今も出稿できない。広告なしで回る集客——SEO、SNS、口コミ、提携——の設計を聞きたい。</p>
+        </div>
+      </article>
+      <article class="card">
+        <div class="ph"><img src="https://img-verda.wongnai.com/p/1600x0/2022/02/13/39a2345248e14d80912525eaf1b6bb4c.jpg" alt="カレーライス"><span class="n">2-3</span></div>
+        <div class="card-body">
+          <span class="tag">ブランディング</span>
+          <h3>リブランディングと新LPの壁打ち</h3>
+          <p>ツアー側のブランド刷新と、専用ドメイン＋新LPの方向性を検討中。名前・見せ方・訴求の軸を壁打ちしたい。神保町カレーのような“老舗の強み”の打ち出し方も含めて。</p>
+        </div>
+      </article>
+    </div>
+    <div class="diagram">
+      <div class="cap">集客チャネルの流れ</div>
+      <div class="funnel">
+        <div class="f-step w1">OTA各社<small>Airbnb / Viator / GetYourGuide / BookTourX</small></div>
+        <div class="f-arrow">▼</div>
+        <div class="f-step w2">自社LP<small>Anime Sensei Tours 公式ページ</small></div>
+        <div class="f-arrow">▼</div>
+        <div class="f-step w3">直接予約<small>手数料なし・顧客と直接つながる</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="s3">
+    <div class="sec-head"><span class="sec-num">03</span><h2>新規事業と営業</h2><span class="sec-chip">NEW BUSINESS</span></div>
+    <p class="sec-intro">作ったものを、どう売るか。営業の型づくりがテーマ。</p>
+    <div class="cards2">
+      <article class="card">
+        <div class="ph"><img src="https://cdn.marblism.com/bw0RokSU-qI.webp" alt="デスクとノートPC"><span class="n">3-1</span></div>
+        <div class="card-body">
+          <span class="tag">営業活用</span>
+          <h3>AIポートフォリオの使い方と名義の決め方</h3>
+          <p>AIで作った制作実績のポートフォリオを公開済み。営業資料としての使い方と、屋号・名義をどう出せば信頼につながるか、決め方を相談したい。</p>
+          <a class="btn" href="https://yukitchy.github.io/ai-portfolio/" target="_blank" rel="noopener">AIポートフォリオ →</a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="ph"><img src="https://cdn.prod.website-files.com/631e69f5f265cf9cc8d00af6/694e49a28bad473fff518b39_sauna.jpg" alt="サウナ室"><span class="n">3-2</span></div>
+        <div class="card-body">
+          <span class="tag">価格設計</span>
+          <h3>「経理くん」の売り方と価格の置き方</h3>
+          <p>経理サービスのような新規サービスを、誰に・いくらで・どう売るか。価格の置き方と、最初の顧客の作り方を聞きたい。——という話を、今夜サウナ上がりに。</p>
+        </div>
+      </article>
+    </div>
+    <div class="diagram">
+      <div class="cap">営業フロー</div>
+      <div class="steps">
+        <div class="s-box"><div class="n">STEP 1</div><div class="t">ポートフォリオ公開</div></div>
+        <div class="s-arrow">→</div>
+        <div class="s-box"><div class="n">STEP 2</div><div class="t">問い合わせ</div></div>
+        <div class="s-arrow">→</div>
+        <div class="s-box"><div class="n">STEP 3</div><div class="t">相談</div></div>
+        <div class="s-arrow">→</div>
+        <div class="s-box"><div class="n">STEP 4</div><div class="t">受注</div></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer><div class="wrap foot-in">
+  <div>マーケ作戦会議メモ ｜ ユウキ（Anime Sensei）× ユウイチさん</div>
+  <div><a href="https://bunko.yuukipodcast.com/neko-punch/">猫パンチ文庫</a> ／ <a href="https://animesenseijp.com/akihabara-tour/">ツアーLP</a> ／ <a href="https://yukitchy.github.io/ai-portfolio/">AIポートフォリオ</a></div>
+</div></footer>
+</body>
+</html>

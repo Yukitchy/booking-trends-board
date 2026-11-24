@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ユウイチさんに相談したいこと — マーケ作戦会議メモ｜案5 和モダン</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;800&family=Zen+Kaku+Gothic+New:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root { --paper:#f3eee1; --ink:#2b2b26; --shu:#a6372a; --sub:#6f6a5c; --line:#d8d0ba; }
+  body { font-family:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Hiragino Sans",sans-serif; background:var(--paper); color:var(--ink); line-height:1.9; overflow-x:hidden;
+    background-image:radial-gradient(#e7dfca 1px, transparent 1px); background-size:22px 22px; }
+  .mincho { font-family:"Shippori Mincho B1","Hiragino Mincho ProN",serif; }
+  img { max-width:100%; display:block; }
+  a { color:var(--shu); }
+  .wrap { max-width:1000px; margin:0 auto; padding:0 20px; }
+  /* hero */
+  .hero { position:relative; padding:56px 0 8px; }
+  .hero-grid { display:grid; grid-template-columns:1fr 300px; gap:34px; align-items:start; }
+  .v-text { writing-mode:vertical-rl; font-family:"Shippori Mincho B1",serif; letter-spacing:.5em; color:var(--shu); font-size:13px; font-weight:600; }
+  .hero-side { display:flex; gap:14px; justify-content:flex-end; }
+  .hero-side img { width:230px; height:340px; object-fit:cover; border:1px solid var(--line); }
+  .eyebrow { display:inline-block; font-size:11.5px; letter-spacing:.3em; color:var(--paper); background:var(--shu); padding:5px 14px; font-weight:700; }
+  h1 { font-family:"Shippori Mincho B1",serif; font-weight:800; font-size:clamp(26px,4.8vw,44px); line-height:1.35; margin-top:22px; white-space:nowrap; }
+  .hero-sub { font-family:"Shippori Mincho B1",serif; font-size:clamp(15px,2.4vw,20px); margin-top:10px; }
+  .hero-sub::before { content:""; display:inline-block; width:34px; height:2px; background:var(--shu); vertical-align:middle; margin-right:12px; }
+  .hero-lead { margin-top:22px; font-size:14.5px; color:#4c483e; max-width:34em; }
+  .hero-meta { margin-top:24px; font-size:12px; letter-spacing:.15em; color:var(--sub); border-top:1px solid var(--line); padding-top:14px; }
+  /* sections */
+  section { padding:60px 0 4px; }
+  .sec-head { display:flex; align-items:center; gap:16px; margin-bottom:6px; }
+  .sec-seal { width:44px; height:44px; flex:none; background:var(--shu); color:var(--paper); font-family:"Shippori Mincho B1",serif; font-weight:800; font-size:20px; display:flex; align-items:center; justify-content:center; }
+  .sec-head h2 { font-family:"Shippori Mincho B1",serif; font-weight:800; font-size:clamp(22px,3.6vw,30px); white-space:nowrap; }
+  .sec-head .en { font-size:10.5px; letter-spacing:.3em; color:var(--sub); }
+  .sec-head .rule { flex:1; border-top:1px solid var(--ink); position:relative; }
+  .sec-intro { font-size:14px; color:#4c483e; max-width:42em; margin:16px 0 30px; }
+  .items { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  .items2 { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
+  .item { background:#faf7ee; border:1px solid var(--line); padding:0 0 22px; display:flex; flex-direction:column; }
+  .item img { width:100%; height:150px; object-fit:cover; border-bottom:1px solid var(--line); }
+  .item-in { padding:18px 20px 0; display:flex; flex-direction:column; gap:9px; flex:1; }
+  .item .num { font-size:11px; letter-spacing:.22em; color:var(--shu); font-weight:700; }
+  .item h3 { font-family:"Shippori Mincho B1",serif; font-weight:800; font-size:17px; line-height:1.55; }
+  .item p { font-size:13px; color:#4c483e; flex:1; }
+  .item a.btn { align-self:flex-start; font-size:12.5px; font-weight:700; text-decoration:none; border:1px solid var(--shu); color:var(--shu); padding:7px 14px; background:transparent; }
+  .item a.btn:hover { background:var(--shu); color:var(--paper); }
+  /* diagram */
+  .diagram { margin-top:34px; background:#faf7ee; border:1px solid var(--ink); padding:28px 24px; position:relative; }
+  .diagram::before { content:""; position:absolute; inset:5px; border:1px solid var(--line); pointer-events:none; }
+  .diagram .cap { text-align:center; font-size:11px; letter-spacing:.35em; color:var(--sub); margin-bottom:20px; }
+  .formula { display:flex; align-items:center; justify-content:center; gap:13px; flex-wrap:wrap; text-align:center; position:relative; }
+  .f-box { font-family:"Shippori Mincho B1",serif; font-weight:800; font-size:17px; border:1.5px solid var(--ink); padding:13px 20px; background:var(--paper); }
+  .f-box small { display:block; font-family:"Zen Kaku Gothic New",sans-serif; font-weight:500; font-size:10.5px; color:var(--sub); margin-top:3px; }
+  .f-op { font-family:"Shippori Mincho B1",serif; font-size:26px; color:var(--shu); }
+  .f-box.result { background:var(--shu); border-color:var(--shu); color:var(--paper); }
+  .f-box.result small { color:#eec9c2; }
+  .funnel { display:flex; flex-direction:column; align-items:center; gap:8px; position:relative; }
+  .f-step { border:1.5px solid var(--ink); background:var(--paper); padding:10px 16px; text-align:center; font-weight:700; font-size:14px; }
+  .f-step small { display:block; font-weight:500; font-size:11px; color:var(--sub); }
+  .f-step.w1 { width:min(100%,580px); } .f-step.w2 { width:min(86%,450px); } .f-step.w3 { width:min(72%,330px); background:var(--shu); border-color:var(--shu); color:var(--paper); }
+  .f-step.w3 small { color:#eec9c2; }
+  .f-arrow { color:var(--shu); font-size:15px; line-height:1; }
+  .steps { display:flex; align-items:stretch; gap:0; flex-wrap:wrap; position:relative; }
+  .s-box { flex:1 1 140px; border:1.5px solid var(--ink); background:var(--paper); padding:14px 10px; text-align:center; }
+  .s-box .n { font-size:10px; letter-spacing:.3em; color:var(--shu); font-weight:700; }
+  .s-box .t { font-family:"Shippori Mincho B1",serif; font-weight:800; font-size:15.5px; margin-top:5px; }
+  .s-arrow { align-self:center; padding:0 6px; color:var(--shu); font-size:16px; }
+  footer { margin-top:70px; border-top:1px solid var(--ink); }
+  .foot-in { padding:26px 0 38px; display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; font-size:12px; color:var(--sub); }
+  footer a { color:var(--ink); }
+  @media (max-width:760px){
+    .hero-grid { grid-template-columns:1fr; }
+    .hero-side { justify-content:flex-start; }
+    .hero-side img { width:100%; height:210px; }
+    .hero-side .v-text { display:none; }
+    .items,.items2 { grid-template-columns:1fr; }
+    .sec-head .en { display:none; }
+    .steps { flex-direction:column; }
+    .s-arrow { transform:rotate(90deg); align-self:center; padding:4px 0; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">相談リスト</span>
+        <h1>ユウイチさんに相談したいこと</h1>
+        <p class="hero-sub">マーケ作戦会議メモ</p>
+        <p class="hero-lead">今夜の相談ごとを、三つのテーマ・八つの項目に整理しました。ポッドキャスト「愛の猫パンチ」のこと、ツアーの集客のこと、新しい事業の売り方のこと。順に壁打ちさせてください。</p>
+        <div class="hero-meta">二〇二六年十一月二十四日 ｜ サウナラボ神田のあとで</div>
+      </div>
+      <div class="hero-side">
+        <img src="https://i.pinimg.com/originals/e7/91/d9/e791d9d99df6c17f57afe4a72057bab3.jpg" alt="寺の庭">
+        <div class="v-text">ととのったあとで、作戦会議</div>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="sec-head"><span class="sec-seal">一</span><h2>猫パンチ</h2><span class="en">PODCAST</span><span class="rule"></span></div>
+    <p class="sec-intro">マーケの課題を「掛け算」で解く番組「愛の猫パンチ」。ゲスト回の出し方と、番組自体の次の一手を相談したい。</p>
+    <div class="items">
+      <article class="item">
+        <img src="https://i.pinimg.com/originals/e7/91/d9/e791d9d99df6c17f57afe4a72057bab3.jpg" alt="寺の庭">
+        <div class="item-in">
+          <div class="num">相談 一ノ一 ｜ ゲスト企画</div>
+          <h3>お寺ステイ回、やるかどうかの確定</h3>
+          <p>新規ゲスト候補は宿坊ポータル「OTERA STAY」。ゲスト候補は運営の加藤明仁さん（アッキー）で、ユウキの友人なので声はかけやすい間柄。やるなら日程と、声かけの進め方を決めたい。</p>
+          <a class="btn" href="https://oterastay.com/" target="_blank" rel="noopener">OTERA STAY 公式サイト →</a>
+        </div>
+      </article>
+      <article class="item">
+        <img src="https://cdn.tprofile.com/content/Regions/9994530_kanazawa-/GALLERY_53cf56_kanazawa-_1.jpg" alt="金沢の街並み">
+        <div class="item-in">
+          <div class="num">相談 一ノ二 ｜ 公開タイミング</div>
+          <h3>「看護師スキルで金沢を差別化！」の出しどき</h3>
+          <p>編集は済んでいるのに、未公開のままになっている一本。#7の反応を見てから出すか、先に出すか。公開の順番と間隔を相談したい。</p>
+        </div>
+      </article>
+      <article class="item">
+        <img src="https://www.edo.com/hubfs/Resources/Images/podcast_mic.jpeg" alt="収録マイク">
+        <div class="item-in">
+          <div class="num">相談 一ノ三 ｜ 拡散・集客</div>
+          <h3>#7の拡散と、番組自体の育て方</h3>
+          <p>明日公開の#7「152回の民泊ラジオを資産に変える」。初動の拡散設計と、番組自体のリスナーを増やす打ち手を聞きたい。</p>
+          <a class="btn" href="https://bunko.yuukipodcast.com/neko-punch/" target="_blank" rel="noopener">愛の猫パンチ 読み物版 →</a>
+        </div>
+      </article>
+    </div>
+    <div class="diagram">
+      <div class="cap">番組コンセプト</div>
+      <div class="formula">
+        <div class="f-box">マーケの課題<small>ゲストの事業の悩み</small></div>
+        <div class="f-op">×</div>
+        <div class="f-box">掛け算<small>別の強み・資産と組む</small></div>
+        <div class="f-op">＝</div>
+        <div class="f-box result">次の一手<small>番組で導く打ち手</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-seal">二</span><h2>ツアー事業</h2><span class="en">ANIME SENSEI TOURS</span><span class="rule"></span></div>
+    <p class="sec-intro">秋葉原のプライベートツアー「Anime Sensei Tours」。集客の軸足をOTA経由から直接予約へ移すのが大きなテーマ。</p>
+    <div class="items">
+      <article class="item">
+        <img src="https://i.pinimg.com/originals/01/9a/17/019a170b018fbf42931eed1a90ba7166.jpg" alt="秋葉原の夜景">
+        <div class="item-in">
+          <div class="num">相談 二ノ一 ｜ チャネル戦略</div>
+          <h3>OTA頼みから、直接予約を増やす打ち手</h3>
+          <p>現在はAirbnb・Viator・GetYourGuideなどOTA経由の予約が中心で、新チャネルBookTourXにも掲載を始めた。手数料を払い続ける構造から抜ける打ち手を相談したい。</p>
+          <a class="btn" href="https://animesenseijp.com/akihabara-tour/" target="_blank" rel="noopener">ツアーLP →</a>
+          <a class="btn" href="https://booktourx.com/" target="_blank" rel="noopener">BookTourX →</a>
+        </div>
+      </article>
+      <article class="item">
+        <img src="https://d2xhtkw2dlln4s.cloudfront.net/wp-content/uploads/2017/09/Meeting-with-Boss.jpg" alt="打ち合わせ">
+        <div class="item-in">
+          <div class="num">相談 二ノ二 ｜ 集客設計</div>
+          <h3>広告が出せない前提の集客設計</h3>
+          <p>Meta広告は2020年のアカウント制限が残り、今も出稿できない。広告なしで回る集客——SEO、SNS、口コミ、提携——の設計を聞きたい。</p>
+        </div>
+      </article>
+      <article class="item">
+        <img src="https://img-verda.wongnai.com/p/1600x0/2022/02/13/39a2345248e14d80912525eaf1b6bb4c.jpg" alt="カレーライス">
+        <div class="item-in">
+          <div class="num">相談 二ノ三 ｜ ブランディング</div>
+          <h3>リブランディングと新LPの壁打ち</h3>
+          <p>ツアー側のブランド刷新と、専用ドメイン＋新LPの方向性を検討中。名前・見せ方・訴求の軸を壁打ちしたい。神保町カレーのような“老舗の強み”の打ち出し方も含めて。</p>
+        </div>
+      </article>
+    </div>
+    <div class="diagram">
+      <div class="cap">集客チャネルの流れ</div>
+      <div class="funnel">
+        <div class="f-step w1">OTA各社<small>Airbnb / Viator / GetYourGuide / BookTourX</small></div>
+        <div class="f-arrow">↓</div>
+        <div class="f-step w2">自社LP<small>Anime Sensei Tours 公式ページ</small></div>
+        <div class="f-arrow">↓</div>
+        <div class="f-step w3">直接予約<small>手数料なし・顧客と直接つながる</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-seal">三</span><h2>新規事業と営業</h2><span class="en">NEW BUSINESS</span><span class="rule"></span></div>
+    <p class="sec-intro">作ったものを、どう売るか。営業の型づくりがテーマ。</p>
+    <div class="items2">
+      <article class="item">
+        <img src="https://cdn.marblism.com/bw0RokSU-qI.webp" alt="デスクとノートPC">
+        <div class="item-in">
+          <div class="num">相談 三ノ一 ｜ 営業活用</div>
+          <h3>AIポートフォリオの使い方と名義の決め方</h3>
+          <p>AIで作った制作実績のポートフォリオを公開済み。営業資料としての使い方と、屋号・名義をどう出せば信頼につながるか、決め方を相談したい。</p>
+          <a class="btn" href="https://yukitchy.github.io/ai-portfolio/" target="_blank" rel="noopener">AIポートフォリオ →</a>
+        </div>
+      </article>
+      <article class="item">
+        <img src="https://cdn.prod.website-files.com/631e69f5f265cf9cc8d00af6/694e49a28bad473fff518b39_sauna.jpg" alt="サウナ室">
+        <div class="item-in">
+          <div class="num">相談 三ノ二 ｜ 価格設計</div>
+          <h3>「経理くん」の売り方と価格の置き方</h3>
+          <p>経理サービスのような新規サービスを、誰に・いくらで・どう売るか。価格の置き方と、最初の顧客の作り方を聞きたい。——という話を、今夜サウナ上がりに。</p>
+        </div>
+      </article>
+    </div>
+    <div class="diagram">
+      <div class="cap">営業フロー</div>
+      <div class="steps">
+        <div class="s-box"><div class="n">STEP 1</div><div class="t">ポートフォリオ公開</div></div>
+        <div class="s-arrow">→</div>
+        <div class="s-box"><div class="n">STEP 2</div><div class="t">問い合わせ</div></div>
+        <div class="s-arrow">→</div>
+        <div class="s-box"><div class="n">STEP 3</div><div class="t">相談</div></div>
+        <div class="s-arrow">→</div>
+        <div class="s-box"><div class="n">STEP 4</div><div class="t">受注</div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer><div class="foot-in">
+    <div>マーケ作戦会議メモ ｜ ユウキ（Anime Sensei）× ユウイチさん</div>
+    <div><a href="https://bunko.yuukipodcast.com/neko-punch/">猫パンチ文庫</a> ／ <a href="https://animesenseijp.com/akihabara-tour/">ツアーLP</a> ／ <a href="https://yukitchy.github.io/ai-portfolio/">AIポートフォリオ</a></div>
+  </div></footer>
+</div>
+</body>
+</html>
