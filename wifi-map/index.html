@@ -152,6 +152,15 @@ div.ph-side{height:100%;}
 .strip .cbody{padding:7px 10px 8px; gap:2px; justify-content:center; min-width:0; flex:1;}
 .strip .name{font-size:13.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
 .strip .cardbtns{margin-top:4px;}
+.strip .card.mine{flex-direction:column; height:122px;}
+.strip .card.mine .mainrow{display:flex; flex-direction:row; align-items:stretch; height:94px; min-height:0; flex:none;}
+.strip .card.mine .cardbtns{flex:none; height:26px; margin:0; display:flex; flex-wrap:nowrap; gap:0; border-top:1.5px solid var(--ink); background:#fbfdfb;}
+.strip .card.mine .cardbtns button{flex:1; font-size:11.5px; font-weight:700; background:transparent; border:none; border-right:1px solid var(--line); border-radius:0; padding:0; color:var(--ink); white-space:nowrap;}
+.strip .card.mine .cardbtns button:last-child{border-right:none;}
+.strip .card.mine .cardbtns button.danger{color:#b3261e;}
+body.hasmine .stripcnt{bottom:148px;}
+body.hasmine #export-row{bottom:148px;}
+body.hasmine .leaflet-control-zoom{margin-bottom:162px !important;}
 .stripcnt{position:fixed; left:12px; bottom:120px; z-index:1050; font-size:11.5px; font-weight:700; color:#3c4a3e; background:rgba(255,255,255,.92); border:1px solid var(--line); padding:2px 10px; border-radius:999px;}
 #export-row{position:fixed; right:10px; bottom:120px; z-index:1150; padding:0; margin:0;}
 #toast{top:62px;}
@@ -441,6 +450,7 @@ return {html:'<div class="pin2" style="background:' + fills[b] + '"><i></i></div
 function buildCards(list){
 var box = document.getElementById('cards');
 box.innerHTML = '';
+document.body.classList.toggle('hasmine', list.some(function(x){ return !!x.mine; }));
 var cnt = document.getElementById('sheet-count');
 if (cnt) cnt.textContent = 'スポット ' + list.length + '件';
 list.forEach(function(s){
@@ -623,10 +633,15 @@ var card = document.createElement('div');
 card.className = 'card';
 card.innerHTML = innerHTML;
 if (s.mine){
+card.classList.add('mine');
+var mainrow = document.createElement('div');
+mainrow.className = 'mainrow';
+while (card.firstChild) mainrow.appendChild(card.firstChild);
+card.appendChild(mainrow);
 var btns = document.createElement('div');
 btns.className = 'cardbtns';
 var cp = document.createElement('button');
-cp.type = 'button'; cp.textContent = '📋 Muse に送る用にコピー';
+cp.type = 'button'; cp.textContent = '📋 コピー';
 cp.addEventListener('click', function(e){ e.stopPropagation(); copyText(spotJson(s), cp);});
 var ed = document.createElement('button');
 ed.type = 'button'; ed.textContent = '✏️ 編集';
