@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>案5 ミニマル・タイポ型 — 順位表リデザイン</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;900&family=Shippori+Mincho:wght@600;800&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Zen Kaku Gothic New", "Noto Sans CJK JP", sans-serif; color: #1c1c1c; background: #fdfdfa; font-size: 12px; line-height: 1.65; }
+  .wrap { max-width: 1336px; margin: 0 auto; padding: 26px 32px 30px; }
+  .num { font-family: "Archivo", "Zen Kaku Gothic New", sans-serif; }
+  .min { font-family: "Shippori Mincho", "Hiragino Mincho ProN", serif; }
+  /* masthead */
+  .mast { border-top: 4px double #1c1c1c; border-bottom: 1px solid #1c1c1c; padding: 10px 0 9px; display: flex; align-items: baseline; justify-content: space-between; }
+  .mast .t { display: flex; align-items: baseline; gap: 14px; }
+  .mast h1 { font-family: "Shippori Mincho", serif; font-size: 27px; font-weight: 800; letter-spacing: .14em; }
+  .mast .en { font-family: "Archivo", sans-serif; font-size: 9.5px; letter-spacing: .34em; color: #8a867e; font-weight: 700; }
+  .mast .meta { font-size: 10.5px; color: #6d6a63; text-align: right; }
+  /* headline */
+  .head { display: flex; align-items: center; gap: 20px; padding: 16px 0 13px; border-bottom: 1px solid #d9d6d0; }
+  .head .lb { font-size: 10px; font-weight: 900; letter-spacing: .22em; color: #c22f24; white-space: nowrap; writing-mode: horizontal-tb; }
+  .head h2 { font-family: "Shippori Mincho", serif; font-size: 27px; font-weight: 800; line-height: 1.35; }
+  .head h2 .en { font-family: "Archivo", sans-serif; font-weight: 900; font-size: 26px; }
+  .head .st { margin-left: auto; text-align: right; white-space: nowrap; font-size: 11px; color: #6d6a63; }
+  .head .st b { font-family: "Archivo", sans-serif; font-size: 21px; color: #1c1c1c; font-weight: 900; }
+  .rin { display: flex; align-items: center; gap: 9px; padding: 9px 0; border-bottom: 1px solid #d9d6d0; }
+  .rin img { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; object-position: top; flex: none; }
+  .rin .nm { font-weight: 900; font-size: 11px; letter-spacing: .06em; white-space: nowrap; }
+  .rin p { font-size: 11.5px; color: #55534e; }
+  /* KPI */
+  .kpi { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 2px solid #1c1c1c; }
+  .kpi div { padding: 11px 16px 10px; border-left: 1px solid #e3e1db; }
+  .kpi div:first-child { border-left: none; padding-left: 0; }
+  .kpi .lb { font-size: 9.5px; letter-spacing: .18em; color: #8a867e; font-weight: 700; }
+  .kpi .v { font-family: "Archivo", sans-serif; font-size: 26px; font-weight: 700; line-height: 1.25; }
+  .kpi .v.red { color: #c22f24; }
+  .kpi .s { font-size: 10.5px; color: #6d6a63; }
+  .kpi .s b.up { color: #1c1c1c; } .kpi .s b.dn { color: #c22f24; }
+  /* columns */
+  .cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 28px; margin-top: 4px; }
+  .cols > section { padding: 13px 0 4px; border-bottom: 1px solid #e3e1db; }
+  .span2 { grid-column: span 2; }
+  h3 { font-family: "Shippori Mincho", serif; font-size: 15.5px; font-weight: 800; letter-spacing: .05em; display: flex; align-items: baseline; gap: 8px; border-top: 1px solid #1c1c1c; padding-top: 7px; }
+  h3 .cnt { font-family: "Zen Kaku Gothic New", sans-serif; font-size: 10px; font-weight: 900; background: #1c1c1c; color: #fff; padding: 0 7px; border-radius: 999px; }
+  h3 .cnt.red { background: #c22f24; }
+  h3 .note { margin-left: auto; font-family: "Zen Kaku Gothic New", sans-serif; font-size: 9.5px; font-weight: 500; color: #a19d95; text-align: right; }
+  .row { display: flex; align-items: baseline; gap: 8px; padding: 4.5px 0; border-bottom: 1px dotted #e0ded7; }
+  .row:last-child { border-bottom: none; }
+  .row .rt { margin-left: auto; text-align: right; white-space: nowrap; font-size: 11px; color: #6d6a63; }
+  .kw2 { font-weight: 700; } .en { font-family: "Archivo", sans-serif; }
+  .sub { color: #a19d95; font-size: 10px; }
+  .go { display: inline-block; background: #c22f24; color: #fff; font-size: 9px; font-weight: 900; padding: 0 6px; border-radius: 3px; flex: none; }
+  .pill { display: inline-block; font-size: 9px; font-weight: 900; padding: 0 7px; border-radius: 999px; background: #1c1c1c; color: #fff; }
+  .pill.gray { background: #eceae5; color: #6d6a63; }
+  .bar { height: 3px; background: #eceae5; margin-top: 3px; }
+  .bar i { display: block; height: 100%; background: #1c1c1c; } .bar i.red { background: #c22f24; }
+  .goal { padding: 4.5px 0; border-bottom: 1px dotted #e0ded7; }
+  .goal:last-child { border-bottom: none; }
+  .goal .gt { display: flex; align-items: baseline; justify-content: space-between; }
+  .goal .gl { font-size: 11px; font-weight: 700; }
+  .goal .gv { font-family: "Archivo", sans-serif; font-size: 16px; font-weight: 700; }
+  .goal .gv small { font-size: 11px; color: #a19d95; }
+  table { width: 100%; border-collapse: collapse; margin-top: 2px; }
+  th { font-size: 9.5px; color: #a19d95; text-align: left; font-weight: 700; letter-spacing: .05em; padding: 2px 5px; border-bottom: 1px solid #d9d6d0; }
+  td { padding: 3.5px 5px; border-bottom: 1px dotted #e0ded7; }
+  tr:last-child td { border-bottom: none; }
+  td.r, th.r { text-align: right; }
+  .up { color: #1c1c1c; font-weight: 700; } .dn { color: #c22f24; font-weight: 700; }
+  .tabs2 { display: flex; gap: 4px; margin: 6px 0 2px; }
+  .tabs2 span { font-size: 10px; font-weight: 700; padding: 1px 9px; border: 1px solid #d9d6d0; border-radius: 999px; color: #6d6a63; }
+  .tabs2 span.on { background: #1c1c1c; color: #fff; border-color: #1c1c1c; }
+  .chips { display: flex; flex-wrap: wrap; gap: 4px; margin: 4px 0 8px; }
+  .chips span { font-family: "Archivo", sans-serif; font-size: 10.5px; padding: 1px 8px; border: 1px solid #e0ded7; border-radius: 999px; color: #a19d95; }
+  .chips span.hit { border-color: #1c1c1c; color: #1c1c1c; font-weight: 700; }
+  .chips span.hit b { color: #c22f24; }
+  .rankbadge { font-family: "Archivo", sans-serif; font-weight: 900; font-size: 15px; width: 38px; flex: none; }
+  footer { margin-top: 14px; border-top: 4px double #1c1c1c; padding-top: 8px; font-size: 10px; color: #8a867e; line-height: 1.7; display: flex; justify-content: space-between; gap: 20px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="mast">
+  <div class="t"><h1>順位表</h1><span class="en">RANK BOARD — ANIMESENSEIJP.COM</span></div>
+  <div class="meta">2026-11-24 ／ 最終更新 2026-11-25 07:41（データは 2026-11-22 分まで）<br>出典：Google Search Console（3日遅れ）</div>
+</div>
+
+<div class="head">
+  <span class="lb">今日の1手</span>
+  <h2>「<span class="en">radio kaikan akihabara</span>」</h2>
+  <div class="st">順位 <b>8.5</b> ・ 表示 <b>194</b></div>
+</div>
+
+<div class="rin">
+  <img src="rin.webp" alt="早乙女リン">
+  <span class="nm">早乙女リン</span>
+  <p>今日の1手は「radio kaikan akihabara」（8.5位・194表示）。</p>
+</div>
+
+<div class="kpi">
+  <div><div class="lb">クリック（28日）</div><div class="v red num">2,540</div><div class="s">前期 848 ／ <b class="up">+199.5%</b></div></div>
+  <div><div class="lb">表示回数（28日）</div><div class="v num">370,108</div><div class="s">前期 68,502 ／ <b class="up">+440.3%</b></div></div>
+  <div><div class="lb">CTR</div><div class="v num">0.69%</div><div class="s">前期 1.24% ／ <b class="dn">▼0.6</b></div></div>
+  <div><div class="lb">平均順位</div><div class="v num">7.1</div><div class="s">前期 7.4 ／ <b class="up">▼0.3</b>（改善）</div></div>
+</div>
+
+<div class="cols">
+
+  <section class="span2">
+    <h3>着地待ち <span class="cnt red">6件</span><span class="note">GO済・明朝のルーチンが上から着地させる ／ 提案は 0件（未決の todo が空）</span></h3>
+    <div class="row"><span class="go">GO済</span><div><span class="kw2"><span class="en">radio kaikan akihabara</span>: titleにAkihabaraを入れる</span> <span class="sub">akiba-tour-site</span></div><div class="rt"><span class="num">8.5位</span> ・ <span class="num">184表示</span> ・ CTR <span class="num">0.54%</span></div></div>
+    <div class="row"><span class="go">GO済</span><div><span class="kw2"><span class="en">akihabara-at-night</span>: 「what time does akihabara close」をtitleと冒頭の直答へ</span> <span class="sub">akiba-tour-site</span></div><div class="rt"><span class="num">6.6位</span> ・ <span class="num">5,036表示</span> ・ CTR <span class="num">0.44%</span></div></div>
+    <div class="row"><span class="go">GO済</span><div><span class="kw2">「<span class="en">to buy in japanese</span>」: title と冒頭の直答を検索語に寄せる</span> <span class="sub">animesenseijp</span></div><div class="rt"><span class="num">6.1位</span> ・ <span class="num">1,159表示</span> ・ CTR <span class="num">0.0%</span></div></div>
+    <div class="row"><span class="go">GO済</span><div><span class="kw2">「<span class="en">hope in japanese</span>」: title と冒頭の直答を検索語に寄せる</span> <span class="sub">animesenseijp</span></div><div class="rt"><span class="num">9.0位</span> ・ <span class="num">1,132表示</span> ・ CTR <span class="num">0.0%</span></div></div>
+    <div class="row"><span class="go">GO済</span><div><span class="kw2">「<span class="en">new in japanese</span>」: title と冒頭の直答を検索語に寄せる</span> <span class="sub">animesenseijp</span></div><div class="rt"><span class="num">7.9位</span> ・ <span class="num">662表示</span> ・ CTR <span class="num">0.0%</span></div></div>
+    <div class="row"><span class="go">GO済</span><div><span class="kw2">「<span class="en">how to say cheers in japanese</span>」: title と冒頭の直答を検索語に寄せる</span> <span class="sub">animesenseijp</span></div><div class="rt"><span class="num">9.9位</span> ・ <span class="num">410表示</span> ・ CTR <span class="num">0.0%</span></div></div>
+  </section>
+
+  <section>
+    <h3>採点 <span class="note">期限つきの目標・毎朝の実測で埋まる</span></h3>
+    <div class="goal"><div class="gt"><span class="gl">秋葉原ツアー系の語で表示あり</span><span class="gv num">1<small> /4</small></span></div><div class="bar"><i style="width:25%"></i></div><div class="sub">期限 2026-11-08</div></div>
+    <div class="goal"><div class="gt"><span class="gl">計画中の人の語で表示あり</span><span class="gv num">1<small> /8</small></span></div><div class="bar"><i style="width:12.5%"></i></div><div class="sub">期限 2026-11-08</div></div>
+    <div class="goal"><div class="gt"><span class="gl">日本アニメ旅の語で表示あり</span><span class="gv num">0<small> /3</small></span></div><div class="bar"><i style="width:0%"></i></div><div class="sub">期限 2026-11-08</div></div>
+    <div class="goal"><div class="gt"><span class="gl">ブランド以外のクリック（28日）</span><span class="gv num">570<small> /40</small></span></div><div class="bar"><i class="red" style="width:100%"></i></div><div class="sub">達成 ／ 期限 2026-11-08</div></div>
+    <div class="goal"><div class="gt"><span class="gl">攻め筋の語で10位以内</span><span class="gv num">8<small> /5</small></span></div><div class="bar"><i class="red" style="width:100%"></i></div><div class="sub">達成 ／ 期限 2026-11-11</div></div>
+  </section>
+
+  <section class="span2">
+    <h3>推移 <span class="note">Google検索での animesenseijp.com 全体の成績（サブドメイン含む）</span></h3>
+    <div class="tabs2"><span class="on">日</span><span>週</span><span>月</span><span>全体</span></div>
+    <svg viewBox="0 0 840 130" width="100%" height="118" preserveAspectRatio="none" aria-hidden="true">
+      <g stroke="#eceae5" stroke-width="1"><line x1="0" y1="32" x2="840" y2="32"/><line x1="0" y1="65" x2="840" y2="65"/><line x1="0" y1="98" x2="840" y2="98"/></g>
+      <polyline points="0,116 60,112 120,107 180,110 240,99 300,93 360,96 420,83 480,77 540,68 600,61 660,47 720,39 780,27 840,17" fill="none" stroke="#c9c5bc" stroke-width="1.8" stroke-dasharray="4 3"/>
+      <polyline points="0,105 60,101 120,96 180,99 240,86 300,78 360,83 420,70 480,64 540,55 600,49 660,36 720,29 780,18 840,9" fill="none" stroke="#c22f24" stroke-width="2"/>
+    </svg>
+    <div class="sub"><span style="color:#c22f24">━</span> クリック（左目盛）　<span style="color:#c9c5bc">┄</span> 表示回数（右目盛）　／　直近30日・3日遅れ</div>
+  </section>
+
+  <section>
+    <h3>次の候補 <span class="note">ブランド以外・攻め筋優先・2〜20位</span></h3>
+    <div class="row"><span class="rankbadge num">8.5</span><div><span class="kw2 en">radio kaikan akihabara</span></div><div class="rt"><span class="num">194表示</span>・<span class="num">1クリック</span></div></div>
+    <div class="row"><span class="rankbadge num">7.2</span><div><span class="kw2 en">animate akihabara</span></div><div class="rt"><span class="num">499表示</span>・<span class="num">3クリック</span></div></div>
+    <div class="row"><span class="rankbadge num">6.2</span><div><span class="kw2 en">omae wa mou shindeiru</span></div><div class="rt"><span class="num">2,876表示</span>・<span class="num">2クリック</span></div></div>
+    <div class="row"><span class="rankbadge num">9.1</span><div><span class="kw2 en">take care in japanese</span></div><div class="rt"><span class="num">1,878表示</span>・<span class="num">4クリック</span></div></div>
+    <div class="row"><span class="rankbadge num">4.2</span><div><span class="kw2 en">akihabara retro game shop</span></div><div class="rt"><span class="num">4表示</span>・<span class="num">0クリック</span></div></div>
+  </section>
+
+  <section>
+    <h3>攻め筋 <span class="note">黒枠＝10位以内、薄いチップ＝圏外</span></h3>
+    <div style="font-weight:900;font-size:11.5px">1. 秋葉原ツアー <span class="sub">（購入意図）</span> <span class="pill">1/14語</span></div>
+    <div class="chips"><span class="hit">akihabara tour <b>7.8位</b>・25表示</span><span>akihabara anime tour</span><span>akihabara private tour</span><span>tokyo anime tour</span><span>anime tour tokyo</span></div>
+    <div style="font-weight:900;font-size:11.5px">2. 秋葉原を計画中の人 <span class="sub">（流入の主エンジン）</span> <span class="pill">1/13語</span></div>
+    <div class="chips"><span class="hit">akihabara itinerary <b>7.1位</b>・32表示</span><span>things to do in akihabara</span><span>akihabara guide</span><span>akihabara shopping guide</span></div>
+  </section>
+
+  <section>
+    <h3>対策中の語 <span class="cnt">達成 22語</span><span class="note">1日1語・10日後に判定</span></h3>
+    <table>
+      <tr><th>キーワード</th><th>状態</th><th class="r">開始→現在</th></tr>
+      <tr><td><span class="kw2 en">akihabara itinerary</span></td><td><span class="pill">達成</span></td><td class="r num">圏外 → 7.1</td></tr>
+      <tr><td><span class="kw2 en">mandarake akihabara</span></td><td><span class="pill">達成</span></td><td class="r num">9.5 → 7.5</td></tr>
+      <tr><td><span class="kw2 en">anime tour tokyo</span></td><td><span class="pill">達成</span></td><td class="r num">6.5 → 5.8</td></tr>
+      <tr><td><span class="kw2 en">black in japanese</span></td><td><span class="pill">達成</span></td><td class="r num">8.7 → 7.2</td></tr>
+      <tr><td><span class="kw2 en">juke steak akihabara</span></td><td><span class="pill gray">再挑戦待ち</span></td><td class="r num">3.6 → 2.8</td></tr>
+      <tr><td><span class="kw2 en">akihabara anime tour</span></td><td><span class="pill gray">再挑戦待ち</span></td><td class="r num">圏外 → 圏外</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h3>実施した施策 <span class="note">台帳の done・新しい順12件（抜粋4件）</span></h3>
+    <div class="row"><span class="num sub">2026-11-18</span><div><span class="kw2 en">akihabara retro game shop</span> — title・直答とも基準適合済み、変更不要と確認。編集なし</div></div>
+    <div class="row"><span class="num sub">2026-11-18</span><div><span class="kw2 en">taihen vs muzukashii</span> — title/desc/冒頭直答を検索語順に変更</div></div>
+    <div class="row"><span class="num sub">2026-11-18</span><div><span class="kw2 en">ara ara meaning</span> — title・冒頭直答を「Ara ara meaning」語順に変更</div></div>
+    <div class="row"><span class="num sub">2026-11-17</span><div><span class="kw2">consistency 3件</span> — facts.json に登録し不一致0件に</div></div>
+  </section>
+
+  <section class="span2">
+    <h3>順位の動き <span class="note">ブランド以外で表示の多い20語（抜粋8語）／ ブランド指名は除外：クリック 21（1%）・表示 1,078（0%）</span></h3>
+    <table>
+      <tr><th>キーワード</th><th class="r">順位</th><th class="r">前期</th><th class="r">差</th><th class="r">表示</th><th class="r">クリック</th><th class="r">CTR</th></tr>
+      <tr><td><span class="kw2 en">black in japanese</span></td><td class="r num">8.1</td><td class="r num">9.2</td><td class="r num dn">▼1.1</td><td class="r num">6,534</td><td class="r num">3</td><td class="r num">0.05%</td></tr>
+      <tr><td><span class="kw2 en">omae wa mou shindeiru</span></td><td class="r num">6.2</td><td class="r num">—</td><td class="r num">—</td><td class="r num">2,876</td><td class="r num">2</td><td class="r num">0.07%</td></tr>
+      <tr><td><span class="kw2 en">bag in japanese</span></td><td class="r num">7.0</td><td class="r num">4.9</td><td class="r num up">▲2.1</td><td class="r num">2,314</td><td class="r num">4</td><td class="r num">0.17%</td></tr>
+      <tr><td><span class="kw2 en">buy in japanese</span></td><td class="r num">6.2</td><td class="r num">9.0</td><td class="r num dn">▼2.8</td><td class="r num">2,297</td><td class="r num">4</td><td class="r num">0.17%</td></tr>
+      <tr><td><span class="kw2 en">jump festa 2027</span></td><td class="r num">7.4</td><td class="r num">2.7</td><td class="r num up">▲4.7</td><td class="r num">2,199</td><td class="r num">9</td><td class="r num">0.41%</td></tr>
+      <tr><td><span class="kw2 en">take care in japanese</span></td><td class="r num">9.1</td><td class="r num">—</td><td class="r num">—</td><td class="r num">1,878</td><td class="r num">4</td><td class="r num">0.21%</td></tr>
+      <tr><td><span class="kw2 en">drink in japanese</span></td><td class="r num">7.8</td><td class="r num">9.4</td><td class="r num dn">▼1.6</td><td class="r num">1,853</td><td class="r num">1</td><td class="r num">0.05%</td></tr>
+      <tr><td><span class="kw2 en">godzilla store tokyo</span></td><td class="r num">9.3</td><td class="r num">9.5</td><td class="r num dn">▼0.2</td><td class="r num">1,373</td><td class="r num">6</td><td class="r num">0.44%</td></tr>
+    </table>
+  </section>
+
+</div>
+
+<footer>
+  <span>データ終端 2026-11-22（Search Consoleは3日遅れ）／ 対策中 0語 · 達成 22語 · 記録 71日ぶん ／ 計測 sc-domain:animesenseijp.com（2026-09-11にドメイン全体へ切替）</span>
+  <span>材料：gsc.py ／ rank_watch.py ／ watchwords.json ／ targets.json ／ backlog.json ・ 毎朝7:30のルーチンが再描画</span>
+</footer>
+
+</div>
+</body>
+</html>

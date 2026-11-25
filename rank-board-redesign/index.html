@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>順位表 リデザイン5案</title>
+<meta property="og:title" content="順位表 リデザイン5案">
+<meta property="og:description" content="SEO順位表ダッシュボード（animesenseijp.com）をスッキリさせるリデザイン5案。縦の長さは現行13,484pxを100%として実測比較。">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/rank-board-redesign/og.jpg">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/rank-board-redesign/">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #f4f2ed; color: #191919;
+         font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif; }
+  header { padding: 30px 18px 4px; max-width: 1060px; margin: 0 auto; }
+  h1 { font-size: 25px; margin: 0 0 10px; letter-spacing: .02em; }
+  header p { font-size: 13.5px; line-height: 1.8; color: #55534e; margin: 0 0 8px; }
+  header p b { color: #191919; }
+  main { max-width: 1060px; margin: 0 auto; padding: 8px 14px 56px; }
+  section { margin: 30px 0 40px; }
+  .tag { display: flex; align-items: center; gap: 9px; margin: 0 2px 10px; flex-wrap: wrap; }
+  .num { background: #151515; color: #fff; font-weight: 700; font-size: 14px;
+         padding: 3px 11px; border-radius: 999px; letter-spacing: .04em; white-space: nowrap; }
+  .num.now { background: #8a867e; }
+  .name { font-size: 17.5px; font-weight: 700; }
+  .ratio { margin-left: auto; font-size: 13px; font-weight: 700; color: #c22f24; white-space: nowrap; }
+  .ratio small { color: #8a867e; font-weight: 500; }
+  figure { margin: 0; }
+  figure img { display: block; width: 100%; border-radius: 10px;
+               box-shadow: 0 4px 18px rgba(20,20,20,.16); border: 1px solid #e2ded4; }
+  figcaption { margin: 10px 2px 0; font-size: 13px; line-height: 1.8; color: #55534e; }
+  figcaption b { color: #191919; }
+  .open { display: inline-block; margin-top: 6px; font-weight: 700; color: #191919; }
+  table.cmp { width: 100%; border-collapse: collapse; margin: 14px 0 4px; background: #fff;
+              border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(20,20,20,.08); }
+  table.cmp th, table.cmp td { padding: 9px 12px; font-size: 13px; text-align: left; border-bottom: 1px solid #efeadf; }
+  table.cmp th { background: #151515; color: #fff; font-size: 12px; letter-spacing: .05em; }
+  table.cmp td.r, table.cmp th.r { text-align: right; }
+  table.cmp tr:last-child td { border-bottom: none; }
+  .bar { height: 6px; background: #eceae5; border-radius: 3px; min-width: 90px; }
+  .bar i { display: block; height: 100%; background: #c22f24; border-radius: 3px; }
+  .bar.gray i { background: #8a867e; }
+</style>
+</head>
+<body>
+<header>
+  <h1>順位表 リデザイン5案</h1>
+  <p>SEO順位表ダッシュボード（animesenseijp.com・早乙女リンの順位ボード）のリデザイン案。現行は大きな見出しと余白で縦に伸びきっているので、<b>スッキリ＋縦を短く</b>を共通テーマに5案作ったやぁん。中身は全案とも<b>本番の実データ</b>（今日の1手「radio kaikan akihabara」8.5位・194表示、着地待ち6件、28日合計クリック2,540／表示370,108など）。</p>
+  <p>縦の長さは 1440px 幅での実測（現行 <b>13,484px ＝ 100%</b>）。モックは主要データの抜粋で組んであるので、表を全量表示する案（1・2・5）は実装時に少し伸びる。タブ型（3）とアコーディオン型（4）は「最初に開いた状態」の高さ。スクショは各案のファーストビューで、モック本体はリンクから実寸で開ける（3のタブと4の開閉は実際に動く）。</p>
+  <table class="cmp">
+    <tr><th>案</th><th>縦の長さ（実測）</th><th class="r">現行比</th><th style="width:34%">縮み具合</th></tr>
+    <tr><td>現行</td><td>13,484px</td><td class="r"><b>100%</b></td><td><div class="bar gray"><i style="width:100%"></i></div></td></tr>
+    <tr><td>1 コンパクト表型</td><td>2,374px</td><td class="r"><b>約18%</b></td><td><div class="bar"><i style="width:18%"></i></div></td></tr>
+    <tr><td>2 カードグリッド型</td><td>2,171px</td><td class="r"><b>約16%</b></td><td><div class="bar"><i style="width:16%"></i></div></td></tr>
+    <tr><td>3 タブ切替型</td><td>622px（1画面に収まる）</td><td class="r"><b>約5%</b></td><td><div class="bar"><i style="width:5%"></i></div></td></tr>
+    <tr><td>4 アコーディオン整理型</td><td>791px（1画面に収まる）</td><td class="r"><b>約6%</b></td><td><div class="bar"><i style="width:6%"></i></div></td></tr>
+    <tr><td>5 ミニマル・タイポ型</td><td>1,597px</td><td class="r"><b>約12%</b></td><td><div class="bar"><i style="width:12%"></i></div></td></tr>
+  </table>
+</header>
+<main>
+
+  <section>
+    <div class="tag"><span class="num now">現行</span><span class="name">いまの順位表</span><span class="ratio">13,484px <small>＝ 100%</small></span></div>
+    <figure>
+      <img src="shot-current.png" alt="現行の順位表">
+      <figcaption>特大の見出し「今日の1手は…」と大きな余白・大きな数字が積み重なり、全体で <b>13,484px</b>（画面の約15スクロール分）。下まで行くのに時間がかかる。</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="tag"><span class="num">1</span><span class="name">コンパクト表型</span><span class="ratio">約18% <small>（2,374px）</small></span></div>
+    <figure>
+      <img src="shot-v1.png" alt="案1 コンパクト表型">
+      <figcaption>サイドバーを捨て、<b>今日の1手は黒帯1行</b>に圧縮。KPIは1行ストリップ、あとは全部<b>密なテーブル／リスト</b>で畳む。全部開いたままでもこの短さなので、「探す」より「一覧で眺める」使い方に合う。情報の欠けが一番少ない案。<br><a class="open" href="v1.html">→ モックを実寸で開く</a></figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="tag"><span class="num">2</span><span class="name">カードグリッド型</span><span class="ratio">約16% <small>（2,171px）</small></span></div>
+    <figure>
+      <img src="shot-v2.png" alt="案2 カードグリッド型">
+      <figcaption>グレーの地に白カードを並べる今風のダッシュボード。上にKPIカード4枚、以下はセクションカードを<b>2カラムグリッド</b>で横に逃がして縦を短くした。区切りがはっきりして見渡しやすい。カードの影と余白ぶん、案1より少しだけ密度は下がる。<br><a class="open" href="v2.html">→ モックを実寸で開く</a></figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="tag"><span class="num">3</span><span class="name">タブ切替型</span><span class="ratio">約5% <small>（622px・1画面）</small></span></div>
+    <figure>
+      <img src="shot-v3.png" alt="案3 タブ切替型">
+      <figcaption>セクションを全部<b>タブ</b>にまとめ、表示はいつも1セクションだけ。縦は最短で、<b>スクロールほぼ不要</b>。朝の確認は「着地待ち」タブを開くだけで終わる。代わりに、複数セクションを同時に見比べることはできない。モックではタブが実際に切り替わる。<br><a class="open" href="v3.html">→ モックを実寸で開く（タブ動作つき）</a></figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="tag"><span class="num">4</span><span class="name">アコーディオン整理型</span><span class="ratio">約6% <small>（791px・1画面）</small></span></div>
+    <figure>
+      <img src="shot-v4.png" alt="案4 アコーディオン整理型">
+      <figcaption>現行の骨格（左サイドバー＋白地に黒太字）はそのままに、見出しと余白を締めて<b>全セクション既定で閉</b>にした。開いた所だけ読む作りで、現行からの見た目の変化が一番小さい＝移行が一番ラクな案。リンは右下の小さな丸ボタンに引っ込めた。モックでは見出しを押すと実際に開く。<br><a class="open" href="v4.html">→ モックを実寸で開く（開閉つき）</a></figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="tag"><span class="num">5</span><span class="name">ミニマル・タイポ型</span><span class="ratio">約12% <small>（1,597px）</small></span></div>
+    <figure>
+      <img src="shot-v5.png" alt="案5 ミニマル・タイポ型">
+      <figcaption>細い罫線と小さなタイポグラフィで組む<b>新聞ダッシュボード風</b>。見出しは明朝、セクションは3カラムに流して縦を圧縮。リンは小さな丸アバター＋1行コメントに縮小した。一番「きれいに見える」方向で、情報量と見た目のバランス型。<br><a class="open" href="v5.html">→ モックを実寸で開く</a></figcaption>
+    </figure>
+  </section>
+
+</main>
+</body>
+</html>
