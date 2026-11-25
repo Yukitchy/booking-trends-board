@@ -256,10 +256,16 @@ body{background:#f4f7f4;}
 .slimbar .rchk span::after{content:"電源あり"; margin-left:7px;}
 .slimbar .rchk:has(input:checked){background:var(--grn); border-color:var(--grn); color:#06130a;}
 #pc-stats{display:flex; position:fixed; top:60px; left:0; right:0; height:88px; z-index:1150; background:#fff; border-bottom:1px solid #dfe5df;}
-.pc-stat{flex:1; min-width:0; padding:10px 22px; border-right:1px solid #eef1ee; display:flex; flex-direction:column; justify-content:center;}
+.pc-stat{flex:1; min-width:0; padding:10px 18px; border-right:1px solid #eef1ee; display:flex; flex-direction:column; justify-content:center;}
+.pc-stat:nth-child(1){flex:1.15;}
+.pc-stat:nth-child(2){flex:.95;}
+.pc-stat:nth-child(3){flex:1.05;}
+.pc-stat:nth-child(4){flex:1.45;}
 .pc-stat:last-child{border-right:none;}
+.pc-stat.link{cursor:pointer; transition:background .15s ease;}
+.pc-stat.link:hover{background:#f0f7f1;}
 .pc-stat .k{font-size:11.5px; font-weight:700; color:#5c6b5e; letter-spacing:.06em; white-space:nowrap;}
-.pc-stat .v{margin-top:2px; font-size:26px; font-weight:800; line-height:1.25; white-space:nowrap;}
+.pc-stat .v{margin-top:2px; font-size:26px; font-weight:800; line-height:1.25; letter-spacing:-.01em; white-space:nowrap;}
 .pc-stat .v small{font-size:13px; font-weight:700; color:#5c6b5e;}
 .pc-stat .v .grn{color:var(--deep);}
 .pc-stat .sub{font-size:12px; color:#5c6b5e; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
@@ -746,9 +752,7 @@ card.appendChild(btns);
 }
 card.addEventListener('click', function(e){
 if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') return;
-map.setView([s.lat, s.lng], 16);
-if (!window.NOPOPUP && markers[s._key]) markers[s._key].openPopup();
-if (window.PINCLICK) window.PINCLICK(s);
+focusSpot(s);
 });
 return card;
 }
@@ -762,6 +766,12 @@ attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, &copy; <a href="h
 spotLayer = L.layerGroup().addTo(map);
 window.__cardShell = cardShell;
 window.__map = map;
+
+function focusSpot(s){
+map.setView([s.lat, s.lng], 16);
+if (!window.NOPOPUP && markers[s._key]) markers[s._key].openPopup();
+if (window.PINCLICK) window.PINCLICK(s);
+}
 
 function renderMarkers(list){
 spotLayer.clearLayers();
@@ -842,6 +852,12 @@ el.innerHTML =
 ? '<div class="v"><span class="grn">' + fmtStat(fastest.down) + '</span><small> Mbps</small></div><div class="sub">' + esc(fastest.name) + '（' + (fastest.measured_on || '') + (fastest.approx? ' 簡易計測': ' 実測') + '）</div>'
 : '<div class="v">—</div><div class="sub">実測済みなし</div>') + '</div>' +
 '<div class="pc-stat"><div class="k">実測平均</div>' + avgHtml + '</div>';
+if (fastest){
+var fc = el.children[2];
+fc.classList.add('link');
+fc.title = fastest.name + 'を地図で開く';
+fc.addEventListener('click', function(){ focusSpot(fastest); });
+}
 }
 
 function render(){
