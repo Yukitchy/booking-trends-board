@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>ワイスピ PC版デザイン案4 エディトリアル型</title>
+<link rel="stylesheet" href="lib/leaflet.css">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Noto Sans CJK JP",sans-serif; color:#101410; background:#fbfdfb; }
+  .wrap { max-width:1240px; margin:0 auto; padding:0 32px; }
+  header { display:flex; align-items:center; padding:20px 0 0; gap:20px; }
+  header .logo-img { height:32px; display:block; }
+  header .spacer { flex:1; }
+  .seg { display:flex; background:#eef1ee; border-radius:999px; padding:3px; }
+  .seg span { padding:6px 18px; border-radius:999px; font-size:13px; font-weight:700; color:#5c6b5e; white-space:nowrap; }
+  .seg span.on { background:#16c95c; color:#06130a; }
+  .chip { display:flex; align-items:center; gap:7px; border:1.5px solid #c3cec4; color:#3c4a3e; font-size:13px; font-weight:700; padding:7px 14px; border-radius:999px; white-space:nowrap; }
+  .chip .dot { width:8px; height:8px; border-radius:50%; background:#b9c4ba; }
+  .title { padding:34px 0 22px; border-bottom:3px solid #101410; }
+  .title h1 { font-size:40px; font-weight:800; letter-spacing:.01em; white-space:nowrap; }
+  .title h1 .grn { color:#0b7a38; }
+  .title p { margin-top:10px; font-size:14.5px; color:#3c4a3e; }
+  #map { height:264px; margin-top:22px; border-radius:16px; overflow:hidden; }
+  .grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:26px 22px; padding:30px 0 44px; }
+  .card img { width:100%; height:186px; object-fit:cover; border-radius:14px; display:block; }
+  .card h2 { margin-top:13px; font-size:16.5px; font-weight:800; line-height:1.45; }
+  .meta { margin-top:3px; font-size:12px; color:#5c6b5e; }
+  .meta .ssid { font-family:ui-monospace,Menlo,monospace; font-size:11.5px; }
+  .speed { margin-top:8px; display:flex; align-items:baseline; gap:12px; }
+  .speed .d { font-size:42px; font-weight:800; color:#0b7a38; line-height:1; }
+  .speed .d small { font-size:13px; color:#5c6b5e; font-weight:700; }
+  .speed .u { font-size:18px; font-weight:800; }
+  .speed .u small { font-size:11px; color:#5c6b5e; font-weight:700; }
+  .bar { margin-top:9px; height:6px; background:#e4eae4; border-radius:3px; overflow:hidden; }
+  .bar i { display:block; height:100%; background:#16c95c; }
+  .unm { margin-top:8px; font-size:30px; font-weight:800; color:#b9c4ba; line-height:1.2; }
+  .foot { margin-top:10px; display:flex; gap:7px; align-items:center; }
+  .pw { font-size:11.5px; font-weight:700; padding:3px 11px; border-radius:999px; white-space:nowrap; }
+  .pw.yes { color:#0b7a38; border:1.5px solid #16c95c; }
+  .pw.unk { color:#8a968b; border:1.5px solid #d5dcd5; }
+  .date { font-size:11.5px; color:#8a968b; white-space:nowrap; }
+  .leaflet-control-attribution { font-size:9px; background:rgba(255,255,255,.75) !important; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img class="logo-img" src="img/logo.png" alt="ワイスピ">
+    <div class="spacer"></div>
+    <div class="seg"><span>近い順</span><span class="on">速い順</span></div>
+    <div class="chip"><span class="dot"></span>電源あり</div>
+  </header>
+  <div class="title">
+    <h1>実測Wi-Fiマップ <span class="grn">ワイスピ</span></h1>
+    <p>スポット全10件のうち実測済みは2件。測っていない店は「未計測」とそのまま表示します。</p>
+  </div>
+  <div id="map"></div>
+  <div class="grid" id="grid"></div>
+</div>
+<script src="lib/leaflet.js"></script>
+<script src="data.js"></script>
+<script>
+  document.getElementById("grid").innerHTML = SPOTS.map(s => `
+    <div class="card">
+      <img src="img/${s.img}" alt="">
+      <h2>${s.name}</h2>
+      <div class="meta">${s.area} ・ <span class="ssid">${ssidLabel(s)}</span></div>
+      ${s.down !== null
+        ? `<div class="speed"><span class="d">↓${fmt(s.down)}<small> Mbps</small></span><span class="u">↑${fmt(s.up)}<small> Mbps</small></span></div>
+           <div class="bar"><i style="width:${pct(s.down)}%"></i></div>`
+        : `<div class="unm">未計測</div>`}
+      <div class="foot">
+        <span class="pw ${s.power ? "yes" : "unk"}">${s.power ? "電源あり" : "電源 未確認"}</span>
+        ${s.measured_on ? `<span class="date">${s.measured_on} 実測</span>` : ""}
+      </div>
+    </div>`).join("");
+  initMap("map");
+</script>
+</body>
+</html>

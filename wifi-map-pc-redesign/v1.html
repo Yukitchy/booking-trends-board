@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>ワイスピ PC版デザイン案1 サイドバー型</title>
+<link rel="stylesheet" href="lib/leaflet.css">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { height:100%; }
+  body { font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Noto Sans CJK JP",sans-serif; color:#101410; background:#fff; overflow:hidden; }
+  header { height:60px; background:#101410; display:flex; align-items:center; padding:0 20px; gap:20px; }
+  header .logo-img { height:30px; display:block; }
+  header .tag { color:#8fe8b1; font-size:12px; font-weight:700; letter-spacing:.08em; white-space:nowrap; }
+  header .spacer { flex:1; }
+  .seg { display:flex; background:#232823; border-radius:999px; padding:3px; }
+  .seg span { padding:6px 18px; border-radius:999px; font-size:13px; font-weight:700; color:#c9d2ca; white-space:nowrap; }
+  .seg span.on { background:#16c95c; color:#06130a; }
+  .chip { display:flex; align-items:center; gap:7px; border:1.5px solid #3c4a3e; color:#e7efe8; font-size:13px; font-weight:700; padding:7px 14px; border-radius:999px; white-space:nowrap; }
+  .chip .dot { width:8px; height:8px; border-radius:50%; background:#5c6b5e; }
+  .count { color:#fff; font-size:13px; font-weight:700; white-space:nowrap; }
+  .count b { color:#16c95c; font-size:17px; }
+  .layout { display:flex; height:calc(100vh - 60px); }
+  aside { width:408px; flex:none; border-right:1px solid #dfe5df; overflow:hidden; background:#fff; }
+  .list-head { padding:14px 18px 10px; display:flex; align-items:baseline; gap:10px; border-bottom:1px solid #eef1ee; }
+  .list-head h1 { font-size:17px; font-weight:800; white-space:nowrap; }
+  .list-head p { font-size:12px; color:#5c6b5e; white-space:nowrap; }
+  .card { display:flex; gap:12px; padding:13px 18px; border-bottom:1px solid #eef1ee; }
+  .card.sel { background:#effaf2; box-shadow:inset 4px 0 0 #16c95c; }
+  .card img { width:104px; height:86px; object-fit:cover; border-radius:10px; flex:none; }
+  .card .body { flex:1; min-width:0; }
+  .card h2 { font-size:14.5px; font-weight:800; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .meta { margin-top:3px; font-size:11.5px; color:#5c6b5e; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .meta .ssid { font-family:ui-monospace,Menlo,monospace; font-size:11px; }
+  .speed { margin-top:8px; display:flex; align-items:center; gap:10px; }
+  .speed .nums { font-size:14px; font-weight:800; white-space:nowrap; }
+  .speed .nums small { font-size:10.5px; color:#5c6b5e; font-weight:700; }
+  .bar { flex:1; height:6px; background:#e4eae4; border-radius:3px; overflow:hidden; }
+  .bar i { display:block; height:100%; background:#16c95c; border-radius:3px; }
+  .unmeasured { margin-top:8px; display:inline-block; font-size:11.5px; font-weight:700; color:#5c6b5e; background:#eef1ee; padding:3px 10px; border-radius:999px; }
+  .foot { margin-top:7px; display:flex; align-items:center; gap:8px; }
+  .pw { font-size:11px; font-weight:700; padding:2.5px 9px; border-radius:999px; white-space:nowrap; }
+  .pw.yes { color:#0b7a38; border:1.5px solid #16c95c; }
+  .pw.unk { color:#8a968b; border:1.5px solid #d5dcd5; }
+  .date { font-size:11px; color:#8a968b; white-space:nowrap; }
+  #map { flex:1; }
+  .leaflet-control-attribution { font-size:9px; background:rgba(255,255,255,.75) !important; }
+</style>
+</head>
+<body>
+<header>
+  <img class="logo-img" src="img/logo-white.png" alt="ワイスピ">
+  <span class="tag">実測Wi-Fiマップ</span>
+  <div class="spacer"></div>
+  <div class="seg"><span>近い順</span><span class="on">速い順</span></div>
+  <div class="chip"><span class="dot"></span>電源あり</div>
+  <div class="count">スポット <b>10</b> 件</div>
+</header>
+<div class="layout">
+  <aside>
+    <div class="list-head"><h1>スポット一覧</h1><p>実測済み 2件 ／ 未計測 8件</p></div>
+    <div id="list"></div>
+  </aside>
+  <div id="map"></div>
+</div>
+<script src="lib/leaflet.js"></script>
+<script src="data.js"></script>
+<script>
+  document.getElementById("list").innerHTML = SPOTS.map((s,i) => `
+    <div class="card${i===0 ? " sel" : ""}">
+      <img src="img/${s.img}" alt="">
+      <div class="body">
+        <h2>${s.name}</h2>
+        <div class="meta">${s.area} ・ <span class="ssid">${ssidLabel(s)}</span></div>
+        ${s.down !== null
+          ? `<div class="speed"><span class="nums">↓${fmt(s.down)} <small>Mbps</small> ↑${fmt(s.up)}</span><span class="bar"><i style="width:${pct(s.down)}%"></i></span></div>`
+          : `<span class="unmeasured">未計測</span>`}
+        <div class="foot">
+          <span class="pw ${s.power ? "yes" : "unk"}">${s.power ? "電源あり" : "電源 未確認"}</span>
+          ${s.measured_on ? `<span class="date">${s.measured_on} 実測</span>` : ""}
+        </div>
+      </div>
+    </div>`).join("");
+  initMap("map");
+</script>
+</body>
+</html>

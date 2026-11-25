@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>ワイスピ PC版デザイン案3 フローティングパネル型</title>
+<link rel="stylesheet" href="lib/leaflet.css">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { height:100%; }
+  body { font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Noto Sans CJK JP",sans-serif; color:#101410; overflow:hidden; }
+  #map { position:fixed; inset:0; }
+  .panel { position:fixed; top:20px; left:20px; width:320px; background:rgba(255,255,255,.96); border-radius:18px; box-shadow:0 12px 32px rgba(6,19,10,.22); padding:18px 18px 16px; z-index:1000; }
+  .panel .logo-img { height:28px; display:block; }
+  .panel .sub { margin-top:5px; font-size:12px; color:#5c6b5e; font-weight:700; }
+  .areas { margin-top:14px; display:flex; gap:7px; }
+  .areas span { font-size:12.5px; font-weight:700; padding:6px 13px; border-radius:999px; background:#eef1ee; color:#3c4a3e; white-space:nowrap; }
+  .areas span.on { background:#101410; color:#fff; }
+  .seg { margin-top:10px; display:flex; background:#eef1ee; border-radius:999px; padding:3px; }
+  .seg span { flex:1; text-align:center; padding:6px 0; border-radius:999px; font-size:13px; font-weight:700; color:#5c6b5e; white-space:nowrap; }
+  .seg span.on { background:#16c95c; color:#06130a; }
+  .filter { margin-top:12px; display:flex; align-items:center; justify-content:space-between; }
+  .filter .lbl { font-size:13px; font-weight:700; }
+  .toggle { width:44px; height:24px; border-radius:999px; background:#d5dcd5; position:relative; flex:none; }
+  .toggle::after { content:""; position:absolute; top:3px; left:3px; width:18px; height:18px; border-radius:50%; background:#fff; box-shadow:0 1px 3px rgba(0,0,0,.25); }
+  .detail { position:fixed; left:20px; bottom:20px; width:392px; background:#fff; border-radius:18px; box-shadow:0 12px 32px rgba(6,19,10,.25); overflow:hidden; z-index:1000; }
+  .detail img { width:100%; height:172px; object-fit:cover; display:block; }
+  .detail .body { padding:15px 18px 17px; }
+  .detail h1 { font-size:17.5px; font-weight:800; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .meta { margin-top:3px; font-size:12px; color:#5c6b5e; }
+  .meta .ssid { font-family:ui-monospace,Menlo,monospace; font-size:11.5px; }
+  .big { margin-top:10px; display:flex; align-items:baseline; gap:14px; }
+  .big .d { font-size:34px; font-weight:800; color:#0b7a38; }
+  .big .d small { font-size:13px; color:#5c6b5e; font-weight:700; }
+  .big .u { font-size:17px; font-weight:800; }
+  .big .u small { font-size:11px; color:#5c6b5e; font-weight:700; }
+  .bar { margin-top:9px; height:7px; background:#e4eae4; border-radius:4px; overflow:hidden; }
+  .bar i { display:block; height:100%; background:#16c95c; }
+  .badges { margin-top:12px; display:flex; gap:7px; flex-wrap:wrap; }
+  .bdg { font-size:11.5px; font-weight:700; padding:4px 11px; border-radius:999px; white-space:nowrap; }
+  .bdg.grn { color:#0b7a38; border:1.5px solid #16c95c; }
+  .bdg.gry { color:#5c6b5e; border:1.5px solid #d5dcd5; }
+  .note { margin-top:11px; font-size:12.5px; line-height:1.65; color:#3c4a3e; }
+  .count { position:fixed; right:20px; bottom:20px; z-index:1000; background:#101410; color:#fff; font-size:13px; font-weight:700; padding:10px 18px; border-radius:999px; box-shadow:0 8px 20px rgba(6,19,10,.3); white-space:nowrap; }
+  .count b { color:#16c95c; font-size:16px; }
+  .leaflet-control-attribution { font-size:9px; background:rgba(255,255,255,.75) !important; }
+</style>
+</head>
+<body>
+<div id="map"></div>
+<div class="panel">
+  <img class="logo-img" src="img/logo.png" alt="ワイスピ">
+  <div class="sub">実測Wi-Fiマップ ｜ スポット 10件</div>
+  <div class="areas"><span class="on">すべて</span><span>秋葉原</span><span>錦糸町</span></div>
+  <div class="seg"><span>近い順</span><span class="on">速い順</span></div>
+  <div class="filter"><span class="lbl">電源ありのみ</span><span class="toggle"></span></div>
+</div>
+<div class="detail" id="detail"></div>
+<div class="count">実測済み <b>2</b> 件 ／ 未計測 8件</div>
+<script src="lib/leaflet.js"></script>
+<script src="data.js"></script>
+<script>
+  const s = SPOTS[0];
+  document.getElementById("detail").innerHTML = `
+    <img src="img/${s.img}" alt="">
+    <div class="body">
+      <h1>${s.name}</h1>
+      <div class="meta">${s.area} ・ <span class="ssid">${ssidLabel(s)}</span></div>
+      <div class="big"><span class="d">↓${fmt(s.down)} <small>Mbps</small></span><span class="u">↑${fmt(s.up)} <small>Mbps</small></span></div>
+      <div class="bar"><i style="width:${pct(s.down)}%"></i></div>
+      <div class="badges">
+        <span class="bdg grn">パスワードなし</span>
+        <span class="bdg gry">電源 未確認</span>
+        <span class="bdg gry">${s.measured_on} 実測</span>
+      </div>
+      <p class="note">${s.note}</p>
+    </div>`;
+  initMap("map");
+</script>
+</body>
+</html>
