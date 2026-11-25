@@ -281,6 +281,7 @@ body.hasmine .leaflet-control-zoom{margin-bottom:12px !important;}
 #export-row{bottom:16px; right:16px; z-index:1300;}
 body.hasmine #export-row{bottom:16px;}
 #pc-grid .card{background:#fff; border:1px solid #dfe5df; border-radius:14px; overflow:hidden; box-shadow:none; flex:none; width:auto; max-width:none; height:auto; display:flex; flex-direction:column;}
+#pc-grid .card.hl{border-color:var(--grn); box-shadow:0 0 0 2px var(--grn);}
 #pc-grid .card .mainrow{display:flex; flex-direction:column; flex:1; min-height:0;}
 .pc-ph{width:100%; height:96px; object-fit:cover;}
 img.pc-ph{display:block;}
@@ -723,6 +724,7 @@ document.body.removeChild(ta);
 function cardShell(s, innerHTML){
 var card = document.createElement('div');
 card.className = 'card';
+card.setAttribute('data-key', s._key);
 card.innerHTML = innerHTML;
 if (s.mine){
 card.classList.add('mine');
@@ -771,6 +773,18 @@ function focusSpot(s){
 map.setView([s.lat, s.lng], 16);
 if (!window.NOPOPUP && markers[s._key]) markers[s._key].openPopup();
 if (window.PINCLICK) window.PINCLICK(s);
+}
+
+function focusSpotCard(s){
+map.setView([s.lat, s.lng], 16);
+var grid = document.getElementById('pc-grid');
+if (!grid) return;
+var prev = grid.querySelectorAll('.card.hl');
+for (var i = 0; i < prev.length; i++) prev[i].classList.remove('hl');
+var card = grid.querySelector('.card[data-key="' + s._key + '"]');
+if (!card) return;
+card.classList.add('hl');
+card.scrollIntoView({behavior: 'smooth', block: 'center'});
 }
 
 function renderMarkers(list){
@@ -855,8 +869,8 @@ el.innerHTML =
 if (fastest){
 var fc = el.children[2];
 fc.classList.add('link');
-fc.title = fastest.name + 'を地図で開く';
-fc.addEventListener('click', function(){ focusSpot(fastest); });
+fc.title = fastest.name + 'のカードを表示';
+fc.addEventListener('click', function(){ focusSpotCard(fastest); });
 }
 }
 
