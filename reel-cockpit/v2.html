@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>案2 Canva風 — リールコックピット</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: 1180px; height: 760px; overflow: hidden; background: #eef0f4; color: #1c1c28;
+         font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif; }
+  .topbar { height: 56px; background: linear-gradient(90deg, #7b2ff7, #00c4cc); display: flex; align-items: center;
+            gap: 14px; padding: 0 18px; color: #fff; }
+  .logo { font-weight: 800; font-size: 17px; }
+  .crumb { font-size: 13px; background: rgba(255,255,255,.22); padding: 6px 13px; border-radius: 999px; }
+  .topbar .sp { flex: 1; }
+  .share { background: rgba(255,255,255,.22); padding: 8px 16px; border-radius: 10px; font-size: 13px; font-weight: 700; }
+  .export { background: #fff; color: #7b2ff7; padding: 9px 18px; border-radius: 10px; font-size: 13.5px; font-weight: 800; }
+  .main { display: flex; height: 704px; }
+  .rail { width: 74px; background: #fff; border-right: 1px solid #e3e5ec; display: flex; flex-direction: column;
+          align-items: center; padding-top: 14px; gap: 6px; }
+  .rail .r { width: 58px; padding: 9px 0 7px; border-radius: 12px; text-align: center; font-size: 10.5px; color: #55556a; }
+  .rail .r .ic { font-size: 19px; display: block; margin-bottom: 3px; }
+  .rail .r.on { background: #f0e9ff; color: #7b2ff7; font-weight: 700; }
+  .panel { width: 302px; background: #fff; border-right: 1px solid #e3e5ec; padding: 16px 14px; overflow: hidden; }
+  .panel h3 { font-size: 13px; margin-bottom: 4px; }
+  .panel .sub { font-size: 11.5px; color: #83839a; margin-bottom: 12px; line-height: 1.5; }
+  .guest { display: flex; gap: 9px; align-items: center; border: 1.5px solid #e3e5ec; border-radius: 14px;
+           padding: 9px 11px; margin-bottom: 14px; }
+  .guest img { width: 38px; height: 38px; border-radius: 10px; object-fit: cover; }
+  .guest b { font-size: 13px; display: block; }
+  .guest small { font-size: 11px; color: #83839a; }
+  .guest .chg { margin-left: auto; font-size: 11.5px; color: #7b2ff7; font-weight: 700; }
+  .tplgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .tpl { border: 2px solid #e3e5ec; border-radius: 14px; padding: 8px; background: #fff; }
+  .tpl.on { border-color: #7b2ff7; box-shadow: 0 4px 14px rgba(123,47,247,.18); }
+  .tpl .th { height: 48px; border-radius: 9px; overflow: hidden; position: relative; margin-bottom: 6px; }
+  .tpl.add { border-style: dashed; border-color: #c9c9dc; display: flex; flex-direction: column; align-items: center;
+             justify-content: center; color: #7b2ff7; min-height: 96px; }
+  .tpl.add .plus { font-size: 24px; font-weight: 800; line-height: 1; }
+  .steps { display: flex; gap: 7px; align-items: center; background: #fff; padding: 7px 14px; border-radius: 999px;
+           box-shadow: 0 2px 8px rgba(28,28,40,.08); font-size: 12px; color: #83839a; }
+  .steps b { color: #1c1c28; }
+  .steps .done { color: #00a8b0; font-weight: 700; }
+  .steps .cur { color: #7b2ff7; font-weight: 800; }
+  .tpl .th img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .tpl .th .badge { position: absolute; left: 5px; top: 5px; background: #7b2ff7; color: #fff; font-size: 9.5px;
+                    font-weight: 800; padding: 2px 7px; border-radius: 999px; }
+  .tpl b { font-size: 12.5px; display: block; }
+  .tpl small { font-size: 10.5px; color: #83839a; white-space: nowrap; }
+  .mat { margin-top: 16px; }
+  .mat .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .mat .cell { border-radius: 8px; overflow: hidden; aspect-ratio: 1; position: relative; }
+  .mat .cell img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .mat .cell .ck { position: absolute; right: 3px; top: 3px; width: 15px; height: 15px; border-radius: 50%;
+                   background: #00c4cc; color: #fff; font-size: 10px; font-weight: 800;
+                   display: flex; align-items: center; justify-content: center; }
+  .stage { flex: 1; background: radial-gradient(circle, #d9dce6 1.2px, transparent 1.3px) 0 0/22px 22px, #eef0f4;
+           display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
+  .phone { width: 236px; height: 420px; border-radius: 22px; overflow: hidden; position: relative; background: #000;
+           box-shadow: 0 18px 50px rgba(28,28,40,.28); border: 3px solid #7b2ff7; }
+  .phone img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .phone .hook { position: absolute; left: 13px; right: 13px; top: 40px; color: #fff; font-size: 15.5px;
+                 font-weight: 800; line-height: 1.45; text-shadow: 0 2px 10px rgba(0,0,0,.85); }
+  .phone .hook em { color: #ffe45e; font-style: normal; }
+  .phone .play { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); width: 50px; height: 50px;
+                 border-radius: 50%; background: rgba(255,255,255,.92); color: #7b2ff7; font-size: 18px;
+                 display: flex; align-items: center; justify-content: center; }
+  .phone .bar { position: absolute; left: 0; right: 0; bottom: 0; height: 5px; background: rgba(255,255,255,.3); }
+  .phone .bar i { display: block; height: 100%; width: 38%; background: #00c4cc; }
+  .stage .hint { font-size: 12px; color: #83839a; background: #fff; padding: 6px 14px; border-radius: 999px;
+                 box-shadow: 0 2px 8px rgba(28,28,40,.08); }
+  .props { width: 272px; background: #fff; border-left: 1px solid #e3e5ec; padding: 16px 14px; overflow: hidden; }
+  .props h3 { font-size: 13px; margin-bottom: 10px; }
+  .field { margin-bottom: 14px; }
+  .field label { font-size: 11.5px; color: #83839a; display: block; margin-bottom: 5px; }
+  .field .box { border: 1.5px solid #e3e5ec; border-radius: 11px; padding: 9px 11px; font-size: 12.5px; line-height: 1.55; }
+  .field .box.grad { border-color: #7b2ff7; background: #faf7ff; }
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; }
+  .chip { font-size: 12px; padding: 6px 13px; border-radius: 999px; border: 1.5px solid #e3e5ec; background: #fff; }
+  .chip.on { background: #7b2ff7; color: #fff; border-color: #7b2ff7; font-weight: 700; }
+  .swap { display: flex; align-items: center; gap: 8px; border: 1.5px dashed #c9c9dc; border-radius: 11px; padding: 8px; }
+  .swap img { width: 40px; height: 40px; border-radius: 8px; object-fit: cover; }
+  .swap span { font-size: 12px; }
+  .swap b { margin-left: auto; font-size: 11.5px; color: #7b2ff7; }
+  .bigbtn { margin-top: 6px; background: linear-gradient(90deg, #7b2ff7, #00c4cc); color: #fff; text-align: center;
+            font-weight: 800; font-size: 14px; padding: 13px; border-radius: 12px; }
+  .note { font-size: 10.5px; color: #83839a; text-align: center; margin-top: 8px; line-height: 1.5; }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="logo">Reel Cockpit</div>
+    <div class="crumb">ツアー動画 ／ Victor 11/25 を編集</div>
+    <div class="sp"></div>
+    <div class="share">共有</div>
+    <div class="export">書き出し</div>
+  </div>
+  <div class="main">
+    <div class="rail">
+      <div class="r on"><span class="ic">▦</span>型</div>
+      <div class="r"><span class="ic">▤</span>素材</div>
+      <div class="r"><span class="ic">T</span>文字</div>
+      <div class="r"><span class="ic">♫</span>音源</div>
+      <div class="r"><span class="ic">✦</span>効果</div>
+    </div>
+    <div class="panel">
+      <h3>ゲストのギャラリー</h3>
+      <p class="sub">だんどりー連携で自動で取り込まれます</p>
+      <div class="guest"><img src="img/p021.jpg"><div><b>Victor Gonzalez</b><small>Immich 連携 ・ 11/25 秋葉原 ・ 写真83 / 動画7</small></div><span class="chg">変更</span></div>
+      <h3>型のライブラリ</h3>
+      <p class="sub">選ぶだけで自動編集。型はあとからどんどん追加できます</p>
+      <div class="tplgrid">
+        <div class="tpl on"><div class="th"><img src="img/p021.jpg"><span class="badge">使用中</span></div><b>POV型</b><small>冒頭フック＋縦動画 ・ 24秒</small></div>
+        <div class="tpl"><div class="th"><img src="img/p058.jpg"></div><b>リスト型</b><small>スポット3選 ・ 30秒</small></div>
+        <div class="tpl"><div class="th"><img src="img/p051.jpg"></div><b>スライドショー型</b><small>写真ズーム ・ 18秒</small></div>
+        <div class="tpl"><div class="th"><img src="img/p100.jpg"></div><b>ゲスト反応型</b><small>笑顔カット集 ・ 21秒</small></div>
+        <div class="tpl"><div class="th"><img src="img/p091.jpg"></div><b>ビート型</b><small>音ハメ高速カット ・ 15秒</small></div>
+        <div class="tpl add"><span class="plus">＋</span><b>新しい型</b><small>テンプレート追加</small></div>
+      </div>
+      <div class="mat">
+        <h3>素材</h3>
+        <div class="grid">
+          <div class="cell"><img src="img/p021.jpg"><span class="ck">✓</span></div>
+          <div class="cell"><img src="img/p058.jpg"><span class="ck">✓</span></div>
+          <div class="cell"><img src="img/p091.jpg"><span class="ck">✓</span></div>
+          <div class="cell"><img src="img/p032.jpg"><span class="ck">✓</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="stage">
+      <div class="steps"><span class="done">✓ Immich取込</span>→<span class="cur">型を選ぶ</span>→<span>自動編集</span>→<span>微調整</span>→<span><b>書き出し</b></span></div>
+      <div class="phone">
+        <img src="img/p021.jpg">
+        <div class="hook">POV: your guide takes you to a <em>limited-time Bocchi the Rock!</em> event in Akihabara</div>
+        <div class="play">▶</div>
+        <div class="bar"><i></i></div>
+      </div>
+      <div class="hint">✥ ドラッグで写真の位置を調整できます</div>
+    </div>
+    <div class="props">
+      <h3>微調整</h3>
+      <div class="field"><label>フック文（冒頭2秒）</label>
+        <div class="box grad">POV: your guide takes you to a limited-time Bocchi the Rock! event in Akihabara</div></div>
+      <div class="field"><label>尺</label>
+        <div class="chips"><span class="chip">15秒</span><span class="chip on">24秒</span><span class="chip">30秒</span></div></div>
+      <div class="field"><label>1枚目を差し替え</label>
+        <div class="swap"><img src="img/p058.jpg"><span>ぼっち壁面の<br>写真と入れ替え</span><b>差し替え</b></div></div>
+      <div class="field"><label>音源</label>
+        <div class="box">♫ トレンド音源（IG側で付ける）</div></div>
+      <div class="bigbtn">Instagramへ書き出し</div>
+      <p class="note">書き出し後、投稿はユウキの確認画面から行います</p>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>案2 Canva風 管理画面</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: 1180px; height: 620px; overflow: hidden; background: #eef0f4; color: #1c1c28;
+         font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif; }
+  .topbar { height: 56px; background: linear-gradient(90deg, #7b2ff7, #00c4cc); display: flex; align-items: center;
+            gap: 14px; padding: 0 18px; color: #fff; }
+  .logo { font-weight: 800; font-size: 17px; }
+  .search { background: rgba(255,255,255,.25); border-radius: 999px; padding: 7px 16px; font-size: 12.5px; width: 250px; }
+  .topbar .sp { flex: 1; }
+  .note { font-size: 12.5px; background: rgba(255,255,255,.22); padding: 7px 14px; border-radius: 999px; }
+  .main { display: flex; height: 564px; padding: 16px; gap: 16px; }
+  .cal { width: 296px; background: #fff; border-radius: 18px; padding: 16px; box-shadow: 0 4px 16px rgba(28,28,40,.07);
+         flex-shrink: 0; }
+  .cal h3 { font-size: 14px; margin-bottom: 3px; }
+  .cal .sub { font-size: 11.5px; color: #83839a; line-height: 1.55; margin-bottom: 12px; }
+  .calhead { display: flex; align-items: center; margin-bottom: 7px; }
+  .calhead b { font-size: 14.5px; }
+  .calhead span { margin-left: auto; color: #7b2ff7; font-weight: 800; letter-spacing: .3em; }
+  .grid7 { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; text-align: center; }
+  .grid7 .wd { font-size: 10px; color: #a5a5ba; padding: 3px 0; }
+  .grid7 .wd.sun { color: #ff6b81; } .grid7 .wd.sat { color: #4a90d9; }
+  .grid7 .d { font-size: 12px; padding: 6px 0 5px; border-radius: 50%; color: #3c3c4c; position: relative; }
+  .grid7 .d.dim { color: #cfcfe0; }
+  .grid7 .d .dot { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
+                   width: 4.5px; height: 4.5px; border-radius: 50%; background: #7b2ff7; }
+  .grid7 .d.sel { background: #7b2ff7; color: #fff; font-weight: 800; }
+  .grid7 .d.sel .dot { background: #fff; }
+  .filters { margin-top: 15px; display: flex; flex-direction: column; gap: 6px; }
+  .filters .f { font-size: 12px; padding: 8px 12px; border-radius: 10px; background: #f4f4f8; color: #55556a;
+                display: flex; } .filters .f b { margin-left: auto; }
+  .filters .f.on { background: #f0e9ff; color: #7b2ff7; font-weight: 700; }
+  .list { flex: 1; overflow: hidden; }
+  .listhead { display: flex; align-items: baseline; margin: 2px 2px 12px; }
+  .listhead h3 { font-size: 16px; }
+  .listhead span { font-size: 12px; color: #83839a; margin-left: 9px; }
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 13px; }
+  .card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 14px rgba(28,28,40,.07);
+          border: 2.5px solid transparent; }
+  .card.sel { border-color: #7b2ff7; }
+  .card .th { height: 100px; position: relative; }
+  .card .th img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .card .st { position: absolute; left: 8px; top: 8px; font-size: 10px; font-weight: 800; padding: 3px 10px;
+              border-radius: 999px; background: #fff; color: #55556a; box-shadow: 0 2px 6px rgba(0,0,0,.15); }
+  .card .st.ready { color: #7b2ff7; } .card .st.wait { color: #e8930c; } .card .st.done { color: #9a9ab0; }
+  .card .meta { padding: 10px 13px 13px; }
+  .card b { font-size: 13.5px; display: block; }
+  .card small { font-size: 11px; color: #83839a; display: block; margin-top: 2px; }
+  .card .open { margin-top: 9px; display: inline-block; font-size: 11.5px; font-weight: 800; color: #fff;
+                background: linear-gradient(90deg, #7b2ff7, #00c4cc); padding: 6px 14px; border-radius: 999px; }
+  .card .open.dim { background: #f0e9ff; color: #7b2ff7; }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="logo">Reel Cockpit</div>
+    <div class="search">🔍 ゲスト名で検索</div>
+    <div class="sp"></div>
+    <div class="note">✦ ツアー終了後に Immich から自動作成</div>
+  </div>
+  <div class="main">
+    <div class="cal">
+      <h3>カレンダー</h3>
+      <p class="sub">日付を押すと、その日のゲスト回へジャンプします</p>
+      <div class="calhead"><b>2026年 11月</b><span>‹ ›</span></div>
+      <div class="grid7">
+        <span class="wd sun">日</span><span class="wd">月</span><span class="wd">火</span><span class="wd">水</span><span class="wd">木</span><span class="wd">金</span><span class="wd sat">土</span>
+        <span class="d">1<i class="dot"></i></span><span class="d">2</span><span class="d">3<i class="dot"></i></span><span class="d">4</span><span class="d">5<i class="dot"></i></span><span class="d">6<i class="dot"></i></span><span class="d">7</span>
+        <span class="d">8<i class="dot"></i></span><span class="d">9</span><span class="d">10</span><span class="d">11</span><span class="d">12<i class="dot"></i></span><span class="d">13<i class="dot"></i></span><span class="d">14</span>
+        <span class="d">15</span><span class="d">16</span><span class="d">17<i class="dot"></i></span><span class="d">18</span><span class="d">19</span><span class="d">20</span><span class="d">21</span>
+        <span class="d">22<i class="dot"></i></span><span class="d">23</span><span class="d">24<i class="dot"></i></span><span class="d sel">25<i class="dot"></i></span><span class="d">26</span><span class="d">27</span><span class="d">28</span>
+        <span class="d">29</span><span class="d">30</span><span class="d dim">1</span><span class="d dim">2</span><span class="d dim">3</span><span class="d dim">4</span><span class="d dim">5</span>
+      </div>
+      <div class="filters">
+        <div class="f on">すべての回 <b>10</b></div>
+        <div class="f">下見待ち <b>1</b></div>
+        <div class="f">編集中 <b>1</b></div>
+        <div class="f">書き出し済み <b>6</b></div>
+      </div>
+    </div>
+    <div class="list">
+      <div class="listhead"><h3>ゲスト回プロジェクト</h3><span>2026年11月 ・ 10件</span></div>
+      <div class="cards">
+        <div class="card sel"><div class="th"><img src="img/p021.jpg"><span class="st ready">下見待ち</span></div>
+          <div class="meta"><b>Victor Gonzalez</b><small>11/25（水）秋葉原 ・ 写真83 / 動画7 ・ POV型</small><span class="open">コックピットで開く</span></div></div>
+        <div class="card"><div class="th"><img src="img/p058.jpg"><span class="st done">書き出し済み</span></div>
+          <div class="meta"><b>Jennifer West</b><small>11/24（火）秋葉原 ・ 写真80 / 動画8</small><span class="open dim">開く</span></div></div>
+        <div class="card"><div class="th"><img src="img/p100.jpg"><span class="st done">書き出し済み</span></div>
+          <div class="meta"><b>Pamela McGrogan</b><small>11/22（日）秋葉原 ・ 写真64 / 動画5</small><span class="open dim">開く</span></div></div>
+        <div class="card"><div class="th"><img src="img/p051.jpg"><span class="st wait">編集中</span></div>
+          <div class="meta"><b>Valeska</b><small>11/17（火）秋葉原 ・ 写真71 / 動画4</small><span class="open dim">開く</span></div></div>
+        <div class="card"><div class="th"><img src="img/p032.jpg"><span class="st">未着手</span></div>
+          <div class="meta"><b>Philip</b><small>11/12（木）秋葉原 ・ 写真58 / 動画3</small><span class="open dim">開く</span></div></div>
+        <div class="card"><div class="th"><img src="img/p002.jpg"><span class="st done">書き出し済み</span></div>
+          <div class="meta"><b>Alicia</b><small>11/8（日）秋葉原 ・ 写真77 / 動画6</small><span class="open dim">開く</span></div></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

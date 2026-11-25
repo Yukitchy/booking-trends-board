@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>案3 プロ編集風 — リールコックピット</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: 1180px; height: 760px; overflow: hidden; background: #161616; color: #d6d6d6;
+         font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif; font-size: 11px; }
+  .topbar { height: 38px; background: #232323; border-bottom: 1px solid #3a3a3a; display: flex; align-items: center;
+            gap: 10px; padding: 0 12px; }
+  .topbar .app { font-weight: 700; font-size: 12px; color: #fff; letter-spacing: .03em; }
+  .topbar .app span { color: #6ab0f5; }
+  .topbar .menu { color: #a8a8a8; font-size: 11px; }
+  .topbar .sp { flex: 1; }
+  .topbar .seq { color: #a8a8a8; font-variant-numeric: tabular-nums; }
+  .topbar .exp { background: #1473e6; color: #fff; font-weight: 700; padding: 5px 14px; border-radius: 3px; font-size: 11.5px; }
+  .upper { display: flex; height: 408px; border-bottom: 1px solid #3a3a3a; }
+  .assets { width: 300px; background: #1d1d1d; border-right: 1px solid #3a3a3a; }
+  .phead { height: 26px; background: #262626; display: flex; align-items: center; padding: 0 10px;
+           font-size: 10.5px; color: #c9c9c9; letter-spacing: .06em; border-bottom: 1px solid #3a3a3a; }
+  .phead b { color: #fff; }
+  .phead .r { margin-left: auto; color: #8a8a8a; }
+  .guestbar { display: flex; gap: 8px; align-items: center; padding: 8px 10px; border-bottom: 1px solid #333; }
+  .guestbar img { width: 30px; height: 30px; object-fit: cover; border-radius: 2px; }
+  .guestbar b { font-size: 11.5px; color: #fff; display: block; }
+  .guestbar small { color: #8a8a8a; font-size: 10px; }
+  table { width: 100%; border-collapse: collapse; font-size: 10.5px; }
+  th { text-align: left; color: #8a8a8a; font-weight: 400; padding: 4px 10px; border-bottom: 1px solid #333; }
+  td { padding: 4px 10px; border-bottom: 1px solid #2a2a2a; color: #cfcfcf; white-space: nowrap; }
+  tr.sel td { background: #2d4a6b; color: #fff; }
+  td.tc { font-variant-numeric: tabular-nums; color: #9db8d6; }
+  .thumbrow { display: flex; gap: 5px; padding: 8px 10px; }
+  .thumbrow img { width: 62px; height: 46px; object-fit: cover; border-radius: 2px; border: 1px solid #3a3a3a; }
+  .thumbrow img.sel { border-color: #6ab0f5; }
+  .monitor { flex: 1; background: #191919; display: flex; flex-direction: column; }
+  .monwrap { flex: 1; display: flex; align-items: center; justify-content: center; padding: 10px; }
+  .phone { width: 196px; height: 348px; position: relative; overflow: hidden; background: #000; outline: 1px solid #444; }
+  .phone img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .phone .hook { position: absolute; left: 10px; right: 10px; top: 30px; color: #fff; font-size: 13px; font-weight: 700;
+                 line-height: 1.45; text-shadow: 0 2px 8px rgba(0,0,0,.9); }
+  .phone .hook em { color: #ffe45e; font-style: normal; }
+  .phone .safe { position: absolute; inset: 26px 14px; border: 1px dashed rgba(255,255,255,.28); }
+  .monbar { height: 34px; background: #202020; border-top: 1px solid #333; display: flex; align-items: center;
+            gap: 12px; padding: 0 12px; color: #bdbdbd; }
+  .monbar .tc { font-size: 13px; color: #fff; font-variant-numeric: tabular-nums; }
+  .monbar .tc span { color: #8a8a8a; font-size: 11px; }
+  .monbar .btns { margin-left: auto; letter-spacing: .35em; font-size: 12px; }
+  .ctrl { width: 296px; background: #1d1d1d; border-left: 1px solid #3a3a3a; }
+  .tplrow { display: flex; gap: 5px; padding: 9px 10px; flex-wrap: wrap; border-bottom: 1px solid #2c2c2c; }
+  .tplrow .t { font-size: 10.5px; padding: 5px 10px; border: 1px solid #444; border-radius: 3px; color: #cfcfcf; background: #262626; }
+  .tplrow .t.on { border-color: #6ab0f5; color: #fff; background: #2d4a6b; }
+  .kv { padding: 8px 10px; border-bottom: 1px solid #2c2c2c; }
+  .kv .k { color: #8a8a8a; font-size: 10px; letter-spacing: .06em; margin-bottom: 4px; }
+  .kv .v { font-size: 11.5px; line-height: 1.55; color: #e8e8e8; background: #262626; border: 1px solid #3a3a3a;
+           border-radius: 3px; padding: 6px 8px; }
+  .kv .links { color: #6ab0f5; font-size: 10.5px; margin-top: 4px; }
+  .srow { display: flex; align-items: center; gap: 8px; padding: 5px 10px; }
+  .srow .k { width: 86px; color: #a8a8a8; font-size: 10.5px; }
+  .srow .tr { flex: 1; height: 3px; background: #3a3a3a; border-radius: 2px; position: relative; }
+  .srow .tr i { position: absolute; left: 0; top: 0; bottom: 0; background: #6ab0f5; border-radius: 2px; }
+  .srow .tr b { position: absolute; top: 50%; width: 9px; height: 9px; border-radius: 50%; background: #d6d6d6; transform: translate(-50%,-50%); }
+  .srow .n { width: 30px; text-align: right; font-variant-numeric: tabular-nums; color: #cfcfcf; }
+  .timeline { height: 314px; background: #1b1b1b; }
+  .tlhead { height: 28px; background: #232323; border-bottom: 1px solid #3a3a3a; display: flex; align-items: center;
+            gap: 10px; padding: 0 12px; font-size: 10.5px; color: #a8a8a8; }
+  .tlhead .tc { color: #fff; font-size: 12px; font-variant-numeric: tabular-nums; }
+  .tlhead .tools { margin-left: auto; letter-spacing: .25em; }
+  .ruler { margin-left: 118px; display: flex; justify-content: space-between; font-size: 9px; color: #777;
+           padding: 3px 8px 3px 0; font-variant-numeric: tabular-nums; }
+  .track { display: flex; margin-bottom: 3px; position: relative; }
+  .thead { width: 110px; background: #262626; border-right: 1px solid #3a3a3a; padding: 4px 8px; flex-shrink: 0; }
+  .thead b { color: #fff; font-size: 10.5px; display: block; }
+  .thead small { color: #8a8a8a; font-size: 9.5px; }
+  .thead .eye { float: right; color: #a8a8a8; }
+  .lane { flex: 1; background: #202020; position: relative; display: flex; gap: 2px; padding: 2px; }
+  .clip { height: 52px; border-radius: 2px; overflow: hidden; position: relative; border: 1px solid #4a4a4a; }
+  .clip img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .clip .nm { position: absolute; left: 3px; bottom: 2px; font-size: 8.5px; color: #fff; text-shadow: 0 1px 3px #000; }
+  .clip.sel { border-color: #6ab0f5; box-shadow: inset 0 0 0 1px #6ab0f5; }
+  .clip.txt { background: #3d3d55; display: flex; align-items: center; padding: 0 8px; font-size: 10px; color: #e6e6f5; }
+  .clip.aud { background: #274435; display: flex; align-items: center; gap: 2px; padding: 0 8px; overflow: hidden; }
+  .clip.aud i { width: 3px; background: #7ed491; border-radius: 1px; }
+  .playhead { position: absolute; left: 31%; top: 0; bottom: 0; width: 1.5px; background: #e8452c; z-index: 4; }
+  .playhead::before { content: ""; position: absolute; top: 0; left: -5.5px; border: 6px solid transparent; border-top: 8px solid #e8452c; }
+  .meters { position: absolute; right: 10px; top: 44px; width: 12px; height: 120px; background: #262626; border: 1px solid #3a3a3a; }
+  .meters i { position: absolute; bottom: 0; left: 2px; right: 2px; height: 62%; background: linear-gradient(to top, #57ab5a 55%, #d9c84a 80%, #e8452c); }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="app">REEL COCKPIT <span>PRO</span></div>
+    <span class="menu">ファイル</span><span class="menu">編集</span><span class="menu">シーケンス</span><span class="menu">書き出し</span>
+    <div class="sp"></div>
+    <span class="seq">状態： Immich取込 ✓ → 型適用 ✓ → 書き出し待ち ｜ SEQ_1125_VICTOR ・ 1080×1920</span>
+    <div class="exp">書き出し ▸</div>
+  </div>
+
+  <div class="upper">
+    <div class="assets">
+      <div class="phead"><b>ソース</b>： Immich — 自動取込<span class="r">ゲスト／日付で選択 ▾</span></div>
+      <div class="guestbar"><img src="img/p021.jpg"><div><b>Victor Gonzalez — 11/25 秋葉原</b><small>Immich ▸ 2026/11/25 ▸ 写真83 / 動画7 を取込済み</small></div></div>
+      <table>
+        <tr><th>名前</th><th>種別</th><th>尺</th><th>状態</th></tr>
+        <tr class="sel"><td>021_bocchi_panel.jpg</td><td>静止画</td><td class="tc">—</td><td>使用中</td></tr>
+        <tr><td>091_gamecenter.mov</td><td>動画</td><td class="tc">0:07:12</td><td>使用中</td></tr>
+        <tr><td>058_bocchi_wall.jpg</td><td>静止画</td><td class="tc">—</td><td>使用中</td></tr>
+        <tr><td>032_jjk_shop.jpg</td><td>静止画</td><td class="tc">—</td><td>使用中</td></tr>
+        <tr><td>011_figures.mov</td><td>動画</td><td class="tc">0:05:03</td><td>候補</td></tr>
+        <tr><td>100_sushi.jpg</td><td>静止画</td><td class="tc">—</td><td>使用中</td></tr>
+        <tr><td>084_merch.mov</td><td>動画</td><td class="tc">0:04:18</td><td>候補</td></tr>
+      </table>
+      <div class="thumbrow">
+        <img class="sel" src="img/p021.jpg"><img src="img/p058.jpg"><img src="img/p032.jpg"><img src="img/p100.jpg">
+      </div>
+    </div>
+
+    <div class="monitor">
+      <div class="phead"><b>プログラムモニター</b><span class="r">セーフマージン表示中</span></div>
+      <div class="monwrap">
+        <div class="phone">
+          <img src="img/p021.jpg"><div class="safe"></div>
+          <div class="hook">POV: your guide takes you to a <em>limited-time Bocchi the Rock!</em> event in Akihabara</div>
+        </div>
+        <div class="meters"><i></i></div>
+      </div>
+      <div class="monbar">
+        <span class="tc">00:00:09:07 <span>/ 00:00:24:00</span></span>
+        <span>◉ マーカー</span><span>イン 00:00:00:00</span><span>アウト 00:00:24:00</span>
+        <span class="btns">⏮ ▶ ⏭</span>
+      </div>
+    </div>
+
+    <div class="ctrl">
+      <div class="phead"><b>自動編集</b>： 型ライブラリ（12）<span class="r">選ぶだけで編集完了</span></div>
+      <div class="tplrow">
+        <span class="t on">POV型</span><span class="t">リスト型</span><span class="t">スライドショー型</span>
+        <span class="t">ゲスト反応型</span><span class="t">ビート型</span><span class="t">食事型</span><span class="t">夜景型</span><span class="t">＋ テンプレート追加</span>
+      </div>
+      <div class="kv"><div class="k">フック文（V2 テキスト）</div>
+        <div class="v">POV: your guide takes you to a limited-time Bocchi the Rock! event in Akihabara</div>
+        <div class="links">AIで再生成 ・ ゲストの写真に差し替え</div></div>
+      <div class="srow"><span class="k">カット間隔</span><div class="tr"><i style="width:64%"></i><b style="left:64%"></b></div><span class="n">1.8s</span></div>
+      <div class="srow"><span class="k">パンチイン</span><div class="tr"><i style="width:42%"></i><b style="left:42%"></b></div><span class="n">112%</span></div>
+      <div class="srow"><span class="k">音源レベル</span><div class="tr"><i style="width:55%"></i><b style="left:55%"></b></div><span class="n">-12dB</span></div>
+      <div class="kv"><div class="k">書き出し先</div>
+        <div class="v">Instagram リール（1080×1920 / H.264）<br>投稿は確認後に手動実行</div></div>
+    </div>
+  </div>
+
+  <div class="timeline">
+    <div class="tlhead"><span class="tc">00:00:09:07</span><span>SEQ_1125_VICTOR</span><span>ズーム 75%</span>
+      <span class="tools">✂ 🧲 🔗 🔊</span></div>
+    <div class="ruler"><span>00:00:00:00</span><span>00:00:05:00</span><span>00:00:10:00</span><span>00:00:15:00</span><span>00:00:20:00</span><span>00:00:24:00</span></div>
+    <div class="track">
+      <div class="thead"><span class="eye">👁</span><b>V2</b><small>テキスト</small></div>
+      <div class="lane"><div class="playhead"></div>
+        <div class="clip txt" style="flex:2.2">POV: your guide takes you to a limited-time Bocchi the Rock! event…</div>
+        <div class="clip txt" style="flex:1">Akihabara, Tokyo 📍</div>
+      </div>
+    </div>
+    <div class="track">
+      <div class="thead"><span class="eye">👁</span><b>V1</b><small>映像（自動編集）</small></div>
+      <div class="lane">
+        <div class="clip sel" style="flex:1.2"><img src="img/p021.jpg"><span class="nm">021</span></div>
+        <div class="clip" style="flex:1"><img src="img/p091.jpg"><span class="nm">091.mov</span></div>
+        <div class="clip" style="flex:1.4"><img src="img/p058.jpg"><span class="nm">058</span></div>
+        <div class="clip" style="flex:1"><img src="img/p032.jpg"><span class="nm">032</span></div>
+        <div class="clip" style="flex:1.1"><img src="img/p100.jpg"><span class="nm">100</span></div>
+      </div>
+    </div>
+    <div class="track">
+      <div class="thead"><span class="eye">🔊</span><b>A1</b><small>音源（トレンド）</small></div>
+      <div class="lane">
+        <div class="clip aud" style="flex:1">
+          <i style="height:35%"></i><i style="height:65%"></i><i style="height:50%"></i><i style="height:88%"></i><i style="height:58%"></i><i style="height:76%"></i><i style="height:44%"></i><i style="height:92%"></i><i style="height:62%"></i><i style="height:70%"></i><i style="height:48%"></i><i style="height:82%"></i><i style="height:54%"></i><i style="height:68%"></i><i style="height:90%"></i><i style="height:46%"></i><i style="height:72%"></i><i style="height:60%"></i><i style="height:86%"></i><i style="height:52%"></i><i style="height:78%"></i><i style="height:64%"></i><i style="height:94%"></i><i style="height:42%"></i><i style="height:66%"></i><i style="height:80%"></i><i style="height:57%"></i><i style="height:89%"></i><i style="height:49%"></i><i style="height:73%"></i><i style="height:61%"></i><i style="height:85%"></i><i style="height:55%"></i><i style="height:77%"></i><i style="height:67%"></i><i style="height:91%"></i><i style="height:47%"></i><i style="height:71%"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

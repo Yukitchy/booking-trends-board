@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>案1 CapCut風 — リールコックピット</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: 1180px; height: 760px; overflow: hidden; background: #0d0d10; color: #f2f2f4;
+         font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif; }
+  .topbar { height: 52px; display: flex; align-items: center; gap: 14px; padding: 0 16px;
+            background: #131318; border-bottom: 1px solid #26262e; }
+  .logo { font-weight: 800; font-size: 16px; letter-spacing: .02em; }
+  .logo span { color: #2ee6a8; }
+  .proj { font-size: 12.5px; color: #b9b9c2; background: #1d1d24; padding: 6px 12px; border-radius: 8px; }
+  .proj b { color: #fff; }
+  .topbar .sp { flex: 1; }
+  .tbtn { font-size: 12.5px; color: #d7d7de; background: #1d1d24; border: 1px solid #2c2c35;
+          padding: 7px 14px; border-radius: 8px; }
+  .export { background: #2ee6a8; color: #06281c; font-weight: 800; border: none; }
+  .main { display: flex; height: 470px; }
+  .bin { width: 300px; background: #121218; border-right: 1px solid #26262e; padding: 12px; }
+  .bin h3, .side h3 { font-size: 12px; color: #9a9aa5; letter-spacing: .08em; margin-bottom: 10px; }
+  .guest { display: flex; align-items: center; gap: 8px; background: #1a1a21; border: 1px solid #2c2c35;
+           border-radius: 10px; padding: 8px 10px; font-size: 12.5px; margin-bottom: 12px; }
+  .guest .av { width: 26px; height: 26px; border-radius: 50%; background: #2ee6a8; color: #06281c;
+               font-weight: 800; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+  .guest small { color: #9a9aa5; display: block; font-size: 11px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
+  .cell { position: relative; border-radius: 7px; overflow: hidden; aspect-ratio: 1; background: #222; }
+  .cell img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .cell .dur { position: absolute; right: 4px; bottom: 4px; font-size: 9.5px; background: rgba(0,0,0,.72);
+               padding: 1px 5px; border-radius: 4px; }
+  .cell .ck { position: absolute; left: 4px; top: 4px; width: 16px; height: 16px; border-radius: 50%;
+              background: #2ee6a8; color: #06281c; font-size: 11px; font-weight: 800;
+              display: flex; align-items: center; justify-content: center; }
+  .cell.off { opacity: .45; }
+  .stage { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+           background: radial-gradient(ellipse at center, #17171d 0%, #101014 70%); gap: 12px; }
+  .phone { width: 218px; height: 388px; border-radius: 20px; overflow: hidden; position: relative;
+           border: 1px solid #33333d; box-shadow: 0 14px 44px rgba(0,0,0,.6); }
+  .phone img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .phone .hook { position: absolute; left: 12px; right: 12px; top: 34px; font-size: 14.5px; font-weight: 800;
+                 line-height: 1.45; text-shadow: 0 2px 10px rgba(0,0,0,.85); }
+  .phone .hook em { color: #ffe45e; font-style: normal; }
+  .phone .play { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+                 width: 46px; height: 46px; border-radius: 50%; background: rgba(0,0,0,.5);
+                 display: flex; align-items: center; justify-content: center; font-size: 17px; }
+  .phone .bar { position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: rgba(255,255,255,.25); }
+  .phone .bar i { display: block; height: 100%; width: 38%; background: #2ee6a8; }
+  .phone .cap { position: absolute; left: 12px; bottom: 14px; font-size: 10.5px; color: #eee;
+                text-shadow: 0 1px 6px rgba(0,0,0,.9); }
+  .tc { font-size: 12px; color: #9a9aa5; font-variant-numeric: tabular-nums; }
+  .tc b { color: #fff; }
+  .side { width: 288px; background: #121218; border-left: 1px solid #26262e; padding: 12px; overflow: hidden; }
+  .tpl { display: flex; flex-direction: column; gap: 7px; margin-bottom: 14px; }
+  .tpl .t { display: flex; align-items: center; gap: 9px; padding: 8px 10px; border-radius: 9px;
+            background: #1a1a21; border: 1px solid #2a2a33; font-size: 12.5px; }
+  .tpl .t small { color: #9a9aa5; margin-left: auto; font-size: 11px; }
+  .tpl .t.on { border-color: #2ee6a8; background: #14231e; }
+  .tpl .t .ic { width: 22px; height: 22px; border-radius: 6px; background: #26262f;
+                display: flex; align-items: center; justify-content: center; font-size: 12px; }
+  .tpl .t.on .ic { background: #2ee6a8; color: #06281c; }
+  .hookbox { background: #1a1a21; border: 1px solid #2a2a33; border-radius: 9px; padding: 9px 10px;
+             font-size: 12px; line-height: 1.55; color: #e8e8ec; margin-bottom: 6px; }
+  .regen { font-size: 11.5px; color: #2ee6a8; margin-bottom: 14px; }
+  .row { display: flex; justify-content: space-between; font-size: 12px; color: #c9c9d1; margin: 7px 0 4px; }
+  .slider { height: 4px; border-radius: 2px; background: #2a2a33; position: relative; }
+  .slider i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 2px; background: #2ee6a8; }
+  .slider b { position: absolute; top: 50%; width: 13px; height: 13px; border-radius: 50%; background: #fff;
+              transform: translate(-50%,-50%); }
+  .steps { height: 32px; display: flex; align-items: center; gap: 8px; padding: 0 16px;
+           background: #0a0a0d; border-bottom: 1px solid #1e1e26; font-size: 11.5px; color: #77777f; }
+  .steps b { color: #e8e8ec; font-weight: 600; }
+  .steps .done { color: #2ee6a8; }
+  .steps .cur { color: #fff; background: #1d1d24; border: 1px solid #2ee6a8; padding: 2px 10px; border-radius: 999px; }
+  .steps .arr { color: #3d3d47; }
+  .tpl .t.add { border-style: dashed; color: #9a9aa5; justify-content: center; }
+  .timeline { height: 206px; background: #101015; border-top: 1px solid #26262e; padding: 10px 14px; }
+  .tl-tools { display: flex; gap: 8px; align-items: center; margin-bottom: 9px; }
+  .tl-tools .tt { font-size: 11.5px; background: #1d1d24; border: 1px solid #2c2c35; color: #d7d7de;
+                  padding: 5px 11px; border-radius: 7px; }
+  .tl-tools .tt.on { color: #2ee6a8; border-color: #2ee6a8; }
+  .ruler { display: flex; justify-content: space-between; font-size: 9.5px; color: #6d6d78; margin: 0 2px 5px 64px; }
+  .track { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; position: relative; }
+  .track .lab { width: 56px; font-size: 10.5px; color: #9a9aa5; text-align: right; }
+  .clips { flex: 1; display: flex; gap: 3px; position: relative; }
+  .clip { height: 44px; border-radius: 6px; overflow: hidden; position: relative; border: 1px solid #33333d; }
+  .clip img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .clip.sel { border-color: #2ee6a8; box-shadow: 0 0 0 1px #2ee6a8; }
+  .wave { flex: 1; height: 30px; border-radius: 6px; background: #14231e; display: flex; align-items: center;
+          gap: 2px; padding: 0 8px; overflow: hidden; }
+  .wave i { width: 3px; background: #2ee6a8; border-radius: 2px; opacity: .8; }
+  .txttrack { flex: 1; height: 24px; border-radius: 6px; background: #1d1d24; position: relative; }
+  .txttrack .seg { position: absolute; top: 3px; bottom: 3px; left: 12%; width: 46%; border-radius: 4px;
+                   background: #3a3a46; font-size: 10px; color: #eee; display: flex; align-items: center; padding: 0 8px; }
+  .playhead { position: absolute; left: 34%; top: -4px; bottom: -4px; width: 2px; background: #ff4d4f; z-index: 3; }
+  .playhead::before { content: ""; position: absolute; top: -2px; left: -5px; border: 6px solid transparent;
+                      border-top: 7px solid #ff4d4f; }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="logo">Reel<span>Cockpit</span></div>
+    <div class="proj">プロジェクト： <b>Victor Gonzalez 11/25 秋葉原</b>（自動編集済み）</div>
+    <div class="sp"></div>
+    <div class="tbtn">下書き保存</div>
+    <div class="tbtn export">Instagramへ書き出し</div>
+  </div>
+
+  <div class="steps">
+    <span class="done">✓ ① Immichから取込</span><span class="arr">→</span>
+    <span class="done">✓ ② 型を選ぶ</span><span class="arr">→</span>
+    <span class="done">✓ ③ 自動編集</span><span class="arr">→</span>
+    <span class="cur">④ 微調整</span><span class="arr">→</span>
+    <span>⑤ 書き出し</span>
+  </div>
+
+  <div class="main">
+    <div class="bin">
+      <h3>素材 — Immich から自動取込</h3>
+      <div class="guest"><div class="av">V</div><div>Victor Gonzalez<small>Immich ▸ 2026/11/25 ▸ 写真83枚 / 動画7本</small></div><span style="margin-left:auto;color:#9a9aa5">▾</span></div>
+      <div class="grid">
+        <div class="cell"><img src="img/p021.jpg"><span class="ck">✓</span><span class="dur">写真</span></div>
+        <div class="cell"><img src="img/p058.jpg"><span class="ck">✓</span><span class="dur">写真</span></div>
+        <div class="cell"><img src="img/p091.jpg"><span class="ck">✓</span><span class="dur">0:07</span></div>
+        <div class="cell"><img src="img/p032.jpg"><span class="ck">✓</span><span class="dur">写真</span></div>
+        <div class="cell"><img src="img/p011.jpg"><span class="dur">0:05</span></div>
+        <div class="cell"><img src="img/p100.jpg"><span class="ck">✓</span><span class="dur">写真</span></div>
+        <div class="cell off"><img src="img/p002.jpg"><span class="dur">写真</span></div>
+        <div class="cell"><img src="img/p084.jpg"><span class="dur">0:04</span></div>
+        <div class="cell off"><img src="img/p075.jpg"><span class="dur">写真</span></div>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="phone">
+        <img src="img/p021.jpg">
+        <div class="hook">POV: your guide takes you to a <em>limited-time Bocchi the Rock!</em> event in Akihabara</div>
+        <div class="play">▶</div>
+        <div class="cap">@yukianimesensei ・ Akihabara, Tokyo</div>
+        <div class="bar"><i></i></div>
+      </div>
+      <div class="tc"><b>00:09</b> / 00:24 ・ 1080 × 1920</div>
+    </div>
+
+    <div class="side">
+      <h3>型ライブラリ（12）</h3>
+      <div class="tpl">
+        <div class="t on"><span class="ic">◉</span>POV型<small>24秒</small></div>
+        <div class="t"><span class="ic">☰</span>リスト型<small>30秒</small></div>
+        <div class="t"><span class="ic">▦</span>スライドショー型<small>18秒</small></div>
+        <div class="t"><span class="ic">☺</span>ゲスト反応型<small>21秒</small></div>
+        <div class="t"><span class="ic">♫</span>ビート型<small>15秒</small></div>
+        <div class="t add">＋ テンプレートを追加</div>
+      </div>
+      <h3>フック文（冒頭2秒）</h3>
+      <div class="hookbox">POV: your guide takes you to a limited-time Bocchi the Rock! event in Akihabara</div>
+      <div class="regen">↻ AIで3案つくる ／ 差し替え ▸</div>
+      <div class="row"><span>カット速度</span><span>速い</span></div>
+      <div class="slider"><i style="width:72%"></i><b style="left:72%"></b></div>
+      <div class="row"><span>ズーム感</span><span>中</span></div>
+      <div class="slider"><i style="width:48%"></i><b style="left:48%"></b></div>
+      <div class="row"><span>音源</span><span>トレンド ♫ そのまま</span></div>
+      <div class="slider"><i style="width:60%"></i><b style="left:60%"></b></div>
+    </div>
+  </div>
+
+  <div class="timeline">
+    <div class="tl-tools">
+      <span class="tt on">✂ 分割</span><span class="tt">差し替え</span><span class="tt">T 文字</span>
+      <span class="tt">♫ 音源</span><span class="tt">◐ 調整</span><span class="tt">↩ 戻す</span>
+    </div>
+    <div class="ruler"><span>0:00</span><span>0:05</span><span>0:10</span><span>0:15</span><span>0:20</span><span>0:24</span></div>
+    <div class="track"><div class="lab">映像</div>
+      <div class="clips">
+        <div class="playhead"></div>
+        <div class="clip sel" style="flex:1.2"><img src="img/p021.jpg"></div>
+        <div class="clip" style="flex:1"><img src="img/p091.jpg"></div>
+        <div class="clip" style="flex:1.4"><img src="img/p058.jpg"></div>
+        <div class="clip" style="flex:1"><img src="img/p032.jpg"></div>
+        <div class="clip" style="flex:1.1"><img src="img/p100.jpg"></div>
+      </div>
+    </div>
+    <div class="track"><div class="lab">文字</div>
+      <div class="txttrack"><div class="seg">POV: your guide takes you to…</div></div>
+    </div>
+    <div class="track"><div class="lab">音源</div>
+      <div class="wave">
+        <i style="height:40%"></i><i style="height:70%"></i><i style="height:55%"></i><i style="height:90%"></i><i style="height:60%"></i><i style="height:80%"></i><i style="height:45%"></i><i style="height:95%"></i><i style="height:65%"></i><i style="height:75%"></i><i style="height:50%"></i><i style="height:85%"></i><i style="height:58%"></i><i style="height:72%"></i><i style="height:92%"></i><i style="height:48%"></i><i style="height:66%"></i><i style="height:88%"></i><i style="height:52%"></i><i style="height:78%"></i><i style="height:62%"></i><i style="height:96%"></i><i style="height:44%"></i><i style="height:70%"></i><i style="height:56%"></i><i style="height:84%"></i><i style="height:68%"></i><i style="height:90%"></i><i style="height:50%"></i><i style="height:74%"></i>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

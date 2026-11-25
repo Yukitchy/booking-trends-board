@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>案1 CapCut風 管理画面</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: 1180px; height: 620px; overflow: hidden; background: #0d0d10; color: #f2f2f4;
+         font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif; }
+  .topbar { height: 54px; display: flex; align-items: center; gap: 14px; padding: 0 18px;
+            background: #131318; border-bottom: 1px solid #26262e; }
+  .logo { font-weight: 800; font-size: 16px; } .logo span { color: #2ee6a8; }
+  .search { background: #1d1d24; border: 1px solid #2c2c35; border-radius: 9px; color: #9a9aa5;
+            font-size: 12.5px; padding: 7px 14px; width: 260px; }
+  .topbar .sp { flex: 1; }
+  .note { font-size: 12px; color: #9a9aa5; }
+  .note b { color: #2ee6a8; }
+  .main { display: flex; height: 566px; }
+  .cal { width: 308px; background: #121218; border-right: 1px solid #26262e; padding: 16px; }
+  .cal h3 { font-size: 13px; margin-bottom: 3px; }
+  .cal .sub { font-size: 11px; color: #9a9aa5; margin-bottom: 12px; line-height: 1.55; }
+  .calhead { display: flex; align-items: center; margin-bottom: 8px; }
+  .calhead b { font-size: 14.5px; }
+  .calhead span { margin-left: auto; color: #9a9aa5; font-size: 13px; letter-spacing: .4em; }
+  .grid7 { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; text-align: center; }
+  .grid7 .wd { font-size: 10px; color: #77777f; padding: 3px 0; }
+  .grid7 .wd.sun { color: #ff7a7e; } .grid7 .wd.sat { color: #7ab8ff; }
+  .grid7 .d { font-size: 12px; padding: 6px 0 5px; border-radius: 8px; color: #d7d7de; position: relative; }
+  .grid7 .d.dim { color: #4a4a55; }
+  .grid7 .d .dot { position: absolute; left: 50%; bottom: 1px; transform: translateX(-50%);
+                   width: 4px; height: 4px; border-radius: 50%; background: #2ee6a8; }
+  .grid7 .d.today { background: #1d1d24; }
+  .grid7 .d.sel { background: #2ee6a8; color: #06281c; font-weight: 800; }
+  .grid7 .d.sel .dot { background: #06281c; }
+  .legend { margin-top: 13px; font-size: 11px; color: #9a9aa5; line-height: 1.8; }
+  .legend i { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #2ee6a8; margin-right: 5px; }
+  .list { flex: 1; padding: 16px 18px; overflow: hidden; }
+  .listhead { display: flex; align-items: baseline; margin-bottom: 12px; }
+  .listhead h3 { font-size: 14.5px; }
+  .listhead .cnt { font-size: 12px; color: #9a9aa5; margin-left: 9px; }
+  .listhead .filters { margin-left: auto; display: flex; gap: 6px; }
+  .listhead .f { font-size: 11.5px; padding: 5px 12px; border-radius: 999px; background: #1d1d24;
+                 border: 1px solid #2c2c35; color: #c9c9d1; }
+  .listhead .f.on { border-color: #2ee6a8; color: #2ee6a8; }
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 13px; }
+  .card { background: #15151b; border: 1px solid #2a2a33; border-radius: 13px; overflow: hidden; }
+  .card.sel { border-color: #2ee6a8; box-shadow: 0 0 0 1px #2ee6a8; }
+  .card .th { height: 104px; position: relative; }
+  .card .th img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .card .st { position: absolute; left: 8px; top: 8px; font-size: 10px; font-weight: 800; padding: 3px 9px;
+              border-radius: 999px; background: rgba(0,0,0,.68); color: #fff; }
+  .card .st.ready { color: #2ee6a8; } .card .st.done { color: #9a9aa5; } .card .st.wait { color: #ffd166; }
+  .card .meta { padding: 10px 12px 12px; }
+  .card b { font-size: 13.5px; display: block; }
+  .card small { font-size: 11px; color: #9a9aa5; display: block; margin-top: 2px; }
+  .card .open { margin-top: 9px; font-size: 11.5px; color: #2ee6a8; font-weight: 700; }
+  .card .open.dim { color: #77777f; font-weight: 400; }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="logo">Reel<span>Cockpit</span></div>
+    <div class="search">🔍 ゲスト名で検索</div>
+    <div class="sp"></div>
+    <div class="note">ツアーが終わると <b>Immich 連携で自動作成</b>されます</div>
+  </div>
+  <div class="main">
+    <div class="cal">
+      <h3>プロジェクト管理</h3>
+      <p class="sub">ゲスト回ごとの動画プロジェクト。カレンダーの日付を押すと、その日の回へ移動します。</p>
+      <div class="calhead"><b>2026年 11月</b><span>‹ ›</span></div>
+      <div class="grid7">
+        <span class="wd sun">日</span><span class="wd">月</span><span class="wd">火</span><span class="wd">水</span><span class="wd">木</span><span class="wd">金</span><span class="wd sat">土</span>
+        <span class="d">1<i class="dot"></i></span><span class="d">2</span><span class="d">3<i class="dot"></i></span><span class="d">4</span><span class="d">5<i class="dot"></i></span><span class="d">6<i class="dot"></i></span><span class="d">7</span>
+        <span class="d">8<i class="dot"></i></span><span class="d">9</span><span class="d">10</span><span class="d">11</span><span class="d">12<i class="dot"></i></span><span class="d">13<i class="dot"></i></span><span class="d">14</span>
+        <span class="d">15</span><span class="d">16</span><span class="d">17<i class="dot"></i></span><span class="d">18</span><span class="d">19</span><span class="d">20</span><span class="d">21</span>
+        <span class="d">22<i class="dot"></i></span><span class="d">23</span><span class="d">24<i class="dot"></i></span><span class="d sel">25<i class="dot"></i></span><span class="d">26</span><span class="d">27</span><span class="d">28</span>
+        <span class="d">29</span><span class="d">30</span><span class="d dim">1</span><span class="d dim">2</span><span class="d dim">3</span><span class="d dim">4</span><span class="d dim">5</span>
+      </div>
+      <div class="legend"><i></i>ツアーがあった日<br>今日は 11/25（水）・ 11月のツアーは 10回</div>
+    </div>
+    <div class="list">
+      <div class="listhead"><h3>プロジェクト</h3><span class="cnt">11月 ・ 10件</span>
+        <div class="filters"><span class="f on">すべて</span><span class="f">下見待ち</span><span class="f">編集中</span><span class="f">書き出し済み</span></div></div>
+      <div class="cards">
+        <div class="card sel"><div class="th"><img src="img/p021.jpg"><span class="st ready">● 下見待ち</span></div>
+          <div class="meta"><b>Victor Gonzalez</b><small>11/25（水）秋葉原 ・ 写真83 / 動画7 ・ POV型</small><div class="open">コックピットで開く ▸</div></div></div>
+        <div class="card"><div class="th"><img src="img/p058.jpg"><span class="st done">● 書き出し済み</span></div>
+          <div class="meta"><b>Jennifer West</b><small>11/24（火）秋葉原 ・ 写真80 / 動画8</small><div class="open dim">開く ▸</div></div></div>
+        <div class="card"><div class="th"><img src="img/p100.jpg"><span class="st done">● 書き出し済み</span></div>
+          <div class="meta"><b>Pamela McGrogan</b><small>11/22（日）秋葉原 ・ 写真64 / 動画5</small><div class="open dim">開く ▸</div></div></div>
+        <div class="card"><div class="th"><img src="img/p051.jpg"><span class="st wait">● 編集中</span></div>
+          <div class="meta"><b>Valeska</b><small>11/17（火）秋葉原 ・ 写真71 / 動画4</small><div class="open dim">開く ▸</div></div></div>
+        <div class="card"><div class="th"><img src="img/p032.jpg"><span class="st">● 未着手</span></div>
+          <div class="meta"><b>Philip</b><small>11/12（木）秋葉原 ・ 写真58 / 動画3</small><div class="open dim">開く ▸</div></div></div>
+        <div class="card"><div class="th"><img src="img/p002.jpg"><span class="st done">● 書き出し済み</span></div>
+          <div class="meta"><b>Alicia</b><small>11/8（日）秋葉原 ・ 写真77 / 動画6</small><div class="open dim">開く ▸</div></div></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

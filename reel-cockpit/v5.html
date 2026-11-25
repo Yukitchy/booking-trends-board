@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>案5 YouTube Create風 — リールコックピット</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: 390px; height: 820px; overflow: hidden; position: relative; background: #fff; color: #0f0f0f;
+         font-family: Roboto, "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif; }
+  .top { height: 56px; display: flex; align-items: center; padding: 0 16px; gap: 12px;
+         box-shadow: 0 1px 4px rgba(0,0,0,.12); }
+  .top .back { font-size: 20px; }
+  .top b { font-size: 16.5px; font-weight: 700; }
+  .top .logo { margin-left: auto; color: #ff0033; font-weight: 800; font-size: 13px; letter-spacing: .02em; }
+  .stepper { display: flex; align-items: flex-start; padding: 18px 22px 6px; }
+  .step { display: flex; flex-direction: column; align-items: center; gap: 5px; width: 62px; }
+  .step .dot { width: 30px; height: 30px; border-radius: 50%; background: #e5e5e5; color: #606060;
+               display: flex; align-items: center; justify-content: center; font-size: 13.5px; font-weight: 700; }
+  .step span { font-size: 10.5px; color: #606060; white-space: nowrap; }
+  .step.done .dot { background: #0f9d58; color: #fff; }
+  .step.done span { color: #0f9d58; font-weight: 700; }
+  .step.cur .dot { background: #ff0033; color: #fff; box-shadow: 0 0 0 5px rgba(255,0,51,.14); }
+  .step.cur span { color: #ff0033; font-weight: 800; }
+  .conn { flex: 1; height: 2px; background: #e5e5e5; margin-top: 15px; }
+  .conn.done { background: #0f9d58; }
+  .card { margin: 12px 16px 0; border: 1px solid #e5e5e5; border-radius: 16px; padding: 13px 14px; }
+  .card .ttl { display: flex; align-items: center; font-size: 13.5px; font-weight: 700; }
+  .card .ttl .ok { color: #0f9d58; margin-right: 7px; }
+  .card .ttl a { margin-left: auto; color: #065fd4; font-size: 12.5px; font-weight: 700; text-decoration: none; }
+  .card .who { display: flex; gap: 10px; align-items: center; margin-top: 10px; }
+  .card .who img { width: 42px; height: 42px; border-radius: 10px; object-fit: cover; }
+  .card .who b { font-size: 13.5px; display: block; }
+  .card .who small { font-size: 11.5px; color: #606060; }
+  .card .thumbs { display: flex; gap: 5px; margin-top: 11px; }
+  .card .thumbs img { flex: 1; height: 44px; object-fit: cover; border-radius: 8px; }
+  .card .thumbs .more { flex: 1; height: 44px; border-radius: 8px; background: #f2f2f2; color: #606060;
+                        display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
+  .sechead { margin: 20px 16px 4px; font-size: 16px; font-weight: 800; }
+  .secsub { margin: 0 16px 10px; font-size: 12px; color: #606060; line-height: 1.55; }
+  .chips { display: flex; gap: 7px; padding: 0 16px; margin-bottom: 12px; }
+  .chip { font-size: 12.5px; padding: 7px 14px; border-radius: 9px; background: #f2f2f2; color: #0f0f0f; }
+  .chip.on { background: #0f0f0f; color: #fff; font-weight: 700; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 11px; padding: 0 16px; }
+  .tpl { border: 2px solid #e5e5e5; border-radius: 16px; overflow: hidden; background: #fff; position: relative; }
+  .tpl img { width: 100%; height: 74px; object-fit: cover; display: block; }
+  .tpl .meta { padding: 8px 11px 10px; }
+  .tpl b { font-size: 13.5px; display: block; }
+  .tpl small { font-size: 11px; color: #606060; line-height: 1.45; display: block; }
+  .tpl .radio { position: absolute; right: 9px; top: 9px; width: 21px; height: 21px; border-radius: 50%;
+                border: 2px solid #909090; background: rgba(255,255,255,.9); }
+  .tpl.on { border-color: #ff0033; }
+  .tpl.on .radio { border-color: #ff0033; background: #ff0033; color: #fff; font-size: 12px;
+                   display: flex; align-items: center; justify-content: center; }
+  .tpl .new { position: absolute; left: 9px; top: 9px; background: #ff0033; color: #fff; font-size: 9.5px;
+              font-weight: 800; padding: 2px 8px; border-radius: 999px; }
+  .tpl.add { border-style: dashed; border-color: #bdbdbd; display: flex; flex-direction: column; align-items: center;
+             justify-content: center; min-height: 128px; color: #606060; gap: 3px; }
+  .tpl.add .plus { font-size: 26px; color: #ff0033; font-weight: 800; line-height: 1; }
+  .bottom { position: absolute; left: 0; right: 0; bottom: 0; padding: 12px 16px 22px; background: #fff;
+            box-shadow: 0 -2px 10px rgba(0,0,0,.08); display: flex; align-items: center; gap: 14px; }
+  .bottom .back2 { font-size: 14px; font-weight: 700; color: #606060; padding: 12px 6px; }
+  .bottom .next { flex: 1; background: #ff0033; color: #fff; text-align: center; font-size: 15px; font-weight: 800;
+                  padding: 14px; border-radius: 999px; }
+</style>
+</head>
+<body>
+  <div class="top"><span class="back">‹</span><b>リールを作成</b><span class="logo">▶ CREATE</span></div>
+
+  <div class="stepper">
+    <div class="step done"><div class="dot">✓</div><span>Immich取込</span></div>
+    <div class="conn done"></div>
+    <div class="step cur"><div class="dot">2</div><span>型を選ぶ</span></div>
+    <div class="conn"></div>
+    <div class="step"><div class="dot">3</div><span>微調整</span></div>
+    <div class="conn"></div>
+    <div class="step"><div class="dot">4</div><span>書き出し</span></div>
+  </div>
+
+  <div class="card">
+    <div class="ttl"><span class="ok">✓</span>Immich から取り込み済み<a href="#">変更する</a></div>
+    <div class="who"><img src="img/p021.jpg"><div><b>Victor Gonzalez</b><small>2026/11/25 秋葉原ツアー ・ 写真83枚 / 動画7本</small></div></div>
+    <div class="thumbs">
+      <img src="img/p021.jpg"><img src="img/p058.jpg"><img src="img/p091.jpg"><img src="img/p032.jpg"><div class="more">+86</div>
+    </div>
+  </div>
+
+  <div class="sechead">型のライブラリ</div>
+  <p class="secsub">選ぶだけで自動編集されます。テンプレートは今後も追加されていきます。</p>
+  <div class="chips"><span class="chip on">すべて</span><span class="chip">人気</span><span class="chip">新着</span><span class="chip">季節もの</span></div>
+
+  <div class="grid">
+    <div class="tpl on"><img src="img/p021.jpg"><span class="radio">✓</span>
+      <div class="meta"><b>POV型</b><small>冒頭フック＋縦動画 ・ 24秒</small></div></div>
+    <div class="tpl"><img src="img/p058.jpg"><span class="radio"></span>
+      <div class="meta"><b>リスト型</b><small>スポット3選 ・ 30秒</small></div></div>
+    <div class="tpl"><img src="img/p051.jpg"><span class="radio"></span>
+      <div class="meta"><b>スライドショー型</b><small>写真ズーム ・ 18秒</small></div></div>
+    <div class="tpl"><img src="img/p100.jpg"><span class="new">NEW</span><span class="radio"></span>
+      <div class="meta"><b>ゲスト反応型</b><small>笑顔カット集 ・ 21秒</small></div></div>
+    <div class="tpl"><img src="img/p091.jpg"><span class="radio"></span>
+      <div class="meta"><b>ビート型</b><small>音ハメ高速カット ・ 15秒</small></div></div>
+    <div class="tpl add"><span class="plus">＋</span><b>新規テンプレート</b><small>追加して増やせます</small></div>
+  </div>
+
+  <div class="bottom"><span class="back2">戻る</span><div class="next">次へ：自動編集する</div></div>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>案5 YouTube Create風 管理画面</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: 390px; height: 800px; overflow: hidden; position: relative; background: #fff; color: #0f0f0f;
+         font-family: Roboto, "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif; }
+  .top { height: 56px; display: flex; align-items: center; padding: 0 16px; gap: 10px;
+         box-shadow: 0 1px 4px rgba(0,0,0,.12); }
+  .top b { font-size: 16.5px; font-weight: 700; }
+  .top .logo { margin-left: auto; color: #ff0033; font-weight: 800; font-size: 13px; }
+  .top .search { font-size: 17px; color: #606060; }
+  .cal { margin: 14px 16px 0; border: 1px solid #e5e5e5; border-radius: 16px; padding: 13px 14px 11px; }
+  .calhead { display: flex; align-items: center; margin-bottom: 6px; }
+  .calhead b { font-size: 14px; }
+  .calhead span { margin-left: auto; color: #606060; letter-spacing: .3em; }
+  .grid7 { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; text-align: center; }
+  .grid7 .wd { font-size: 10px; color: #909090; padding: 2px 0; }
+  .grid7 .wd.sun { color: #e88; } .grid7 .wd.sat { color: #68c; }
+  .grid7 .d { font-size: 12.5px; padding: 6px 0 5px; border-radius: 50%; position: relative; }
+  .grid7 .d.dim { color: #d5d5d5; }
+  .grid7 .d .dot { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
+                   width: 4.5px; height: 4.5px; border-radius: 50%; background: #ff0033; }
+  .grid7 .d.sel { background: #ff0033; color: #fff; font-weight: 800; }
+  .grid7 .d.sel .dot { background: #fff; }
+  .calnote { font-size: 11px; color: #909090; margin-top: 8px; }
+  .sechead { margin: 18px 16px 3px; font-size: 15.5px; font-weight: 800; display: flex; align-items: baseline; }
+  .sechead small { margin-left: auto; font-size: 11px; color: #909090; font-weight: 400; }
+  .secsub { margin: 0 16px 10px; font-size: 11.5px; color: #909090; }
+  .proj { margin: 0 16px; padding: 11px 2px; display: flex; gap: 12px; align-items: center;
+          border-bottom: 1px solid #f0f0f0; }
+  .proj.sel { background: #fff5f6; margin: 0 8px; padding: 11px 10px; border-radius: 14px; border-bottom: none; }
+  .proj img { width: 86px; height: 56px; border-radius: 10px; object-fit: cover; }
+  .proj .meta { flex: 1; }
+  .proj b { font-size: 14px; display: block; }
+  .proj small { font-size: 11.5px; color: #606060; display: block; margin-top: 2px; }
+  .proj .bar { height: 4px; background: #f0f0f0; border-radius: 2px; margin-top: 7px; overflow: hidden; }
+  .proj .bar i { display: block; height: 100%; background: #ff0033; border-radius: 2px; }
+  .proj .st { font-size: 10.5px; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: #f2f2f2; color: #606060; white-space: nowrap; }
+  .proj .st.ready { background: #ff0033; color: #fff; }
+  .proj .st.done { background: #e6f4ea; color: #137333; }
+  .proj .st.wait { background: #fef7e0; color: #b06000; }
+  .fab { position: absolute; right: 18px; bottom: 24px; background: #ff0033; color: #fff; font-weight: 800;
+         font-size: 13px; padding: 13px 18px; border-radius: 999px; box-shadow: 0 6px 18px rgba(255,0,51,.35); }
+  .fab small { display: block; font-size: 9.5px; font-weight: 400; opacity: .85; }
+</style>
+</head>
+<body>
+  <div class="top"><b>プロジェクト</b><span class="logo">▶ CREATE</span><span class="search">🔍</span></div>
+
+  <div class="cal">
+    <div class="calhead"><b>2026年 11月</b><span>‹ ›</span></div>
+    <div class="grid7">
+      <span class="wd sun">日</span><span class="wd">月</span><span class="wd">火</span><span class="wd">水</span><span class="wd">木</span><span class="wd">金</span><span class="wd sat">土</span>
+      <span class="d">1<i class="dot"></i></span><span class="d">2</span><span class="d">3<i class="dot"></i></span><span class="d">4</span><span class="d">5<i class="dot"></i></span><span class="d">6<i class="dot"></i></span><span class="d">7</span>
+      <span class="d">8<i class="dot"></i></span><span class="d">9</span><span class="d">10</span><span class="d">11</span><span class="d">12<i class="dot"></i></span><span class="d">13<i class="dot"></i></span><span class="d">14</span>
+      <span class="d">15</span><span class="d">16</span><span class="d">17<i class="dot"></i></span><span class="d">18</span><span class="d">19</span><span class="d">20</span><span class="d">21</span>
+      <span class="d">22<i class="dot"></i></span><span class="d">23</span><span class="d">24<i class="dot"></i></span><span class="d sel">25<i class="dot"></i></span><span class="d">26</span><span class="d">27</span><span class="d">28</span>
+      <span class="d">29</span><span class="d">30</span><span class="d dim">1</span><span class="d dim">2</span><span class="d dim">3</span><span class="d dim">4</span><span class="d dim">5</span>
+    </div>
+    <p class="calnote">日付を選ぶと、その日のゲスト回が下に表示されます</p>
+  </div>
+
+  <div class="sechead">ゲスト回プロジェクト<small>11月 ・ 10件</small></div>
+  <p class="secsub">ツアーが終わると Immich の素材で自動作成されます</p>
+
+  <div class="proj sel"><img src="img/p021.jpg"><div class="meta"><b>Victor Gonzalez</b>
+    <small>11/25（水）秋葉原 ・ 写真83 / 動画7 ・ POV型</small><div class="bar"><i style="width:80%"></i></div></div>
+    <span class="st ready">下見待ち</span></div>
+  <div class="proj"><img src="img/p058.jpg"><div class="meta"><b>Jennifer West</b>
+    <small>11/24（火）秋葉原 ・ 写真80 / 動画8</small><div class="bar"><i style="width:100%"></i></div></div>
+    <span class="st done">書き出し済み</span></div>
+  <div class="proj"><img src="img/p100.jpg"><div class="meta"><b>Pamela McGrogan</b>
+    <small>11/22（日）秋葉原 ・ 写真64 / 動画5</small><div class="bar"><i style="width:100%"></i></div></div>
+    <span class="st done">書き出し済み</span></div>
+  <div class="proj"><img src="img/p051.jpg"><div class="meta"><b>Valeska</b>
+    <small>11/17（火）秋葉原 ・ 写真71 / 動画4</small><div class="bar"><i style="width:45%"></i></div></div>
+    <span class="st wait">編集中</span></div>
+  <div class="proj"><img src="img/p032.jpg"><div class="meta"><b>Philip</b>
+    <small>11/12（木）秋葉原 ・ 写真58 / 動画3</small><div class="bar"><i style="width:8%"></i></div></div>
+    <span class="st">未着手</span></div>
+
+  <div class="fab">＋ 新規<small>通常は自動作成</small></div>
+</body>
+</html>
