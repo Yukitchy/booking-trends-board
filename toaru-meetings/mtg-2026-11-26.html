@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>toaru 相談記録 11月26日</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;600&family=Raleway:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FDFCF9;
+  --ink:#393939;
+  --soft:#666666;
+  --gold:#8A6A00;
+  --y:#FAD72C;
+  --wash:rgba(250,215,44,.26);
+  --rule:rgba(52,49,45,.28);
+  --tint:rgba(52,49,45,.05);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme=light]){
+    --paper:#1B1A18;
+    --ink:#ECE7DC;
+    --soft:#B8B2A6;
+    --gold:#E3BE45;
+    --wash:rgba(250,215,44,.16);
+    --rule:rgba(228,223,211,.35);
+    --tint:rgba(255,255,255,.06);
+  }
+}
+:root[data-theme=dark]{
+  --paper:#1B1A18;
+  --ink:#ECE7DC;
+  --soft:#B8B2A6;
+  --gold:#E3BE45;
+  --wash:rgba(250,215,44,.16);
+  --rule:rgba(228,223,211,.35);
+  --tint:rgba(255,255,255,.06);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Noto Sans JP",sans-serif;
+  font-size:16px;
+  line-height:1.9;
+}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+a{color:var(--gold);text-decoration:none;border-bottom:1px solid var(--rule)}
+a:hover{border-bottom-color:var(--gold)}
+.label{
+  font-family:"Raleway",sans-serif;
+  text-transform:uppercase;
+  letter-spacing:.2em;
+  font-size:12px;
+  font-weight:600;
+  color:var(--gold);
+}
+header{padding:72px 0 40px;text-align:center}
+header .label{font-size:13px}
+h1{
+  font-family:"Noto Serif JP",serif;
+  font-weight:600;
+  font-size:34px;
+  line-height:1.4;
+  margin:14px 0 6px;
+}
+.sub{
+  font-family:"Noto Serif JP",serif;
+  font-size:17px;
+  margin:0 0 22px;
+}
+.meta{color:var(--soft);font-size:14px;line-height:1.8;margin:0}
+.banner{
+  display:inline-block;
+  margin-top:26px;
+  padding:10px 22px;
+  background:var(--wash);
+  border:none;
+  border-radius:999px;
+  color:var(--ink);
+  font-size:14px;
+  font-weight:500;
+}
+figure{margin:8px 0 0}
+figure img{width:100%;height:auto;display:block}
+figcaption{color:var(--soft);font-size:13px;padding-top:8px}
+section{padding:44px 0 8px;border-top:1px solid var(--rule);margin-top:44px}
+.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:20px}
+.sec-num{
+  font-family:"Raleway",sans-serif;
+  font-weight:600;
+  font-size:15px;
+  background:var(--y);
+  color:#393939;
+  border-radius:50%;
+  width:30px;height:30px;
+  display:inline-flex;align-items:center;justify-content:center;
+  flex:none;
+  transform:translateY(4px);
+}
+.sec-head .label{display:block}
+h2{
+  font-family:"Noto Serif JP",serif;
+  font-weight:600;
+  font-size:23px;
+  margin:2px 0 0;
+  line-height:1.5;
+}
+h3{
+  font-family:"Noto Serif JP",serif;
+  font-weight:600;
+  font-size:18px;
+  margin:30px 0 8px;
+}
+h3:first-of-type{margin-top:6px}
+p{margin:0 0 14px}
+ul{margin:0 0 14px;padding-left:1.3em}
+li{margin-bottom:6px}
+.fill{
+  background:var(--tint);
+  border:1px dashed var(--rule);
+  padding:14px 18px;
+  color:var(--soft);
+  font-size:14px;
+  margin-bottom:14px;
+}
+.who{
+  font-family:"Raleway",sans-serif;
+  letter-spacing:.15em;
+  font-size:12px;
+  font-weight:600;
+  color:var(--gold);
+  text-transform:uppercase;
+  margin:20px 0 6px;
+}
+.done{color:var(--soft);font-size:14px}
+.links{list-style:none;padding:0;margin:0}
+.links li{padding:12px 0;border-bottom:1px solid var(--rule);margin:0}
+.links li:first-child{padding-top:0}
+.links .d{color:var(--soft);font-size:13px;display:block}
+footer{
+  margin-top:56px;
+  padding:28px 0 56px;
+  border-top:1px solid var(--rule);
+  color:var(--soft);
+  font-size:13px;
+  text-align:center;
+}
+@media print{
+  body{background:#fff}
+  section{break-inside:avoid}
+}
+</style>
+<meta property="og:type" content="website">
+<meta property="og:title" content="toaru 相談記録 11月26日">
+<meta property="og:description" content="toaru（金沢の酒蔵ツアー）AIコンサル相談の記録ページ">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/toaru-meetings/mtg-2026-11-26.html">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/toaru-meetings/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="label">Meeting 02</div>
+  <h1>第2回の相談</h1>
+  <p class="sub">ミーティング記録</p>
+  <p class="meta">2026年11月26日（木）13:00〜14:00 ／ オンライン（Google Meet）<br>
+  河野 ちほりさん（株式会社あるところに）・市原 ユウキ</p>
+  <a class="banner" href="https://claude.ai/artifact/BaKxJDRG88udxTZbybocpF">月刊 あるところに（11月号）を読む →</a>
+  <figure>
+    <img src="img/hero.jpg" alt="夜のひがし茶屋街（金沢）">
+    <figcaption>夜のひがし茶屋街（金沢）。ツアーの終点、Cafe &amp; Sake Bar toaru があるまちです。</figcaption>
+  </figure>
+</header>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-num">01</span>
+    <div>
+      <span class="label">Decisions</span>
+      <h2>この日に決まったこと</h2>
+    </div>
+  </div>
+  <div class="fill">（相談のあとに記入します）</div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-num">02</span>
+    <div>
+      <span class="label">Meeting Log</span>
+      <h2>話したこと</h2>
+    </div>
+  </div>
+
+  <h3>前回（10月19日）の宿題の確認</h3>
+  <p class="who">ちほりさん</p>
+  <ul>
+    <li>Viator・byFoodなどのサポートへ承認状況を問い合わせる <span class="done">（byFoodは2026年11月12日にページが公開されました。<a href="https://www.byfood.com/experiences/kanazawa-sake-brewery-tour-tasting-custom-label-57691">掲載ページ</a>。Viatorは認証メールへ返信済みで、返信を待っているところです）</span></li>
+    <li>GetYourGuideにも申し込む</li>
+    <li>Airbnb体験を酒造ツアーに作り替え（タイトル・人が写った写真）、モニター参加者に、評価は指定せずにレビューをお願いする</li>
+    <li>Instagramの投稿を半自動化する</li>
+    <li>ツアーサイトの手直し（ファーストビュー・ツアーの流れ・強み）</li>
+    <li>保険の担当者に、お客様のケガが対象になるか確認</li>
+    <li>予約後に送る事前フォームを作る</li>
+    <li>レビューの目標件数を決める</li>
+  </ul>
+  <p class="who">ユウキ</p>
+  <ul>
+    <li>予約確定・キャンセルのメールの見本を送る <span class="done">（送付済み。下の「これまでの資料」にあります）</span></li>
+    <li>リバースエンジニアリングの資料を送る <span class="done">（送付済み。下の「これまでの資料」にあります）</span></li>
+    <li>お客様情報とSNS連携のセキュリティを調べ、できることを提案 <span class="done">（資料を用意しました。下の「これまでの資料」にあります）</span></li>
+    <li>第2回の日程調整フォームを送る <span class="done">（送付済み。今日が第2回です）</span></li>
+  </ul>
+
+  <h3>今日のテーマ</h3>
+  <ul>
+    <li>ツアー後のお礼メッセージの文面を一緒に作る（写真ページとレビューのリンクを1通で。モニターツアーの1回目から使います）</li>
+    <li>モニターツアー年内4回の日程と、声のかけ方
+      <ul>
+        <li>季節の材料：香箱ガニの漁期は12月29日まで（石川県）。兼六園のライトアップ「秋の段」は11月28日（土）・29日（日）が今季の最後で、18:00〜21:00・入園無料です。冬の段は2027年2月6日〜10日・13日・20日・27日の予定です</li>
+      </ul>
+    </li>
+    <li>Google「Things to do」への無料掲載の紹介（Googleビジネスプロフィールの「チケットとアクティビティ」エディタから、ツアー名・価格・所要時間と予約URLを自分で登録できます。予約URLにはbyFoodの掲載ページが使えます。無料で、予約システムの認定は要りません）</li>
+    <li>なお、今日13:00の時間帯は、Viator・GetYourGuideとも販売を止めてあります</li>
+  </ul>
+  <div class="fill">（話した内容は、相談のあとにここへ記入します）</div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-num">03</span>
+    <div>
+      <span class="label">Next Steps</span>
+      <h2>次にやること</h2>
+    </div>
+  </div>
+  <p class="who">ちほりさん</p>
+  <div class="fill">（その場で書き込みます）</div>
+  <p class="who">ユウキ</p>
+  <ul>
+    <li>この記録を共有</li>
+  </ul>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-num">04</span>
+    <div>
+      <span class="label">Links</span>
+      <h2>これまでの資料</h2>
+    </div>
+  </div>
+  <ul class="links">
+    <li><a href="security-notes.html">お客様情報とSNS連携のセキュリティ</a><span class="d">10月19日にお約束した資料。アカウントの守り方から、お客様情報の置き場所、もしものときの順番まで</span></li>
+    <li><a href="https://yukitchy.github.io/booking-trends-board/google-booking/">Googleの予約枠の出し方</a><span class="d">Google「Things to do」に無料で載せる手順の調査メモ。ビジネスプロフィールのエディタから直接登録できます</span></li>
+    <li><a href="https://www.byfood.com/experiences/kanazawa-sake-brewery-tour-tasting-custom-label-57691">byFoodの掲載ページ</a><span class="d">2026年11月12日に公開されたツアーページ</span></li>
+    <li><a href="https://claude.ai/artifact/K2XeqbEAcFmMQvduKarJpP">第1回の相談記録（10月19日）</a><span class="d">前回の相談の記録です</span></li>
+    <li><a href="https://claude.ai/artifact/BaKxJDRG88udxTZbybocpF">月刊 あるところに（2026年11月号）</a><span class="d">毎月お届けするレポート。役立つ情報と翌月の予定</span></li>
+    <li><a href="https://claude.ai/artifact/1dvfuiAxKxkvzCd6oeJY56">予約メールの見本（確定・キャンセル）</a><span class="d">10月19日にお約束した資料。Claudeに渡す指示文つき</span></li>
+    <li><a href="https://claude.ai/artifact/32yWmZgXLQTS7vc16wCWMY">リバースエンジニアリング入門</a><span class="d">10月19日にお約束した資料。サイトやInstagramの分解の仕方</span></li>
+    <li><a href="https://claude.ai/artifact/VZ8jPCkECUpEnojub4JR7P">ご案内ページ</a><span class="d">ご利用条件・予約サイト6つの一覧・登録の5段階・掲載文の指示文</span></li>
+    <li><a href="https://claude.ai/artifact/KoX43sJBFr4i47UpVytBb4">9月24日の相談記録</a><span class="d">初回の相談。アドバイザー契約の中身</span></li>
+    <li><a href="https://claude.ai/artifact/Qcva3AdtdAAby8HsmsmjYA">9月24日の会話（インタビュー記事）</a><span class="d">初回の会話をインタビュー形式で</span></li>
+  </ul>
+</section>
+
+<footer>
+  この記録は会議の字幕記録をもとにまとめています。聞き違いがあればLINEでお知らせください。<br>
+  アドバイザー 市原ユウキ ／ ご質問はLINEで
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>toaru 資料 お客様情報とSNS連携のセキュリティ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;600&family=Raleway:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FDFCF9;
+  --ink:#393939;
+  --soft:#666666;
+  --gold:#8A6A00;
+  --y:#FAD72C;
+  --wash:rgba(250,215,44,.26);
+  --rule:rgba(52,49,45,.28);
+  --tint:rgba(52,49,45,.05);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme=light]){
+    --paper:#1B1A18;
+    --ink:#ECE7DC;
+    --soft:#B8B2A6;
+    --gold:#E3BE45;
+    --wash:rgba(250,215,44,.16);
+    --rule:rgba(228,223,211,.35);
+    --tint:rgba(255,255,255,.06);
+  }
+}
+:root[data-theme=dark]{
+  --paper:#1B1A18;
+  --ink:#ECE7DC;
+  --soft:#B8B2A6;
+  --gold:#E3BE45;
+  --wash:rgba(250,215,44,.16);
+  --rule:rgba(228,223,211,.35);
+  --tint:rgba(255,255,255,.06);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Noto Sans JP",sans-serif;
+  font-size:16px;
+  line-height:1.9;
+}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+a{color:var(--gold);text-decoration:none;border-bottom:1px solid var(--rule)}
+a:hover{border-bottom-color:var(--gold)}
+.label{
+  font-family:"Raleway",sans-serif;
+  text-transform:uppercase;
+  letter-spacing:.2em;
+  font-size:12px;
+  font-weight:600;
+  color:var(--gold);
+}
+header{padding:72px 0 40px;text-align:center}
+header .label{font-size:13px}
+h1{
+  font-family:"Noto Serif JP",serif;
+  font-weight:600;
+  font-size:30px;
+  line-height:1.5;
+  margin:14px 0 6px;
+}
+.sub{
+  font-family:"Noto Serif JP",serif;
+  font-size:17px;
+  margin:0 0 22px;
+}
+.meta{color:var(--soft);font-size:14px;line-height:1.8;margin:0}
+section{padding:44px 0 8px;border-top:1px solid var(--rule);margin-top:44px}
+.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:20px}
+.sec-num{
+  font-family:"Raleway",sans-serif;
+  font-weight:600;
+  font-size:15px;
+  background:var(--y);
+  color:#393939;
+  border-radius:50%;
+  width:30px;height:30px;
+  display:inline-flex;align-items:center;justify-content:center;
+  flex:none;
+  transform:translateY(4px);
+}
+.sec-head .label{display:block}
+h2{
+  font-family:"Noto Serif JP",serif;
+  font-weight:600;
+  font-size:23px;
+  margin:2px 0 0;
+  line-height:1.5;
+}
+p{margin:0 0 14px}
+ul{margin:0 0 14px;padding-left:1.3em}
+li{margin-bottom:6px}
+.note{
+  background:var(--tint);
+  border:1px dashed var(--rule);
+  padding:14px 18px;
+  color:var(--soft);
+  font-size:14px;
+  margin-bottom:14px;
+}
+footer{
+  margin-top:56px;
+  padding:28px 0 56px;
+  border-top:1px solid var(--rule);
+  color:var(--soft);
+  font-size:13px;
+  text-align:center;
+}
+@media print{
+  body{background:#fff}
+  section{break-inside:avoid}
+}
+</style>
+<meta property="og:type" content="website">
+<meta property="og:title" content="toaru 資料 お客様情報とSNS連携のセキュリティ">
+<meta property="og:description" content="toaru向け資料：お客様情報とSNS連携のセキュリティ">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/toaru-meetings/security-notes.html">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/toaru-meetings/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="label">Security Notes</div>
+  <h1>お客様情報とSNS連携のセキュリティ</h1>
+  <p class="sub">第1回の相談（10月19日）の宿題として</p>
+  <p class="meta">2026年11月26日 第2回の相談にてお渡し<br>
+  市原 ユウキ</p>
+</header>
+
+<section style="border-top:none;margin-top:0;padding-top:8px">
+  <p>ツアーの予約が増えるほど、お客様の名前や連絡先、写真がいろいろなサービスに散らばります。事故が起きてから直すのは大変なので、置き場所と入り方を先に決めておくためのメモです。むずかしい仕組みの話ではなく、日々の運用でできることだけを集めました。</p>
+  <div class="note">この資料は、少人数でツアーを運営する事業者向けの一般的な実務上の注意をまとめたものです。法律の解釈や個別の事情については、必要に応じて専門家にご確認ください。</div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-num">01</span>
+    <div>
+      <span class="label">Accounts</span>
+      <h2>アカウントの守り方</h2>
+    </div>
+  </div>
+  <p>土台はアカウントです。予約サイト（byFood・Viator・GetYourGuide）、Instagram、Google、LINE公式アカウントのどれか1つでも乗っ取られると、お客様情報と信用の両方に響きます。</p>
+  <ul>
+    <li>すべてのサービスで二段階認証を有効にする。認証アプリ方式が選べるサービスでは、SMSより認証アプリを優先する</li>
+    <li>パスワードはサービスごとに別々にし、使い回さない。覚えきれない分はパスワード管理アプリに預ける</li>
+    <li>ログイン情報をスタッフ全員で1つ共有しない。権限を分けられるサービスでは、担当ごとにアカウントを分ける</li>
+    <li>担当が変わったときは、その日のうちにパスワード変更とログイン中の端末の確認をする</li>
+    <li>復旧用のメールアドレスと電話番号が今も使えるものか、半年に一度は確かめる</li>
+  </ul>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-num">02</span>
+    <div>
+      <span class="label">Connected Apps</span>
+      <h2>SNS連携の注意点</h2>
+    </div>
+  </div>
+  <p>投稿の予約ツールや分析ツールなど、InstagramやGoogleと連携した外部サービスは、連携した瞬間からアカウントへのアクセス権を持ち続けます。</p>
+  <ul>
+    <li>連携中の外部サービスを一度棚卸しする。使っていないものは連携を解除する</li>
+    <li>新しいツールを連携するときは、求められる権限の範囲を見る。「投稿できる」権限と「見るだけ」の権限は別物として扱う</li>
+    <li>予約サイトとSNSの自動連携（予約が入ったら自動投稿など）を使う場合は、誤投稿に気づけるよう投稿内容の通知を残す</li>
+    <li>公式を名乗るDMやメールでログインを求められたら、リンクから入らず、必ず公式アプリやブックマークから開く</li>
+    <li>なりすましアカウントが出たときのために、プロフィールに公式サイトのURLを明記しておく</li>
+  </ul>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-num">03</span>
+    <div>
+      <span class="label">Guest Data</span>
+      <h2>お客様情報の置き場所</h2>
+    </div>
+  </div>
+  <p>名前・連絡先・アレルギーや年齢などの事前情報は、集める場所と保管する場所を決めておくと、漏れたときの影響範囲も小さくなります。</p>
+  <ul>
+    <li>お客様情報の正本は1か所に決める（予約サイトの管理画面か、自社の管理表のどちらか）。あちこちに写しを作らない</li>
+    <li>事前フォームの回答は、作った本人だけが見られる設定から始め、共有が必要なときだけ相手を足す</li>
+    <li>酒蔵さんや当日の協力者へ渡す情報は、人数と必要な配慮（アレルギー・年齢確認など）だけに絞る。連絡先は渡さない</li>
+    <li>ツアー当日の紙の名簿や申し送りメモは、終わったら保管場所を決めて入れ、不要になったものは処分する</li>
+    <li>保管の期限を決める。たとえば「ツアー終了後◯か月で削除」のように、残す理由がなくなった情報は消す</li>
+  </ul>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-num">04</span>
+    <div>
+      <span class="label">Photos &amp; Recordings</span>
+      <h2>写真と録音の扱い</h2>
+    </div>
+  </div>
+  <ul>
+    <li>SNSやサイトに載せる写真は、写っているお客様の許可を先に取る。ツアー後のお礼メッセージで許可を確認する流れにすると漏れにくい</li>
+    <li>子どもの写真は特に慎重に。保護者の許可がある場合だけ使う</li>
+    <li>写真の位置情報（撮影場所のデータ）に気をつける。自宅や酒蔵の非公開エリアが写る場合は、公開前に確認する</li>
+    <li>ツアー中の録音をする場合は、録音していることを先に伝える。録音データの保管場所も写真と同じ場所にそろえる</li>
+  </ul>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-num">05</span>
+    <div>
+      <span class="label">Using AI</span>
+      <h2>AIを使うときの線引き</h2>
+    </div>
+  </div>
+  <ul>
+    <li>お客様の実名・連絡先・予約番号は、AIサービスへの入力に入れない。文面づくりの材料は「30代のご夫婦」のように一般化して渡す</li>
+    <li>AIが作った文面は下書きとして扱い、送信と公開は人が確認してからにする</li>
+    <li>お客様とのやり取りの全文をAIに貼るときは、名前と連絡先を伏せてからにする</li>
+    <li>無料のAIサービスでは入力内容の扱いがサービスごとに違うため、仕事の情報は使うサービスを決めて使う</li>
+  </ul>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-num">06</span>
+    <div>
+      <span class="label">Payments</span>
+      <h2>決済と返金まわり</h2>
+    </div>
+  </div>
+  <ul>
+    <li>カード情報は直接受け取らない。決済は予約サイトや決済サービスの仕組みに任せる</li>
+    <li>返金の連絡は、予約が入っている公式の経路だけで行う。SNSのDMで返金先口座を聞くことはしない</li>
+    <li>予約サイトを名乗るメールで「支払い情報の更新」を求められたら、メール内のリンクではなく管理画面から確認する</li>
+  </ul>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-num">07</span>
+    <div>
+      <span class="label">If Something Happens</span>
+      <h2>もしものときの順番</h2>
+    </div>
+  </div>
+  <p>乗っ取りや漏えいが疑われたら、慌てずに次の順で動きます。</p>
+  <ul>
+    <li>そのサービスのパスワードを変更し、ほかの端末のログインをすべて切る</li>
+    <li>外部サービスの連携をいったん全部解除する</li>
+    <li>同じパスワードを使っているほかのサービスも変更する</li>
+    <li>予約サイトのサポートへ連絡する（byFood・Viator・GetYourGuideは管理画面内の窓口から）</li>
+    <li>お客様の情報が関係する場合は、何の情報が・いつ・どうしたのかを記録し、関係するお客様へ連絡する</li>
+  </ul>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-num">08</span>
+    <div>
+      <span class="label">Checklist</span>
+      <h2>今日からできること</h2>
+    </div>
+  </div>
+  <ul>
+    <li>予約サイト3つとInstagram、Googleの二段階認証を確認する</li>
+    <li>連携中の外部サービスの一覧を開き、使っていないものを解除する</li>
+    <li>お客様情報の正本を置く場所を1つ決める</li>
+    <li>事前フォームの共有設定を見直す</li>
+    <li>酒蔵さんへ渡す情報の範囲を決める</li>
+    <li>写真掲載の許可を取るタイミングを、お礼メッセージの文面に組み込む</li>
+  </ul>
+</section>
+
+<footer>
+  アドバイザー 市原ユウキ ／ ご質問はLINEで
+</footer>
+
+</div>
+</body>
+</html>
