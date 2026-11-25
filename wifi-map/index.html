@@ -54,6 +54,12 @@ button:disabled{opacity:.55; cursor:wait;}
 .cardbtns button.danger{color:#101410; border-color:#c9d2c9;}
 .leaflet-popup-content{font-family:inherit; font-size:13.5px; line-height:1.55;}
 .leaflet-popup-content .pn{font-weight:800; font-size:14.5px;}
+.leaflet-popup-content .pop-ph{position:relative; margin-bottom:6px;}
+.leaflet-popup-content .pop-ph img{width:100%; height:92px; object-fit:cover; border-radius:8px; display:block;}
+.leaflet-popup-content .pop-ph .ph-none{height:92px; border-radius:8px;}
+.pop-gmap{position:absolute; top:6px; right:6px; width:34px; height:34px; border-radius:50%; background:#fff; border:2px solid var(--ink); box-shadow:0 2px 8px rgba(16,20,16,.3); display:flex; align-items:center; justify-content:center; z-index:2;}
+.pop-gmap svg{width:19px; height:19px; display:block;}
+.pop-gmap:active{transform:scale(.94);}
 .leaflet-control-attribution{font-size:9px; background:rgba(255,255,255,.75) !important;}
 .leaflet-bar a{color:var(--ink);}
 .panel{background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px; box-shadow:0 8px 30px rgba(16,20,16,.14);}
@@ -797,14 +803,14 @@ var m = L.marker([s.lat, s.lng], {icon: icon}).addTo(spotLayer);
 if (!window.NOPOPUP){
 var sl = speedLabel(s);
 var pw = pwLabel(s);
+var gbtn = '<a class="pop-gmap" href="' + gmapUrl(s) + '" target="_blank" rel="noopener" title="Googleマップで開く" aria-label="Googleマップで開く"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2a6.8 6.8 0 0 0-6.8 6.8c0 5 6.8 12.8 6.8 12.8s6.8-7.8 6.8-12.8A6.8 6.8 0 0 0 12 2.2z" fill="#16c95c" stroke="#101410" stroke-width="1.5"/><circle cx="12" cy="9" r="2.5" fill="#fff"/></svg></a>';
 m.bindPopup(
-(s.photo? '<img src="' + s.photo + '" style="width:100%;height:92px;object-fit:cover;border-radius:8px;margin-bottom:6px" alt="">': '') +
+'<div class="pop-ph">' + (s.photo? '<img src="' + s.photo + '" alt="">': '<div class="ph-none">📶</div>') + gbtn + '</div>' +
 '<span class="pn">' + esc(s.name) + '</span>' +
 (s.mine? ' <span class="chip mine">自分の追加</span>': '') +
 '<br>' + (sl? esc(sl): '速度：未計測') +
 (pw? '<br>' + pw: '') +
 (s.note? '<br>' + esc(s.note): '') +
-'<br><a href="' + gmapUrl(s) + '" target="_blank" rel="noopener">Googleマップで開く</a>' +
 (s.mine? '<br><button type="button" class="popedit" onclick="window.__openEdit(' + s.id + ')">✏️ 編集（速度・写真）</button>': ''));
 }
 if (window.PINCLICK){
