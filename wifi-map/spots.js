@@ -101,5 +101,17 @@ const SPOTS = [
     power: true,
     note: "駅直結テルミナ4F。カウンター席に電源あり",
     gmap: "https://www.google.com/maps/search/?api=1&query=%E3%82%BF%E3%83%AA%E3%83%BC%E3%82%BA%E3%82%B3%E3%83%BC%E3%83%92%E3%83%BC%20%E9%8C%A6%E7%B3%B8%E7%94%BA%E3%83%86%E3%83%AB%E3%83%9F%E3%83%B8%E7%94%BA%E5%BA%97"
+  },
+  {
+    name: "Keys Cafe Akihabara",
+    area: "神田佐久間町一丁目",
+    lat: 35.697846, lng: 139.77492,
+    ssid: "keyscafeAKIHABARA",
+    password: "",
+    down: 87, up: 50, measured_on: "2026-11-25",
+    approx: true,
+    power: true,
+    note: "",
+    gmap: "https://www.google.com/maps/search/?api=1&query=KEY%27S%20CAFE%20%E7%A7%8B%E8%91%89%E5%8E%9F"
   }
 ];
