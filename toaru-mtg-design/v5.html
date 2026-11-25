@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>案5 ポップ＆フレンドリー型｜toaru 相談レポート 11月26日 リデザイン案</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#FFE9C9;color:#33302A;font-family:"M PLUS Rounded 1c",sans-serif;font-size:14.5px;line-height:1.85;font-weight:500}
+.page{max-width:430px;margin:0 auto;padding:18px 14px 48px}
+a{color:#E85D2A;text-decoration:none;font-weight:800}
+.stamp,.flow{display:none}
+.cover{background:#FFFDF7;border:2.5px solid #33302A;border-radius:24px;box-shadow:0 6px 0 #33302A;padding:22px 20px 20px;position:relative;overflow:hidden}
+.kicker{display:inline-block;background:#FFC93C;border:2px solid #33302A;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:.22em;padding:4px 13px;text-transform:uppercase;transform:rotate(-2deg)}
+.cover h1{font-size:36px;font-weight:800;line-height:1.25;margin:14px 0 2px;white-space:nowrap}
+.subtitle{font-size:15px;font-weight:800;color:#E85D2A;margin:0 0 12px}
+.meta{font-size:12.5px;line-height:1.85;color:#6E675C;margin:0 0 16px}
+.banner{display:block;text-align:center;background:#FF7A45;color:#fff;font-weight:800;font-size:14.5px;padding:13px 10px;border-radius:999px;border:2.5px solid #33302A;box-shadow:0 4px 0 #33302A}
+.hero{margin:20px -6px 0}
+.hero img{width:100%;height:auto;display:block;border-radius:16px;border:2.5px solid #33302A}
+.hero figcaption{font-size:11.5px;color:#6E675C;padding:9px 4px 0;line-height:1.7}
+.sec{background:#FFFDF7;border:2.5px solid #33302A;border-radius:24px;box-shadow:0 6px 0 #33302A;margin-top:20px;padding:22px 20px 12px}
+.sec-head{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.sec-num{flex:none;width:44px;height:44px;border-radius:50%;border:2.5px solid #33302A;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;color:#33302A}
+.sec:nth-of-type(1) .sec-num{background:#FFC93C}
+.sec:nth-of-type(2) .sec-num{background:#7ED3B2}
+.sec:nth-of-type(3) .sec-num{background:#FF9EBB}
+.sec:nth-of-type(4) .sec-num{background:#8ECDF0}
+.sec:nth-of-type(5) .sec-num{background:#C3A6F0}
+.sec-label{display:block;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#A39A8B;font-weight:800}
+.sec-head h2{font-size:21px;font-weight:800;margin:0;line-height:1.3;white-space:nowrap}
+.sub-h{font-size:16.5px;font-weight:800;margin:26px 0 10px;line-height:1.45}
+.sub-h::before{content:"";display:inline-block;width:12px;height:12px;border-radius:4px;background:#FFC93C;border:2px solid #33302A;margin-right:9px;vertical-align:-1px}
+.who{display:inline-block;background:#33302A;color:#fff;font-weight:800;font-size:12px;letter-spacing:.16em;padding:4px 13px;border-radius:999px;margin:18px 0 8px}
+ul.list,ul.news{list-style:none;margin:0 0 12px;padding:0}
+ul.list li{position:relative;padding-left:24px;margin-bottom:9px}
+ul.list li::before{content:"";position:absolute;left:1px;top:.34em;width:13px;height:13px;border-radius:50%;background:#7ED3B2;border:2px solid #33302A}
+ul.news li{position:relative;background:#FFF6E8;border:2px solid #F0DDBE;border-radius:16px;padding:12px 14px;margin-bottom:10px}
+ul.sub-list{list-style:none;margin:9px 0 2px;padding:0}
+ul.sub-list li{padding-left:20px;margin-bottom:6px;position:relative}
+ul.sub-list li::before{content:"";position:absolute;left:1px;top:.4em;width:9px;height:9px;border-radius:50%;background:#FFC93C;border:2px solid #33302A}
+ul.news ul.sub-list li{background:none;border:none;border-radius:0;padding-top:0;padding-bottom:0;margin-bottom:6px}
+.note{color:#8A8172;font-size:12.5px}
+.fill{border:2.5px dashed #CBBFA8;border-radius:16px;color:#8A8172;font-size:13px;padding:14px 16px;text-align:center;background:#FFFBF2;margin-bottom:12px}
+.lead{margin:0 0 16px}
+ul.links{list-style:none;margin:0;padding:0}
+ul.links li{margin-bottom:10px}
+ul.links a{display:block;background:#FFF6E8;border:2px solid #33302A;border-radius:14px;padding:11px 14px;color:#33302A;font-weight:800;font-size:14.5px;box-shadow:0 3px 0 #33302A}
+ul.links .d{display:block;color:#8A8172;font-size:12px;margin-top:3px;font-weight:500}
+footer{margin-top:26px;text-align:center;font-size:11.5px;color:#8A8172;line-height:1.9;padding:0 12px}
+</style>
+</head>
+<body>
+<div class="page">
+<header class="cover">
+  <p class="kicker">Meeting 02</p>
+  <h1>第2回の相談</h1>
+  <p class="subtitle">ミーティング記録</p>
+  <p class="meta">2026年11月26日（木）13:00〜14:00 ／ オンライン（Google Meet）<br>
+  河野 ちほりさん（株式会社あるところに）・市原 ユウキ</p>
+  <a class="banner" href="https://claude.ai/artifact/BaKxJDRG88udxTZbybocpF">月刊 あるところに（11月号）を読む →</a>
+  <figure class="hero">
+    <img src="img/hero.jpg" alt="夜のひがし茶屋街（金沢）">
+    <figcaption>夜のひがし茶屋街（金沢）。ツアーの終点、Cafe &amp; Sake Bar toaru があるまちです。</figcaption>
+  </figure>
+  <span class="stamp">記録</span>
+</header>
+<nav class="flow">
+  <p class="flow-title">今日の流れ</p>
+  <ol>
+    <li><span class="f-num">01</span><span class="f-label">決まったこと</span></li>
+    <li><span class="f-num">02</span><span class="f-label">話したこと</span></li>
+    <li><span class="f-num">03</span><span class="f-label">近況メモ</span></li>
+    <li><span class="f-num">04</span><span class="f-label">次にやること</span></li>
+    <li><span class="f-num">05</span><span class="f-label">これまでの資料</span></li>
+  </ol>
+</nav>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-num">01</span>
+    <div class="sec-head-text">
+      <span class="sec-label">Decisions</span>
+      <h2>この日に決まったこと</h2>
+    </div>
+  </div>
+  <div class="fill">（相談のあとに記入します）</div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-num">02</span>
+    <div class="sec-head-text">
+      <span class="sec-label">Meeting Log</span>
+      <h2>話したこと</h2>
+    </div>
+  </div>
+
+  <h3 class="sub-h">前回（10月19日）の宿題の確認</h3>
+  <p class="who">ちほりさん</p>
+  <ul class="list">
+    <li>Viator・byFoodなどのサポートへ承認状況を問い合わせる <span class="note">（byFoodは2026年11月12日にページが公開されました。<a href="https://www.byfood.com/experiences/kanazawa-sake-brewery-tour-tasting-custom-label-57691">掲載ページ</a>。Viatorは認証メールへ返信済みで、返信を待っているところです）</span></li>
+    <li>GetYourGuideにも申し込む</li>
+    <li>Airbnb体験を酒造ツアーに作り替え（タイトル・人が写った写真）、モニター参加者に、評価は指定せずにレビューをお願いする</li>
+    <li>Instagramの投稿を半自動化する</li>
+    <li>ツアーサイトの手直し（ファーストビュー・ツアーの流れ・強み）</li>
+    <li>保険の担当者に、お客様のケガが対象になるか確認</li>
+    <li>予約後に送る事前フォームを作る</li>
+    <li>レビューの目標件数を決める</li>
+  </ul>
+  <p class="who">ユウキ</p>
+  <ul class="list">
+    <li>予約確定・キャンセルのメールの見本を送る <span class="note">（送付済み。下の「これまでの資料」にあります）</span></li>
+    <li>リバースエンジニアリングの資料を送る <span class="note">（送付済み。下の「これまでの資料」にあります）</span></li>
+    <li>お客様情報とSNS連携のセキュリティを調べ、できることを提案 <span class="note">（資料を用意しました。下の「これまでの資料」にあります）</span></li>
+    <li>第2回の日程調整フォームを送る <span class="note">（送付済み。今日が第2回です）</span></li>
+  </ul>
+
+  <h3 class="sub-h">今日のテーマ</h3>
+  <ul class="list">
+    <li>ツアー後のお礼メッセージの文面を一緒に作る（写真ページとレビューのリンクを1通で。モニターツアーの1回目から使います）</li>
+    <li>モニターツアー年内4回の日程と、声のかけ方
+      <ul class="sub-list">
+        <li>季節の材料：香箱ガニの漁期は12月29日まで（石川県）。兼六園のライトアップ「秋の段」は11月28日（土）・29日（日）が今季の最後で、18:00〜21:00・入園無料です。冬の段は2027年2月6日〜10日・13日・20日・27日の予定です</li>
+      </ul>
+    </li>
+    <li>Google「Things to do」への無料掲載の紹介（Googleビジネスプロフィールの「チケットとアクティビティ」エディタから、ツアー名・価格・所要時間と予約URLを自分で登録できます。予約URLにはbyFoodの掲載ページが使えます。無料で、予約システムの認定は要りません）</li>
+    <li>なお、今日13:00の時間帯は、Viator・GetYourGuideとも販売を止めてあります</li>
+  </ul>
+  <div class="fill">（話した内容は、相談のあとにここへ記入します）</div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-num">03</span>
+    <div class="sec-head-text">
+      <span class="sec-label">Recent Notes</span>
+      <h2>近況メモ</h2>
+    </div>
+  </div>
+  <p class="lead">前回の振り返り（11月10日）以降、公式サイト・公式SNS・掲載ページなど公開情報で追えた動きです。確認日：2026年11月26日。</p>
+  <ul class="news">
+    <li><strong>Viatorにツアーが載っています（今回のいちばん大きな変化）</strong>：商品名は「Kanazawa Sake Brewery Tour with Tasting and Custom Label Making」、2時間30分・$170.52〜で、Viatorの提携先ページに掲載が出ています。Tripadvisorにもツアーのページができていて、やちや酒造と竹内酒造をめぐって toaru で利き酒、という流れと、toaru の住所・電話が載っています。11月12日の時点では「認証メールへ返信済み・返信待ち」だったので、そのあとに公開まで進んだと見られます。出典：<a href="https://tourfinder.au/ja-AU/experience/kanazawa-sake-brewery-tour-with-tasting-and-custom-label-making-vt-5699016P2">TourFinder（Viator提携）</a>／<a href="https://www.tripadvisor.ie/Attraction_Review-g298115-d34709169-Reviews-Kanazawa_Ishikawa_Prefecture_Hokuriku_Chubu.html">Tripadvisor</a></li>
+    <li><strong>byFoodは公開が続いています</strong>：「New on byFood」の表示で、ホスト名は「Chihori and her team」。見えている枠は引き続き2026年12月10日14:00（UTC）の1枠だけで sold out 表示、レビューはまだありません。ホスト画像はデフォルト画像のままです。出典：<a href="https://www.byfood.com/experiences/kanazawa-sake-brewery-tour-tasting-custom-label-57691">byFoodの掲載ページ</a></li>
+    <li><strong>Instagram（@toaru_______）</strong>：フォロワー630人（11月10日の620人から+10）、投稿108件（+3）。プロフィールのリンクはGoogleマップのみのままです。出典：<a href="https://www.instagram.com/toaru_______">Instagram @toaru_______</a>
+      <ul class="sub-list">
+        <li>11月20日：11月の営業日の案内を投稿。「酒造ツアーなど新たな取り組みも始まり」の一文と、スタッフ募集の呼びかけが続いています</li>
+        <li>11月15日：天狗舞 山廃純米にごり（車多酒造）の紹介。日本語と英語の併記で、いいね18件</li>
+        <li>11月11日：12月14日のイベント告知。常連様主催の「冬の兼六園ウォーキングと、熱燗と蟹を楽しむ会」で、6〜7名まで、申し込みはDMで</li>
+        <li>11月10日：TAROT DAY の告知。11月26日（木）・27日（金）の15:00〜20:00、10分¥2,000。今日の午後は店でイベントがあります</li>
+      </ul>
+    </li>
+    <li><strong>Instagram（@chayado_kototoki／古都とき）</strong>：新しい投稿はなく、最新の投稿は9月21日のままです。フォロワー342人・投稿65件。出典：<a href="https://www.instagram.com/chayado_kototoki/">Instagram @chayado_kototoki</a></li>
+    <li><strong>公式サイト・note・PR TIMES</strong>：公式サイトのトップの構成に目立つ変化はなく、ツアー専用のページは引き続き見当たりません。noteは新しい記事なし（最新は1年前）。PR TIMESも新しいリリースはなく、最新は2026年1月31日のオリジナルグッズ販売開始です。出典：<a href="https://www.arutokoroni-japan.com/">公式サイト</a>／<a href="https://note.com/arutokoroni/">note</a>／<a href="https://prtimes.jp/main/html/rd/p/000000002.000166475.html">PR TIMES</a></li>
+    <li><strong>ほかの掲載</strong>：GetYourGuideでこのツアーの掲載は確認できませんでした。Airbnbには、toaru を会場にした別の体験「利き酒と手巻き寿司パーティー」の掲載がありますが、酒蔵ツアーの形では確認できませんでした。出典：<a href="https://www.airbnb.com.au/experiences/6354378">Airbnbの掲載ページ</a></li>
+    <li><strong>ゲスト側の投稿（公式の発信ではありません）</strong>：10月15日に、海外のゲストが手書きラベル（「KIMMIE-SAN SAKE」と書かれた瓶）の写真をFacebookに投稿しています。ラベルづくりの体験が、実際にゲストへ届いている形跡です。出典：<a href="https://www.facebook.com/kimmiemv/posts/pfbid0UKqWY4PXnWssjTxF2j1ykp9SP8dt1F8b5mj9x4CLQEdML22ABwypve4aZDwt8Snhl">Facebookの投稿</a></li>
+  </ul>
+  <h3 class="sub-h">確認できなかったこと</h3>
+  <ul class="list">
+    <li>viator.com本体の商品ページは、今回の確認では直接開けませんでした。Viator経由の予約やレビューの有無も外からは分かりません</li>
+    <li>モニターツアーの募集の告知は、公開されている範囲では引き続き見当たりません（Instagramの「新たな取り組みも始まり」の一文のみ）</li>
+    <li>X（旧Twitter）の公式アカウントは確認できませんでした。ちほりさん個人の発信で、事業に関わる新しいものも確認できませんでした</li>
+    <li>Airbnbの掲載の、いまの空き状況は確認できていません</li>
+  </ul>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-num">04</span>
+    <div class="sec-head-text">
+      <span class="sec-label">Next Steps</span>
+      <h2>次にやること</h2>
+    </div>
+  </div>
+  <p class="who">ちほりさん</p>
+  <div class="fill">（その場で書き込みます）</div>
+  <p class="who">ユウキ</p>
+  <ul class="list">
+    <li>この記録を共有</li>
+  </ul>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-num">05</span>
+    <div class="sec-head-text">
+      <span class="sec-label">Links</span>
+      <h2>これまでの資料</h2>
+    </div>
+  </div>
+  <ul class="links">
+    <li><a href="https://yukitchy.github.io/booking-trends-board/toaru-meetings/security-notes.html">お客様情報とSNS連携のセキュリティ</a><span class="d">10月19日にお約束した資料。アカウントの守り方から、お客様情報の置き場所、もしものときの順番まで</span></li>
+    <li><a href="https://yukitchy.github.io/booking-trends-board/google-booking/">Googleの予約枠の出し方</a><span class="d">Google「Things to do」に無料で載せる手順の調査メモ。ビジネスプロフィールのエディタから直接登録できます</span></li>
+    <li><a href="https://www.byfood.com/experiences/kanazawa-sake-brewery-tour-tasting-custom-label-57691">byFoodの掲載ページ</a><span class="d">2026年11月12日に公開されたツアーページ</span></li>
+    <li><a href="https://claude.ai/artifact/K2XeqbEAcFmMQvduKarJpP">第1回の相談記録（10月19日）</a><span class="d">前回の相談の記録です</span></li>
+    <li><a href="https://claude.ai/artifact/BaKxJDRG88udxTZbybocpF">月刊 あるところに（2026年11月号）</a><span class="d">毎月お届けするレポート。役立つ情報と翌月の予定</span></li>
+    <li><a href="https://claude.ai/artifact/1dvfuiAxKxkvzCd6oeJY56">予約メールの見本（確定・キャンセル）</a><span class="d">10月19日にお約束した資料。Claudeに渡す指示文つき</span></li>
+    <li><a href="https://claude.ai/artifact/32yWmZgXLQTS7vc16wCWMY">リバースエンジニアリング入門</a><span class="d">10月19日にお約束した資料。サイトやInstagramの分解の仕方</span></li>
+    <li><a href="https://claude.ai/artifact/VZ8jPCkECUpEnojub4JR7P">ご案内ページ</a><span class="d">ご利用条件・予約サイト6つの一覧・登録の5段階・掲載文の指示文</span></li>
+    <li><a href="https://claude.ai/artifact/KoX43sJBFr4i47UpVytBb4">9月24日の相談記録</a><span class="d">初回の相談。アドバイザー契約の中身</span></li>
+    <li><a href="https://claude.ai/artifact/Qcva3AdtdAAby8HsmsmjYA">9月24日の会話（インタビュー記事）</a><span class="d">初回の会話をインタビュー形式で</span></li>
+  </ul>
+</section>
+
+<footer>
+  この記録は会議の字幕記録をもとにまとめています。聞き違いがあればLINEでお知らせください。<br>
+  アドバイザー 市原ユウキ ／ ご質問はLINEで
+</footer>
+</div>
+</body>
+</html>
