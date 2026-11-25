@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>通訳案内士 診断テスト｜2026年度 一次筆記・現在地測定</title>
+<meta name="description" content="全国通訳案内士試験・一次筆記（2026年度／JNTO公表問題）の診断テスト。未学習のまま科目別に解いて、合格基準までの距離を測る。">
+<meta property="og:title" content="通訳案内士 診断テスト｜2026年度 一次筆記・現在地測定">
+<meta property="og:description" content="JNTO公表の2026年度一次筆記問題で現在地を測定。5科目・科目別の合格基準との差がその場で分かる。結果は端末内にのみ保存。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/exam-diagnostics/tsuyaku/">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/exam-diagnostics/tsuyaku/og.jpg">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans JP", sans-serif;
+    background: #f4f4f1; color: #1b1e23; line-height: 1.65;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 20px 16px 64px; }
+  h1 { font-size: 24px; line-height: 1.35; letter-spacing: .01em; }
+  h2 { font-size: 18px; line-height: 1.4; }
+  .kicker { font-size: 12px; font-weight: 700; letter-spacing: .14em; color: #0f5f5c; margin-bottom: 6px; }
+  .lead { font-size: 14px; color: #3c4249; margin-top: 10px; }
+  .card {
+    background: #fff; border: 1px solid #ddd9d2; border-radius: 10px;
+    padding: 16px; margin-top: 14px;
+  }
+  .note-box {
+    background: #eef5f4; border: 1px solid #cfe3e0; border-radius: 10px;
+    padding: 12px 14px; margin-top: 14px; font-size: 13px; color: #274b48;
+  }
+  .subj-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .subj-meta { font-size: 13px; color: #5a6169; margin-top: 4px; }
+  .badge {
+    display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px;
+    border-radius: 999px; border: 1px solid #0f5f5c; color: #0f5f5c; white-space: nowrap;
+  }
+  .badge.ref { border-color: #9a7b2d; color: #7c621f; }
+  .badge.done { background: #0f5f5c; color: #fff; border-color: #0f5f5c; }
+  .btn {
+    display: inline-block; appearance: none; border: 0; cursor: pointer;
+    background: #0f5f5c; color: #fff; font-size: 15px; font-weight: 700;
+    padding: 12px 22px; border-radius: 8px; margin-top: 12px; width: 100%;
+    text-align: center;
+  }
+  .btn.sub { background: #fff; color: #0f5f5c; border: 1.5px solid #0f5f5c; }
+  .btn.ghost { background: transparent; color: #5a6169; border: 1px solid #c9c5bd; font-weight: 600; }
+  .last-result { font-size: 13px; margin-top: 8px; color: #3c4249; }
+  .last-result b { font-size: 15px; }
+  .foot { font-size: 12px; color: #767c84; margin-top: 22px; }
+  .foot a { color: #0f5f5c; }
+
+  /* exam */
+  .exam-bar {
+    position: sticky; top: 0; z-index: 20; background: #f4f4f1;
+    padding: 10px 0 8px; border-bottom: 2px solid #1b1e23;
+    display: flex; justify-content: space-between; align-items: center; gap: 8px;
+  }
+  .exam-bar .ttl { font-weight: 800; font-size: 16px; }
+  .timer { font-variant-numeric: tabular-nums; font-weight: 800; font-size: 18px; }
+  .timer.low { color: #b3261e; }
+  .progress { font-size: 12px; color: #5a6169; }
+  .group { margin-top: 26px; }
+  .group-label { font-size: 15px; font-weight: 800; border-left: 5px solid #0f5f5c; padding-left: 9px; }
+  .group-intro { font-size: 14px; margin-top: 8px; white-space: pre-wrap; }
+  .group-note { font-size: 12.5px; color: #7c621f; background: #fbf6e3; border: 1px solid #eadfae; border-radius: 8px; padding: 8px 10px; margin-top: 8px; }
+  .group figure { margin-top: 10px; }
+  .group figure img { width: 100%; height: auto; border: 1px solid #ddd9d2; border-radius: 6px; background: #fff; }
+  .item { background: #fff; border: 1px solid #ddd9d2; border-radius: 10px; padding: 14px; margin-top: 12px; }
+  .item-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .item-no { font-size: 12px; font-weight: 800; color: #0f5f5c; letter-spacing: .05em; }
+  .item-pts { font-size: 12px; color: #767c84; }
+  .item-q { font-size: 14.5px; margin-top: 6px; white-space: pre-wrap; }
+  .item-note { font-size: 12px; color: #7c621f; margin-top: 6px; }
+  .choices { margin-top: 10px; display: grid; gap: 8px; }
+  .choice {
+    display: flex; gap: 9px; align-items: flex-start; text-align: left;
+    width: 100%; appearance: none; cursor: pointer; background: #fbfbfa;
+    border: 1.5px solid #d8d4cc; border-radius: 8px; padding: 10px 12px;
+    font-size: 14px; line-height: 1.55; color: #1b1e23; font-family: inherit;
+  }
+  .choice .num { font-weight: 800; flex: none; }
+  .choice.sel { border-color: #0f5f5c; background: #eef5f4; }
+  .choice.redacted { color: #8a8f96; background: #f1f0ec; }
+
+  /* result */
+  .score-big { font-size: 40px; font-weight: 800; line-height: 1.1; }
+  .score-big small { font-size: 17px; font-weight: 700; color: #5a6169; }
+  .verdict { display: inline-block; font-weight: 800; font-size: 14px; padding: 4px 12px; border-radius: 999px; margin-top: 8px; }
+  .verdict.pass { background: #0f5f5c; color: #fff; }
+  .verdict.fail { background: #f3e2df; color: #b3261e; }
+  .diff-line { font-size: 14px; margin-top: 8px; }
+  .res-row { display: flex; gap: 10px; padding: 9px 2px; border-bottom: 1px solid #e6e2da; font-size: 13.5px; align-items: baseline; }
+  .res-row .rn { font-weight: 800; width: 52px; flex: none; }
+  .res-row .mark { font-weight: 800; width: 22px; flex: none; text-align: center; }
+  .res-row .mark.ok { color: #0f5f5c; }
+  .res-row .mark.ng { color: #b3261e; }
+  .res-row .mark.rf { color: #9a7b2d; }
+  .res-row .ans { color: #3c4249; }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ===== HOME ===== -->
+  <section id="view-home">
+    <div class="kicker">EXAM DIAGNOSTICS</div>
+    <h1>通訳案内士 診断テスト</h1>
+    <p class="lead">全国通訳案内士試験・一次筆記の<strong>2026年度問題（JNTO公式公表版）</strong>を、未学習のまま科目別に解くための診断ページです。目的は勉強ではなく<strong>現在地の測定</strong>。科目ごとに「合格基準まであと何点か」を確認できます。解説は付けていません。</p>
+
+    <div class="note-box">
+      <strong>英語の免除について：</strong>英検1級、またはTOEIC公開テスト（L&amp;R 900点以上／Speaking 160点以上／Writing 170点以上のいずれか、2025年4月1日以降実施分）で英語科目は免除申請ができます。
+    </div>
+
+    <div id="subj-list"></div>
+
+    <div class="card">
+      <h2>受け方</h2>
+      <p class="lead" style="margin-top:6px;">科目は1つずつ独立して受けられます（本番と同じ制限時間のタイマー付き）。分からない問題は空欄のまま進んで構いません。結果はこの端末の中にだけ保存され、外部に送信されることはありません。</p>
+      <p class="lead">英語は、引用本文（長文）とその一部選択肢をJNTOが公表していないため、問題1・2（60点分）は参考扱いとし、採点は全公開の問題3・4（40点分）で行います。合格基準との比較は得点率による参考換算です。</p>
+    </div>
+
+    <p class="foot">
+      出典：日本政府観光局（JNTO）「2026年度全国通訳案内士試験 筆記試験問題（一部）」および各科目の解答・配点、観光庁「全国通訳案内士試験ガイドライン」、JNTO「2026年度全国通訳案内士試験施行要領」。<br>
+      合格基準はガイドラインの原則値（平均点が基準から大きく外れた科目は事後調整される場合があります）。<br>
+      公式情報：<a href="https://www.jnto.go.jp/projects/visitor-support/interpreter-guide-exams/exam.html" target="_blank" rel="noopener">JNTO 全国通訳案内士試験</a>
+    </p>
+  </section>
+
+  <!-- ===== EXAM ===== -->
+  <section id="view-exam" class="hidden">
+    <div class="exam-bar">
+      <div>
+        <div class="ttl" id="exam-title"></div>
+        <div class="progress" id="exam-progress"></div>
+      </div>
+      <div class="timer" id="exam-timer">--:--</div>
+    </div>
+    <div id="exam-body"></div>
+    <button class="btn" id="btn-finish">採点する</button>
+    <button class="btn ghost" id="btn-quit">中断してトップへ戻る</button>
+  </section>
+
+  <!-- ===== RESULT ===== -->
+  <section id="view-result" class="hidden">
+    <div class="kicker">RESULT</div>
+    <h2 id="res-title"></h2>
+    <div class="card">
+      <div class="score-big"><span id="res-score"></span> <small id="res-max"></small></div>
+      <div><span class="verdict" id="res-verdict"></span></div>
+      <p class="diff-line" id="res-diff"></p>
+      <p class="diff-line" id="res-sub" style="color:#5a6169;font-size:13px;"></p>
+    </div>
+    <div class="card">
+      <h2 style="font-size:15px;">問題ごとの正誤</h2>
+      <div id="res-list" style="margin-top:6px;"></div>
+    </div>
+    <button class="btn" id="btn-home">トップへ戻る</button>
+    <button class="btn sub" id="btn-retry">もう一度受ける</button>
+  </section>
+
+</div>
+<script src="data.js"></script>
+<script>
+(function(){
+  "use strict";
+  var META = {
+    eng: { name: "英語（外国語）", minutes: 90, full: 100, pass: 70 },
+    geo: { name: "日本地理", minutes: 30, full: 100, pass: 70 },
+    his: { name: "日本歴史", minutes: 30, full: 100, pass: 70 },
+    com: { name: "一般常識", minutes: 20, full: 50, pass: 30 },
+    pra: { name: "通訳案内の実務", minutes: 20, full: 50, pass: 30 }
+  };
+  var ORDER = ["eng","geo","his","com","pra"];
+  var CIRCLED = ["①","②","③","④","⑤","⑥","⑦","⑧","⑨","⑩"];
+  var LS_KEY = "tsuyakuDiag.v1";
+
+  function loadResults(){ try { return JSON.parse(localStorage.getItem(LS_KEY)) || {}; } catch(e){ return {}; } }
+  function saveResults(r){ try { localStorage.setItem(LS_KEY, JSON.stringify(r)); } catch(e){} }
+
+  function scoredMax(sub){
+    var d = window.EXAM_DATA[sub], sum = 0, seenPair = {};
+    d.items.forEach(function(it){
+      if (!it.scored) return;
+      if (it.pair) { if (!seenPair[it.pair]) { seenPair[it.pair] = true; sum += (it.pairPoints || 0); } }
+      else sum += it.points;
+    });
+    return sum;
+  }
+  function itemCount(sub){ return window.EXAM_DATA[sub].items.length; }
+
+  /* ---------- home ---------- */
+  var subjList = document.getElementById("subj-list");
+  function renderHome(){
+    var results = loadResults();
+    subjList.innerHTML = "";
+    ORDER.forEach(function(sub){
+      var m = META[sub], sm = scoredMax(sub), r = results[sub];
+      var card = document.createElement("div"); card.className = "card";
+      var badge = (sm < m.full) ? '<span class="badge ref">一部参考扱い</span>' : '<span class="badge">全問採点</span>';
+      var last = "";
+      if (r) {
+        var d = new Date(r.date);
+        var ds = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
+        last = '<p class="last-result">前回の結果：<b>' + r.score + " / " + r.scoredMax + "点</b>（" + ds + "）　" + escapeHtml(r.verdictText) + "</p>";
+      }
+      card.innerHTML =
+        '<div class="subj-head"><h2>' + m.name + "</h2>" + badge + "</div>" +
+        '<p class="subj-meta">制限時間 ' + m.minutes + "分 ／ 全" + itemCount(sub) + "問 ／ 満点 " + m.full + "点 ／ 合格基準 " + m.pass + "点" +
+        (sm < m.full ? "（採点対象は " + sm + "点分）" : "") + "</p>" + last +
+        '<button class="btn" data-start="' + sub + '">' + (r ? "もう一度受ける" : "この科目を受ける") + "</button>";
+      subjList.appendChild(card);
+    });
+    Array.prototype.forEach.call(subjList.querySelectorAll("[data-start]"), function(b){
+      b.addEventListener("click", function(){ startExam(b.getAttribute("data-start")); });
+    });
+  }
+
+  function escapeHtml(s){ return String(s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+  function nl(s){ return escapeHtml(s).replace(/\n/g, "<br>"); }
+
+  /* ---------- exam ---------- */
+  var cur = null; // {sub, answers:{no:choiceIdx}, timerId, remain}
+  var viewHome = document.getElementById("view-home");
+  var viewExam = document.getElementById("view-exam");
+  var viewResult = document.getElementById("view-result");
+  function show(v){
+    viewHome.classList.toggle("hidden", v !== "home");
+    viewExam.classList.toggle("hidden", v !== "exam");
+    viewResult.classList.toggle("hidden", v !== "result");
+    window.scrollTo(0,0);
+  }
+
+  function startExam(sub){
+    var m = META[sub], d = window.EXAM_DATA[sub];
+    cur = { sub: sub, answers: {}, remain: m.minutes * 60, timerId: null };
+    document.getElementById("exam-title").textContent = m.name + "（制限時間 " + m.minutes + "分）";
+    var body = document.getElementById("exam-body");
+    body.innerHTML = "";
+    var groups = {};
+    d.groups.forEach(function(g){ groups[g.id] = g; });
+    var renderedGroups = {};
+    d.items.forEach(function(it){
+      var g = groups[it.group];
+      if (g && !renderedGroups[g.id]) {
+        renderedGroups[g.id] = true;
+        var gd = document.createElement("div"); gd.className = "group";
+        var html = '<div class="group-label">' + escapeHtml(g.label) + (it.scored ? "" : '　<span class="badge ref">参考・採点対象外</span>') + "</div>";
+        if (g.intro) html += '<p class="group-intro">' + nl(g.intro) + "</p>";
+        if (g.figure) html += '<figure><img src="' + escapeHtml(g.figure) + '" alt="' + escapeHtml(g.label) + 'の図版"></figure>';
+        if (g.note) html += '<p class="group-note">' + nl(g.note) + "</p>";
+        gd.innerHTML = html;
+        body.appendChild(gd);
+      }
+      var el = document.createElement("div"); el.className = "item";
+      var head = '<div class="item-head"><span class="item-no">解答番号 ' + it.no + (it.label ? "（" + escapeHtml(it.label) + "）" : "") + '</span><span class="item-pts">' + (it.scored ? it.points + "点" : "参考") + "</span></div>";
+      var q = '<p class="item-q">' + nl(it.q) + "</p>";
+      if (it.figure) q += '<figure style="margin-top:8px;"><img src="' + escapeHtml(it.figure) + '" alt="設問の図表" style="width:100%;height:auto;border:1px solid #ddd9d2;border-radius:6px;"></figure>';
+      if (it.note) q += '<p class="item-note">' + nl(it.note) + "</p>";
+      var ch = '<div class="choices">';
+      it.choices.forEach(function(c, i){
+        var isRed = c.indexOf("非公開") >= 0;
+        ch += '<button type="button" class="choice' + (isRed ? " redacted" : "") + '" data-no="' + it.no + '" data-idx="' + i + '"><span class="num">' + CIRCLED[i] + '</span><span>' + nl(c) + "</span></button>";
+      });
+      ch += "</div>";
+      el.innerHTML = head + q + ch;
+      body.appendChild(el);
+    });
+    Array.prototype.forEach.call(body.querySelectorAll(".choice"), function(b){
+      b.addEventListener("click", function(){
+        var no = b.getAttribute("data-no"), idx = parseInt(b.getAttribute("data-idx"), 10);
+        cur.answers[no] = idx;
+        Array.prototype.forEach.call(body.querySelectorAll('.choice[data-no="' + no + '"]'), function(x){ x.classList.remove("sel"); });
+        b.classList.add("sel");
+        updateProgress();
+      });
+    });
+    updateProgress();
+    updateTimer();
+    cur.timerId = setInterval(function(){
+      cur.remain -= 1;
+      if (cur.remain <= 0) { cur.remain = 0; updateTimer(); finishExam(true); return; }
+      updateTimer();
+    }, 1000);
+    show("exam");
+  }
+
+  function updateProgress(){
+    var d = window.EXAM_DATA[cur.sub];
+    var answered = Object.keys(cur.answers).length;
+    document.getElementById("exam-progress").textContent = "回答済み " + answered + " / " + d.items.length + "問";
+  }
+  function updateTimer(){
+    var t = document.getElementById("exam-timer");
+    var mm = Math.floor(cur.remain / 60), ss = cur.remain % 60;
+    t.textContent = (mm < 10 ? "0" : "") + mm + ":" + (ss < 10 ? "0" : "") + ss;
+    t.classList.toggle("low", cur.remain <= 60);
+  }
+
+  function grade(sub, answers){
+    var d = window.EXAM_DATA[sub];
+    var pairGroups = {};
+    d.items.forEach(function(it){
+      if (it.pair) { (pairGroups[it.pair] = pairGroups[it.pair] || []).push(it); }
+    });
+    var pairOk = {};
+    Object.keys(pairGroups).forEach(function(k){
+      pairOk[k] = pairGroups[k].every(function(it){ return it.autoCorrect || answers[it.no] === it.answer - 1; });
+    });
+    var score = 0, rows = [];
+    d.items.forEach(function(it){
+      var user = (answers[it.no] === undefined) ? null : answers[it.no] + 1;
+      var correct;
+      if (it.pair) correct = pairOk[it.pair];
+      else correct = it.autoCorrect || user === it.answer;
+      if (it.scored) {
+        if (it.pair) { /* points added once below */ }
+        else if (correct) score += it.points;
+      }
+      rows.push({ no: it.no, label: it.label || "", user: user, answer: it.answer, correct: correct, scored: it.scored, auto: !!it.autoCorrect, points: it.points });
+    });
+    Object.keys(pairGroups).forEach(function(k){
+      var first = pairGroups[k][0];
+      if (first.scored && pairOk[k]) score += (first.pairPoints || 0);
+    });
+    return { score: score, rows: rows };
+  }
+
+  function finishExam(auto){
+    if (!cur) return;
+    if (!auto) {
+      var d = window.EXAM_DATA[cur.sub];
+      var un = d.items.length - Object.keys(cur.answers).length;
+      if (un > 0 && !window.confirm("未回答が " + un + "問あります。採点しますか？")) return;
+    }
+    clearInterval(cur.timerId);
+    var sub = cur.sub, m = META[sub];
+    var g = grade(sub, cur.answers);
+    var sm = scoredMax(sub);
+    var rate = sm > 0 ? g.score / sm : 0;
+    var verdictText, passed;
+    if (sm === m.full) {
+      passed = g.score >= m.pass;
+      verdictText = passed ? "合格基準に到達" : "合格基準まであと " + (m.pass - g.score) + "点";
+    } else {
+      var conv = Math.round(rate * 100);
+      passed = rate >= m.pass / m.full;
+      verdictText = "参考換算 " + conv + "点（基準 " + m.pass + "点）" + (passed ? " 相当" : " まであと " + (m.pass - conv) + "点相当");
+    }
+    var results = loadResults();
+    results[sub] = { score: g.score, scoredMax: sm, verdictText: verdictText, date: new Date().toISOString(), answers: cur.answers };
+    saveResults(results);
+
+    document.getElementById("res-title").textContent = m.name + " の結果";
+    document.getElementById("res-score").textContent = g.score;
+    document.getElementById("res-max").textContent = "/ " + sm + "点" + (sm < m.full ? "（採点対象分）" : "");
+    var v = document.getElementById("res-verdict");
+    v.textContent = passed ? "合格基準に到達" : "合格基準に未到達";
+    v.className = "verdict " + (passed ? "pass" : "fail");
+    var diff = document.getElementById("res-diff");
+    var sub2 = document.getElementById("res-sub");
+    if (sm === m.full) {
+      diff.textContent = passed ? "合格基準（" + m.pass + "点）を " + (g.score - m.pass) + "点上回りました。" : "合格基準（" + m.pass + "点）まであと " + (m.pass - g.score) + "点です。";
+      sub2.textContent = "";
+    } else {
+      diff.textContent = "得点率 " + Math.round(rate * 100) + "%。" + verdictText + "です。";
+      sub2.textContent = "英語の合格基準は100点満点中70点です。ただし引用本文（問題1・2、60点分）はJNTOが公表していないため、この診断では全公開の問題3・4（40点分）だけで測っています。得点率は目安として見てください。";
+    }
+    var list = document.getElementById("res-list");
+    list.innerHTML = "";
+    var d2 = window.EXAM_DATA[sub];
+    var choiceText = {};
+    d2.items.forEach(function(it){ choiceText[it.no] = it.choices; });
+    g.rows.forEach(function(r){
+      var row = document.createElement("div"); row.className = "res-row";
+      var mark = !r.scored ? '<span class="mark rf">－</span>' : (r.correct ? '<span class="mark ok">○</span>' : '<span class="mark ng">×</span>');
+      var userTxt = r.auto ? "全員正解（公式）" : (r.user === null ? "未回答" : CIRCLED[r.user - 1] + " " + (choiceText[r.no][r.user - 1] || ""));
+      var ansTxt = CIRCLED[r.answer - 1] + " " + (choiceText[r.no][r.answer - 1] || "");
+      row.innerHTML = '<span class="rn">' + r.no + (r.label ? " " + escapeHtml(r.label) : "") + "</span>" + mark +
+        '<span class="ans">あなた：' + escapeHtml(userTxt) + "<br>正解：" + escapeHtml(ansTxt) + (r.scored ? "" : "（参考）") + "</span>";
+      list.appendChild(row);
+    });
+    document.getElementById("btn-retry").onclick = function(){ startExam(sub); };
+    cur = null;
+    show("result");
+  }
+
+  document.getElementById("btn-finish").addEventListener("click", function(){ finishExam(false); });
+  document.getElementById("btn-quit").addEventListener("click", function(){
+    if (cur && !window.confirm("受験を中断しますか？（回答は保存されません）")) return;
+    if (cur) clearInterval(cur.timerId);
+    cur = null;
+    renderHome();
+    show("home");
+  });
+  document.getElementById("btn-home").addEventListener("click", function(){ renderHome(); show("home"); });
+
+  renderHome();
+})();
+</script>
+</body>
+</html>
