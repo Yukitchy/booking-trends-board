@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>自分のインボイス登録番号を間違って覚えていた——Claudeと一次情報で全件監査した記録</title>
+<meta name="description" content="請求書に印字された取引先の登録番号を自分の番号と取り違えていた。Claudeに国税庁公表サイトでの一次確認、発行済み請求書の全件監査、誤送信チェック、発行システムのマスタ修正までやらせた記録。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自分のインボイス登録番号を間違って覚えていた——Claudeと一次情報で全件監査した記録">
+<meta property="og:description" content="請求書に印字された取引先の登録番号を自分の番号と取り違えていた。Claudeに国税庁公表サイトでの一次確認、発行済み請求書の全件監査、誤送信チェック、発行システムのマスタ修正までやらせた記録。">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/invoice-claude-steps/og-d2.jpg">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/invoice-claude-steps/d2.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@600;700;900&family=M+PLUS+Rounded+1c:wght@500;700;800&family=Archivo:wght@600;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+img{max-width:100%}
+
+body{font-family:"Noto Sans JP",sans-serif;background:#f4f6f8;color:#1c2733;line-height:1.85}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 72px}
+.kicker{font-size:12px;letter-spacing:.24em;color:#0b6bcb;font-weight:700}
+h1{font-size:27px;line-height:1.55;font-weight:900;margin:12px 0 26px}
+.sec{margin-top:38px}
+.sec h2{font-size:18px;font-weight:900;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.sec h2:before{content:"";width:26px;height:4px;background:#0b6bcb;border-radius:2px}
+ul.plain{list-style:none}
+ul.plain li{background:#fff;border:1px solid #dde4ea;border-radius:10px;padding:14px 16px;font-size:15px;margin-bottom:10px}
+ol.steps{list-style:none;position:relative;margin-left:22px}
+ol.steps:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;background:#0b6bcb;border-radius:2px}
+ol.steps li{position:relative;padding:0 0 26px 44px}
+ol.steps li:last-child{padding-bottom:4px}
+.snum{position:absolute;left:-22px;top:0;transform:translateX(-50%);width:44px;height:44px;border-radius:50%;background:#0b6bcb;color:#fff;font-weight:800;font-size:19px;display:flex;align-items:center;justify-content:center;border:3px solid #f4f6f8}
+ol.steps h3{font-size:16.5px;font-weight:700}
+ol.steps p{font-size:14.5px;color:#3c4a57;background:#fff;border:1px solid #dde4ea;border-radius:10px;padding:12px 14px;margin-top:6px}
+.back{margin-top:44px;font-size:13px}
+.back a{color:#0b6bcb}
+@media(max-width:480px){h1{font-size:22px}}
+
+</style>
+</head>
+<body class="">
+<div class="wrap">
+<p class="kicker">INVOICE × CLAUDE — STEP BY STEP</p>
+<h1>自分のインボイス登録番号を間違って覚えていた——Claudeと一次情報で全件監査した記録</h1>
+<section class="sec"><h2>発端</h2><ul class="plain"><li>ラジオ収録の準備資料に「インボイス未登録」と書かれていた。前提が古かった（8月時点の記録の使い回し）。</li><li>請求書に印字されていた「宛先（取引先）の登録番号」を、自分の番号だと約1週間思い込んでいた。取り違えた番号は取引先（合同会社TCL Japan）のものだった。</li></ul></section><section class="sec"><h2>Claudeにやらせた手順</h2><ol class="steps"><li><span class="snum">1</span><div><h3>国税庁の公表サイトで一次確認</h3><p>本人の登録情報を公表サイトで確認した。自分の登録番号は <b>T6810695362697</b>、登録日は<b>2026年9月1日</b>。つまり登録済みだった。</p></div></li><li><span class="snum">2</span><div><h3>発行済み請求書を全件監査（No.002〜031）</h3><p>登録前の3件（002・003・004）は番号なしが正しく、004の「適格請求書ではありません」の注記も発行時点で正しい。登録後の026・027・031は全件、正しい番号が印字されていた。<b>不備のある請求書はゼロ、作り直しも不要</b>だった。</p></div></li><li><span class="snum">3</span><div><h3>誤送信が起きていないか、送信済みメールで確認</h3><p>「間違った番号を取引先に伝えてしまったか」を送信済みメールで洗った。2026年11月18〜21日の送信メールに該当なし。間違った番号が写っていたのは取引先宛ての請求書PDFの中（宛先の番号として正しく印字）だけだった。<b>誤送信は起きていなかった</b>。</p></div></li><li><span class="snum">4</span><div><h3>請求書発行システムのマスタを修正</h3><p>発行者情報ファイル（マスタ）を正しい番号に直し、テスト生成で印字を確認してコミット。請求業務の手順書（CLAUDE.md）側の記述も直した。</p></div></li><li><span class="snum">5</span><div><h3>ラジオ収録の準備資料を全面訂正</h3><p>準備資料を正しい内容に直し、要約インフォグラフィックと、共演者への質問5つも用意した。</p></div></li></ol></section><section class="sec"><h2>教訓</h2><ul class="plain"><li>AIは渡された情報を疑わない。間違った前提がメモに入ると、訂正されるまで全業務に伝播する。</li><li>「AIが覚えていること」と「一次情報」は別物。登録の有無・番号は公表サイト、請求書は実物PDF、送信の有無は送信フォルダ、と一次情報で裏を取る。</li><li>間違いが見つかったら1か所直して終わりにしない。準備資料・発行システム・発行済み文書まで、下流を一括で洗い直す。</li></ul></section>
+<p class="back"><a href="index.html">← 5案の見比べボードへ</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>自分のインボイス登録番号を間違って覚えていた——Claudeと一次情報で全件監査した記録</title>
+<meta name="description" content="請求書に印字された取引先の登録番号を自分の番号と取り違えていた。Claudeに国税庁公表サイトでの一次確認、発行済み請求書の全件監査、誤送信チェック、発行システムのマスタ修正までやらせた記録。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自分のインボイス登録番号を間違って覚えていた——Claudeと一次情報で全件監査した記録">
+<meta property="og:description" content="請求書に印字された取引先の登録番号を自分の番号と取り違えていた。Claudeに国税庁公表サイトでの一次確認、発行済み請求書の全件監査、誤送信チェック、発行システムのマスタ修正までやらせた記録。">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/invoice-claude-steps/og-d1.jpg">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/invoice-claude-steps/d1.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@600;700;900&family=M+PLUS+Rounded+1c:wght@500;700;800&family=Archivo:wght@600;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+img{max-width:100%}
+
+body{font-family:"Noto Serif JP",serif;background:#fdfdfa;color:#222;line-height:1.95}
+.wrap{max-width:720px;margin:0 auto;padding:56px 22px 72px}
+.kicker{font-family:"Noto Sans JP",sans-serif;font-size:12px;letter-spacing:.28em;color:#b03a2e;font-weight:700}
+h1{font-size:30px;line-height:1.5;font-weight:900;margin:14px 0 10px}
+.lede{font-family:"Noto Sans JP",sans-serif;font-size:14px;color:#666;border-bottom:3px double #222;padding-bottom:18px}
+.sec{margin-top:44px}
+.sec h2{font-size:20px;font-weight:900;border-left:6px solid #b03a2e;padding-left:12px;margin-bottom:16px}
+ul.plain{list-style:none}
+ul.plain li{font-size:15.5px;padding:12px 0 12px 20px;border-bottom:1px solid #e6e2d8;position:relative}
+ul.plain li:before{content:"—";position:absolute;left:0;color:#b03a2e}
+ol.steps{list-style:none}
+ol.steps li{display:flex;gap:16px;padding:18px 0;border-bottom:1px solid #e6e2d8}
+.snum{font-family:"Archivo",sans-serif;font-weight:800;font-size:26px;color:#b03a2e;line-height:1.2}
+ol.steps h3{font-size:16.5px;font-weight:700;margin-bottom:4px}
+ol.steps p{font-size:15px;color:#333}
+.back{margin-top:52px;font-family:"Noto Sans JP",sans-serif;font-size:13px}
+.back a{color:#b03a2e}
+@media(max-width:480px){h1{font-size:24px}}
+
+</style>
+</head>
+<body class="">
+<div class="wrap">
+<p class="kicker">INVOICE × CLAUDE — 実録</p>
+<h1>自分のインボイス登録番号を間違って覚えていた——Claudeと一次情報で全件監査した記録</h1>
+<p class="lede">デザイン案1 クリーン編集型／事実の記録。誇張なし。</p>
+<section class="sec"><h2>発端</h2><ul class="plain"><li>ラジオ収録の準備資料に「インボイス未登録」と書かれていた。前提が古かった（8月時点の記録の使い回し）。</li><li>請求書に印字されていた「宛先（取引先）の登録番号」を、自分の番号だと約1週間思い込んでいた。取り違えた番号は取引先（合同会社TCL Japan）のものだった。</li></ul></section><section class="sec"><h2>Claudeにやらせた手順</h2><ol class="steps"><li><span class="snum">1</span><div><h3>国税庁の公表サイトで一次確認</h3><p>本人の登録情報を公表サイトで確認した。自分の登録番号は <b>T6810695362697</b>、登録日は<b>2026年9月1日</b>。つまり登録済みだった。</p></div></li><li><span class="snum">2</span><div><h3>発行済み請求書を全件監査（No.002〜031）</h3><p>登録前の3件（002・003・004）は番号なしが正しく、004の「適格請求書ではありません」の注記も発行時点で正しい。登録後の026・027・031は全件、正しい番号が印字されていた。<b>不備のある請求書はゼロ、作り直しも不要</b>だった。</p></div></li><li><span class="snum">3</span><div><h3>誤送信が起きていないか、送信済みメールで確認</h3><p>「間違った番号を取引先に伝えてしまったか」を送信済みメールで洗った。2026年11月18〜21日の送信メールに該当なし。間違った番号が写っていたのは取引先宛ての請求書PDFの中（宛先の番号として正しく印字）だけだった。<b>誤送信は起きていなかった</b>。</p></div></li><li><span class="snum">4</span><div><h3>請求書発行システムのマスタを修正</h3><p>発行者情報ファイル（マスタ）を正しい番号に直し、テスト生成で印字を確認してコミット。請求業務の手順書（CLAUDE.md）側の記述も直した。</p></div></li><li><span class="snum">5</span><div><h3>ラジオ収録の準備資料を全面訂正</h3><p>準備資料を正しい内容に直し、要約インフォグラフィックと、共演者への質問5つも用意した。</p></div></li></ol></section><section class="sec"><h2>教訓</h2><ul class="plain"><li>AIは渡された情報を疑わない。間違った前提がメモに入ると、訂正されるまで全業務に伝播する。</li><li>「AIが覚えていること」と「一次情報」は別物。登録の有無・番号は公表サイト、請求書は実物PDF、送信の有無は送信フォルダ、と一次情報で裏を取る。</li><li>間違いが見つかったら1か所直して終わりにしない。準備資料・発行システム・発行済み文書まで、下流を一括で洗い直す。</li></ul></section>
+<p class="back"><a href="index.html">← 5案の見比べボードへ</a></p>
+</div>
+</body>
+</html>
