@@ -1,0 +1,41 @@
+{
+ "Mon–Fri 11:00 AM – 7:30 PM · Sat & Sun from 10:00 AM": {
+  "es": "lun–vie 11:00 AM – 7:30 PM · sáb y dom desde las 10:00 AM"
+ },
+ "Mon–Fri 12:00 PM – 8:00 PM · Sat & Sun from 11:00 AM": {
+  "es": "lun–vie 12:00 PM – 8:00 PM · sáb y dom desde las 11:00 AM"
+ },
+ "Mon–Fri 12:00 PM – 9:00 PM · Sat & Sun from 11:00 AM": {
+  "es": "lun–vie 12:00 PM – 9:00 PM · sáb y dom desde las 11:00 AM"
+ },
+ "Mon–Thu 11:00 AM – 8:00 PM · Fri–Sun until 9:00 PM": {
+  "es": "lun–jue 11:00 AM – 8:00 PM · vie–dom hasta las 9:00 PM"
+ },
+ "Mon–Tue 12:30–5:30 PM · Thu–Sun 12:30–7:00 PM": {
+  "es": "lun–mar 12:30–5:30 PM · jue–dom 12:30–7:00 PM"
+ },
+ "11:00 AM – 9:00 PM · Sat & Sun from 10:00 AM": {
+  "es": "11:00 AM – 9:00 PM · sáb y dom desde las 10:00 AM"
+ },
+ "From 12:30 PM · Mon–Fri until 7:30 PM, Sat until 8:00 PM": {
+  "es": "Desde las 12:30 PM · lun–vie hasta las 7:30 PM, sáb hasta las 8:00 PM"
+ },
+ "CLOSED WED": {
+  "es": "CERRADO MIÉ"
+ },
+ "CLOSED TUE & WED": {
+  "es": "CERRADO MAR Y MIÉ"
+ },
+ "CLOSED MON & FRI": {
+  "es": "CERRADO LUN Y VIE"
+ },
+ "CLOSED IRREGULAR": {
+  "es": "CERRADO IRREGULAR"
+ },
+ "Items": {
+  "es": "Artículos"
+ },
+ "Thrift Map — a guest guide by Anime Sensei": {
+  "es": "Thrift Map — una guía de Anime Sensei para viajeros"
+ }
+}

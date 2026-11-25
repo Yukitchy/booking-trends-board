@@ -4,7 +4,7 @@
 #  - root URL redirects to the default area; one area per page
 #  - H1 area switcher (<details> + "Tap to change area" hint)
 #  - header: small transparent logo left, language button (flag + code) right;
-#    the button cycles EN -> JA -> ZH -> ES -> DE -> KO, swapping page text
+#    the button cycles EN -> ES -> JA -> ZH -> DE -> KO, swapping page text
 #    from the __T dictionary (eatmap's engine, localStorage + ?lang=)
 #  - hero: 3-photo collage + black status bar
 #  - "I'm after" category chips that filter map pins and cards
@@ -632,11 +632,11 @@ KNOW_HTML = """
 LANG_JS = r"""
 <script>
 /* Language switch — same system as eatmap: the button cycles
-   EN -> JA -> ZH -> ES -> DE -> KO, swapping visible text from the
+   EN -> ES -> JA -> ZH -> DE -> KO, swapping visible text from the
    __T dictionary. Choice persists in localStorage; ?lang= wins. */
 window.__T = __T_DICT__;
 (function(){
-var LANGS=['en','ja','zh','es','de','ko'];
+var LANGS=['en','es','ja','zh','de','ko'];
 var orig=new WeakMap();
 function tr(s,L){
   if(L==='en')return s;
@@ -1049,6 +1049,7 @@ def root_page(data):
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="refresh" content="0; url={DEFAULT_SLUG}/">
+<script>location.replace("{DEFAULT_SLUG}/"+location.search+location.hash);</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Thrift Map — Tokyo vintage &amp; second-hand clothing | Anime Sensei</title>
 <meta name="description" content="{escape(desc)}">
