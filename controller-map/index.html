@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>コントローラー設定一覧 5案</title>
+<meta property="og:title" content="コントローラー設定一覧 5案">
+<meta property="og:description" content="GameSir G8 Plus × Moonlight（マウスモード）の現行割り当てを1枚にまとめる画像のデザイン5案。中身は全案共通で、実機プロファイル「カスタム1」とコンバータ実装から抽出。">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/controller-map/og.jpg">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/controller-map/">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #f4f2ed; color: #191919;
+         font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif; }
+  header { padding: 30px 18px 4px; max-width: 1060px; margin: 0 auto; }
+  h1 { font-size: 25px; margin: 0 0 10px; letter-spacing: .02em; }
+  header p { font-size: 13.5px; line-height: 1.8; color: #55534e; margin: 0 0 8px; }
+  header p b { color: #191919; }
+  main { max-width: 1060px; margin: 0 auto; padding: 8px 14px 56px; }
+  section { margin: 30px 0 40px; }
+  .tag { display: flex; align-items: center; gap: 9px; margin: 0 2px 10px; flex-wrap: wrap; }
+  .num { background: #151515; color: #fff; font-weight: 700; font-size: 14px;
+         padding: 3px 11px; border-radius: 999px; letter-spacing: .04em; white-space: nowrap; }
+  .name { font-size: 17.5px; font-weight: 700; }
+  .size { margin-left: auto; font-size: 13px; font-weight: 700; color: #c22f24; white-space: nowrap; }
+  .size small { color: #8a867e; font-weight: 500; }
+  figure { margin: 0; }
+  figure img { display: block; width: 100%; border-radius: 10px;
+               box-shadow: 0 4px 18px rgba(20,20,20,.16); border: 1px solid #e2ded4; }
+  figcaption { margin: 10px 2px 0; font-size: 13px; line-height: 1.8; color: #55534e; }
+  figcaption b { color: #191919; }
+  .open { display: inline-block; margin-top: 6px; font-weight: 700; color: #191919; }
+</style>
+</head>
+<body>
+<header>
+  <h1>コントローラー設定一覧 5案</h1>
+  <p>GameSir G8 Plus × Moonlight フォーク（マウスモード）の<b>現行の割り当てぜんぶを1枚の画像にまとめる</b>ためのデザイン案。中身は全案まったく同じで、実機プロファイル「カスタム1」とコンバータの実装コードから正確に抜いたもの。<b>本日追加した LB+LT＝取り消し（⌘+Z）／LB+RT＝やり直し（⌘+Shift+Z）</b>も入っている。区分は「通常（マウスモード）」「LB同時押し」「特殊コンボ」の3つ。</p>
+  <p>選ばれた案が、そのまま実際の一覧画像になり、次に <b>LB+＋ボタン</b> へ割り当てる。画像はすべて横1600pxの実寸レンダリング。</p>
+</header>
+<main>
+
+  <section>
+    <div class="tag"><span class="num">1</span><span class="name">コントローラー図解型</span><span class="size">1600×1724px</span></div>
+    <figure>
+      <img src="shot-v1.png" alt="案1 コントローラー図解型">
+      <figcaption>パッドの絵から<b>引き出し線</b>で各ボタンの動作へつないだ図解。「押す場所」と「起きること」が直結して分かるので、最初に覚える1枚として一番強い。下半分はLB同時押しと特殊コンボを帯で整理。<br><a class="open" href="shot-v1.png">→ 画像を実寸で開く</a></figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="tag"><span class="num">2</span><span class="name">早見表型</span><span class="size">1600×1413px</span></div>
+    <figure>
+      <img src="shot-v2.png" alt="案2 早見表型">
+      <figcaption>黒帯ヘッダー＋表3枚の<b>実用一辺倒</b>の早見表。装飾を捨てて文字の密度で勝負するので、目的のボタンを一番速く探せる。5案でいちばんコンパクト（縦が最短クラス）。<br><a class="open" href="shot-v2.png">→ 画像を実寸で開く</a></figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="tag"><span class="num">3</span><span class="name">カード型</span><span class="size">1600×1559px</span></div>
+    <figure>
+      <img src="shot-v3.png" alt="案3 カード型">
+      <figcaption>ボタンごとにタイルを並べた<b>今風のカードUI</b>。レイヤーごとにドットとボタンの色を変えて区別した。画面でパッと見たときの分かりやすさと、アプリっぽい親しみやすさのバランス型。<br><a class="open" href="shot-v3.png">→ 画像を実寸で開く</a></figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="tag"><span class="num">4</span><span class="name">ダーク・ゲーミング型</span><span class="size">1600×1384px</span></div>
+    <figure>
+      <img src="shot-v4.png" alt="案4 ダーク・ゲーミング型">
+      <figcaption>暗い背景にネオンの枠線で組んだ<b>ゲーミング機材風</b>。レイヤーごとにネオン色（緑／オレンジ／紫）を割り当てた。縦は5案で最短。暗い画面で開いても眩しくない。<br><a class="open" href="shot-v4.png">→ 画像を実寸で開く</a></figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="tag"><span class="num">5</span><span class="name">ミニマル・タイポ型</span><span class="size">1600×1567px</span></div>
+    <figure>
+      <img src="shot-v5.png" alt="案5 ミニマル・タイポ型">
+      <figcaption>白地に明朝の大見出しと細い罫線だけの<b>編集デザイン型</b>。色も装飾もほぼ無しで、余白と文字の強弱だけで読ませる。印刷して貼ってもきれいな1枚。<br><a class="open" href="shot-v5.png">→ 画像を実寸で開く</a></figcaption>
+    </figure>
+  </section>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>コントローラー設定一覧｜案</title>
+<style>
+
+* { box-sizing: border-box; }
+body { margin: 0; width: 1600px; background: #eef0f3; color: #1c2430; font-family: "Noto Sans CJK JP","Hiragino Kaku Gothic ProN",sans-serif; }
+.wrap { padding: 54px 56px 48px; }
+header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 28px; }
+h1 { font-size: 44px; margin: 0; letter-spacing: .02em; }
+.sub { font-size: 18px; color: #68707c; margin-top: 9px; }
+.mode { font-size: 16px; font-weight: 700; color: #fff; background: linear-gradient(135deg,#3b6fe0,#7a4fe0); padding: 10px 18px; border-radius: 999px; white-space: nowrap; box-shadow: 0 6px 16px rgba(80,90,220,.35); }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; align-items: start; }
+.card { background: #fff; border-radius: 20px; box-shadow: 0 4px 18px rgba(25,35,60,.09); padding: 24px 26px 14px; margin-bottom: 22px; }
+.card h2 { font-size: 23px; margin: 0 0 2px; display: flex; align-items: center; gap: 10px; }
+.card h2 .dot { width: 13px; height: 13px; border-radius: 50%; background: #3b6fe0; display: inline-block; }
+.card.lb h2 .dot { background: #e0643b; }
+.card.combo h2 .dot { background: #8a4fe0; }
+.card .lead { font-size: 15.5px; color: #68707c; margin: 0 0 14px; }
+h3 { font-size: 14.5px; color: #8a93a1; letter-spacing: .12em; margin: 16px 0 8px; }
+h3:first-of-type { margin-top: 6px; }
+.tile { display: flex; align-items: center; gap: 13px; background: #f5f7fa; border-radius: 12px; padding: 10px 14px; margin-bottom: 8px; }
+.tile .btn { min-width: 118px; text-align: center; background: #1c2430; color: #fff; font-weight: 700; font-size: 16px; padding: 6px 10px; border-radius: 9px; white-space: nowrap; }
+.card.lb .tile .btn { background: #b34a24; }
+.card.combo .tile .btn { background: #5b32a8; min-width: 210px; }
+.tile .act { font-size: 17.5px; font-weight: 700; }
+.tile .key { margin-left: auto; font-size: 14.5px; color: #68707c; white-space: nowrap; }
+.new { background: #e0342b; color: #fff; font-size: 11.5px; font-weight: 700; padding: 2.5px 8px; border-radius: 999px; white-space: nowrap; }
+footer { margin-top: 4px; font-size: 15px; color: #68707c; line-height: 1.9; }
+
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<header>
+  <div><h1>コントローラー設定一覧</h1><div class="sub">GameSir G8 Plus × Moonlight（マウスモード）／プロファイル「カスタム1」</div></div>
+  <div class="mode">LB+RB で ゲームモード と切替</div>
+</header>
+<div class="grid">
+  <div class="card">
+    <h2><span class="dot"></span>通常（マウスモード）</h2>
+    <p class="lead">普段の操作はこの面。クリック・スクロール・スペース移動。</p>
+    <h3>スティック</h3><div class="tile"><span class="btn">左スティック</span><span class="act">カーソル移動</span><span class="key"></span></div><div class="tile"><span class="btn">右スティック</span><span class="act">上下：スクロール／左右に倒す：戻る・進む</span><span class="key"></span></div><div class="tile"><span class="btn">L3（左スティック押込み）</span><span class="act">全画面スクショ</span><span class="key">Ctrl+⌘+Shift+3</span></div><div class="tile"><span class="btn">R3（右スティック押込み）</span><span class="act">範囲スクショ</span><span class="key">Ctrl+⌘+Shift+4</span></div><h3>ボタン</h3><div class="tile"><span class="btn">A</span><span class="act">Mission Control</span><span class="key">Ctrl+↑</span></div><div class="tile"><span class="btn">B</span><span class="act">右クリック</span><span class="key"></span></div><div class="tile"><span class="btn">X</span><span class="act">左クリック</span><span class="key"></span></div><div class="tile"><span class="btn">Y</span><span class="act">中央クリック</span><span class="key"></span></div><h3>トリガー・バンパー</h3><div class="tile"><span class="btn">LT</span><span class="act">前のスペース</span><span class="key">Ctrl+←</span></div><div class="tile"><span class="btn">RT</span><span class="act">次のスペース</span><span class="key">Ctrl+→</span></div><div class="tile"><span class="btn">RB</span><span class="act">Enter</span><span class="key">長押しで連続入力</span></div><div class="tile"><span class="btn">LB</span><span class="act">押している間だけ「LB同時押し」が有効</span><span class="key"></span></div><h3>十字キー</h3><div class="tile"><span class="btn">十字キー ↑↓←→</span><span class="act">矢印キー</span><span class="key">長押しで連続入力</span></div><h3>＋／－ボタン</h3><div class="tile"><span class="btn">＋（Menu）</span><span class="act">拡大</span><span class="key">⌘+＋</span></div><div class="tile"><span class="btn">－（View）</span><span class="act">縮小</span><span class="key">⌘+－</span></div>
+  </div>
+  <div>
+    <div class="card lb">
+      <h2><span class="dot"></span>LB同時押し</h2>
+      <p class="lead">LBを押している間だけ効く第2レイヤー。編集系ショートカット。</p>
+      <div class="tile"><span class="btn">LB+A</span><span class="act">すべて選択</span><span class="key">⌘+A</span></div><div class="tile"><span class="btn">LB+X</span><span class="act">コピー</span><span class="key">⌘+C</span></div><div class="tile"><span class="btn">LB+B</span><span class="act">ペースト</span><span class="key">⌘+V</span></div><div class="tile"><span class="btn">LB+Y</span><span class="act">クリップボード履歴（Clipy）</span><span class="key">⌘+D</span></div><div class="tile"><span class="btn">LB+LT</span><span class="act">取り消し</span><span class="new">NEW</span><span class="key">⌘+Z</span></div><div class="tile"><span class="btn">LB+RT</span><span class="act">やり直し</span><span class="new">NEW</span><span class="key">⌘+Shift+Z</span></div><div class="tile"><span class="btn">LB+＋（Menu）</span><span class="act">Muse を前面に（設定ページ）</span><span class="key">マクロ</span></div><div class="tile"><span class="btn">LB+－（View）</span><span class="act">ウィンドウを閉じる</span><span class="key">⌘+W</span></div><div class="tile"><span class="btn">LB+十字 ↑</span><span class="act">リロード</span><span class="key">⌘+R</span></div><div class="tile"><span class="btn">LB+十字 →</span><span class="act">次のタブ</span><span class="key">⌘+Option+→</span></div><div class="tile"><span class="btn">LB+十字 ←</span><span class="act">前のタブ</span><span class="key">⌘+Option+←</span></div>
+    </div>
+    <div class="card combo">
+      <h2><span class="dot"></span>特殊コンボ</h2>
+      <p class="lead">同時押し専用の操作。背面ボタンからも出せる。</p>
+      <div class="tile"><span class="btn">LB ＋ RB</span><span class="act">マウス ⇄ ゲーム　モード切替</span><span class="key"></span></div><div class="tile"><span class="btn">LT ＋ RT（同時長押し）</span><span class="act">削除（Backspace）／長押しで連続</span><span class="key">背面ボタン L4 でも同じ</span></div><div class="tile"><span class="btn">View ＋ Menu（－と＋）</span><span class="act">音声入力</span><span class="key">背面ボタン R4 でも同じ</span></div>
+    </div>
+  </div>
+</div>
+<footer>※ スクショはどちらもクリップボードにコピーされます（ファイルには保存されません）<br>※ 設定値：カーソル速度 6／スクロール速度 16／デッドゾーン 10%</footer>
+</div>
+</body>
+</html>
