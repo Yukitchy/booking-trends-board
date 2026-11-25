@@ -41,6 +41,8 @@ header{padding-top:16px}
 .up b{font-size:15px;font-weight:900;display:block;line-height:1.4}
 .up .uptx span{display:block;font-size:11.5px;color:var(--sub);font-weight:700}
 .up input{display:none}
+button.up{font-family:var(--jp);text-align:left;width:100%;color:var(--ink)}
+.upstack .up + .up{margin-top:10px}
 .cv1{margin-top:16px;background:var(--card);border:3px solid var(--ink);border-radius:18px;box-shadow:6px 6px 0 var(--ink);padding:13px 13px 12px}
 .cv1 .calhd{display:flex;align-items:center;justify-content:space-between}
 .cv1 .calhd h3{font-size:17px;font-weight:900;letter-spacing:.04em}
@@ -147,6 +149,8 @@ button.use{font-family:var(--jp);font-size:11.5px;font-weight:900;border-radius:
     grid-template-areas:"head head" "up search" "cal filters" "cal main" "pend main" "foot foot"}
   header{grid-area:head}
   .up{grid-area:up}
+  .upstack{grid-area:up}
+  .upstack .up{grid-area:auto}
   .cv1{grid-area:cal;position:sticky;top:18px}
   .search{grid-area:search}
   .filters{grid-area:filters;align-self:start}
@@ -167,7 +171,10 @@ button.use{font-family:var(--jp);font-size:11.5px;font-weight:900;border-radius:
 <div class="brandrow"><span class="mk"><img src="mark-bubble.png" alt=""></span>
 <div><p class="en">TOUR LOG</p><h1>つあろぐ</h1></div></div>
 </header>
+<div class="upstack">
 <label class="up"><span class="n">1</span><span class="uptx"><b>＋ 録音をアップ</b><span>ステップ1「録る」から新しい1本が付きます</span></span><input type="file" id="upfile" accept="audio/*" multiple></label>
+<button type="button" class="up chestrec" id="chestrec"><span class="n">2</span><span class="uptx"><b>胸レコ取り込み</b><span>クラウドの未取り込み音声を判別してカードに追加します</span></span></button>
+</div>
 <div class="cv1" id="cal"></div>
 <div class="search"><input type="search" id="q" placeholder="ゲスト名・題・本音で検索 — 再訪の人の前回ログがすぐ開けます"></div>
 <div class="filters" id="filters">
@@ -1811,8 +1818,8 @@ const GUESTS = [
  }
 ];
 const LS_KEY = "tsuarogu_guestbook_v1";
-let state = {uploads:[]};
-try{ const s = JSON.parse(localStorage.getItem(LS_KEY)); if(s && Array.isArray(s.uploads)) state.uploads = s.uploads; }catch(e){}
+let state = {uploads:[], requests:[]};
+try{ const s = JSON.parse(localStorage.getItem(LS_KEY)); if(s){ if(Array.isArray(s.uploads)) state.uploads = s.uploads; if(Array.isArray(s.requests)) state.requests = s.requests; } }catch(e){}
 function save(){ try{ localStorage.setItem(LS_KEY, JSON.stringify(state)); }catch(e){} }
 const WD = ["日","月","火","水","木","金","土"];
 function dstr(ds){ const d = new Date(ds+"T00:00:00"); return ds.replace(/-/g,".").slice(5) + " " + WD[d.getDay()]; }
@@ -1930,15 +1937,24 @@ function render(){
 }
 function renderPending(){
   const box = document.getElementById("pending");
-  if(!state.uploads.length){ box.innerHTML = ""; return; }
-  box.innerHTML = '<section class="pend-sec"><h3>処理待ちの録音</h3><p class="note">この端末に控えがあります。Muse へ送ると「まとめる」が始まります。</p>' +
-    state.uploads.map((u,i) =>
+  if(!state.uploads.length && !state.requests.length){ box.innerHTML = ""; return; }
+  let h = '<section class="pend-sec"><h3>処理待ちの録音</h3><p class="note">この端末に控えがあります。Muse へ送ると「まとめる」が始まります。</p>';
+  h += state.requests.map((r,i) =>
+      '<article class="entry pend"><div class="ephoto" style="background:#B4552D;font-size:18px">胸</div><div class="ebody">' +
+      '<h4>胸レコ取り込み</h4><p class="edate2">' + esc(r.added) + ' リクエスト ・ クラウドの未取り込み音声</p>' +
+      '<p class="tags"><span class="scope">自分だけ</span><span class="st st-proc">取り込み待ち</span>' +
+      '<button class="del" data-delreq="' + i + '">控えを消す</button></p></div></article>').join("");
+  h += state.uploads.map((u,i) =>
       '<article class="entry pend"><div class="ephoto" style="background:#8A8578;font-size:18px">録</div><div class="ebody">' +
       '<h4>' + esc(u.name) + '</h4><p class="edate2">' + esc(u.added) + ' 追加 ・ ' + esc(u.size) + '</p>' +
       '<p class="tags"><span class="scope">自分だけ</span><span class="st st-proc">処理中</span>' +
       '<button class="del" data-delup="' + i + '">控えを消す</button></p></div></article>').join("") + '</section>';
+  box.innerHTML = h;
   box.querySelectorAll("[data-delup]").forEach(b => b.addEventListener("click", () => {
     state.uploads.splice(Number(b.dataset.delup), 1); save(); renderPending();
+  }));
+  box.querySelectorAll("[data-delreq]").forEach(b => b.addEventListener("click", () => {
+    state.requests.splice(Number(b.dataset.delreq), 1); save(); renderPending();
   }));
 }
 function bind(){
@@ -2031,11 +2047,28 @@ document.getElementById("draft-copy").addEventListener("click", async () => {
 document.querySelectorAll("[data-close]").forEach(b => b.addEventListener("click", () => document.getElementById(b.dataset.close).classList.remove("open")));
 document.querySelectorAll(".sheet").forEach(s => s.addEventListener("click", ev => { if(ev.target === s) s.classList.remove("open"); }));
 /* Muse送付用コピー */
+async function copyPayload(msg){
+  const payload = { tool: "つあろぐ", uploads: state.uploads, requests: state.requests };
+  try{ await navigator.clipboard.writeText(JSON.stringify(payload, null, 1)); toast(msg); return true; }
+  catch(e){ return false; }
+}
 document.getElementById("export").addEventListener("click", async () => {
-  const payload = { tool: "つあろぐ", uploads: state.uploads };
-  const t = JSON.stringify(payload, null, 1);
-  try{ await navigator.clipboard.writeText(t); toast("処理待ちをコピーしました"); }
-  catch(e){ toast("コピーできませんでした"); }
+  if(!await copyPayload("処理待ちをコピーしました")) toast("コピーできませんでした");
+});
+/* 胸レコ取り込み（クラウドの未取り込み音声を判別してカード化するリクエストを積む） */
+document.getElementById("chestrec").addEventListener("click", async () => {
+  if(state.requests.some(r => r.kind === "chestrec")){
+    toast("すでに取り込み待ちです"); 
+    document.getElementById("pending").scrollIntoView({behavior:"smooth"});
+    return;
+  }
+  const today = new Date();
+  const ds = today.getFullYear() + "-" + String(today.getMonth()+1).padStart(2,"0") + "-" + String(today.getDate()).padStart(2,"0");
+  state.requests.unshift({ kind: "chestrec", added: ds });
+  save(); renderPending();
+  document.getElementById("pending").scrollIntoView({behavior:"smooth"});
+  if(await copyPayload("取り込みリクエストを登録しました")) return;
+  toast("取り込みリクエストを登録しました");
 });
 render();
 </script>
