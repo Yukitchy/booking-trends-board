@@ -148,7 +148,15 @@ h1.title{font-size:23px;font-weight:900;line-height:1.5;margin-top:16px}
   .tocbox .r{padding:7px 4px}
   .tocbox .x{font-size:13px}
   .tocbox .t{font-family:var(--lat)}
-  /* 場面＝誌面のセクション: カード枠を外し、3px罫の見出し＋横書き本文で組む */
+  /* 場面＝誌面のセクション: カード枠を外し、3px罫の見出し＋横書き本文で組む。
+     注記カラムの扱い（2026-11-25 追加改修、ユウキ実機FB「朱書きが長すぎて下にスクロール
+     するのがめんどい」）: 注記（客の声・朱書き・要確認）が本文より多い場面では、
+     grid の行高が注記側で決まり、ページ全長の約半分が注記タワーになっていた
+     （alan 実測: 全長33,620px 中 15,179px が注記の超過分）。対策として注記カラムを
+     絶対配置でフローから外し、高さを本文カラムと同高に固定して内部スクロールさせる。
+     これでページの縦は本文の長さだけで決まり、注記は場面の隣で全件読める。
+     sticky 方式では本文の短い場面で最大1画面分ずつ行が伸びるため不採用。
+     本文側は margin-right で注記カラム幅（230px＋間隔28px）を空ける */
   .rd .scene{border:0;border-radius:0;background:transparent;overflow:visible;margin-top:44px}
   .rd .scene .hd{border-bottom:3px solid var(--fg);padding:0 0 10px;align-items:center;font-size:21px;font-weight:900}
   .rd .scene .hd i{font-size:12.5px}
@@ -161,13 +169,15 @@ h1.title{font-size:23px;font-weight:900;line-height:1.5;margin-top:16px}
   .rd .scene .hd .chip b{font-family:var(--lat);font-size:19px;font-weight:900}
   .rd .scene .phs,.rd .scene .phs.one{display:flex;flex-direction:column;gap:14px;background:none;margin-top:16px}
   .rd .scene .phs img{height:300px;max-height:none;border:3px solid var(--fg)}
-  .rd .scene .pg{display:block;padding:16px 0 0}
-  .rd .scene .pg:has(> .ef){display:grid;grid-template-columns:minmax(0,1fr) 230px;column-gap:28px;align-items:start}
+  .rd .scene .pg{display:block;padding:16px 0 0;position:relative}
+  .rd .scene .pg:has(> .ef) .col{margin-right:258px}
   .rd .scene .col{writing-mode:horizontal-tb;height:auto;overflow:visible;font-size:16.5px;line-height:2.15;letter-spacing:.02em;padding:0}
   .rd .scene .col::first-letter{font-size:2.5em;font-weight:800;color:var(--acc);line-height:1}
-  .rd .scene .pg:has(> .ef) .col{grid-column:1;grid-row:1}
-  .rd .scene .ef{width:auto;gap:14px}
-  .rd .scene .pg:has(> .ef) .ef{grid-column:2;grid-row:1}
+  .rd .scene .ef{width:230px;gap:14px}
+  .rd .scene .pg:has(> .ef) .ef{position:absolute;top:16px;right:0;bottom:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;padding:2px 2px 2px 0}
+  .rd .scene .pg:has(> .ef) .ef::-webkit-scrollbar{width:6px}
+  .rd .scene .pg:has(> .ef) .ef::-webkit-scrollbar-thumb{background:#c9c2ae;border-radius:3px}
+  .rd .scene .pg:has(> .ef) .ef::-webkit-scrollbar-track{background:transparent}
   .rd .scene .ef>div{border:2px solid var(--fg);border-radius:0;padding:14px 16px;box-shadow:none}
   .rd .scene .e1 q{font-family:var(--mincho);font-style:normal;font-weight:700;font-size:14.5px}
   .rd .scene .f1 .lb,.rd .scene .d1 .lb{color:#c22f1d}
