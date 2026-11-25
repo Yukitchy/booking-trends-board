@@ -90,10 +90,8 @@ h1.title{font-size:23px;font-weight:900;line-height:1.5;margin-top:16px}
 .tabbar span,.tabbar a{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;color:#6a7283;text-decoration:none;font-weight:700}
 .tabbar .on{color:var(--acc)}
 .tabbar svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-/* PC専用ナビ（案4 タイトルカード統合型、2026-11-25）: スマホでは常時非表示。
-   PC幅でのみ下部タブの代わりにタイトルカード直下のタブ列として出す（PCブロック側で表示切替） */
-.pcnav{display:none}
-.pcnav svg{stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+/* PC専用タブ列 .pcnav（案4）は 2026-11-25 のユウキ指示で丸ごと廃止。
+   右3項目（写真・原文・設定）が押せない空ボタンだったため。生成側でも出さない */
 .foot{margin-top:26px;border-top:1px solid var(--line);padding-top:12px;font-size:10.5px;color:var(--mute);font-weight:700;line-height:1.7}
 .foot a{color:var(--fg);font-weight:900}
 @media (max-width:640px){
@@ -118,8 +116,9 @@ h1.title{font-size:23px;font-weight:900;line-height:1.5;margin-top:16px}
      ブランド色（オレンジ／インク／紙）と3px罫・オフセット影で誌面らしく組む。
      DOM の組み替えは末尾の PC_JS が PC幅のときだけ行う。スマホ表示は現行のまま。
      2026-11-25 追加改修（ユウキ決定2件）:
-     (1) ナビは案4 タイトルカード統合型（ボード tsuarogu-read-pc-nav）:
-         下部固定タブを廃止し、タイトルカード直下にタブ列 .pcnav を組み込む。
+     (1) ナビは案4 タイトルカード統合型（ボード tsuarogu-read-pc-nav）で
+         タイトルカード直下にタブ列 .pcnav を組み込んだが、同日中にユウキ指示で
+         タブ列ごと廃止（右3項目が空ボタンで不要と判断）。下部固定タブも出さない。
      (2) 本文幅の拡大: 右の目次レール（330px）を廃止して目次はフロー内（折りたたみ）に戻し、
          注記カラムも 300px → 230px に細くして、本文カラムを約498px → 約942px（1440px時）へ広げる */
   .rd{--bg:#fbfaf7;--fg:#151515;--mute:#55503f;--line:#e7e1d0;--card:#fff;--acc:#ff6a13;--acc2:#2e6f6a;--lat:"Archivo","Zen Kaku Gothic New",sans-serif}
@@ -135,15 +134,9 @@ h1.title{font-size:23px;font-weight:900;line-height:1.5;margin-top:16px}
   .hcard .kick,.titlecard .kick{font-family:var(--lat);font-weight:900;letter-spacing:.28em;font-size:11px;color:var(--acc)}
   .hcard h1.title,.titlecard h1.title{font-size:30px;line-height:1.35;margin:6px 0 4px}
   .hcard .smeta,.titlecard .smeta{font-size:13.5px;color:var(--mute);margin-top:0}
-  /* 案4: 下部固定タブをやめ、タイトルカード直下のタブ列にする（流れていくページ内ナビ） */
+  /* PCでは下部固定タブを出さない（タイトルカード直下のタブ列 .pcnav も廃止済み） */
   .tabbar{display:none}
-  .pcnav{display:block;margin-top:26px;background:#fff;border:3px solid var(--fg)}
-  .pcnav .nvs{display:flex}
-  .pcnav .nv{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:13px 0;font-size:14px;font-weight:900;color:var(--mute);text-decoration:none;border-left:2px solid var(--line)}
-  .pcnav .nv:first-child{border-left:0}
-  .pcnav .nv svg{width:19px;height:19px}
-  .pcnav .nv.on{color:var(--fg);box-shadow:inset 0 -4px 0 var(--acc)}
-  /* 目次はレール固定をやめフロー内へ（初期は折りたたみ。タブ列の「目次」から飛べる） */
+  /* 目次はレール固定をやめフロー内へ（初期は折りたたみ。目次カード自体の見出しボタンで開く） */
   .tocbox{margin-top:26px;border:3px solid var(--fg);border-radius:0;background:#fff}
   .tocbox .r{padding:7px 4px}
   .tocbox .x{font-size:13px}
@@ -203,7 +196,6 @@ h1.title{font-size:23px;font-weight:900;line-height:1.5;margin-top:16px}
 <h1 class="title">ボストンの家族と秋葉原アニメツアー</h1>
 <p class="smeta">Alan家 ・ 2026.11.05 木 ・ 11:28〜 ・ 238分 ・ <span class="ch">Viator</span> ・ 録音2本を1つの読み物にまとめています</p>
 <div class="hero" id="topphoto"><img src="../img/ep-alan.jpg" alt=""></div>
-<nav class="pcnav"><div class="nvs"><a class="nv on" href="#toc"><svg viewBox="0 0 24 24"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg><span>目次</span></a><a class="nv" href="../"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6"/><rect x="14" y="4" width="6" height="6"/><rect x="4" y="14" width="6" height="6"/><rect x="14" y="14" width="6" height="6"/></svg><span>一覧</span></a><a class="nv" href="#topphoto"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="1.5"/><path d="M21 16l-5-5-8 8"/></svg><span>写真</span></a><span class="nv"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5"/></svg><span>原文</span></span><span class="nv"><svg viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg><span>設定</span></span></div></nav>
 <div class="tocbox" id="toc"><button type="button" class="tochd" id="tochd" aria-expanded="false" aria-controls="toclist"><span class="tocttl">目次</span><span class="toccnt">全28場面</span><svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9l7 7 7-7"/></svg></button><div class="toclist" id="toclist" hidden>
 <p class="partsep">録音1 ・ 11:28〜 ・ 180分</p><a class="r" href="#s1"><span class="t"><i>AM</i><b>11:28</b><small>〜11:48</small></span><span class="x">挨拶・旅程・今日の予定</span></a><a class="r" href="#s2"><span class="t"><i>AM</i><b>11:48</b><small>〜11:58</small></span><span class="x">写真・好きなアニメの話</span></a><a class="r" href="#s3"><span class="t"><i>AM</i><b>11:58</b><small>〜12:08</small></span><span class="x">ガチャポン体験</span></a><a class="r" href="#s4"><span class="t"><i>PM</i><b>12:08</b><small>〜12:16</small></span><span class="x">カード・ビル案内・パチンコ</span></a><a class="r" href="#s5"><span class="t"><i>PM</i><b>12:16</b><small>〜12:29</small></span><span class="x">中古書店でマンガ選び</span></a><a class="r" href="#s6"><span class="t"><i>PM</i><b>12:29</b><small>〜12:37</small></span><span class="x">ガンダムとマクロス探し</span></a><a class="r" href="#s7"><span class="t"><i>PM</i><b>12:37</b><small>〜12:44</small></span><span class="x">店をはしごしレトロゲーム</span></a><a class="r" href="#s8"><span class="t"><i>PM</i><b>12:44</b><small>〜12:52</small></span><span class="x">会計と景品の値段</span></a><a class="r" href="#s9"><span class="t"><i>PM</i><b>12:52</b><small>〜1:00</small></span><span class="x">昼食探しと雑談</span></a><a class="r" href="#s10"><span class="t"><i>PM</i><b>1:00</b><small>〜1:10</small></span><span class="x">服・無印良品の話</span></a><a class="r" href="#s11"><span class="t"><i>PM</i><b>1:10</b><small>〜1:20</small></span><span class="x">アニメTシャツ売り場</span></a><a class="r" href="#s12"><span class="t"><i>PM</i><b>1:20</b><small>〜1:28</small></span><span class="x">売り場巡りと夜の相談</span></a><a class="r" href="#s13"><span class="t"><i>PM</i><b>1:28</b><small>〜1:38</small></span><span class="x">夕食の店決めと予約</span></a><a class="r" href="#s14"><span class="t"><i>PM</i><b>1:38</b><small>〜1:46</small></span><span class="x">居酒屋での注文と雑談</span></a><a class="r" href="#s15"><span class="t"><i>PM</i><b>1:46</b><small>〜1:51</small></span><span class="x">仕事の話と乾杯</span></a><a class="r" href="#s16"><span class="t"><i>PM</i><b>1:51</b><small>〜2:11</small></span><span class="x">出身地と訛りの雑談</span></a><a class="r" href="#s17"><span class="t"><i>PM</i><b>2:11</b><small>〜2:16</small></span><span class="x">お土産とドン・キホーテ</span></a><a class="r" href="#s18"><span class="t"><i>PM</i><b>2:16</b><small>〜2:21</small></span><span class="x">食後の予定と会計</span></a><a class="r" href="#s19"><span class="t"><i>PM</i><b>2:21</b><small>〜2:28</small></span><span class="x">ゲームセンターで対戦</span></a><p class="partsep">録音2 ・ 14:28〜 ・ 58分</p><a class="r" href="#s20"><span class="t"><i>PM</i><b>2:28</b><small>〜2:38</small></span><span class="x">ゲームの対戦開始と操作確認</span></a><a class="r" href="#s21"><span class="t"><i>PM</i><b>2:38</b><small>〜2:46</small></span><span class="x">白熱するコンボ対戦</span></a><a class="r" href="#s22"><span class="t"><i>PM</i><b>2:46</b><small>〜2:48</small></span><span class="x">ゲームのメンテ中説明と買い物へ</span></a><a class="r" href="#s23"><span class="t"><i>PM</i><b>2:48</b><small>〜2:56</small></span><span class="x">フィギュア店と人気キャラの値段</span></a><a class="r" href="#s24"><span class="t"><i>PM</i><b>2:56</b><small>〜3:02</small></span><span class="x">ワンピース・ナルトのフィギュア選び</span></a><a class="r" href="#s25"><span class="t"><i>PM</i><b>3:02</b><small>〜3:09</small></span><span class="x">最後の店での会計と日米の価格比較</span></a><a class="r" href="#s26"><span class="t"><i>PM</i><b>3:09</b><small>〜3:14</small></span><span class="x">駅へ戻る道とスーツケースの話</span></a><a class="r" href="#s27"><span class="t"><i>PM</i><b>3:14</b><small>〜3:19</small></span><span class="x">スーツケース購入と配送方法</span></a><a class="r" href="#s28"><span class="t"><i>PM</i><b>3:19</b><small>〜3:25</small></span><span class="x">新幹線の切符相談と別れ</span></a>
 </div></div>
@@ -215,14 +207,13 @@ h1.title{font-size:23px;font-weight:900;line-height:1.5;margin-top:16px}
 <script>
 if(window.matchMedia('(min-width:1024px)').matches){
   var toc=document.querySelector('.tocbox');
-  var nav=document.querySelector('.pcnav');
   var h1=document.querySelector('h1.title'), sm=document.querySelector('.smeta'), hero=document.querySelector('.hero');
   if(h1&&sm){
     var card=document.createElement('div');
     var kick=document.createElement('div'); kick.className='kick'; kick.textContent='READING';
     card.appendChild(kick); card.appendChild(h1); card.appendChild(sm);
     if(hero){ card.className='hcard'; hero.appendChild(card); }
-    else{ card.className='titlecard'; var anchor=nav||toc; anchor.parentNode.insertBefore(card, anchor); }
+    else{ card.className='titlecard'; toc.parentNode.insertBefore(card, toc); }
   }
   document.querySelectorAll('.scene').forEach(function(sc){
     var tm=sc.querySelector('.tm'), hd=sc.querySelector('.hd');
