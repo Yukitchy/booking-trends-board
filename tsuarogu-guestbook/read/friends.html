@@ -11,11 +11,11 @@
 <meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/tsuarogu-guestbook/og-tourlog-s3.png">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <title>つあろぐ｜映画談義と友人の再会</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Archivo:wght@500;700;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=M+PLUS+Rounded+1c:wght@400;500&family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Archivo:wght@500;700;900&display=swap" rel="stylesheet">
 <link rel="icon" href="../favicon-bubble.png" type="image/png">
 <style>
 .rd,.rd *{box-sizing:border-box}
-.rd{--bg:#f4f1ea;--fg:#23201b;--mute:#756f64;--line:#ddd7c9;--card:#fffdf8;--acc:#d8452b;--acc2:#1f6f78;--chip:#ece6d6;--jp:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",sans-serif;--mincho:"Shippori Mincho B1","Hiragino Mincho ProN",serif;--mono:ui-monospace,Menlo,monospace;margin:0;background:var(--bg);color:var(--fg);font-family:var(--jp);font-weight:500;-webkit-text-size-adjust:100%}
+.rd{--bg:#f4f1ea;--fg:#23201b;--mute:#756f64;--line:#ddd7c9;--card:#fffdf8;--acc:#d8452b;--acc2:#1f6f78;--chip:#ece6d6;--jp:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",sans-serif;--mincho:"Shippori Mincho B1","Hiragino Mincho ProN",serif;--body:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN","Zen Kaku Gothic New",sans-serif;--mono:ui-monospace,Menlo,monospace;margin:0;background:var(--bg);color:var(--fg);font-family:var(--jp);font-weight:500;-webkit-text-size-adjust:100%}
 .rd h1,.rd h2,.rd p{margin:0}
 .wrap{max-width:920px;margin:0 auto;padding:0 14px 110px}
 .back{display:inline-block;font-size:12.5px;font-weight:900;color:var(--fg);text-decoration:none;background:var(--card);border:2px solid var(--fg);border-radius:999px;padding:4px 14px}
@@ -74,7 +74,7 @@ h1.title{font-size:23px;font-weight:900;line-height:1.5;margin-top:16px}
 .scene .phs .ph img{width:100%;height:100%;display:block}
 @supports not (width:1cqw){.scene .phs .ph{width:auto;flex:var(--ar) 1 0}.scene .phs .ph img{height:auto}}
 .scene .pg{display:flex;flex-direction:row;align-items:flex-start;gap:12px;padding:16px 12px}
-.scene .col{writing-mode:vertical-rl;height:360px;flex:1;min-width:0;overflow-x:auto;overflow-y:hidden;font-family:var(--mincho);font-size:15.5px;line-height:1.85;letter-spacing:.06em;font-weight:500;padding-bottom:6px}
+.scene .col{writing-mode:vertical-rl;height:360px;flex:1;min-width:0;overflow-x:auto;overflow-y:hidden;font-family:var(--body);font-size:15.5px;line-height:1.85;letter-spacing:.06em;font-weight:500;padding-bottom:6px}
 .scene .col b{font-weight:inherit;background:#ffef6b;padding:0 .1em;border-radius:.12em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .scene .tm{display:flex;flex-direction:column;align-items:center;gap:8px;flex:none}
 .scene .chip{display:flex;flex-direction:column;align-items:center;gap:3px;background:#1c2b4a;color:#fff;border-radius:10px;padding:9px 6px 8px;min-width:56px}
@@ -184,7 +184,7 @@ h1.title{font-size:23px;font-weight:900;line-height:1.5;margin-top:16px}
      横書きでは文字の下半分に黄色が乗るグラデーションで蛍光マーカーらしくする。
      縦書き（スマホ）は基本ルール側の全面マーカーがそのまま効く */
   .rd .scene .col b{background:linear-gradient(transparent 54%,#ffef6b 54%,#ffef6b 94%,transparent 94%);padding:0 .05em;border-radius:0}
-  .rd .scene .col::first-letter{font-size:2.5em;font-weight:800;color:var(--acc);line-height:1}
+  .rd .scene .col::first-letter{font-family:var(--mincho);font-size:2.5em;font-weight:800;color:var(--acc);line-height:1}
   .rd .scene .ef{width:230px;gap:14px}
   .rd .scene .pg:has(> .ef) .ef{position:absolute;top:16px;right:0;bottom:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;padding:2px 2px 2px 0}
   .rd .scene .pg:has(> .ef) .ef::-webkit-scrollbar{width:6px}
