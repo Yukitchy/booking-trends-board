@@ -238,6 +238,65 @@ body.hasmine .leaflet-control-zoom{margin-bottom:162px !important;}
 }
 
 </style>
+<style>
+/* ===== PC版レイアウト（デザイン案2 ダッシュボード型）: 1024px以上のみ。スマホ表示は現行のまま ===== */
+#pc-stats,#pc-side{display:none;}
+@media (min-width:1024px){
+body{background:#f4f7f4;}
+.slimbar{height:60px; padding:0 20px; gap:20px;}
+.slimbar .logo-img{height:30px; width:auto;}
+.logo-slot::after{content:"実測Wi-Fiマップ"; color:#8fe8b1; font-size:12px; font-weight:700; letter-spacing:.08em; margin-left:20px; white-space:nowrap;}
+.slimbar .controls{gap:10px;}
+.slimbar .ibtn{width:38px; height:38px; font-size:16px; background:#232823; border:1.5px solid #3c4a3e; color:#e7efe8;}
+.slimbar .ibtn.add{background:var(--grn); border-color:var(--grn); color:#06130a; font-size:20px;}
+.slimbar .seg{background:#232823; border:1px solid #232823; padding:3px; gap:2px;}
+.slimbar .seg button{height:auto; padding:6px 18px; font-size:13px; color:#c9d2ca;}
+.slimbar .seg button.on{background:var(--grn); color:#06130a;}
+.slimbar .rchk{width:auto; height:auto; border-radius:999px; padding:7px 14px; background:transparent; border:1.5px solid #3c4a3e; color:#e7efe8; font-size:13px;}
+.slimbar .rchk span::after{content:"電源あり"; margin-left:7px;}
+.slimbar .rchk:has(input:checked){background:var(--grn); border-color:var(--grn); color:#06130a;}
+#pc-stats{display:flex; position:fixed; top:60px; left:0; right:0; height:88px; z-index:1150; background:#fff; border-bottom:1px solid #dfe5df;}
+.pc-stat{flex:1; min-width:0; padding:10px 22px; border-right:1px solid #eef1ee; display:flex; flex-direction:column; justify-content:center;}
+.pc-stat:last-child{border-right:none;}
+.pc-stat .k{font-size:11.5px; font-weight:700; color:#5c6b5e; letter-spacing:.06em; white-space:nowrap;}
+.pc-stat .v{margin-top:2px; font-size:26px; font-weight:800; line-height:1.25; white-space:nowrap;}
+.pc-stat .v small{font-size:13px; font-weight:700; color:#5c6b5e;}
+.pc-stat .v .grn{color:var(--deep);}
+.pc-stat .sub{font-size:12px; color:#5c6b5e; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+#map{top:148px; left:0; right:auto; bottom:0; width:52%; height:auto; border-right:1px solid #dfe5df;}
+#pc-side{display:block; position:fixed; top:148px; right:0; bottom:0; width:48%; z-index:1000; background:#f4f7f4; overflow-y:auto; padding:16px;}
+#pc-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+.strip{display:none;}
+.stripcnt{display:none;}
+#btn-center{top:auto; bottom:18px; left:auto; right:calc(48% + 14px);}
+.leaflet-control-zoom{margin-bottom:12px !important;}
+body.hasmine .leaflet-control-zoom{margin-bottom:12px !important;}
+#toast{top:164px;}
+#export-row{bottom:16px; right:16px; z-index:1300;}
+body.hasmine #export-row{bottom:16px;}
+#pc-grid .card{background:#fff; border:1px solid #dfe5df; border-radius:14px; overflow:hidden; box-shadow:none; flex:none; width:auto; max-width:none; height:auto; display:flex; flex-direction:column;}
+#pc-grid .card .mainrow{display:flex; flex-direction:column; flex:1; min-height:0;}
+.pc-ph{width:100%; height:96px; object-fit:cover;}
+img.pc-ph{display:block;}
+#pc-grid .cbody{padding:11px 14px 13px; display:flex; flex-direction:column; gap:0;}
+#pc-grid .name{font-size:14px;}
+.pc-meta{margin-top:2px; font-size:11.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.pc-meta .ssid{font-family:ui-monospace,Menlo,monospace; font-size:11px;}
+.pc-speed{margin-top:8px; display:flex; align-items:center; gap:10px;}
+.pc-nums{font-size:15px; font-weight:800; white-space:nowrap;}
+.pc-nums small{font-size:10.5px; color:#5c6b5e; font-weight:700;}
+.pc-bar{flex:1; height:6px; background:#e4eae4; border-radius:3px; overflow:hidden;}
+.pc-bar i{display:block; height:100%; background:var(--grn);}
+.pc-unm{margin-top:8px; display:inline-block; align-self:flex-start; font-size:11.5px; font-weight:700; color:#5c6b5e; background:#eef1ee; padding:3px 10px; border-radius:999px;}
+.pc-foot{margin-top:8px; display:flex; align-items:center; gap:8px;}
+.pc-pw{font-size:11px; font-weight:700; padding:2.5px 9px; border-radius:999px; white-space:nowrap; line-height:1.5;}
+.pc-pw.yes{color:var(--deep); border:1.5px solid var(--grn);}
+.pc-pw.unk{color:#8a968b; border:1.5px solid #d5dcd5;}
+.pc-date{font-size:11px; color:#8a968b; white-space:nowrap;}
+#pc-grid .cardbtns{margin:0; padding:9px 14px 12px; border-top:1px solid var(--line);}
+#add-panel,#edit-panel{left:50%; right:auto; transform:translateX(-50%); width:540px; max-width:calc(100vw - 48px);}
+}
+</style>
 </head>
 <body>
 <div id="map"></div>
@@ -252,8 +311,10 @@ body.hasmine .leaflet-control-zoom{margin-bottom:162px !important;}
 <button id="btn-add" class="ibtn add" type="button" title="スポットを追加" aria-label="スポットを追加">＋</button>
 </div>
 </div>
+<section id="pc-stats" aria-hidden="true"></section>
 <div class="stripcnt" id="sheet-count"></div>
 <div class="strip"><div class="cards" id="cards"></div></div>
+<div id="pc-side"><div id="pc-grid"></div></div>
 <div class="f-btns" id="export-row" hidden>
 <button type="button" id="btn-export-json">自分の追加をJSONでダウンロード</button>
 </div>
@@ -451,9 +512,29 @@ var b = band(s.down);
 return {html:'<div class="pin2" style="background:' + fills[b] + '"><i></i></div>', w:22, h:22, ax:11, ay:19};
 }
 
+function pcCardInner(s){
+var pct = (s.down === null || s.down === undefined)? 0: Math.min(100, Math.round(s.down / 2));
+var ssid = (s.ssid === '')? 'SSID 現地で確認': (s.ssid? '<span class="ssid">' + esc(s.ssid) + '</span>': '');
+var meta = esc(s.area || '') + (ssid? ' ・ ' + ssid: '');
+var spd = (s.down === null || s.down === undefined)
+? '<span class="pc-unm">未計測</span>'
+: '<div class="pc-speed"><span class="pc-nums">↓' + s.down + ' <small>Mbps</small> ↑' + ((s.up === null || s.up === undefined)? '—': s.up) + '</span><span class="pc-bar"><i style="width:' + pct + '%"></i></span></div>';
+var foot = '<div class="pc-foot"><span class="pc-pw ' + (s.power? 'yes': 'unk') + '">' + (s.power? '電源あり': '電源 未確認') + '</span>' +
+(s.measured_on? '<span class="pc-date">' + s.measured_on + (s.approx? ' 簡易計測': ' 実測') + '</span>': '') + '</div>';
+var pw = pwLabel(s);
+return photoTag(s, 'pc-ph') + '<div class="cbody">' +
+'<div class="row1"><span class="name">' + esc(s.name) + '</span>' + (s.mine? ' <span class="chip mine">自分の追加</span>': '') + distHtml(s) + '</div>' +
+'<div class="meta pc-meta">' + meta + '</div>' +
+spd + foot +
+(pw? '<div class="meta sm">' + pw + '</div>': '') +
+'</div>';
+}
+
 function buildCards(list){
 var box = document.getElementById('cards');
 box.innerHTML = '';
+var grid = document.getElementById('pc-grid');
+if (grid) grid.innerHTML = '';
 document.body.classList.toggle('hasmine', list.some(function(x){ return !!x.mine; }));
 var cnt = document.getElementById('sheet-count');
 if (cnt) cnt.textContent = 'スポット ' + list.length + '件';
@@ -464,6 +545,7 @@ var inner = photoTag(s, 'ph-side') + '<div class="cbody">' +
 '<div class="meta">' + speedBadge(s) + '</div>' +
 '<div class="sbar"><i style="width:' + pct + '%"></i></div></div>';
 box.appendChild(window.__cardShell(s, inner));
+if (grid) grid.appendChild(window.__cardShell(s, pcCardInner(s)));
 });
 }
 
@@ -730,10 +812,43 @@ list.sort(function(a, b){ return a._dist - b._dist;});
 return list;
 }
 
+function fmtStat(v){ return (Math.round(v * 10) / 10).toFixed(1); }
+function updateStats(){
+var el = document.getElementById('pc-stats');
+if (!el) return;
+var all = allSpots();
+var measured = all.filter(function(s){ return s.down !== null && s.down !== undefined; });
+var areas = {}, order = [];
+all.forEach(function(s){
+var a = s.area || '未分類';
+if (!(a in areas)){ areas[a] = 0; order.push(a); }
+areas[a]++;
+});
+var areaStr = order.map(function(a){ return a + ' ' + areas[a] + '件'; }).join(' ／ ');
+var fastest = null;
+measured.forEach(function(s){ if (!fastest || s.down > fastest.down) fastest = s; });
+var avgHtml;
+if (measured.length){
+var sd = 0, su = 0, nu = 0;
+measured.forEach(function(s){ sd += s.down; if (s.up !== null && s.up !== undefined){ su += s.up; nu++; } });
+avgHtml = '<div class="v">↓' + fmtStat(sd / measured.length) + ' <small>/</small> ↑' + (nu? fmtStat(su / nu): '—') + '</div><div class="sub">実測済み' + measured.length + '件の平均（Mbps）</div>';
+} else {
+avgHtml = '<div class="v">—</div><div class="sub">実測済みなし</div>';
+}
+el.innerHTML =
+'<div class="pc-stat"><div class="k">スポット</div><div class="v">' + all.length + '<small> 件</small></div><div class="sub">' + esc(areaStr) + '</div></div>' +
+'<div class="pc-stat"><div class="k">実測済み</div><div class="v">' + measured.length + '<small> 件</small></div><div class="sub">未計測は「未計測」と表示</div></div>' +
+'<div class="pc-stat"><div class="k">最速スポット（下り）</div>' + (fastest
+? '<div class="v"><span class="grn">' + fmtStat(fastest.down) + '</span><small> Mbps</small></div><div class="sub">' + esc(fastest.name) + '（' + (fastest.measured_on || '') + (fastest.approx? ' 簡易計測': ' 実測') + '）</div>'
+: '<div class="v">—</div><div class="sub">実測済みなし</div>') + '</div>' +
+'<div class="pc-stat"><div class="k">実測平均</div>' + avgHtml + '</div>';
+}
+
 function render(){
 var list = sortedSpots();
 renderMarkers(list);
 buildCards(list);
+updateStats();
 document.getElementById('sort-dist').classList.toggle('on', sortMode === 'dist');
 document.getElementById('sort-speed').classList.toggle('on', sortMode === 'speed');
 var er = document.getElementById('export-row');
@@ -1231,6 +1346,16 @@ openForm();
 }
 })();
 
+</script>
+<script>
+/* PC幅⇔スマホ幅の切替時に Leaflet のサイズを再計算する */
+(function(){
+function fix(){ if (window.__map) window.__map.invalidateSize(); }
+window.addEventListener('load', function(){ setTimeout(fix, 60); });
+var mq = window.matchMedia('(min-width: 1024px)');
+if (mq.addEventListener) mq.addEventListener('change', function(){ setTimeout(fix, 60); });
+else if (mq.addListener) mq.addListener(function(){ setTimeout(fix, 60); });
+})();
 </script>
 </body>
 </html>
