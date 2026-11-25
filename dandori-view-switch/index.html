@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>表示切替ボタン デザイン5案</title>
+<meta property="og:title" content="表示切替ボタン デザイン5案">
+<meta property="og:description" content="だんどりー右下の「PC／スマホ／タブレット」3択ピルを、アイコン1つの丸ボタンにまとめた5案。現行との大きさ見比べ付き。">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/dandori-view-switch/og.jpg">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/dandori-view-switch/">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #f4f2ed; color: #191919;
+         font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif; }
+  header { padding: 28px 18px 6px; max-width: 480px; margin: 0 auto; }
+  h1 { font-size: 24px; margin: 0 0 8px; letter-spacing: .02em; }
+  header p { font-size: 13.5px; line-height: 1.7; color: #55534e; margin: 0 0 6px; }
+  main { max-width: 480px; margin: 0 auto; padding: 10px 14px 48px; }
+  section { margin: 26px 0 34px; }
+  .tag { display: flex; align-items: baseline; gap: 9px; margin: 0 4px 10px; }
+  .num { background: #151515; color: #fff; font-weight: 700; font-size: 14px;
+         padding: 3px 10px; border-radius: 999px; letter-spacing: .04em; white-space: nowrap; }
+  .num.now { background: #8a867e; }
+  .name { font-size: 17px; font-weight: 700; }
+  figure { margin: 0; }
+  figcaption { max-width: 390px; margin: 10px auto 0; font-size: 13px;
+               line-height: 1.75; color: #55534e; padding: 0 2px; }
+  figcaption b { color: #191919; }
+  .state { display: inline-block; margin-top: 6px; background: #fff; border: 1px solid #d8d2c4;
+           border-radius: 999px; padding: 2px 12px; font-size: 12.5px; font-weight: 700; color: #191919; }
+
+  /* ---------- size compare ---------- */
+  .compare { max-width: 390px; margin: 4px auto 0; background: #fff; border-radius: 12px;
+             padding: 16px 16px 12px; box-shadow: 0 2px 10px rgba(20,20,20,.08); }
+  .compare .row { display: flex; align-items: center; gap: 12px; margin: 8px 0; }
+  .compare .cap { font-size: 12px; color: #55534e; width: 86px; flex: none; line-height: 1.5; }
+  .sil-pill { width: 190px; height: 36px; background: #232a36; border-radius: 999px; flex: none; }
+  .sil-circle { width: 36px; height: 36px; background: #232a36; border-radius: 50%; flex: none; }
+  .compare .px { font-size: 12.5px; font-weight: 700; white-space: nowrap; }
+
+  /* ---------- mock dandori screen ---------- */
+  .screen { position: relative; width: 100%; max-width: 390px; height: 300px; margin: 0 auto;
+            background: #f6f1e5; border-radius: 14px; overflow: hidden;
+            box-shadow: 0 4px 18px rgba(20,20,20,.18); }
+  .screen .topbar { height: 46px; background: #fff; display: flex; align-items: center;
+                    gap: 8px; padding: 0 14px; box-shadow: 0 1px 0 rgba(0,0,0,.05); }
+  .screen .wordmark { font-size: 19px; font-weight: 900; letter-spacing: .01em; }
+  .screen .topbar img { width: 26px; height: 26px; object-fit: contain; }
+  .screen .navpill { margin-left: auto; background: #191919; color: #fff; font-size: 11.5px;
+                     font-weight: 700; border-radius: 999px; padding: 6px 13px; }
+  .screen .next { margin: 12px 12px 0; background: #fff; border-radius: 12px; padding: 12px;
+                  border-top: 4px solid #f0563a; display: flex; gap: 11px; }
+  .screen .datebox { flex: none; width: 52px; height: 52px; background: #191919; color: #fff;
+                     border-radius: 9px; text-align: center; line-height: 1.1; padding-top: 7px; }
+  .screen .datebox .d { font-size: 21px; font-weight: 900; }
+  .screen .datebox .m { font-size: 9.5px; }
+  .screen .gname { font-size: 16.5px; font-weight: 800; margin-top: 1px; }
+  .screen .gmeta { font-size: 11.5px; color: #8a8578; margin-top: 3px; }
+  .screen .chips { margin-top: 7px; display: flex; gap: 5px; }
+  .screen .chip { font-size: 10px; background: #f3ecdc; color: #7a7261; border-radius: 999px; padding: 3px 9px; }
+  .screen .chip.ok { background: #e2f2e4; color: #3d7a49; }
+  .screen .rowcard { margin: 9px 12px 0; background: #fff; border-radius: 12px; padding: 11px 12px;
+                     display: flex; align-items: center; gap: 9px; }
+  .screen .dot { flex: none; width: 9px; height: 9px; border-radius: 50%; }
+  .screen .rname { font-size: 14px; font-weight: 700; }
+  .screen .rmeta { font-size: 11px; color: #8a8578; margin-left: auto; white-space: nowrap; }
+
+  /* ---------- current pill ---------- */
+  .curpill { position: absolute; right: 14px; bottom: 14px; background: #232a36; border-radius: 999px;
+             display: flex; padding: 5px; box-shadow: 0 6px 16px rgba(20,20,30,.35); }
+  .curpill span { font-size: 14px; font-weight: 700; color: #a7b0ba; padding: 8px 17px; border-radius: 999px; }
+  .curpill span.sel { background: #4ea1e8; color: #fff; }
+
+  /* ---------- variant round buttons ---------- */
+  .vbtn { position: absolute; right: 14px; bottom: 14px; width: 48px; height: 48px; border-radius: 50%;
+          background: #232a36; color: #fff; border: none; cursor: pointer; padding: 0;
+          display: grid; place-items: center; box-shadow: 0 6px 16px rgba(20,20,30,.35);
+          -webkit-tap-highlight-color: transparent; }
+  .vbtn:active { transform: scale(.94); }
+  .vbtn svg { display: block; }
+  .vbtn .badge { position: absolute; top: -3px; right: -3px; width: 17px; height: 17px; border-radius: 50%;
+                 background: #ee4a55; display: grid; place-items: center; border: 2px solid #f6f1e5; }
+  .vbtn.mascot { background: #fff; }
+  .vbtn.mascot img { width: 40px; height: 40px; object-fit: contain; }
+  .frame { border: 2.2px solid #fff; border-radius: 3.5px; transition: width .25s, height .25s; }
+  .dots { display: flex; gap: 5.5px; align-items: center; }
+  .dots i { width: 6.5px; height: 6.5px; border-radius: 50%; background: #68727f; transition: all .2s; }
+  .dots i.on { background: #4ea1e8; transform: scale(1.35); }
+
+  /* popup menu */
+  .pop { position: absolute; right: 14px; bottom: 72px; width: 172px; background: #fff; border-radius: 13px;
+         box-shadow: 0 10px 28px rgba(20,20,30,.28); padding: 5px; display: none; z-index: 5; }
+  .pop.open { display: block; }
+  .pop button { display: flex; align-items: center; gap: 9px; width: 100%; border: none; background: none;
+                font: inherit; font-size: 13.5px; font-weight: 700; color: #232a36; padding: 9px 10px;
+                border-radius: 9px; cursor: pointer; text-align: left; }
+  .pop button:hover { background: #f3efe4; }
+  .pop button .ck { margin-left: auto; color: #4ea1e8; font-weight: 900; visibility: hidden; }
+  .pop button.sel .ck { visibility: visible; }
+  .pop button svg { color: #232a36; flex: none; }
+
+  .toast { position: absolute; right: 14px; bottom: 72px; background: #191919; color: #fff; font-size: 12px;
+           font-weight: 700; border-radius: 999px; padding: 6px 13px; opacity: 0; pointer-events: none;
+           transition: opacity .25s; z-index: 5; }
+  .toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+<header>
+  <h1>表示切替ボタン デザイン5案</h1>
+  <p>右下の「PC／スマホ／タブレット」3択ピルは幅を取って邪魔なので、<strong>アイコン1つの丸ボタン（直径48px）</strong>にまとめた5案です。各案のボタンは<strong>実際に押せます</strong>（デモ）。番号で選んでください。</p>
+  <div class="compare">
+    <div class="row"><span class="cap">現行ピル</span><div class="sil-pill"></div><span class="px">幅 約250px</span></div>
+    <div class="row"><span class="cap">5案の丸ボタン</span><div class="sil-circle"></div><span class="px">幅 48px（約1/5）</span></div>
+  </div>
+</header>
+<main>
+
+  <section>
+    <div class="tag"><span class="num now">現行</span><span class="name">3択ピル</span></div>
+    <figure>
+      <div class="screen">
+        <div class="topbar"><span class="wordmark">Dandori</span><img src="mascot.png" alt=""><span class="navpill">ツアー予定</span></div>
+        <div class="next"><div class="datebox"><div class="d">25</div><div class="m">11月・水</div></div>
+          <div><div class="gname">Victor Gonzalez</div><div class="gmeta">10:00–13:00 ・ 2名 ・ WhatsApp</div>
+          <div class="chips"><span class="chip">前日連絡 まだ</span><span class="chip ok">アンケート回答済み</span></div></div></div>
+        <div class="rowcard"><span class="dot" style="background:#e4572e"></span><span class="rname">Jennifer West</span><span class="rmeta">11/24 10:00</span></div>
+        <div class="rowcard"><span class="dot" style="background:#3d7a49"></span><span class="rname">Pamela McGrogan</span><span class="rmeta">11/22 13:00</span></div>
+        <div class="curpill"><span>PC</span><span class="sel">スマホ</span><span>タブレット</span></div>
+      </div>
+      <figcaption>いまの形。選ぶものが全部見える代わりに、幅 約250px をずっと占有する。</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="tag"><span class="num">1</span><span class="name">現在モードアイコン＋順送り</span></div>
+    <figure>
+      <div class="screen">
+        <div class="topbar"><span class="wordmark">Dandori</span><img src="mascot.png" alt=""><span class="navpill">ツアー予定</span></div>
+        <div class="next"><div class="datebox"><div class="d">25</div><div class="m">11月・水</div></div>
+          <div><div class="gname">Victor Gonzalez</div><div class="gmeta">10:00–13:00 ・ 2名 ・ WhatsApp</div>
+          <div class="chips"><span class="chip">前日連絡 まだ</span><span class="chip ok">アンケート回答済み</span></div></div></div>
+        <div class="rowcard"><span class="dot" style="background:#e4572e"></span><span class="rname">Jennifer West</span><span class="rmeta">11/24 10:00</span></div>
+        <div class="rowcard"><span class="dot" style="background:#3d7a49"></span><span class="rname">Pamela McGrogan</span><span class="rmeta">11/22 13:00</span></div>
+        <div class="toast" id="toast-v1"></div>
+        <button class="vbtn" id="btn-v1" aria-label="表示モードを切り替える"></button>
+      </div>
+      <figcaption><b>押すたびに PC → スマホ → タブレット → PC… と順送り。</b>ボタンには今のモードのアイコンだけ。右上の赤い小さな循環バッジが「押すと次へ」の合図。<br><span class="state" id="state-v1">いま：PC表示</span></figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="tag"><span class="num">2</span><span class="name">3デバイス重ねシンボル</span></div>
+    <figure>
+      <div class="screen">
+        <div class="topbar"><span class="wordmark">Dandori</span><img src="mascot.png" alt=""><span class="navpill">ツアー予定</span></div>
+        <div class="next"><div class="datebox"><div class="d">25</div><div class="m">11月・水</div></div>
+          <div><div class="gname">Victor Gonzalez</div><div class="gmeta">10:00–13:00 ・ 2名 ・ WhatsApp</div>
+          <div class="chips"><span class="chip">前日連絡 まだ</span><span class="chip ok">アンケート回答済み</span></div></div></div>
+        <div class="rowcard"><span class="dot" style="background:#e4572e"></span><span class="rname">Jennifer West</span><span class="rmeta">11/24 10:00</span></div>
+        <div class="rowcard"><span class="dot" style="background:#3d7a49"></span><span class="rname">Pamela McGrogan</span><span class="rmeta">11/22 13:00</span></div>
+        <div class="pop" id="pop-v2"></div>
+        <button class="vbtn" id="btn-v2" aria-label="表示モードを選ぶ">
+          <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2.5" y="4" width="15" height="10.5" rx="1.6" fill="#232a36"/>
+            <path d="M6 18h7"/>
+            <rect x="13.5" y="8.5" width="8" height="12" rx="1.6" fill="#232a36"/>
+            <path d="M16.4 17.6h2.2"/>
+          </svg>
+        </button>
+      </div>
+      <figcaption><b>押すと小さなメニューが開いて、3モードから選ぶ。</b>ボタンはモニタ＋スマホを重ねた1つのシンボル。「表示切替ボタンだ」と一番伝わりやすい形。<br><span class="state" id="state-v2">いま：PC表示</span></figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="tag"><span class="num">3</span><span class="name">画面枠アイコン</span></div>
+    <figure>
+      <div class="screen">
+        <div class="topbar"><span class="wordmark">Dandori</span><img src="mascot.png" alt=""><span class="navpill">ツアー予定</span></div>
+        <div class="next"><div class="datebox"><div class="d">25</div><div class="m">11月・水</div></div>
+          <div><div class="gname">Victor Gonzalez</div><div class="gmeta">10:00–13:00 ・ 2名 ・ WhatsApp</div>
+          <div class="chips"><span class="chip">前日連絡 まだ</span><span class="chip ok">アンケート回答済み</span></div></div></div>
+        <div class="rowcard"><span class="dot" style="background:#e4572e"></span><span class="rname">Jennifer West</span><span class="rmeta">11/24 10:00</span></div>
+        <div class="rowcard"><span class="dot" style="background:#3d7a49"></span><span class="rname">Pamela McGrogan</span><span class="rmeta">11/22 13:00</span></div>
+        <div class="pop" id="pop-v3"></div>
+        <button class="vbtn" id="btn-v3" aria-label="表示モードを選ぶ"><span class="frame" id="frame-v3" style="width:26px;height:17px"></span></button>
+      </div>
+      <figcaption><b>押すとメニューが開いて選ぶ。枠の形が今のモードを表す</b>（横長＝PC／中間＝タブレット／縦長＝スマホ）。一番ミニマルで、画面の邪魔をしない形。<br><span class="state" id="state-v3">いま：PC表示</span></figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="tag"><span class="num">4</span><span class="name">マスコットボタン</span></div>
+    <figure>
+      <div class="screen">
+        <div class="topbar"><span class="wordmark">Dandori</span><img src="mascot.png" alt=""><span class="navpill">ツアー予定</span></div>
+        <div class="next"><div class="datebox"><div class="d">25</div><div class="m">11月・水</div></div>
+          <div><div class="gname">Victor Gonzalez</div><div class="gmeta">10:00–13:00 ・ 2名 ・ WhatsApp</div>
+          <div class="chips"><span class="chip">前日連絡 まだ</span><span class="chip ok">アンケート回答済み</span></div></div></div>
+        <div class="rowcard"><span class="dot" style="background:#e4572e"></span><span class="rname">Jennifer West</span><span class="rmeta">11/24 10:00</span></div>
+        <div class="rowcard"><span class="dot" style="background:#3d7a49"></span><span class="rname">Pamela McGrogan</span><span class="rmeta">11/22 13:00</span></div>
+        <div class="pop" id="pop-v4"></div>
+        <button class="vbtn mascot" id="btn-v4" aria-label="表示モードを選ぶ"><img src="mascot.png" alt="だんどりーマスコット"></button>
+      </div>
+      <figcaption><b>押すとメニューが開いて選ぶ。</b>旗持ちの親キャラの白い丸ボタンで、だんどりーらしさは一番強い。切替ボタンだと分かりにくいのが弱点。<br><span class="state" id="state-v4">いま：PC表示</span></figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="tag"><span class="num">5</span><span class="name">ドット付き丸ボタン</span></div>
+    <figure>
+      <div class="screen">
+        <div class="topbar"><span class="wordmark">Dandori</span><img src="mascot.png" alt=""><span class="navpill">ツアー予定</span></div>
+        <div class="next"><div class="datebox"><div class="d">25</div><div class="m">11月・水</div></div>
+          <div><div class="gname">Victor Gonzalez</div><div class="gmeta">10:00–13:00 ・ 2名 ・ WhatsApp</div>
+          <div class="chips"><span class="chip">前日連絡 まだ</span><span class="chip ok">アンケート回答済み</span></div></div></div>
+        <div class="rowcard"><span class="dot" style="background:#e4572e"></span><span class="rname">Jennifer West</span><span class="rmeta">11/24 10:00</span></div>
+        <div class="rowcard"><span class="dot" style="background:#3d7a49"></span><span class="rname">Pamela McGrogan</span><span class="rmeta">11/22 13:00</span></div>
+        <div class="toast" id="toast-v5"></div>
+        <button class="vbtn" id="btn-v5" aria-label="表示モードを切り替える"><span class="dots" id="dots-v5"><i class="on"></i><i></i><i></i></span></button>
+      </div>
+      <figcaption><b>押すたびに順送り。</b>3つのドットのうち、今のモードの位置だけ青く点灯（左＝PC／中＝スマホ／右＝タブレット）。アイコンを描かない分、すっきりして小さい。<br><span class="state" id="state-v5">いま：PC表示</span></figcaption>
+    </figure>
+  </section>
+
+</main>
+<script>
+  var MODES = ['pc', 'phone', 'tablet'];
+  var LABEL = { pc: 'PC', phone: 'スマホ', tablet: 'タブレット' };
+  var ICONS = {
+    pc: '<svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M9 20h6M12 16v4"/></svg>',
+    phone: '<svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.2"/><path d="M10.8 18.6h2.4"/></svg>',
+    tablet: '<svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2.5" width="14" height="19" rx="2.2"/><path d="M10.8 18.6h2.4"/></svg>'
+  };
+  var BADGE = '<span class="badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M20 3v4h-4"/></svg></span>';
+
+  function setState(id, mode) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = 'いま：' + LABEL[mode] + '表示';
+  }
+  function toast(id, mode) {
+    var t = document.getElementById(id);
+    t.textContent = LABEL[mode] + '表示に切替';
+    t.classList.add('show');
+    clearTimeout(t._h);
+    t._h = setTimeout(function () { t.classList.remove('show'); }, 1200);
+  }
+
+  /* --- 案1: cycle --- */
+  (function () {
+    var i = 0, btn = document.getElementById('btn-v1');
+    function render() { btn.innerHTML = ICONS[MODES[i]] + BADGE; }
+    render();
+    btn.addEventListener('click', function () {
+      i = (i + 1) % 3; render();
+      setState('state-v1', MODES[i]); toast('toast-v1', MODES[i]);
+    });
+  })();
+
+  /* --- 案5: dots cycle --- */
+  (function () {
+    var i = 0, btn = document.getElementById('btn-v5'), dots = document.getElementById('dots-v5').children;
+    btn.addEventListener('click', function () {
+      i = (i + 1) % 3;
+      for (var k = 0; k < 3; k++) dots[k].classList.toggle('on', k === i);
+      setState('state-v5', MODES[i]); toast('toast-v5', MODES[i]);
+    });
+  })();
+
+  /* --- popup variants (2,3,4) --- */
+  function buildPop(popId, btnId, stateId, onPick) {
+    var pop = document.getElementById(popId), btn = document.getElementById(btnId), cur = 'pc';
+    pop.innerHTML = MODES.map(function (m) {
+      return '<button data-m="' + m + '">' + ICONS[m].replace(/#fff/g, '#232a36') + LABEL[m] + '<span class="ck">✓</span></button>';
+    }).join('');
+    function mark() {
+      Array.prototype.forEach.call(pop.querySelectorAll('button'), function (b) {
+        b.classList.toggle('sel', b.getAttribute('data-m') === cur);
+      });
+    }
+    mark();
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      document.querySelectorAll('.pop.open').forEach(function (p) { if (p !== pop) p.classList.remove('open'); });
+      pop.classList.toggle('open');
+    });
+    pop.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      cur = b.getAttribute('data-m'); mark();
+      setState(stateId, cur); if (onPick) onPick(cur);
+      pop.classList.remove('open');
+    });
+    document.addEventListener('click', function (e) { if (!pop.contains(e.target)) pop.classList.remove('open'); });
+  }
+  buildPop('pop-v2', 'btn-v2', 'state-v2', null);
+  buildPop('pop-v3', 'btn-v3', 'state-v3', function (m) {
+    var f = document.getElementById('frame-v3');
+    if (m === 'pc') { f.style.width = '26px'; f.style.height = '17px'; }
+    if (m === 'tablet') { f.style.width = '20px'; f.style.height = '25px'; }
+    if (m === 'phone') { f.style.width = '15px'; f.style.height = '26px'; }
+  });
+  buildPop('pop-v4', 'btn-v4', 'state-v4', null);
+</script>
+</body>
+</html>
