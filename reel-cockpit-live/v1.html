@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Reel Cockpit 案1 CapCut風 — 触れるプロトタイプ</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { width:100%; overflow-x:hidden; }
+body { font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",sans-serif;
+  background:#cfccc2; -webkit-font-smoothing:antialiased; }
+button { font-family:inherit; cursor:pointer; }
+img { user-select:none; -webkit-user-drag:none; }
+.app { position:relative; max-width:430px; margin:0 auto; min-height:100dvh; overflow-x:hidden;
+  display:flex; flex-direction:column; background:#f4f2ec; color:#1a1a1a; }
+.hidden { display:none !important; }
+.scr { padding:18px 16px 40px; display:flex; flex-direction:column; gap:14px; }
+
+/* 管理画面 */
+.m-logo { font-size:21px; font-weight:900; letter-spacing:.01em; }
+.vtag { font-size:10.5px; font-weight:900; letter-spacing:.06em; padding:4px 9px; border-radius:999px;
+  background:#111; color:#fff; vertical-align:middle; margin-left:4px; white-space:nowrap; }
+.m-sub { font-size:12px; color:#777; margin-top:3px; font-weight:700; }
+.cal-card { background:#fff; border:1.5px solid #1a1a1a; border-radius:14px; padding:14px 14px 10px; }
+.cal-head { display:flex; justify-content:space-between; align-items:center; font-weight:900; font-size:15px; margin-bottom:8px; }
+.cal-nav { color:#bbb; font-size:18px; font-weight:900; }
+.cal-dow { display:grid; grid-template-columns:repeat(7,1fr); text-align:center; font-size:10.5px; color:#999; font-weight:700; margin-bottom:4px; }
+.cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:2px; }
+.cal-cell { position:relative; aspect-ratio:1; border:none; background:transparent; font-size:13.5px; font-weight:700;
+  border-radius:10px; color:#333; display:flex; align-items:center; justify-content:center; }
+.cal-cell.empty { pointer-events:none; }
+.cal-cell.has::after { content:""; position:absolute; bottom:4px; left:50%; transform:translateX(-50%);
+  width:5px; height:5px; border-radius:50%; background:#c8102e; }
+.cal-cell.today { box-shadow:inset 0 0 0 2px #1a1a1a; }
+.cal-note { font-size:11px; color:#888; margin-top:8px; display:flex; align-items:center; gap:6px; }
+.cal-note .dot { width:6px; height:6px; border-radius:50%; background:#c8102e; display:inline-block; }
+.proj-head { font-size:15px; font-weight:900; display:flex; align-items:baseline; gap:8px; }
+.proj-count { font-size:11.5px; color:#999; font-weight:700; }
+.proj-list { display:flex; flex-direction:column; gap:9px; }
+.proj-card { display:flex; align-items:center; gap:11px; width:100%; text-align:left; background:#fff;
+  border:1.5px solid #ddd8cc; border-radius:14px; padding:9px 11px; color:inherit; }
+.proj-thumb { width:54px; height:54px; border-radius:10px; object-fit:cover; flex:none; background:#e8e4da; }
+.proj-tx { flex:1; min-width:0; display:flex; flex-direction:column; gap:1px; }
+.proj-tx b { font-size:14.5px; font-weight:900; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.proj-tx span { font-size:11px; color:#888; font-weight:700; }
+.proj-tx .proj-n { color:#aaa; }
+.st { flex:none; font-size:10px; font-weight:900; padding:4px 8px; border-radius:999px; white-space:nowrap; }
+.st-new { background:#c8102e; color:#fff; }
+.st-wait { background:#ffb020; color:#4a3200; }
+.st-edit { background:#2b6cb0; color:#fff; }
+.st-done { background:#e3e0d5; color:#777; }
+.proj-arrow { font-size:19px; color:#bbb; font-weight:900; flex:none; }
+.lib-teaser { background:#fff; border:1.5px dashed #b9b3a4; border-radius:14px; padding:12px 14px; font-size:12.5px; color:#555; }
+.lib-teaser b { color:#1a1a1a; }
+.lib-note { display:block; font-size:11px; color:#999; margin-top:2px; }
+.proto-note { font-size:11px; color:#999; text-align:center; line-height:1.7; }
+
+/* 編集画面 */
+.e-head { display:flex; align-items:center; gap:10px; }
+.back { flex:none; border:1.5px solid #1a1a1a; background:#fff; color:#1a1a1a; font-weight:900; font-size:12px;
+  padding:8px 12px; border-radius:999px; }
+.e-title { min-width:0; display:flex; flex-direction:column; }
+.e-title b { font-size:16px; font-weight:900; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.e-title span { font-size:11px; color:#888; font-weight:700; }
+.steps { list-style:none; display:flex; gap:2px; }
+.steps li { flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; font-size:10px; font-weight:800; color:#aaa; cursor:pointer; }
+.steps li i { font-style:normal; width:26px; height:26px; border-radius:50%; background:#e3e0d5; color:#888;
+  display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:900; }
+.steps li.cur { color:#1a1a1a; }
+.steps li.cur i { background:#111; color:#fff; }
+.steps li.done { color:#888; }
+.steps li.done i { background:#3d9970; color:#fff; }
+.pane { background:#fff; border:1.5px solid #ddd8cc; border-radius:14px; padding:14px; display:flex; flex-direction:column; gap:10px; }
+.pane-title { font-size:13.5px; font-weight:900; }
+.pane-note { font-size:11.5px; line-height:1.75; color:#777; }
+.immich-bar { display:flex; align-items:center; gap:10px; background:#eef6ff; border:1px solid #cfe4fb; border-radius:10px; padding:9px 11px; }
+.im-ic { font-size:17px; }
+.im-tx { flex:1; min-width:0; display:flex; flex-direction:column; }
+.im-tx b { font-size:12.5px; }
+.im-tx span { font-size:11px; color:#5b7a9d; font-weight:700; }
+.im-ok { font-size:11px; font-weight:900; color:#1d7a3a; white-space:nowrap; }
+.media-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:3px; }
+.m-cell { aspect-ratio:1; border-radius:5px; overflow:hidden; background:#e8e4da; }
+.m-cell img { width:100%; height:100%; object-fit:cover; display:block; }
+.video-row { display:flex; flex-direction:column; gap:6px; }
+.v-chip { display:flex; align-items:center; gap:9px; background:#f7f5ef; border:1px solid #e6e1d3; border-radius:9px; padding:5px 9px 5px 5px; }
+.v-th { position:relative; width:42px; height:42px; border-radius:6px; overflow:hidden; flex:none; }
+.v-th img { width:100%; height:100%; object-fit:cover; display:block; }
+.v-th i { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#fff; font-size:13px; font-style:normal; background:rgba(0,0,0,.28); }
+.v-lb { flex:1; font-size:12px; font-weight:700; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.v-dur { font-size:11px; color:#999; font-weight:700; }
+.next-btn,.auto-btn,.export-btn { border:none; border-radius:12px; padding:14px; font-size:14.5px; font-weight:900;
+  background:#111; color:#fff; width:100%; }
+.tpl-grid { display:grid; grid-template-columns:1fr 1fr; gap:9px; }
+.tpl-card { border:2px solid #e3ded0; background:#fff; border-radius:12px; padding:0; overflow:hidden; text-align:left; color:inherit;
+  display:flex; flex-direction:column; }
+.tpl-card img { width:100%; aspect-ratio:16/10; object-fit:cover; display:block; background:#e8e4da; }
+.tpl-tx { padding:8px 10px 10px; display:flex; flex-direction:column; gap:1px; }
+.tpl-tx b { font-size:13px; font-weight:900; }
+.tpl-tx span { font-size:10.5px; color:#888; font-weight:700; line-height:1.5; }
+.tpl-tx .tpl-len { color:#c8102e; }
+.tpl-card.sel { border-color:#c8102e; box-shadow:0 0 0 2px rgba(200,16,46,.18); }
+.tpl-add { border-style:dashed; align-items:center; justify-content:center; gap:4px; padding:16px 10px; color:#999; }
+.tpl-add .add-ic { font-size:22px; font-weight:900; }
+.pv-block { display:flex; flex-direction:column; gap:9px; }
+.preview { position:relative; width:min(320px,100%); aspect-ratio:9/16; margin:0 auto; border-radius:16px; overflow:hidden;
+  background:#141414; box-shadow:0 10px 30px rgba(0,0,0,.25); cursor:pointer; flex:none; }
+.pv-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.pv-img.kb { animation:kb 7s ease-out forwards; }
+@keyframes kb { from { transform:scale(1); } to { transform:scale(var(--zoom,1.12)); } }
+.pv-slate { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center;
+  color:#ddd; font-size:14px; font-weight:800; line-height:1.8; background:#1d1d1d; }
+.pv-segs { position:absolute; top:9px; left:9px; right:9px; display:flex; gap:4px; z-index:6; }
+.pv-segs i { flex:1; height:3px; border-radius:2px; background:rgba(255,255,255,.35); overflow:hidden; }
+.pv-segs i b { display:block; height:100%; background:#fff; }
+.pv-hook { position:absolute; top:17%; left:16px; right:16px; z-index:5; text-align:center; color:#fff;
+  font-size:21px; font-weight:900; line-height:1.45; text-shadow:0 2px 14px rgba(0,0,0,.65), 0 0 3px rgba(0,0,0,.6); }
+.pv-cap { position:absolute; bottom:40px; left:50%; transform:translateX(-50%); z-index:5; max-width:88%;
+  background:rgba(0,0,0,.58); color:#fff; font-size:13px; font-weight:800; line-height:1.5; text-align:center;
+  padding:7px 13px; border-radius:9px; }
+.pv-cap:empty { display:none; }
+.pv-badge { position:absolute; top:24px; left:10px; z-index:5; background:rgba(0,0,0,.55); color:#fff;
+  font-size:10px; font-weight:900; padding:4px 8px; border-radius:6px; letter-spacing:.04em; }
+.pv-badge:empty { display:none; }
+.pv-play { position:absolute; inset:0; z-index:4; display:flex; align-items:center; justify-content:center;
+  color:#fff; font-size:30px; text-shadow:0 2px 12px rgba(0,0,0,.5); pointer-events:none; }
+.tl { display:flex; gap:6px; overflow-x:auto; padding:2px; scrollbar-width:none; }
+.tl::-webkit-scrollbar { display:none; }
+.tl-cell { flex:none; width:52px; border:2px solid transparent; background:none; border-radius:9px; padding:0; overflow:hidden; position:relative; }
+.tl-cell img { width:100%; height:64px; object-fit:cover; display:block; border-radius:7px; }
+.tl-cell span { position:absolute; bottom:3px; right:4px; font-size:9px; font-weight:900; color:#fff; text-shadow:0 1px 4px rgba(0,0,0,.8); }
+.tl-cell.on { border-color:#c8102e; }
+.tracks { display:none; }
+.auto-done { display:none; font-size:12.5px; font-weight:900; color:#1d7a3a; text-align:center; }
+.auto-done.show { display:block; }
+.adj-lb { font-size:11.5px; font-weight:900; color:#666; margin-top:2px; }
+.hook-in { width:100%; border:1.5px solid #ddd8cc; border-radius:10px; padding:11px 12px; font-size:13.5px; font-family:inherit; background:#fff; color:inherit; }
+.seg { display:flex; gap:6px; }
+.seg button { flex:1; border:1.5px solid #ddd8cc; background:#fff; color:#666; border-radius:999px; padding:9px 2px;
+  font-size:11.5px; font-weight:800; white-space:nowrap; }
+.seg button.on { background:#111; color:#fff; border-color:#111; }
+.range { width:100%; accent-color:#c8102e; }
+.sum-card { border:1.5px solid #ddd8cc; border-radius:12px; padding:6px 13px; }
+.sum-row { display:flex; justify-content:space-between; gap:14px; padding:8px 0; font-size:12.5px; border-bottom:1px solid #eee9db; }
+.sum-row:last-child { border-bottom:none; }
+.sum-row span { color:#999; font-weight:700; flex:none; }
+.sum-row b { text-align:right; font-weight:800; }
+.done-panel { display:none; flex-direction:column; align-items:center; gap:7px; text-align:center; padding:8px 0 2px; }
+.done-panel.show { display:flex; }
+.done-check { width:56px; height:56px; border-radius:50%; background:#3d9970; color:#fff; font-size:27px; font-weight:900;
+  display:flex; align-items:center; justify-content:center; }
+.done-panel b { font-size:16px; }
+.done-panel span { font-size:12px; color:#777; font-weight:700; }
+.done-btns { display:flex; gap:8px; margin-top:5px; }
+.done-back,.done-again { border-radius:999px; padding:11px 16px; font-size:12.5px; font-weight:900; }
+.done-back { background:#111; color:#fff; border:none; }
+.done-again { background:#fff; color:#111; border:1.5px solid #111; }
+.wiz-nav { display:none; }
+.app.wiz .wiz-nav { display:flex; gap:10px; position:sticky; bottom:12px; z-index:20; }
+.wiz-prev,.wiz-next { flex:1; border-radius:999px; padding:15px; font-size:14.5px; font-weight:900; }
+.wiz-prev { background:#fff; border:1.5px solid #ccc; color:#333; }
+.wiz-prev:disabled { opacity:.35; }
+.wiz-next { background:#111; border:none; color:#fff; }
+.app.wiz .pane { display:none; }
+.app.wiz .pane.on { display:flex; }
+.app.wiz .next-btn { display:none; }
+.overlay { position:fixed; inset:0; z-index:60; display:none; align-items:center; justify-content:center; background:rgba(10,10,10,.5); }
+.overlay.show { display:flex; }
+.ov-card { width:min(320px,86vw); background:#fff; border-radius:16px; padding:22px 20px; text-align:center; color:#1a1a1a; }
+.ov-title { font-size:15px; font-weight:900; margin-bottom:5px; }
+.ov-msg { font-size:12px; color:#777; font-weight:700; min-height:18px; }
+.ov-bar { height:8px; background:#eee; border-radius:99px; overflow:hidden; margin:14px 0 8px; }
+.ov-fill { height:100%; width:0%; background:#c8102e; border-radius:99px; }
+.ov-pct { font-size:12px; font-weight:900; color:#999; }
+.toast { position:fixed; left:50%; bottom:26px; transform:translate(-50%,20px); z-index:70; background:#111; color:#fff;
+  font-size:12.5px; font-weight:800; padding:11px 17px; border-radius:999px; opacity:0; pointer-events:none;
+  transition:all .25s ease; max-width:88vw; text-align:center; line-height:1.5; }
+.toast.show { opacity:1; transform:translate(-50%,0); }
+
+/* 案1 CapCut風：ダーク＋タイムライン */
+.app { background:#0e0e11; color:#f2f2f2; }
+.vtag { background:#2ee6a8; color:#04241a; }
+.m-sub { color:#8b8b96; }
+.cal-card,.proj-card,.pane,.lib-teaser { background:#17171d; border-color:#26262e; color:#f2f2f2; }
+.cal-cell { color:#d8d8de; } .cal-cell.today { box-shadow:inset 0 0 0 2px #2ee6a8; }
+.cal-note,.proj-tx span,.pane-note { color:#8b8b96; }
+.proj-thumb,.m-cell,.tpl-card img { background:#232329; }
+.proj-card { border-color:#26262e; }
+.st-done { background:#26262e; color:#9a9aa5; }
+.lib-teaser { border-color:#3a3a44; } .lib-teaser b { color:#fff; }
+.back { background:#17171d; color:#fff; border-color:#3a3a44; }
+.e-title span { color:#8b8b96; }
+.steps li i { background:#26262e; color:#9a9aa5; }
+.steps li.cur { color:#fff; } .steps li.cur i { background:#2ee6a8; color:#04241a; }
+.immich-bar { background:#12241e; border-color:#1e4636; } .im-tx span { color:#7fc9ae; } .im-ok { color:#2ee6a8; }
+.v-chip { background:#1d1d24; border-color:#2c2c35; } .v-lb { color:#e8e8ec; }
+.tpl-card { background:#17171d; border-color:#2c2c35; color:#f2f2f2; }
+.tpl-tx span { color:#8b8b96; } .tpl-tx .tpl-len { color:#2ee6a8; }
+.tpl-card.sel { border-color:#2ee6a8; box-shadow:0 0 0 2px rgba(46,230,168,.22); }
+.next-btn,.auto-btn,.export-btn { background:#2ee6a8; color:#04241a; }
+.hook-in { background:#17171d; border-color:#2c2c35; color:#fff; }
+.adj-lb { color:#9a9aa5; }
+.seg button { background:#1d1d24; border-color:#2c2c35; color:#bdbdc6; }
+.seg button.on { background:#f2f2f2; color:#111; border-color:#f2f2f2; }
+.sum-card { border-color:#2c2c35; } .sum-row { border-color:#232329; } .sum-row span { color:#8b8b96; }
+.done-again { background:transparent; color:#fff; border-color:#3a3a44; }
+.tl-cell.on { border-color:#2ee6a8; }
+.proto-note { color:#63636e; }
+
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <!-- ===== 管理画面 ===== -->
+  <section class="scr scr-mgmt" id="scrMgmt">
+    <header class="m-head">
+      <div class="m-logo">Reel Cockpit <span class="vtag" id="vtag"></span></div>
+      <div class="m-sub">ツアー回のリール制作プロジェクト</div>
+    </header>
+    <div class="cal-card">
+      <div class="cal-head"><span class="cal-nav">‹</span><span class="cal-title">2026年 11月</span><span class="cal-nav">›</span></div>
+      <div class="cal-dow"><span>日</span><span>月</span><span>火</span><span>水</span><span>木</span><span>金</span><span>土</span></div>
+      <div class="cal-grid" id="calGrid"></div>
+      <div class="cal-note"><span class="dot"></span>ツアーがあった日 — タップでその回の編集へ</div>
+    </div>
+    <div class="proj-head">プロジェクト <span class="proj-count" id="projCount"></span></div>
+    <div class="proj-list" id="projList"></div>
+    <div class="lib-teaser"><span class="lib-ic">▦</span> 型ライブラリ <b>5つの型</b> を収録中 ＋ 追加枠あり<span class="lib-note">型は編集画面で選びます</span></div>
+    <p class="proto-note">触れるプロトタイプです（実データ連携・実書き出しはしません）</p>
+  </section>
+
+  <!-- ===== 編集画面 ===== -->
+  <section class="scr scr-edit hidden" id="scrEdit">
+    <header class="e-head">
+      <button class="back" id="backBtn" type="button">‹ 管理画面</button>
+      <div class="e-title"><b id="epName"></b><span id="epMeta"></span></div>
+    </header>
+    <ol class="steps" id="steps">
+      <li data-step="1"><i>1</i><span>素材</span></li>
+      <li data-step="2"><i>2</i><span>型</span></li>
+      <li data-step="3"><i>3</i><span>自動編集</span></li>
+      <li data-step="4"><i>4</i><span>微調整</span></li>
+      <li data-step="5"><i>5</i><span>書き出し</span></li>
+    </ol>
+
+    <div class="pane" data-pane="1">
+      <div class="pane-title">① 素材 — Immich から自動取込</div>
+      <div class="immich-bar"><span class="im-ic">☁</span><div class="im-tx"><b>Immich と連携済み</b><span id="imCounts"></span></div><span class="im-ok">✓ 取込完了</span></div>
+      <div class="media-grid" id="mediaGrid"></div>
+      <div class="video-row" id="videoRow"></div>
+      <p class="pane-note">端末からのアップロードは不要です。ツアー当日の写真・動画がそのまま流れ込んでいます。</p>
+      <button class="next-btn" data-goto="2" type="button">素材OK — 型を選ぶ →</button>
+    </div>
+
+    <div class="pane" data-pane="2">
+      <div class="pane-title">② 型ライブラリ — 型を選ぶ</div>
+      <div class="tpl-grid" id="tplGrid"></div>
+      <p class="pane-note">型を選ぶとプレビューへ即反映されます。型はこれからも追加していく前提の棚です。</p>
+    </div>
+
+    <div class="pv-block" id="pvBlock">
+      <div class="preview" id="preview">
+        <div class="pv-segs" id="pvSegs"></div>
+        <img class="pv-img" id="pvImg" alt="">
+        <div class="pv-slate" id="pvSlate"><span>型を選ぶと<br>プレビューが出ます</span></div>
+        <div class="pv-hook" id="pvHook"></div>
+        <div class="pv-cap" id="pvCap"></div>
+        <div class="pv-badge" id="pvBadge"></div>
+        <div class="pv-play" id="pvPlay">▶</div>
+        <div class="pv-tap"></div>
+      </div>
+      <div class="tl" id="tl"></div>
+      <div class="tracks" id="tracks">
+        <div class="trk"><span class="trk-lb">V2</span><div class="trk-lane" id="laneV2"></div></div>
+        <div class="trk"><span class="trk-lb">V1</span><div class="trk-lane" id="laneV1"></div></div>
+        <div class="trk"><span class="trk-lb">A1</span><div class="trk-lane"><div class="a1-block">♪ トレンド音源（Instagram側で付ける）</div></div></div>
+      </div>
+    </div>
+
+    <div class="pane" data-pane="3">
+      <div class="pane-title">③ 自動編集</div>
+      <p class="pane-note">選んだ型のカット割り・テロップ・尺で自動編集します。音源は焼き込まず、書き出し後に Instagram 側で付けます。</p>
+      <button class="auto-btn" id="autoBtn" type="button">⚡ 自動編集する</button>
+      <div class="auto-done" id="autoDone">✓ 自動編集できました — プレビュー再生中</div>
+    </div>
+
+    <div class="pane" data-pane="4">
+      <div class="pane-title">④ 微調整</div>
+      <label class="adj-lb">フック文（1カット目のテロップ）</label>
+      <input class="hook-in" id="hookIn" type="text">
+      <label class="adj-lb">フィルタ</label>
+      <div class="seg" id="filterSeg">
+        <button data-f="none" class="on" type="button">なし</button>
+        <button data-f="warm" type="button">あたたかい</button>
+        <button data-f="cool" type="button">クール</button>
+        <button data-f="mono" type="button">モノクロ</button>
+      </div>
+      <label class="adj-lb">カット間隔</label>
+      <input class="range" id="paceRange" type="range" min="60" max="160" value="100">
+      <label class="adj-lb">パンチイン（ズーム量）</label>
+      <input class="range" id="zoomRange" type="range" min="100" max="130" value="112">
+      <label class="adj-lb">再生速度</label>
+      <div class="seg" id="speedSeg">
+        <button data-s="0.75" type="button">ゆっくり</button>
+        <button data-s="1" class="on" type="button">ふつう</button>
+        <button data-s="1.4" type="button">はやい</button>
+      </div>
+    </div>
+
+    <div class="pane" data-pane="5">
+      <div class="pane-title">⑤ 書き出し</div>
+      <div class="sum-card" id="sumCard"></div>
+      <button class="export-btn" id="exportBtn" type="button">書き出す</button>
+      <div class="done-panel" id="donePanel">
+        <div class="done-check">✓</div>
+        <b>書き出し完了</b>
+        <span id="doneInfo"></span>
+        <div class="done-btns">
+          <button class="done-back" id="doneBack" type="button">管理画面に戻る</button>
+          <button class="done-again" id="doneAgain" type="button">編集をつづける</button>
+        </div>
+        <p class="pane-note">Instagram への投稿は、このあとユウキの確認画面から行います。</p>
+      </div>
+    </div>
+
+    <div class="wiz-nav" id="wizNav">
+      <button class="wiz-prev" id="wizPrev" type="button">‹ もどる</button>
+      <button class="wiz-next" id="wizNext" type="button">次へ ›</button>
+    </div>
+  </section>
+
+  <div class="overlay" id="overlay">
+    <div class="ov-card">
+      <div class="ov-title" id="ovTitle">自動編集中</div>
+      <div class="ov-msg" id="ovMsg">カットを解析しています…</div>
+      <div class="ov-bar"><div class="ov-fill" id="ovFill"></div></div>
+      <div class="ov-pct" id="ovPct">0%</div>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+</div>
+
+<script>window.COCKPIT_CFG={variant:1,wizard:false,vname:"案1 CapCut風"};</script>
+<script>
+(function(){
+"use strict";
+var CFG = window.COCKPIT_CFG || {variant:1, wizard:false, vname:""};
+var PH = function(n){ return "../reel-cockpit/img/p"+n+".jpg"; };
+
+var MEDIA = ["002","011","021","032","051","058","075","084","091","100"];
+var VIDEOS = [
+  {thumb:"084", label:"動画：戦利品チェック", dur:"0:20"},
+  {thumb:"032", label:"動画：店内ブラウズ", dur:"0:26"},
+  {thumb:"051", label:"動画：ぼっちパネル前", dur:"0:17"},
+  {thumb:"100", label:"動画：回転寿司", dur:"0:10"}
+];
+
+var PROJECTS = [
+  {id:"victor",   name:"Victor Gonzalez", date:25, meta:"11/25（水）・秋葉原", ch:"Oshinobi", n:83, v:7, st:"new",  stLabel:"新規・素材取込済み", thumb:"002"},
+  {id:"jennifer", name:"Jennifer West",   date:24, meta:"11/24（火）・秋葉原", ch:"Cal.com",  n:80, v:8, st:"wait", stLabel:"下見待ち", thumb:"021"},
+  {id:"pamela",   name:"Pamela McGrogan", date:22, meta:"11/22（日）・秋葉原", ch:"Cal.com",  n:64, v:5, st:"wait", stLabel:"下見待ち", thumb:"032"},
+  {id:"michaela", name:"Michaela",        date:19, meta:"11/19（木）・秋葉原", ch:"Airbnb",   n:72, v:6, st:"done", stLabel:"投稿済み", thumb:"091"},
+  {id:"valeska",  name:"Valeska",         date:17, meta:"11/17（火）・浅草",   ch:"直接",     n:58, v:4, st:"edit", stLabel:"編集中", thumb:"011"},
+  {id:"alicia",   name:"Alicia",          date:8,  meta:"11/8（日）・秋葉原",  ch:"Airbnb",   n:66, v:5, st:"done", stLabel:"書き出し済み", thumb:"075"},
+  {id:"yulia",    name:"Yulia",           date:6,  meta:"11/6（金）・秋葉原",  ch:"Airbnb",   n:71, v:6, st:"done", stLabel:"書き出し済み", thumb:"058"},
+  {id:"samuel",   name:"Samuel",          date:3,  meta:"11/3（火）・秋葉原",  ch:"Oshinobi", n:59, v:3, st:"done", stLabel:"書き出し済み", thumb:"100"}
+];
+var TOUR_DAYS = {3:1,5:1,6:1,8:1,12:1,13:1,17:1,19:1,22:1,24:1,25:1};
+var BY_DATE = {}; PROJECTS.forEach(function(p){ BY_DATE[p.date]=p; });
+
+var TEMPLATES = [
+  {id:"pov", name:"POVフック型", desc:"動画中心・冒頭2秒で掴む", len:"約26秒",
+   hook:"POV: your local guide takes you anime hunting in Akihabara",
+   cuts:[
+     {p:"051", cap:"A limited Bocchi the Rock! pop-up", dur:3000},
+     {p:"011", cap:"Figure hunting at the glass cases", dur:3200},
+     {p:"032", cap:"Browsing the goods tables", dur:3200},
+     {p:"075", cap:"Manga corner finds", dur:3000},
+     {p:"084", cap:"He found the one he wanted", dur:3200},
+     {p:"100", cap:"Sushi break to finish", dur:3200},
+     {p:"002", cap:"Link in bio to book your tour", dur:3400}]},
+  {id:"slide", name:"スライドショー型", desc:"写真7枚・Ken Burns・保存訴求", len:"約21秒",
+   hook:"A perfect anime day in Akihabara",
+   cuts:[
+     {p:"058", cap:"", dur:3000},
+     {p:"051", cap:"A limited-time Bocchi the Rock! event", dur:3000},
+     {p:"011", cap:"Figure cases worth the hunt", dur:3000},
+     {p:"091", cap:"Digging through the manga shelves", dur:3000},
+     {p:"084", cap:"Found it!", dur:3000},
+     {p:"021", cap:"Posing with the Bocchi panels", dur:3000},
+     {p:"002", cap:"Save this for your Tokyo trip", dur:3000}]},
+  {id:"top3", name:"Top3リスト型", desc:"番号リストで畳む", len:"約21秒",
+   hook:"3 stops from today's Akihabara anime tour",
+   cuts:[
+     {p:"002", cap:"", dur:2200},
+     {p:"051", cap:"1. Bocchi the Rock! pop-up", dur:3400},
+     {p:"011", cap:"2. Figure hunting", dur:3400},
+     {p:"075", cap:"3. Manga corner", dur:3400},
+     {p:"100", cap:"This could be your day in Akihabara", dur:3400}]},
+  {id:"react", name:"反応中心型", desc:"ゲストの表情で引く密着型", len:"約19秒",
+   hook:"His face when he found the one he wanted",
+   cuts:[
+     {p:"084", cap:"", dur:4200},
+     {p:"091", cap:"Searching the shelves...", dur:4200},
+     {p:"084", cap:"Found it!", dur:4200},
+     {p:"002", cap:"This is why I love guiding anime fans", dur:4400}]},
+  {id:"beat", name:"ビートカット型", desc:"高速カット・トレンド音源前提", len:"約16秒",
+   hook:"Akihabara in 16 seconds",
+   cuts:[
+     {p:"058", cap:"", dur:1100},{p:"051", cap:"", dur:1100},{p:"011", cap:"", dur:1100},
+     {p:"075", cap:"", dur:1100},{p:"084", cap:"", dur:1100},{p:"032", cap:"", dur:1100},
+     {p:"091", cap:"", dur:1100},{p:"021", cap:"", dur:1100},{p:"100", cap:"", dur:1100},
+     {p:"002", cap:"Anime Sensei Tours — Akihabara, Tokyo", dur:1600}]}
+];
+
+var FILTERS = {none:"none", warm:"sepia(.32) saturate(1.25) brightness(1.03)",
+  cool:"hue-rotate(-14deg) saturate(1.12) brightness(1.05)", mono:"grayscale(1) contrast(1.06)"};
+
+var S = {proj:null, tpl:-1, step:1, maxStep:1, generated:false, playing:false,
+         idx:0, prog:0, filter:"none", speed:1, pace:1, zoom:1.12, hook:"", exported:false};
+var $ = function(id){ return document.getElementById(id); };
+var app = $("app"), toastTimer = null, tickTimer = null, lastTick = 0;
+
+function toast(msg){ var t=$("toast"); t.textContent=msg; t.classList.add("show");
+  clearTimeout(toastTimer); toastTimer=setTimeout(function(){ t.classList.remove("show"); },2400); }
+
+/* ---------- 管理画面 ---------- */
+function buildCalendar(){
+  var g=$("calGrid"); g.innerHTML="";
+  var firstDow=0; // 2026-11-01 = 日曜
+  for(var i=0;i<firstDow;i++){ var s=document.createElement("span"); s.className="cal-cell empty"; g.appendChild(s); }
+  for(var d=1; d<=30; d++){
+    var c=document.createElement("button"); c.type="button"; c.className="cal-cell"; c.textContent=d;
+    if(TOUR_DAYS[d]) c.classList.add("has");
+    if(d===25) c.classList.add("today");
+    if(BY_DATE[d]){ (function(p){ c.addEventListener("click", function(){ openEditor(p); }); })(BY_DATE[d]); }
+    else if(TOUR_DAYS[d]){ (function(dd){ c.addEventListener("click", function(){ toast("11/"+dd+" の回はプロジェクト未作成です（プロトタイプ）"); }); })(d); }
+    g.appendChild(c);
+  }
+}
+function buildProjects(){
+  var list=$("projList"); list.innerHTML="";
+  $("projCount").textContent = PROJECTS.length+"件";
+  PROJECTS.forEach(function(p){
+    var card=document.createElement("button"); card.type="button"; card.className="proj-card";
+    card.innerHTML = '<img class="proj-thumb" src="'+PH(p.thumb)+'" alt="">'+
+      '<span class="proj-tx"><b>'+p.name+'</b><span>'+p.meta+' ・ '+p.ch+'</span>'+
+      '<span class="proj-n">写真'+p.n+'点 ・ 動画'+p.v+'点</span></span>'+
+      '<span class="st st-'+p.st+'">'+p.stLabel+'</span><span class="proj-arrow">›</span>';
+    card.addEventListener("click", function(){ openEditor(p); });
+    list.appendChild(card);
+  });
+}
+
+/* ---------- 編集画面 ---------- */
+function openEditor(p){
+  stopPlay();
+  S.proj=p; S.tpl=-1; S.step=1; S.maxStep=1; S.generated=false; S.idx=0; S.prog=0; S.exported=false;
+  S.filter="none"; S.speed=1; S.pace=1; S.zoom=1.12; S.hook="";
+  $("epName").textContent = p.name+" 回";
+  $("epMeta").textContent = p.meta+" ・ "+p.ch;
+  $("imCounts").textContent = "写真"+p.n+"点 ・ 動画"+p.v+"点 を取り込みました";
+  buildMedia(); buildTemplates(); resetAdjust(); renderPreview(); updateSteps(); applyStepVis();
+  $("autoDone").classList.remove("show"); $("donePanel").classList.remove("show");
+  $("exportBtn").style.display=""; buildSummary();
+  $("scrMgmt").classList.add("hidden"); $("scrEdit").classList.remove("hidden");
+  window.scrollTo(0,0); app.scrollTop=0;
+}
+function goManage(){
+  stopPlay();
+  $("scrEdit").classList.add("hidden"); $("scrMgmt").classList.remove("hidden");
+  window.scrollTo(0,0); app.scrollTop=0;
+}
+function buildMedia(){
+  var g=$("mediaGrid"); g.innerHTML="";
+  MEDIA.forEach(function(n){ var d=document.createElement("div"); d.className="m-cell";
+    d.innerHTML='<img src="'+PH(n)+'" alt="">'; g.appendChild(d); });
+  var vr=$("videoRow"); vr.innerHTML="";
+  VIDEOS.forEach(function(v){ var d=document.createElement("div"); d.className="v-chip";
+    d.innerHTML='<span class="v-th"><img src="'+PH(v.thumb)+'" alt=""><i>▶</i></span><span class="v-lb">'+v.label+'</span><span class="v-dur">'+v.dur+'</span>';
+    vr.appendChild(d); });
+}
+function buildTemplates(){
+  var g=$("tplGrid"); g.innerHTML="";
+  TEMPLATES.forEach(function(t,i){
+    var card=document.createElement("button"); card.type="button"; card.className="tpl-card"; card.dataset.i=i;
+    card.innerHTML='<img src="'+PH(t.cuts[0].p)+'" alt=""><span class="tpl-tx"><b>'+t.name+'</b><span>'+t.desc+'</span><span class="tpl-len">'+t.len+'</span></span>';
+    card.addEventListener("click", function(){ selectTemplate(i); });
+    g.appendChild(card);
+  });
+  var add=document.createElement("button"); add.type="button"; add.className="tpl-card tpl-add";
+  add.innerHTML='<span class="add-ic">＋</span><span class="tpl-tx"><b>新しい型を追加</b><span>型は増やしていく前提です</span></span>';
+  add.addEventListener("click", function(){ toast("本実装ではここから新しい型を追加できます（プロトタイプ）"); });
+  g.appendChild(add);
+}
+function resetAdjust(){
+  $("hookIn").value="";
+  document.querySelectorAll("#filterSeg button").forEach(function(b){ b.classList.toggle("on", b.dataset.f==="none"); });
+  document.querySelectorAll("#speedSeg button").forEach(function(b){ b.classList.toggle("on", b.dataset.s==="1"); });
+  $("paceRange").value=100; $("zoomRange").value=112;
+}
+function buildSummary(){
+  var t = S.tpl>=0 ? TEMPLATES[S.tpl] : null;
+  $("sumCard").innerHTML = '<div class="sum-row"><span>型</span><b>'+(t?t.name:"未選択")+'</b></div>'+
+    '<div class="sum-row"><span>尺</span><b>'+(t?t.len:"—")+'</b></div>'+
+    '<div class="sum-row"><span>サイズ</span><b>1080 × 1920（9:16）</b></div>'+
+    '<div class="sum-row"><span>音源</span><b>焼き込まない（Instagram側で付ける）</b></div>';
+}
+function selectTemplate(i){
+  S.tpl=i; var t=TEMPLATES[i];
+  S.hook=t.hook; $("hookIn").value=t.hook;
+  S.idx=0; S.prog=0; S.generated=false; $("autoDone").classList.remove("show");
+  document.querySelectorAll(".tpl-card").forEach(function(c){ c.classList.toggle("sel", +c.dataset.i===i); });
+  if(S.step<2){ S.step=2; } S.maxStep=Math.max(S.maxStep,2);
+  buildSummary(); renderPreview(); updateSteps(); applyStepVis();
+  if(!CFG.wizard){ scrollToPane(3); }
+}
+function cuts(){ return S.tpl>=0 ? TEMPLATES[S.tpl].cuts : []; }
+function renderPreview(){
+  var cs=cuts(), pv=$("preview"), img=$("pvImg");
+  var segs=$("pvSegs"); segs.innerHTML="";
+  cs.forEach(function(){ var s=document.createElement("i"); segs.appendChild(s); });
+  buildTimeline();
+  if(!cs.length){ $("pvSlate").style.display="flex"; img.style.opacity=0;
+    $("pvHook").textContent=""; $("pvCap").textContent=""; $("pvBadge").textContent=""; $("pvPlay").style.display="none"; return; }
+  $("pvSlate").style.display="none"; img.style.opacity=1;
+  var c=cs[S.idx];
+  img.src=PH(c.p); img.style.filter=FILTERS[S.filter];
+  img.classList.remove("kb"); void img.offsetWidth; img.classList.add("kb");
+  img.style.setProperty("--zoom", S.zoom);
+  $("pvHook").textContent = S.idx===0 ? S.hook : "";
+  $("pvCap").textContent = c.cap || "";
+  $("pvBadge").textContent = TEMPLATES[S.tpl].name;
+  $("pvPlay").style.display = S.playing ? "none" : "flex";
+  paintSegs(); paintTimeline();
+}
+function paintSegs(){
+  var cs=cuts(), bars=$("pvSegs").children;
+  for(var i=0;i<bars.length;i++){ var f = i<S.idx?1 : i===S.idx? S.prog : 0;
+    bars[i].innerHTML = '<b style="width:'+(f*100)+'%"></b>'; }
+}
+function buildTimeline(){
+  var tl=$("tl"); tl.innerHTML="";
+  cuts().forEach(function(c,i){ var d=document.createElement("button"); d.type="button"; d.className="tl-cell"; d.dataset.i=i;
+    d.innerHTML='<img src="'+PH(c.p)+'" alt=""><span>'+(c.dur/1000).toFixed(1)+'s</span>';
+    d.addEventListener("click", function(){ S.idx=i; S.prog=0; renderPreview(); });
+    tl.appendChild(d); });
+  var lv2=$("laneV2"), lv1=$("laneV1"); lv2.innerHTML=""; lv1.innerHTML="";
+  var total=cuts().reduce(function(a,c){return a+c.dur;},0)||1;
+  cuts().forEach(function(c,i){ var w=(c.dur/total*100);
+    var b2=document.createElement("div"); b2.className="lane-blk cap"; b2.style.width=w+"%"; b2.textContent=c.cap||""; lv2.appendChild(b2);
+    var b1=document.createElement("div"); b1.className="lane-blk"; b1.style.width=w+"%";
+    b1.innerHTML='<img src="'+PH(c.p)+'" alt="">'; b1.addEventListener("click", function(){ S.idx=i; S.prog=0; renderPreview(); });
+    lv1.appendChild(b1); });
+}
+function paintTimeline(){
+  document.querySelectorAll(".tl-cell").forEach(function(el){ el.classList.toggle("on", +el.dataset.i===S.idx); });
+  document.querySelectorAll("#laneV1 .lane-blk").forEach(function(el,i){ el.classList.toggle("on", i===S.idx); });
+}
+/* 再生 */
+function startPlay(){ if(!cuts().length) return; S.playing=true; $("pvPlay").style.display="none";
+  lastTick=performance.now(); cancelAnimationFrame(tickTimer); tickTimer=requestAnimationFrame(tick); }
+function stopPlay(){ S.playing=false; cancelAnimationFrame(tickTimer); var p=$("pvPlay"); if(p&&cuts().length) p.style.display="flex"; }
+function tick(now){
+  if(!S.playing) return;
+  var dt=now-lastTick; lastTick=now;
+  var c=cuts()[S.idx]; if(!c){ stopPlay(); return; }
+  S.prog += dt/(c.dur*S.pace/S.speed);
+  if(S.prog>=1){ if(S.idx<cuts().length-1){ S.idx++; S.prog=0; renderPreview(); } else { S.prog=1; paintSegs(); stopPlay(); return; } }
+  paintSegs(); tickTimer=requestAnimationFrame(tick);
+}
+/* ステップ */
+function updateSteps(){
+  document.querySelectorAll("#steps li").forEach(function(li){
+    var n=+li.dataset.step;
+    li.classList.toggle("cur", n===S.step);
+    li.classList.toggle("done", n<S.maxStep || (n===3&&S.generated) || (n===5&&S.exported));
+  });
+  $("wizPrev").disabled = S.step<=1;
+  $("wizNext").textContent = S.step>=5 ? "書き出しへ" : "次へ ›";
+}
+function setStep(n){ S.step=n; S.maxStep=Math.max(S.maxStep,n); updateSteps(); applyStepVis(); }
+function applyStepVis(){
+  if(!CFG.wizard) return;
+  document.querySelectorAll(".pane").forEach(function(p){ p.classList.toggle("on", +p.dataset.pane===S.step); });
+  $("pvBlock").style.display = S.step>=2 ? "" : "none";
+}
+function scrollToPane(n){
+  if(window.__NOSCROLL) return;
+  var el=document.querySelector('.pane[data-pane="'+n+'"]'); if(el) el.scrollIntoView({behavior:"smooth", block:"start"});
+}
+/* オーバーレイ（自動編集・書き出し共通） */
+function runOverlay(title, msgs, done){
+  var ov=$("overlay"); ov.classList.add("show"); $("ovTitle").textContent=title;
+  var t0=performance.now(), D=1700;
+  (function fr(now){ var p=Math.min(1,(now-t0)/D);
+    $("ovFill").style.width=(p*100)+"%"; $("ovPct").textContent=Math.round(p*100)+"%";
+    $("ovMsg").textContent=msgs[Math.min(msgs.length-1, Math.floor(p*msgs.length))];
+    if(p<1) requestAnimationFrame(fr); else { ov.classList.remove("show"); done(); } })(t0);
+}
+function autoEdit(){
+  if(S.tpl<0){ toast("先に型を選んでください"); if(CFG.wizard) setStep(2); else scrollToPane(2); return; }
+  runOverlay("自動編集中", ["カットを解析しています…","型のカット割りで並べています…","テロップを配置しています…","尺を調整しています…"], function(){
+    S.generated=true; if(S.step<3) S.step=3; S.maxStep=Math.max(S.maxStep,4);
+    $("autoDone").classList.add("show"); S.idx=0; S.prog=0; renderPreview(); startPlay();
+    updateSteps(); if(CFG.wizard) setStep(4); });
+}
+function exportReel(){
+  if(!S.generated){ toast("先に自動編集をしてください"); return; }
+  runOverlay("書き出し中", ["動画をレンダリングしています…","1080×1920 で書き出しています…"], function(){
+    S.exported=true; S.maxStep=5; if(CFG.wizard) S.step=5;
+    $("doneInfo").textContent = (S.proj?S.proj.name+" 回":"")+" ・ "+(S.tpl>=0?TEMPLATES[S.tpl].name:"")+" ・ "+(S.tpl>=0?TEMPLATES[S.tpl].len:"");
+    $("donePanel").classList.add("show"); $("exportBtn").style.display="none";
+    updateSteps(); applyStepVis(); stopPlay();
+    $("donePanel").scrollIntoView({behavior:"smooth", block:"center"}); });
+}
+/* イベント */
+$("backBtn").addEventListener("click", goManage);
+$("autoBtn").addEventListener("click", autoEdit);
+$("exportBtn").addEventListener("click", exportReel);
+$("doneBack").addEventListener("click", goManage);
+$("doneAgain").addEventListener("click", function(){ $("donePanel").classList.remove("show"); $("exportBtn").style.display=""; if(CFG.wizard) setStep(2); else scrollToPane(2); });
+$("preview").addEventListener("click", function(){ if(!cuts().length) return;
+  if(S.playing) stopPlay(); else { if(S.idx>=cuts().length-1 && S.prog>=1){ S.idx=0; S.prog=0; renderPreview(); } startPlay(); } });
+$("hookIn").addEventListener("input", function(e){ S.hook=e.target.value; if(S.idx===0) $("pvHook").textContent=S.hook; touchAdjust(); });
+$("filterSeg").addEventListener("click", function(e){ var b=e.target.closest("button"); if(!b) return;
+  document.querySelectorAll("#filterSeg button").forEach(function(x){ x.classList.toggle("on", x===b); });
+  S.filter=b.dataset.f; $("pvImg").style.filter=FILTERS[S.filter]; touchAdjust(); });
+$("speedSeg").addEventListener("click", function(e){ var b=e.target.closest("button"); if(!b) return;
+  document.querySelectorAll("#speedSeg button").forEach(function(x){ x.classList.toggle("on", x===b); });
+  S.speed=+b.dataset.s; touchAdjust(); });
+$("paceRange").addEventListener("input", function(e){ S.pace=+e.target.value/100; touchAdjust(); });
+$("zoomRange").addEventListener("input", function(e){ S.zoom=+e.target.value/100; $("pvImg").style.setProperty("--zoom", S.zoom); touchAdjust(); });
+function touchAdjust(){ if(S.generated && S.step<4){ S.step=4; } S.maxStep=Math.max(S.maxStep, S.generated?4:S.maxStep); updateSteps(); }
+document.querySelectorAll(".next-btn").forEach(function(b){ b.addEventListener("click", function(){
+  var n=+b.dataset.goto; if(CFG.wizard) setStep(n); else { S.step=Math.max(S.step,n); S.maxStep=Math.max(S.maxStep,n); updateSteps(); scrollToPane(n); } }); });
+$("wizNext").addEventListener("click", function(){
+  if(S.step===2 && S.tpl<0){ toast("型を選んでください"); return; }
+  if(S.step===3 && !S.generated){ autoEdit(); return; }
+  if(S.step>=5){ exportReel(); return; }
+  setStep(S.step+1); });
+$("wizPrev").addEventListener("click", function(){ if(S.step>1) setStep(S.step-1); });
+document.querySelectorAll("#steps li").forEach(function(li){ li.addEventListener("click", function(){
+  var n=+li.dataset.step; if(n<=S.maxStep){ if(CFG.wizard) setStep(n); else scrollToPane(n===3?3:n); } }); });
+
+/* 初期化 */
+$("vtag").textContent = CFG.vname || "";
+if(CFG.wizard) app.classList.add("wiz");
+buildCalendar(); buildProjects(); applyStepVis();
+var q=new URLSearchParams(location.search);
+if(q.has("shot")) window.__NOSCROLL=true;
+if(q.get("s")==="edit"){ var p=BY_DATE[25]; openEditor(p);
+  var t=parseInt(q.get("t")||"0",10); if(!isNaN(t)&&TEMPLATES[t]){ selectTemplate(t); S.generated=true; $("autoDone").classList.add("show"); S.step=4; S.maxStep=4; updateSteps(); if(CFG.wizard) setStep(4); }
+  if(q.get("shot")==="pv"){ setTimeout(function(){ var el=$("pvBlock"); if(el) window.scrollTo(0, Math.max(0, el.offsetTop-64)); },250); } }
+})();
+
+</script>
+</body>
+</html>
