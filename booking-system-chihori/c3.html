@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ご提案3 機能チェックリスト | 予約管理システムの開発</title>
+<meta property="og:title" content="ご提案3 機能チェックリスト | 予約管理システムの開発">
+<meta property="og:description" content="機能ごとに「欲しい／なくてよい／要相談」を選べるチェックリスト型のご提案ページ。">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/booking-system-chihori/c3-og.jpg">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/booking-system-chihori/c3.html">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:"M PLUS Rounded 1c",sans-serif; color:#221d15; background:#f7f3ec; line-height:1.75; -webkit-text-size-adjust:100%; }
+  .wrap { max-width:980px; margin:0 auto; padding:0 20px; }
+  header.top { padding:14px 0; }
+  header.top .wrap { display:flex; justify-content:space-between; align-items:center; gap:12px; }
+  .brand { font-weight:800; font-size:15px; white-space:nowrap; }
+  .brand span { color:#d9622b; }
+  .plan-no { display:inline-flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; line-height:1.5; background:#221d15; color:#fff; padding:3px 12px; border-radius:999px; white-space:nowrap; }
+  .hero { padding:44px 0 30px; text-align:center; }
+  .kicker { display:inline-block; font-size:12.5px; font-weight:800; line-height:1.6; color:#d9622b; background:#fdeee3; border-radius:999px; padding:3px 14px; margin-bottom:16px; white-space:nowrap; }
+  h1 { font-size:clamp(20px,6.2vw,46px); font-weight:800; line-height:1.3; white-space:nowrap; }
+  h1 .or { color:#d9622b; }
+  .hero p.lead { margin:16px auto 0; font-size:clamp(14.5px,2.4vw,17px); font-weight:500; color:#5a5245; max-width:640px; }
+  .app { background:#fff; border:2.5px solid #221d15; border-radius:20px; overflow:hidden; box-shadow:0 16px 36px rgba(34,29,21,.14); margin:34px auto 0; max-width:900px; text-align:left; }
+  .app-bar { background:#221d15; color:#fff; padding:10px 16px; display:flex; justify-content:space-between; align-items:center; font-size:13px; font-weight:800; line-height:1.5; }
+  .app-bar .dots { display:inline-flex; align-items:center; }
+  .app-bar .dots span { display:inline-block; width:10px; height:10px; border-radius:50%; margin-left:5px; }
+  .app-body { display:grid; grid-template-columns:250px 1fr; }
+  @media (max-width:720px){ .app-body{ grid-template-columns:1fr; } .app-side{ display:none; } }
+  .app-side { border-right:2px solid #efe9df; padding:14px 12px; background:#fbf9f5; }
+  .app-side .cap { font-size:11px; font-weight:800; color:#a08e76; letter-spacing:.1em; margin:4px 6px 10px; }
+  .guest { border-radius:12px; padding:9px 11px; margin-bottom:8px; border:2px solid transparent; }
+  .guest:last-child { margin-bottom:0; }
+  .guest.on { background:#fff; border-color:#221d15; }
+  .guest .nm { font-size:13.5px; font-weight:800; line-height:1.5; }
+  .guest .mt { font-size:11px; color:#8a7d68; }
+  .badge { display:inline-block; font-size:10px; font-weight:800; line-height:1.6; color:#fff; border-radius:6px; padding:1px 7px; margin-left:5px; vertical-align:middle; }
+  .b-viator { background:#00a699; } .b-own { background:#d9622b; } .b-byfood { background:#7c5cbf; } .b-airbnb { background:#ff5a5f; }
+  .app-main { padding:18px 20px 22px; }
+  .carte-head { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+  .carte-head .name { font-size:20px; font-weight:800; line-height:1.4; }
+  .status { display:inline-flex; align-items:center; justify-content:center; background:#e7f6ec; color:#157347; font-weight:800; font-size:12px; line-height:1.5; border-radius:999px; padding:3px 12px; white-space:nowrap; }
+  .rows { margin-top:14px; border-top:2px dashed #e7dfd2; }
+  .row { display:grid; grid-template-columns:92px 1fr; gap:10px; padding:9px 0; border-bottom:2px dashed #e7dfd2; font-size:13.5px; }
+  .row .k { color:#a08e76; font-weight:800; font-size:12px; padding-top:2px; }
+  .alert { margin-top:14px; background:#fff7e8; border:2px solid #e8a13a; border-radius:12px; padding:10px 14px; font-size:13px; font-weight:700; }
+  .alert.ok { background:#eefaf1; border-color:#3cb371; }
+  .next { margin-top:12px; background:#221d15; color:#fff; border-radius:12px; padding:12px 16px; font-size:13.5px; }
+  .next b { color:#ffb27a; }
+  .note { font-size:11.5px; color:#a08e76; text-align:center; margin-top:10px; }
+  section { padding:52px 0; }
+  section.tight { padding-top:0; }
+  .sec-label { font-size:12px; font-weight:800; letter-spacing:.16em; line-height:1.5; color:#d9622b; margin-bottom:8px; }
+  h2 { font-size:clamp(19px,4.4vw,30px); font-weight:800; line-height:1.4; margin-bottom:22px; white-space:nowrap; }
+  .pts { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  @media (max-width:720px){ .pts{ grid-template-columns:1fr; } }
+  .pt { background:#fff; border:2px solid #e9e1d3; border-radius:16px; padding:20px; }
+  .pt h3 { font-size:16px; font-weight:800; margin-bottom:6px; }
+  .pt h3 .tag { color:#d9622b; }
+  .pt p { font-size:13.5px; color:#5a5245; }
+  .price-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media (max-width:720px){ .price-row{ grid-template-columns:1fr; } }
+  .price-card { background:#221d15; color:#fff; border-radius:16px; padding:26px; text-align:center; }
+  .price-card .yen { font-size:clamp(36px,7vw,52px); font-weight:800; line-height:1.15; }
+  .price-card .yen small { font-size:.4em; font-weight:800; }
+  .price-card p { font-size:13px; color:#cfc6b8; margin-top:6px; }
+  .incl { background:#fff; border:2px solid #e9e1d3; border-radius:16px; padding:26px; }
+  .incl h3 { font-size:15px; font-weight:800; margin-bottom:10px; }
+  .incl li { font-size:13.5px; margin-left:18px; margin-bottom:4px; color:#4a4234; }
+  .incl li:last-child { margin-bottom:0; }
+  .demo-box { background:#fff; border:2px solid #e9e1d3; border-radius:20px; padding:24px; }
+  .demo-lead { font-size:14px; font-weight:500; color:#5a5245; margin-bottom:18px; }
+  .demo-tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
+  .demo-tab { font-family:inherit; display:inline-flex; align-items:center; justify-content:center; font-size:13.5px; font-weight:800; line-height:1.5; color:#221d15; background:#f7f3ec; border:2px solid #e9e1d3; border-radius:999px; padding:7px 18px; cursor:pointer; }
+  .demo-tab.is-on { background:#d9622b; border-color:#d9622b; color:#fff; }
+  .demo-panel { display:none; }
+  .demo-panel.is-on { display:block; }
+  .demo-cap { font-size:13.5px; font-weight:700; margin-bottom:10px; }
+  .demo-cap a { color:#d9622b; font-weight:800; white-space:nowrap; }
+  .demo-frame { border:2.5px solid #221d15; border-radius:16px; overflow:hidden; background:#fff; }
+  .demo-frame iframe { width:100%; height:640px; border:none; display:block; }
+  @media (max-width:720px){ .demo-frame iframe{ height:560px; } .demo-box{ padding:18px 14px; } }
+  .demo-note { font-size:11.5px; color:#a08e76; margin-top:10px; }
+  .which { margin-top:18px; background:#fdeee3; border:2px solid #d9622b; border-radius:16px; padding:18px 20px; display:flex; gap:16px; align-items:center; flex-wrap:wrap; }
+  .which p { font-size:14.5px; font-weight:700; flex:1; min-width:240px; }
+  .which p b { color:#d9622b; font-size:16px; }
+  .which a { display:inline-block; background:#d9622b; color:#fff; font-weight:800; font-size:14px; line-height:1.5; text-decoration:none; padding:11px 24px; border-radius:999px; white-space:nowrap; }
+  .form-sec { padding-bottom:64px; }
+  .form-lead { font-size:14.5px; color:#5a5245; max-width:720px; margin-bottom:16px; }
+  .form-qs { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:18px; }
+  .form-qs li { list-style:none; font-size:12.5px; font-weight:800; background:#fff; border:2px solid #e9e1d3; border-radius:999px; padding:4px 14px; }
+  .form-frame { background:#fff; border:2.5px solid #221d15; border-radius:16px; overflow:hidden; }
+  .form-frame iframe { width:100%; height:980px; border:none; display:block; }
+  @media (max-width:720px){ .form-frame iframe{ height:1080px; } }
+  .form-alt { font-size:12.5px; color:#8a7d68; margin-top:10px; text-align:center; }
+  .form-alt a { color:#d9622b; font-weight:800; }
+  footer { border-top:2px solid #e9e1d3; padding:20px 0 28px; font-size:12px; color:#a08e76; text-align:center; }
+  /* annotations (c1) */
+  .memos { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:22px; text-align:left; }
+  @media (max-width:720px){ .memos{ grid-template-columns:1fr; } }
+  .memo { background:#fff7e8; border:2px dashed #e8a13a; border-radius:14px; padding:14px 16px; font-size:13px; }
+  .memo b { display:block; font-size:13.5px; margin-bottom:4px; color:#9a6a14; }
+  /* sheet (c2) */
+  .sheet { background:#fff; border:2px solid #e9e1d3; border-radius:8px; padding:38px 40px; margin:30px auto 0; box-shadow:0 10px 28px rgba(34,29,21,.08); }
+  @media (max-width:720px){ .sheet{ padding:24px 18px; } }
+  .sheet .doc-head { border-bottom:3px solid #221d15; padding-bottom:16px; margin-bottom:8px; }
+  .sheet .doc-head .ttl { font-size:clamp(19px,4.6vw,26px); font-weight:800; white-space:nowrap; }
+  .sheet .meta { font-size:12.5px; color:#8a7d68; margin-top:6px; }
+  .sheet h3.st { font-size:16.5px; font-weight:800; margin:26px 0 10px; padding-left:10px; border-left:5px solid #d9622b; line-height:1.5; }
+  .sheet p, .sheet li { font-size:13.5px; color:#4a4234; }
+  .sheet li { margin-left:18px; margin-bottom:3px; }
+  table.tb { width:100%; border-collapse:collapse; margin:8px 0 4px; font-size:13.5px; }
+  table.tb th, table.tb td { border:1.5px solid #e9e1d3; padding:9px 12px; text-align:left; vertical-align:top; }
+  table.tb th { background:#f7f3ec; font-weight:800; white-space:nowrap; }
+  .faq dt { font-weight:800; font-size:14px; margin-top:14px; }
+  .faq dd { font-size:13.5px; color:#4a4234; margin-top:2px; }
+  .share-note { background:#eefaf1; border:2px solid #3cb371; border-radius:12px; padding:12px 16px; font-size:13.5px; font-weight:700; margin-top:22px; }
+  /* checklist (c3) */
+  .feat { background:#fff; border:2px solid #e9e1d3; border-radius:16px; padding:18px 20px; margin-bottom:12px; }
+  .feat .fh { display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:flex-start; }
+  .feat h3 { font-size:16px; font-weight:800; }
+  .feat p { font-size:13px; color:#5a5245; margin-top:2px; max-width:560px; }
+  .sel { display:flex; gap:6px; flex-shrink:0; }
+  .sel button { font-family:inherit; font-size:12.5px; font-weight:800; line-height:1.5; border:2px solid #e9e1d3; background:#f7f3ec; color:#8a7d68; border-radius:999px; padding:5px 14px; cursor:pointer; }
+  .sel button.on-want { background:#d9622b; border-color:#d9622b; color:#fff; }
+  .sel button.on-no { background:#221d15; border-color:#221d15; color:#fff; }
+  .sel button.on-ask { background:#e8a13a; border-color:#e8a13a; color:#fff; }
+  .sum-box { background:#221d15; color:#fff; border-radius:16px; padding:22px; margin-top:20px; }
+  .sum-box h3 { font-size:15.5px; font-weight:800; margin-bottom:8px; }
+  .sum-box p { font-size:12.5px; color:#cfc6b8; margin-bottom:10px; }
+  .sum-box textarea { width:100%; min-height:120px; border-radius:10px; border:none; padding:12px; font-family:inherit; font-size:13px; line-height:1.7; color:#221d15; background:#f7f3ec; }
+  .sum-box button { margin-top:10px; font-family:inherit; background:#d9622b; color:#fff; font-weight:800; font-size:14px; border:none; border-radius:999px; padding:10px 26px; cursor:pointer; }
+  /* flow (c4) */
+  .flow { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+  @media (max-width:720px){ .flow{ grid-template-columns:1fr; } }
+  .step { border-radius:14px; padding:16px; font-size:13px; position:relative; }
+  .step .sn { font-size:11px; font-weight:800; letter-spacing:.1em; margin-bottom:6px; }
+  .step h3 { font-size:15px; font-weight:800; margin-bottom:4px; line-height:1.5; }
+  .step.before { background:#ece7dd; color:#6b6151; }
+  .step.before .sn { color:#a08e76; }
+  .step.after { background:#fff; border:2px solid #221d15; }
+  .step.after .sn { color:#d9622b; }
+  .flow-arrow { text-align:center; font-size:26px; font-weight:800; color:#d9622b; padding:14px 0 2px; }
+  .pair { display:grid; grid-template-columns:1fr 1.4fr; gap:18px; align-items:start; margin-bottom:26px; }
+  @media (max-width:720px){ .pair{ grid-template-columns:1fr; } }
+  .pair .cap h3 { font-size:17px; font-weight:800; margin-bottom:6px; }
+  .pair .cap p { font-size:13.5px; color:#5a5245; }
+  .pair .demo-frame iframe { height:480px; }
+  /* worksheet (c5) */
+  .q { background:#fff; border:2px solid #e9e1d3; border-radius:16px; padding:22px; margin-bottom:16px; }
+  .q .qn { display:inline-block; background:#d9622b; color:#fff; font-weight:800; font-size:12.5px; line-height:1.5; border-radius:7px; padding:2px 11px; margin-bottom:8px; }
+  .q h3 { font-size:clamp(16.5px,4.2vw,20px); font-weight:800; line-height:1.5; margin-bottom:8px; }
+  .q p { font-size:13.5px; color:#5a5245; }
+  .q .ans { margin-top:12px; background:#eefaf1; border:2px solid #3cb371; border-radius:12px; padding:10px 14px; font-size:13.5px; }
+  .q .ans b { color:#157347; }
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <div class="brand">予約一元管理 <span>制作代行</span></div>
+  <div class="plan-no">株式会社あるところに様 ご提案</div>
+</div></header>
+
+<div class="hero"><div class="wrap">
+<span class="kicker">機能を、選んでください</span>
+<h1>欲しい機能に、<span class="or">マル</span>を。</h1>
+<p class="lead">予約管理システムの機能を1つずつ並べました。「欲しい」「なくてよい」「要相談」を押していくと、下に要望文が自動でまとまります。そのままフォームへ貼って送るだけで、社内検討の結果を伝えられます。</p>
+</div></div>
+
+<section class="tight"><div class="wrap">
+<div class="sec-label">DEMO</div>
+<h2>まず、画面のイメージ</h2>
+
+  <div class="demo-box">
+    <p class="demo-cap">カルテ型：機能が集まると、こんな画面になります。 <a href="https://yukitchy.github.io/booking-trends-board/booking-system-demo/demo6.html" target="_blank" rel="noopener">大きく見る →</a></p>
+    <div class="demo-frame"><iframe src="https://yukitchy.github.io/booking-trends-board/booking-system-demo/demo6.html" loading="lazy" title="実物デモ カルテ型"></iframe></div>
+    <p class="demo-note">※ デモは画面イメージです。実際の画面は、酒蔵ツアーの業務に合わせて作ります。他の形（カルテ型／カレンダー中心型／スマホファースト型）も、フォームでお選びいただけます。</p>
+  </div>
+
+
+  <div class="which">
+    <p><b>どれで実装したいですか？</b><br>3つの形は、どれを選んでも料金は同じ¥30,000一式です。迷ったら「まだ決められない・相談したい」でも大丈夫です。</p>
+    <a href="#request-form">フォームで答える ↓</a>
+  </div>
+
+</div></section>
+
+<section class="tight"><div class="wrap">
+<div class="sec-label">CHECKLIST</div>
+<h2>機能チェックリスト</h2>
+
+<div class="feat" data-name="新着予約の通知">
+<div class="fh">
+<div><h3>新着予約の通知</h3><p>予約が入った瞬間に通知が届きます。「入ったことに気づけない」という不安をなくす、中心の機能です。</p></div>
+<div class="sel">
+<button type="button" data-v="欲しい">欲しい</button>
+<button type="button" data-v="なくてよい">なくてよい</button>
+<button type="button" data-v="要相談">要相談</button>
+</div>
+</div>
+</div>
+<div class="feat" data-name="全経路の一元管理カルテ">
+<div class="fh">
+<div><h3>全経路の一元管理カルテ</h3><p>Viator・byFood・自社サイトなど、どの経路の予約もゲストごとのカルテに集まります。</p></div>
+<div class="sel">
+<button type="button" data-v="欲しい">欲しい</button>
+<button type="button" data-v="なくてよい">なくてよい</button>
+<button type="button" data-v="要相談">要相談</button>
+</div>
+</div>
+</div>
+<div class="feat" data-name="Googleカレンダー連携・二重予約チェック">
+<div class="fh">
+<div><h3>Googleカレンダー連携・二重予約チェック</h3><p>予約はカレンダーと連動し、重なりがあれば受ける前に警告が出ます。</p></div>
+<div class="sel">
+<button type="button" data-v="欲しい">欲しい</button>
+<button type="button" data-v="なくてよい">なくてよい</button>
+<button type="button" data-v="要相談">要相談</button>
+</div>
+</div>
+</div>
+<div class="feat" data-name="自社サイトの申し込みフォーム＋Stripe決済">
+<div class="fh">
+<div><h3>自社サイトの申し込みフォーム＋Stripe決済</h3><p>直接予約の受け皿です。申し込みと決済がそのままカルテにつながります。</p></div>
+<div class="sel">
+<button type="button" data-v="欲しい">欲しい</button>
+<button type="button" data-v="なくてよい">なくてよい</button>
+<button type="button" data-v="要相談">要相談</button>
+</div>
+</div>
+</div>
+<div class="feat" data-name="複数人での閲覧">
+<div class="fh">
+<div><h3>複数人での閲覧</h3><p>会社のGoogleアカウントで管理し、社内の複数人が同じ画面を見られます。</p></div>
+<div class="sel">
+<button type="button" data-v="欲しい">欲しい</button>
+<button type="button" data-v="なくてよい">なくてよい</button>
+<button type="button" data-v="要相談">要相談</button>
+</div>
+</div>
+</div>
+<div class="feat" data-name="ゲスト情報の記録">
+<div class="fh">
+<div><h3>ゲスト情報の記録</h3><p>人数・アレルギー・記念日・ラベルの文字など、当日に必要な情報をカルテへ残せます。</p></div>
+<div class="sel">
+<button type="button" data-v="欲しい">欲しい</button>
+<button type="button" data-v="なくてよい">なくてよい</button>
+<button type="button" data-v="要相談">要相談</button>
+</div>
+</div>
+</div>
+<div class="feat" data-name="前日リマインドの下書き">
+<div class="fh">
+<div><h3>前日リマインドの下書き</h3><p>ゲストへの連絡文の下書きを用意します。送り忘れ・文面づくりの手間を減らします。</p></div>
+<div class="sel">
+<button type="button" data-v="欲しい">欲しい</button>
+<button type="button" data-v="なくてよい">なくてよい</button>
+<button type="button" data-v="要相談">要相談</button>
+</div>
+</div>
+</div>
+<div class="sum-box">
+<h3>選んだ内容が、ここにまとまります</h3>
+<p>ボタンを押すと要望文が自動で作られます。コピーして、下のご要望フォームの「その他のご要望・ご質問」に貼ってください。</p>
+<textarea id="sum" readonly>まだ選ばれていません。上のボタンで「欲しい／なくてよい／要相談」を選んでください。</textarea>
+<button type="button" id="copy">要望文をコピーする</button>
+</div>
+</div></section>
+
+<section class="form-sec" id="request-form"><div class="wrap">
+  <div class="sec-label">REQUEST FORM</div>
+  <h2>ご要望をお聞かせください</h2>
+  <p class="form-lead">社内でご検討いただく中で出てきたご意見を、そのままお寄せください。いただいた内容をもとに、範囲と進め方を最終調整いたします。すべて任意回答です。</p>
+  <ul class="form-qs">
+    <li>実装したい形</li><li>欲しい機能</li><li>いらない機能</li><li>その他のご要望・ご質問</li><li>社内検討の状況</li>
+  </ul>
+  <div class="form-frame"><iframe src="https://docs.google.com/forms/d/e/1FAIpQLSek-qFviram37RCoPF-ot_i9ueypyxvsWAFR1wF-hlthhSvpA/viewform?embedded=true" title="予約管理システム ご要望・ご質問フォーム" loading="lazy">読み込んでいます…</iframe></div>
+  <p class="form-alt">フォームが表示されない場合は <a href="https://docs.google.com/forms/d/e/1FAIpQLSek-qFviram37RCoPF-ot_i9ueypyxvsWAFR1wF-hlthhSvpA/viewform" target="_blank" rel="noopener">こちらから開いてください</a></p>
+</div></section>
+
+<footer>Anime Sensei / 市原佑樹 ― AIコンサル・仕組みづくり</footer>
+</body>
+</html>
+
+<script>
+(function(){
+  var state = {};
+  document.querySelectorAll('.feat').forEach(function(f){
+    var name = f.dataset.name;
+    f.querySelectorAll('.sel button').forEach(function(b){
+      b.addEventListener('click', function(){
+        state[name] = b.dataset.v;
+        f.querySelectorAll('.sel button').forEach(function(x){ x.classList.remove('on-want','on-no','on-ask'); });
+        b.classList.add(b.dataset.v === '欲しい' ? 'on-want' : (b.dataset.v === 'なくてよい' ? 'on-no' : 'on-ask'));
+        render();
+      });
+    });
+  });
+  function render(){
+    var ta = document.getElementById('sum');
+    var lines = ['【機能チェックリストの回答】'];
+    var any = false;
+    document.querySelectorAll('.feat').forEach(function(f){
+      var n = f.dataset.name;
+      if (state[n]) { lines.push('・' + n + '：' + state[n]); any = true; }
+    });
+    ta.value = any ? lines.join('\n') : 'まだ選ばれていません。上のボタンで「欲しい／なくてよい／要相談」を選んでください。';
+  }
+  document.getElementById('copy').addEventListener('click', function(){
+    var ta = document.getElementById('sum');
+    ta.select();
+    if (navigator.clipboard) { navigator.clipboard.writeText(ta.value); }
+    else { document.execCommand('copy'); }
+    var btn = this;
+    btn.textContent = 'コピーしました ✓';
+    setTimeout(function(){ btn.textContent = '要望文をコピーする'; }, 2000);
+  });
+})();
+</script>
