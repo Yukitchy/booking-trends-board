@@ -13,7 +13,7 @@ body{font-family:"Noto Sans JP",sans-serif;background:#dcd8d0;color:#151515;-web
 .phone{max-width:390px;margin:0 auto;background:#f7f5f1;border:2.5px solid #151515;border-radius:30px;overflow:hidden;box-shadow:0 14px 34px rgba(0,0,0,.18)}
 .hd{background:#151515;color:#fff;padding:18px 18px 14px}
 .hd .date{font-size:12.5px;opacity:.75}
-.hd h1{font-family:"M PLUS Rounded 1c",sans-serif;font-size:21px;font-weight:800;margin-top:2px}
+.hd h1{font-family:"M PLUS Rounded 1c",sans-serif;font-size:clamp(16.5px,5.2vw,21px);font-weight:800;margin-top:2px;white-space:nowrap;letter-spacing:-.01em}
 .hd .sum{margin-top:10px;display:flex;gap:8px}
 .hd .sum div{flex:1;background:#262626;border-radius:12px;padding:8px 6px;text-align:center;font-size:11px}
 .hd .sum b{display:block;font-size:18px}
@@ -26,11 +26,11 @@ body{font-family:"Noto Sans JP",sans-serif;background:#dcd8d0;color:#151515;-web
 .push.opened .tag{color:#888}
 h2{font-size:13px;font-weight:900;letter-spacing:.05em;color:#555;margin:16px 2px 8px}
 .res{background:#fff;border:2px solid #151515;border-radius:16px;padding:12px 14px;margin-bottom:10px}
-.res .row{display:flex;align-items:baseline;gap:10px}
+.res .row{display:flex;align-items:center;gap:10px}
 .res .time{font-size:17px;font-weight:900}
 .res .guest{font-size:15px;font-weight:700}
 .res .meta{font-size:12.5px;color:#666;margin-top:3px;line-height:1.6}
-.badge{font-size:10.5px;font-weight:700;border-radius:6px;padding:2px 8px;color:#fff;margin-left:auto;white-space:nowrap}
+.badge{display:inline-flex;align-items:center;font-size:10.5px;font-weight:700;border-radius:6px;padding:4px 8px;line-height:1.3;color:#fff;margin-left:auto;white-space:nowrap}
 .b-viator{background:#7a1f3d}.b-byfood{background:#e4572e}.b-own{background:#1d7a5f}.b-airbnb{background:#ff5a5f}
 .check{background:#fff;border:2px solid #151515;border-radius:16px;padding:6px 14px}
 .check label{display:flex;gap:11px;align-items:flex-start;padding:11px 0;border-bottom:1.5px dashed #ddd;font-size:14px;cursor:pointer;line-height:1.5}
@@ -41,10 +41,11 @@ h2{font-size:13px;font-weight:900;letter-spacing:.05em;color:#555;margin:16px 2p
 .prog i{display:block;height:100%;background:#1d7a5f;width:0;transition:width .3s}
 .progtxt{font-size:12px;color:#555;margin:5px 2px 0}
 .tabbar{display:flex;border-top:2px solid #151515;background:#fff;margin-top:14px}
-.tabbar button{flex:1;font-family:inherit;background:none;border:none;padding:12px 0 14px;font-size:12.5px;font-weight:700;color:#999;cursor:pointer}
+.tabbar button{flex:1;font-family:inherit;background:none;border:none;padding:11px 0 13px;font-size:12.5px;font-weight:700;color:#999;cursor:pointer;line-height:1.35}
 .tabbar button.on{color:#151515}
-.tabbar button .n{display:block;font-size:17px;margin-bottom:1px}
+.tabbar button .n{display:block;font-size:17px;line-height:1.2;margin-bottom:2px}
 .view{display:none}.view.on{display:block}
+@media(max-width:360px){.hd{padding:16px 14px 12px}.body{padding:12px 10px 6px}.res .time{font-size:16px}.res .guest{font-size:14px}.hd .sum div{font-size:10.5px;padding:7px 4px}}
 footer{max-width:390px;margin:12px auto 0;font-size:12px;color:#666;text-align:center}
 </style>
 </head>

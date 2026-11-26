@@ -13,7 +13,7 @@ body{font-family:"Noto Sans JP",sans-serif;background:#0f1b2d;color:#eef2f7;-web
 .chat{max-width:520px;margin:0 auto;background:#16263d;border:2px solid #2c4562;border-radius:24px;overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,.4)}
 .hd{display:flex;align-items:center;gap:12px;padding:15px 18px;background:#1b3049;border-bottom:1.5px solid #2c4562}
 .ava{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#ff9a56,#e03c31);display:flex;align-items:center;justify-content:center;font-size:21px;flex:none}
-.hd .name{font-family:"M PLUS Rounded 1c",sans-serif;font-weight:800;font-size:16.5px}
+.hd .name{font-family:"M PLUS Rounded 1c",sans-serif;font-weight:800;font-size:16.5px;white-space:nowrap}
 .hd .st{font-size:11.5px;color:#8fd18f}
 .hd .st::before{content:"● ";font-size:9px}
 .msgs{padding:18px 16px 8px;display:flex;flex-direction:column;gap:12px;min-height:420px}
@@ -24,14 +24,15 @@ body{font-family:"Noto Sans JP",sans-serif;background:#0f1b2d;color:#eef2f7;-web
 .msg .card b{color:#ffd34d}
 .msg.warn{border:1.5px solid #e03c31}
 .acts{display:flex;gap:8px;flex-wrap:wrap;margin:2px 0 8px 4px}
-.acts button{font-family:inherit;font-size:13px;font-weight:700;border-radius:999px;padding:8px 16px;cursor:pointer;border:1.5px solid #ffd34d;background:transparent;color:#ffd34d}
+.acts button{font-family:inherit;font-size:13px;font-weight:700;border-radius:999px;padding:8px 16px;min-height:37px;display:inline-flex;align-items:center;justify-content:center;line-height:1.3;cursor:pointer;border:1.5px solid #ffd34d;background:transparent;color:#ffd34d}
 .acts button:hover{background:#ffd34d;color:#151515}
 .acts button:disabled{opacity:.35;cursor:default}
 .acts button:disabled:hover{background:transparent;color:#ffd34d}
 .time{font-size:10.5px;color:#7d93ad;margin:0 4px}
 .input{display:flex;gap:9px;padding:13px 14px;border-top:1.5px solid #2c4562;background:#1b3049}
 .input input{flex:1;font-family:inherit;font-size:14px;border-radius:999px;border:1.5px solid #3d5a7d;background:#0f1b2d;color:#fff;padding:10px 16px}
-.input button{font-family:inherit;font-size:14px;font-weight:700;border:none;border-radius:999px;background:#ffd34d;color:#151515;padding:0 20px;cursor:pointer}
+.input button{font-family:inherit;font-size:14px;font-weight:700;border:none;border-radius:999px;background:#ffd34d;color:#151515;padding:0 20px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;line-height:1.3}
+@media(max-width:380px){.msgs{padding:16px 12px 6px}.msg{font-size:13.5px;max-width:90%}.acts button{font-size:12.5px;padding:8px 13px}.hd{padding:13px 14px}.input{padding:11px 12px}}
 footer{max-width:520px;margin:12px auto 0;font-size:12px;color:#7d93ad;text-align:center;line-height:1.7}
 </style>
 </head>

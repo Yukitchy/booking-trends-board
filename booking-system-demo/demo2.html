@@ -11,11 +11,12 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:"M PLUS Rounded 1c","Noto Sans JP",sans-serif;background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased}
 header{background:var(--ink);color:#fff;padding:14px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-header .logo{font-weight:800;font-size:19px}
+header .logo{font-weight:800;font-size:19px;white-space:nowrap}
 header .logo span{color:#e03c31}
 header .sub{font-size:12px;opacity:.75;font-family:"Noto Sans JP",sans-serif}
-.legend{display:flex;gap:14px;flex-wrap:wrap;max-width:1120px;margin:16px auto 0;padding:0 16px;font-size:12.5px;font-weight:700}
-.dot{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.legend{display:flex;gap:8px 16px;flex-wrap:wrap;align-items:center;max-width:1120px;margin:16px auto 0;padding:0 16px;font-size:12.5px;font-weight:700}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.dot{display:inline-block;width:11px;height:11px;border-radius:3px;flex:none}
 .c-viator{background:#7a1f3d}.c-byfood{background:#e4572e}.c-own{background:#1d7a5f}.c-airbnb{background:#ff5a5f}
 .layout{max-width:1120px;margin:14px auto;padding:0 16px 28px;display:grid;grid-template-columns:1fr 330px;gap:16px;align-items:start}
 .cal{background:#fff;border:2px solid var(--ink);border-radius:16px;padding:16px}
@@ -33,7 +34,7 @@ header .sub{font-size:12px;opacity:.75;font-family:"Noto Sans JP",sans-serif}
 .cell.sun .d{color:#d33}.cell.sat .d{color:#36c}
 .cell.overlap{background:#fff1f0;border-color:#e03c31;animation:pulse 1.6s infinite}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(224,60,49,.0)}50%{box-shadow:0 0 0 5px rgba(224,60,49,.18)}}
-.chip{display:block;color:#fff;border-radius:6px;padding:2px 6px;margin-top:4px;font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chip{display:block;color:#fff;border-radius:6px;padding:3px 6px;margin-top:4px;font-size:11px;font-weight:700;line-height:1.45;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .warnmark{position:absolute;top:5px;right:7px;font-size:12px}
 .panel{background:#fff;border:2px solid var(--ink);border-radius:16px;padding:16px;position:sticky;top:16px}
 .panel h3{font-size:16px;font-weight:800;margin-bottom:4px}
@@ -41,10 +42,11 @@ header .sub{font-size:12px;opacity:.75;font-family:"Noto Sans JP",sans-serif}
 .res{border-top:1.5px dashed #ccc;padding:10px 0;font-size:13.5px;line-height:1.75}
 .res:first-of-type{border-top:none}
 .res .t{font-weight:800;font-size:14.5px}
-.badge{font-size:11px;font-weight:700;border-radius:6px;padding:2px 8px;color:#fff;margin-left:6px;vertical-align:2px}
+.badge{display:inline-flex;align-items:center;font-size:11px;font-weight:700;border-radius:6px;padding:3px 8px;line-height:1.4;color:#fff;margin-left:6px}
 .warn{background:#fff1f0;border:1.5px solid #e03c31;color:#a02015;border-radius:10px;padding:9px 12px;font-size:12.5px;font-weight:700;margin-top:10px;line-height:1.6}
 footer{max-width:1120px;margin:0 auto;padding:0 16px 26px;font-size:12px;color:#777}
 @media(max-width:840px){.layout{grid-template-columns:1fr}.panel{position:static}.cell{min-height:64px}}
+@media(max-width:640px){.cal h2{margin-bottom:8px}.cal h2 small{display:block;margin:4px 0 0;font-size:11px}.chip{font-size:10px;padding:2px 4px}.cell{padding:5px}.legend{font-size:12px}}
 </style>
 </head>
 <body>
