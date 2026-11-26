@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>案3 フローティングピル型 | Guest Share PC Layout Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--red:#e5382b;--ink:#151515;--sub:#6f6a5e}
+body{font-family:"Noto Sans JP",sans-serif;color:var(--ink);background:#fff;line-height:1.7}
+img{display:block;max-width:100%}
+.logo-mark{display:inline-flex;width:30px;height:30px;flex:none}
+.logo-mark svg{width:100%;height:100%}
+.kicker{display:flex;justify-content:space-between;gap:16px;font-family:"Archivo",sans-serif;font-weight:700;font-size:12.5px;letter-spacing:.22em;text-transform:uppercase}
+h1.headline{font-family:"Archivo",sans-serif;font-weight:900;text-transform:uppercase;line-height:.98;letter-spacing:-.01em;color:#fff}
+.cta{display:inline-flex;align-items:center;gap:9px;background:var(--ink);color:#fff;font-weight:700;font-size:14.5px;padding:13px 24px;border-radius:999px;text-decoration:none;border:2px solid var(--ink)}
+.cta svg{width:17px;height:17px}
+.cta.red{background:var(--red);border-color:var(--red)}
+.ph{overflow:hidden;background:#ddd}
+.ph img{width:100%;height:100%;object-fit:cover}
+.grid{display:grid}
+.grid .ph{aspect-ratio:4/3}
+.review{max-width:760px;margin:0 auto;padding:8px 20px 30px}
+.rcard{border:2px solid var(--ink);border-radius:16px;padding:26px 28px;box-shadow:0 4px 0 var(--ink);background:#fff}
+.rcard .rt{font-family:"Archivo",sans-serif;font-weight:800;font-size:20px;margin-bottom:6px}
+.rcard p{font-size:14px;color:#44403a;margin-bottom:16px}
+.rbtn{display:inline-block;border:2px solid var(--ink);border-radius:999px;padding:9px 20px;font-weight:700;font-size:13.5px;color:var(--ink);text-decoration:none;margin-right:10px;background:#fff}
+.rbtn.solid{background:var(--red);border-color:var(--red);color:#fff}
+.foot{text-align:center;font-size:11.5px;color:var(--sub);padding:6px 20px 44px;letter-spacing:.08em}
+.tabbar{display:none}
+@media(max-width:640px){
+  .tabbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:60;background:rgba(20,20,20,.97);padding:8px 6px calc(8px + env(safe-area-inset-bottom))}
+  .tabbar a{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;color:#bdb8ac;text-decoration:none;font-family:"Archivo",sans-serif;font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:7px 0;border-radius:12px}
+  .tabbar a svg{width:20px;height:20px}
+  .tabbar a.on{background:var(--red);color:#fff}
+  body{padding-bottom:64px}
+}
+
+.pill{position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:50;display:flex;gap:2px;background:#fff;border:2px solid var(--ink);border-radius:999px;box-shadow:0 6px 0 rgba(21,21,21,.9);padding:5px}
+.pill a{display:inline-flex;align-items:center;gap:7px;padding:8px 16px;border-radius:999px;color:var(--ink);text-decoration:none;font-family:"Archivo",sans-serif;font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+.pill a svg{width:16px;height:16px}
+.pill a.on{background:var(--ink);color:#fff}
+.hero{background:var(--red)}
+.hero .in{max-width:1320px;margin:0 auto;padding:92px 30px 38px}
+.hero .kicker{color:#ffd9d4}
+h1.headline{font-size:118px;margin:14px 0 26px}
+.hero .mos{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:6px;height:300px}
+.hero .mos .ph{height:100%}
+.sect{max-width:1320px;margin:0 auto;padding:30px 30px 6px;display:flex;align-items:baseline;gap:14px}
+.sect .t{font-family:"Archivo",sans-serif;font-weight:900;font-size:22px;text-transform:uppercase}
+.sect .c{font-size:13px;color:var(--sub)}
+.sect .rule{flex:1;height:3px;background:var(--red);align-self:center}
+.grid{max-width:1320px;margin:0 auto;padding:6px 30px 36px;grid-template-columns:repeat(5,1fr);gap:5px}
+@media(max-width:640px){
+  .pill{top:auto;bottom:14px;padding:4px;box-shadow:0 4px 0 rgba(21,21,21,.9)}
+  .pill a{padding:8px 11px}
+  .pill a span{display:none}
+  .pill a.on span{display:inline}
+  .hero .in{padding:34px 16px 26px}
+  h1.headline{font-size:54px}
+  .hero .mos{grid-template-columns:1fr 1fr;height:auto}
+  .hero .mos .ph{aspect-ratio:4/3;height:auto}
+  .grid{grid-template-columns:repeat(3,1fr);padding:6px 10px 26px;gap:3px}
+  .sect{padding:22px 16px 4px}
+  .tabbar{display:none}
+  body{padding-bottom:76px}
+}
+</style>
+</head>
+<body>
+
+<nav class="pill"><a href="#" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><span>Photos</span></a><a href="#" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m10 9 5 3-5 3z"/></svg><span>Clips</span></a><a href="#" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Map</span></a><a href="#" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>Lesson</span></a><a href="#" class=""><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg><span>More</span></a></nav>
+<section class="hero"><div class="in">
+  <div class="kicker"><span>2026.11.25</span><span>Akihabara, 83 photos</span></div>
+  <h1 class="headline">Thank you, Victor</h1>
+  <a class="cta" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M6 10l6 6 6-6M4 20h16"/></svg>Download all photos &amp; clips</a>
+  <div class="mos" style="margin-top:28px">
+    <div class="ph"><img src="img/070.jpg" alt=""></div>
+    <div class="ph"><img src="img/007.jpg" alt=""></div>
+    <div class="ph"><img src="img/002.jpg" alt=""></div>
+    <div class="ph"><img src="img/097.jpg" alt=""></div>
+  </div>
+</div></section>
+<div class="sect"><span class="t">Photos</span><span class="c">83 photos · 7 clips</span><span class="rule"></span></div>
+<main class="grid"><div class="ph"><img src="img/005.jpg" alt="" loading="lazy"></div><div class="ph"><img src="img/006.jpg" alt="" loading="lazy"></div><div class="ph"><img src="img/008.jpg" alt="" loading="lazy"></div><div class="ph"><img src="img/009.jpg" alt="" loading="lazy"></div><div class="ph"><img src="img/010.jpg" alt="" loading="lazy"></div><div class="ph"><img src="img/011.jpg" alt="" loading="lazy"></div><div class="ph"><img src="img/013.jpg" alt="" loading="lazy"></div><div class="ph"><img src="img/014.jpg" alt="" loading="lazy"></div><div class="ph"><img src="img/015.jpg" alt="" loading="lazy"></div><div class="ph"><img src="img/016.jpg" alt="" loading="lazy"></div><div class="ph"><img src="img/018.jpg" alt="" loading="lazy"></div><div class="ph"><img src="img/019.jpg" alt="" loading="lazy"></div><div class="ph"><img src="img/021.jpg" alt="" loading="lazy"></div><div class="ph"><img src="img/022.jpg" alt="" loading="lazy"></div><div class="ph"><img src="img/024.jpg" alt="" loading="lazy"></div><div class="ph"><img src="img/025.jpg" alt="" loading="lazy"></div><div class="ph"><img src="img/027.jpg" alt="" loading="lazy"></div><div class="ph"><img src="img/029.jpg" alt="" loading="lazy"></div><div class="ph"><img src="img/030.jpg" alt="" loading="lazy"></div><div class="ph"><img src="img/031.jpg" alt="" loading="lazy"></div></main>
+<section class="review"><div class="rcard"><div class="rt">Enjoyed the tour?</div><p>A quick review would mean a lot. It's the best way to support your guide, and it helps future travelers plan their trip.</p><a class="rbtn solid" href="#">Write a review</a><a class="rbtn" href="#">Review on Google</a></div></section><p class="foot">QUEST MEMORIES — YUUKI'S ANIMETOUR W/ VICTOR GONZALEZ</p>
+<nav class="tabbar"><a href="#" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><span>Photos</span></a><a href="#" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m10 9 5 3-5 3z"/></svg><span>Clips</span></a><a href="#" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Map</span></a><a href="#" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>Lesson</span></a><a href="#" class=""><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg><span>More</span></a></nav>
+
+</body>
+</html>
