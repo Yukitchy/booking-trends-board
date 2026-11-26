@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>toaru 相談記録 11月26日</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="toaru 相談記録 11月26日">
+<meta property="og:description" content="toaru（金沢の酒蔵ツアー）AIコンサル相談の記録ページ">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/toaru-meetings/mtg-2026-11-26.html">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/toaru-meetings/og.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap" rel="stylesheet">
@@ -13,13 +18,24 @@ html{-webkit-text-size-adjust:100%}
 body{margin:0;background:#FFE9C9;color:#33302A;font-family:"M PLUS Rounded 1c",sans-serif;font-size:14.5px;line-height:1.85;font-weight:500}
 .wrap{max-width:430px;margin:0 auto;padding:18px 14px 48px}
 a{color:#E85D2A;text-decoration:none;font-weight:800}
-header{background:#FFFDF7;border:2.5px solid #33302A;border-radius:24px;box-shadow:0 6px 0 #33302A;padding:22px 20px 20px;position:relative;overflow:hidden}
-header .label{display:inline-block;background:#FFC93C;border:2px solid #33302A;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:.22em;padding:4px 13px;text-transform:uppercase;transform:rotate(-2deg)}
-header h1{font-size:36px;font-weight:800;line-height:1.25;margin:14px 0 2px;white-space:nowrap}
+.side{background:#FFFDF7;border:2.5px solid #33302A;border-radius:24px;box-shadow:0 6px 0 #33302A;padding:22px 20px 20px;position:relative;overflow:hidden}
+.side .label{display:inline-block;background:#FFC93C;border:2px solid #33302A;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:.22em;padding:4px 13px;text-transform:uppercase;transform:rotate(-2deg)}
+.side h1{font-size:36px;font-weight:800;line-height:1.25;margin:14px 0 2px;white-space:nowrap}
 .sub{font-size:15px;font-weight:800;color:#E85D2A;margin:0 0 12px}
 .meta{font-size:12.5px;line-height:1.85;color:#6E675C;margin:0 0 16px}
-.banner{display:block;text-align:center;background:#FF7A45;color:#fff;font-weight:800;font-size:14.5px;padding:13px 10px;border-radius:999px;border:2.5px solid #33302A;box-shadow:0 4px 0 #33302A}
-figure{margin:20px -6px 0}
+.banner{display:block;text-align:center;background:#FF7A45;color:#fff;font-weight:800;font-size:13.5px;padding:13px 8px;border-radius:999px;border:2.5px solid #33302A;box-shadow:0 4px 0 #33302A;white-space:nowrap}
+.side nav{margin-top:20px;border-top:2px dashed #E4D9C4;padding-top:14px}
+.side nav .nav-t{font-size:10px;letter-spacing:.24em;color:#A39A8B;font-weight:800;text-transform:uppercase;margin-bottom:8px}
+.side nav a{display:flex;align-items:center;gap:10px;color:#33302A;font-size:14px;padding:7px 4px;border-radius:10px}
+.side nav a:hover{background:#FFF6E8}
+.side nav .n{flex:none;width:26px;height:26px;border-radius:50%;border:2px solid #33302A;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800}
+.side nav a:nth-of-type(1) .n{background:#FFC93C}
+.side nav a:nth-of-type(2) .n{background:#7ED3B2}
+.side nav a:nth-of-type(3) .n{background:#FF9EBB}
+.side nav a:nth-of-type(4) .n{background:#8ECDF0}
+.side nav a:nth-of-type(5) .n{background:#C3A6F0}
+main{margin-top:20px}
+figure{margin:0}
 figure img{width:100%;height:auto;display:block;border-radius:16px;border:2.5px solid #33302A}
 figcaption{font-size:11.5px;color:#6E675C;padding:9px 4px 0;line-height:1.7}
 section{background:#FFFDF7;border:2.5px solid #33302A;border-radius:24px;box-shadow:0 6px 0 #33302A;margin-top:20px;padding:22px 20px 12px}
@@ -51,8 +67,20 @@ ul.links li{margin-bottom:10px}
 ul.links a{display:block;background:#FFF6E8;border:2px solid #33302A;border-radius:14px;padding:11px 14px;color:#33302A;font-weight:800;font-size:14.5px;box-shadow:0 3px 0 #33302A}
 ul.links .d{display:block;color:#8A8172;font-size:12px;margin-top:3px;font-weight:500}
 footer{margin-top:26px;text-align:center;font-size:11.5px;color:#8A8172;line-height:1.9;padding:0 12px}
+@media (min-width:1024px){
+  .wrap{max-width:1240px;padding:30px 28px 64px}
+  .layout{display:grid;grid-template-columns:332px 1fr;gap:26px;align-items:start}
+  .side{position:sticky;top:26px;padding:26px 24px 22px}
+  .side h1{font-size:33px}
+  main{margin-top:0}
+  main figure{margin-bottom:24px}
+  main figure img{height:340px;object-fit:cover}
+  main section{margin-top:24px;padding:28px 30px 18px}
+  main section:first-of-type{margin-top:0}
+}
 @media (max-width:360px){
-  header h1{font-size:32px}
+  .side h1{font-size:32px}
+  .banner{font-size:12px}
   .sec-num{width:38px;height:38px;font-size:13px}
   .sec-head h2{font-size:18px}
 }
@@ -61,20 +89,31 @@ footer{margin-top:26px;text-align:center;font-size:11.5px;color:#8A8172;line-hei
 <body>
 <div class="wrap">
 
-<header>
+<div class="layout">
+<aside class="side">
   <div class="label">Meeting 02</div>
   <h1>第2回の相談</h1>
   <p class="sub">ミーティング記録</p>
   <p class="meta">2026年11月26日（木）13:00〜14:00 ／ オンライン（Google Meet）<br>
   河野 ちほりさん（株式会社あるところに）・市原 ユウキ</p>
   <a class="banner" href="https://claude.ai/artifact/BaKxJDRG88udxTZbybocpF">月刊 あるところに（11月号）を読む →</a>
+  <nav>
+    <div class="nav-t">Contents</div>
+    <a href="#sec1"><span class="n">01</span>この日に決まったこと</a>
+    <a href="#sec2"><span class="n">02</span>話したこと</a>
+    <a href="#sec3"><span class="n">03</span>近況メモ</a>
+    <a href="#sec4"><span class="n">04</span>次にやること</a>
+    <a href="#sec5"><span class="n">05</span>これまでの資料</a>
+  </nav>
+</aside>
+
+<main>
   <figure>
     <img src="img/hero.jpg" alt="夜のひがし茶屋街（金沢）">
     <figcaption>夜のひがし茶屋街（金沢）。ツアーの終点、Cafe &amp; Sake Bar toaru があるまちです。</figcaption>
   </figure>
-</header>
 
-<section>
+<section id="sec1">
   <div class="sec-head">
     <span class="sec-num">01</span>
     <div>
@@ -85,7 +124,7 @@ footer{margin-top:26px;text-align:center;font-size:11.5px;color:#8A8172;line-hei
   <div class="fill">（相談のあとに記入します）</div>
 </section>
 
-<section>
+<section id="sec2">
   <div class="sec-head">
     <span class="sec-num">02</span>
     <div>
@@ -128,7 +167,7 @@ footer{margin-top:26px;text-align:center;font-size:11.5px;color:#8A8172;line-hei
   <div class="fill">（話した内容は、相談のあとにここへ記入します）</div>
 </section>
 
-<section>
+<section id="sec3">
   <div class="sec-head">
     <span class="sec-num">03</span>
     <div>
@@ -162,7 +201,7 @@ footer{margin-top:26px;text-align:center;font-size:11.5px;color:#8A8172;line-hei
   </ul>
 </section>
 
-<section>
+<section id="sec4">
   <div class="sec-head">
     <span class="sec-num">04</span>
     <div>
@@ -178,7 +217,7 @@ footer{margin-top:26px;text-align:center;font-size:11.5px;color:#8A8172;line-hei
   </ul>
 </section>
 
-<section>
+<section id="sec5">
   <div class="sec-head">
     <span class="sec-num">05</span>
     <div>
@@ -199,6 +238,9 @@ footer{margin-top:26px;text-align:center;font-size:11.5px;color:#8A8172;line-hei
     <li><a href="https://claude.ai/artifact/Qcva3AdtdAAby8HsmsmjYA">9月24日の会話（インタビュー記事）</a><span class="d">初回の会話をインタビュー形式で</span></li>
   </ul>
 </section>
+
+</main>
+</div>
 
 <footer>
   この記録は会議の字幕記録をもとにまとめています。聞き違いがあればLINEでお知らせください。<br>
