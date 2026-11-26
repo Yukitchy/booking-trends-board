@@ -1,15 +1,367 @@
 <!DOCTYPE html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>広島 2日目 ・ デザイン5案</title>
-<meta property="og:title" content="広島 2日目 ・ デザイン5案">
-<meta property="og:description" content="2026年11月28日（土）広島2日目ページのデザイン5案比較。中身は全部同じ、見た目だけが違います。">
-<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/hiroshima-day2/og.jpg">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>広島 2日目 — ライブまでの1日｜v1 スタンダード</title>
+<meta name="description" content="2026年11月28日、広島2日目。午前は宮島・呉・市内の3案から選んで観光、夜は広島グリーンアリーナでBUMP OF CHICKEN。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="広島 2日目 — ライブまでの1日">
+<meta property="og:description" content="ホテルHAGOROMO発。午前観光3案（宮島／呉／市内）＋物販＋BUMP OF CHICKEN（開場17:00／開演18:00）。動くマップ付き1日プラン。">
 <meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/hiroshima-day2/">
-<style>body{font-family:"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;background:#141210;color:#F5EFE3;margin:0;padding:22px 16px 50px;}h1{font-size:21px;}h1 span{display:block;height:4px;width:64px;background:#C73E2C;margin-top:8px;}section{margin-top:30px;}h2{font-size:16px;margin-bottom:6px;}.open{display:inline-block;background:#C73E2C;color:#fff;padding:7px 14px;border-radius:999px;text-decoration:none;font-weight:800;font-size:13px;}iframe{width:100%;height:480px;border:2px solid #3A352E;border-radius:12px;background:#fff;margin-top:10px;pointer-events:none;}p.sub{color:#B7AE9C;font-size:12.5px;line-height:1.7;}</style></head>
-<body><h1>広島 2日目 ・ デザイン5案<span></span></h1><p class="sub">中身（3案の観光プラン＋物販＋ライブまでの流れ）は全案共通。見た目だけが違います。「大きく見る」で実物サイズで開けます。</p>
-  <section><h2>v1 スタンダード</h2><p class="sub">金曜ページで採用した形そのまま。PCは右にマップ固定、左にカード。</p><p><a class="open" href="v1.html" target="_blank" rel="noopener">大きく見る</a></p><iframe src="v1.html" loading="lazy"></iframe></section>
-  <section><h2>v2 上部マップ帯</h2><p class="sub">全幅で地図が上部に帯表示。スマホもPCも同じ感覚で、カードが下を流れる。</p><p><a class="open" href="v2.html" target="_blank" rel="noopener">大きく見る</a></p><iframe src="v2.html" loading="lazy"></iframe></section>
-  <section><h2>v3 フォトヒーロー</h2><p class="sub">大きな写真ヘッダーから始まる1カラム。地図は流れの途中に埋め込み。</p><p><a class="open" href="v3.html" target="_blank" rel="noopener">大きく見る</a></p><iframe src="v3.html" loading="lazy"></iframe></section>
-  <section><h2>v4 ダーク</h2><p class="sub">黒基調で夜とライブの空気感。PCは右マップ固定。</p><p><a class="open" href="v4.html" target="_blank" rel="noopener">大きく見る</a></p><iframe src="v4.html" loading="lazy"></iframe></section>
-  <section><h2>v5 案ファースト</h2><p class="sub">3案の大きな選択カードが先頭。地図はスリムに（スマホは細帯、PCは右34vw）。</p><p><a class="open" href="v5.html" target="_blank" rel="noopener">大きく見る</a></p><iframe src="v5.html" loading="lazy"></iframe></section>
-</body></html>
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/hiroshima-day2/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' fill='%23C73E2C'/><text x='50' y='66' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>広</text></svg>">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+  :root{
+    --paper:#F7F3EC; --ink:#1D1A16; --muted:#6E675C; --red:#C73E2C; --line:#E3DCCF;
+    --card:#FFFFFF; --chip:#EFE9DC;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--paper);color:var(--ink);font-family:"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;-webkit-font-smoothing:antialiased;}
+  header.hero{padding:22px 18px 14px;max-width:640px;margin:0 auto;}
+  .hero .date{font-size:12px;letter-spacing:.22em;color:var(--red);font-weight:700;}
+  .hero h1{font-size:30px;line-height:1.25;margin:6px 0 8px;font-weight:800;letter-spacing:.02em;}
+  .hero p{font-size:13.5px;line-height:1.8;color:var(--muted);}
+  .hero .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;}
+  .hero .chips span{background:var(--chip);border:1px solid var(--line);border-radius:999px;padding:5px 11px;font-size:11.5px;font-weight:600;}
+  #mapwrap{position:sticky;top:0;z-index:50;height:44vh;min-height:260px;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);background:#DDD6C6;}
+  #map{width:100%;height:100%;}
+  .maphint{position:absolute;right:10px;bottom:10px;z-index:600;background:rgba(29,26,22,.82);color:#fff;font-size:11px;padding:5px 10px;border-radius:999px;pointer-events:none;}
+  main{max-width:640px;margin:0 auto;padding:10px 14px 40px;position:relative;}
+  .rail{position:absolute;left:29px;top:26px;bottom:60px;width:2px;background:var(--line);}
+  .stop{position:relative;margin:14px 0 14px 0;padding-left:44px;scroll-margin-top:48vh;}
+  .stop .dot{position:absolute;left:8px;top:16px;width:28px;height:28px;border-radius:50%;background:var(--card);border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;z-index:2;transition:all .25s;}
+  .stop.active .dot{background:var(--red);border-color:var(--red);color:#fff;transform:scale(1.15);}
+  .card{background:var(--card);border:1.5px solid var(--ink);border-radius:14px;padding:14px 16px;box-shadow:3px 3px 0 rgba(29,26,22,.9);transition:all .25s;}
+  .stop.active .card{border-color:var(--red);box-shadow:3px 3px 0 var(--red);}
+  .time{display:inline-block;background:var(--ink);color:#fff;font-size:12px;font-weight:700;letter-spacing:.06em;padding:3px 9px;border-radius:6px;}
+  .stop.active .time{background:var(--red);}
+  .card h2{display:inline;font-size:17.5px;font-weight:800;margin-left:8px;line-height:1.4;}
+  .card .sub{font-size:12px;color:var(--red);font-weight:700;margin-top:6px;letter-spacing:.04em;}
+  .card p{font-size:13.5px;line-height:1.85;margin-top:6px;color:#33302A;}
+  .card p b{color:var(--ink);}
+  .card .note{font-size:12px;color:var(--muted);line-height:1.7;margin-top:6px;}
+  .btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+  .btns a{display:inline-block;text-decoration:none;font-size:12.5px;font-weight:700;padding:8px 13px;border-radius:999px;border:1.5px solid var(--ink);color:var(--ink);background:var(--paper);}
+  .btns a.primary{background:var(--red);border-color:var(--red);color:#fff;}
+  footer{max-width:640px;margin:0 auto;padding:0 18px 34px;font-size:11.5px;color:var(--muted);line-height:1.8;}
+  .pin{width:30px;height:30px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:#fff;border:2.5px solid var(--ink);display:flex;align-items:center;justify-content:center;transition:all .25s;}
+  .pin span{transform:rotate(45deg);font-size:13px;font-weight:800;color:var(--ink);}
+  .pin.on{background:var(--red);border-color:var(--red);}
+  .pin.on span{color:#fff;}
+  .leaflet-container{font-family:inherit;}
+
+  .photo{margin:12px 0}
+  .photo img{width:100%;height:auto;max-height:420px;object-fit:cover;border-radius:12px;display:block}
+
+  .tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;}
+  .tile{display:block;background:#211D18;color:#F5EFE3;border-radius:14px;padding:12px 13px;text-decoration:none;}
+  .tile img{width:100%;height:104px;object-fit:cover;border-radius:8px;margin-bottom:8px;display:block;}
+  .tile .tag{display:inline-block;background:#C73E2C;color:#fff;font-size:10px;font-weight:800;letter-spacing:.06em;padding:2px 8px;border-radius:999px;}
+  .tile .tname{display:block;font-size:15.5px;font-weight:800;margin-top:7px;line-height:1.3;}
+  .tile .tmeta{display:block;font-size:11.5px;color:#E8C87E;font-weight:700;margin-top:3px;}
+  .tile .tnote{display:block;font-size:11.5px;color:#CFC6B4;margin-top:4px;line-height:1.5;}
+  @media (max-width:480px){.tiles{grid-template-columns:1fr 1fr;gap:8px;}}
+</style>
+<style>/* PC layout: right-fixed map (adopted) */@media (min-width:900px){#mapwrap{position:fixed;right:0;top:0;width:44vw;height:100vh;min-height:0;border:none;border-left:2px solid var(--ink);}header.hero, main, footer{margin-right:44vw;}header.hero{max-width:640px;margin-left:auto;}main{max-width:640px;margin-left:auto;}footer{max-width:640px;margin-left:auto;}.stop{scroll-margin-top:24px;}}</style>
+<style>
+  /* pattern switcher */
+  header.hero h1{font-size:26px;}
+  .switcher{margin:18px 0 4px 44px;background:var(--card);border:1.5px solid var(--ink);border-radius:14px;padding:14px 16px;box-shadow:3px 3px 0 rgba(29,26,22,.9);}
+  .switcher h3{font-size:15px;font-weight:800;}
+  .switcher p{font-size:12.5px;color:var(--muted);line-height:1.7;margin-top:5px;}
+  .pbtns{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:11px;}
+  .pbtn{border:1.5px solid var(--ink);background:var(--paper);color:var(--ink);border-radius:999px;padding:10px 4px;font-size:13px;font-weight:800;font-family:inherit;cursor:pointer;white-space:nowrap;}
+  .pbtn.active{background:var(--red);border-color:var(--red);color:#fff;}
+  @media (max-width:480px){.pbtns{grid-template-columns:1fr;}.pbtn{padding:11px 4px;}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="date">2026.11.28 SAT — HIROSHIMA</div>
+  <h1>広島 2日目 — ライブまでの1日</h1>
+  <p>ホテルHAGOROMOを出発して、夜は広島グリーンアリーナでBUMP OF CHICKEN。開場17:00／開演18:00までに、広島をもう1日遊びつくす。</p>
+  <div class="chips">
+    <span>🏨 HAGOROMO発</span><span>🗺 午前は3案から選択</span><span>🛍 物販は整理券制</span><span>🎤 開場17:00</span><span>🎸 開演18:00</span>
+  </div>
+</header>
+
+<div id="mapwrap">
+  <div id="map"></div>
+  <div class="maphint">スクロールすると地図がついてくる</div>
+</div>
+
+<main>
+  <div class="rail"></div>
+
+  <section class="stop" data-lat="34.3883" data-lng="132.4598" data-zoom="15" data-label="1">
+    <div class="dot">1</div>
+    <div class="card">
+      <span class="time">朝</span><h2>起床・出発</h2>
+      <div class="sub">Hotel HAGOROMO（中区羽衣町6-5）203号室</div>
+      <p>2日目のスタートはホテルから。今日のゴールは<b>広島グリーンアリーナのBUMP OF CHICKEN（開場17:00／開演18:00）</b>。午前は3案から1つ選んで観光、午後は市内に戻って物販→開演の流れ。</p>
+      <div class="btns"><a href="https://www.google.com/maps/search/?api=1&query=Hotel%20HAGOROMO%20%E5%BA%83%E5%B3%B6%E5%B8%82%E4%B8%AD%E5%8C%BA%E7%BE%BD%E8%A1%A3%E7%94%BA6-5" target="_blank" rel="noopener">Googleマップ</a></div>
+    </div>
+  </section>
+
+  <div class="switcher">
+    <h3>午前の観光 — 3案から選ぶ</h3>
+    <p>ボタンを押すと、その案のスポットと地図のピンが切り替わります。</p>
+    <div class="pbtns">
+      <button type="button" class="pbtn active" data-pattern="A">案A 宮島</button>
+      <button type="button" class="pbtn" data-pattern="B">案B 呉</button>
+      <button type="button" class="pbtn" data-pattern="C">案C 市内ゆったり</button>
+    </div>
+  </div>
+
+  <section class="stop" data-lat="34.3123" data-lng="132.3013" data-zoom="13" data-label="2" data-group="A">
+    <div class="dot">2</div>
+    <div class="card">
+      <span class="time">午前</span><h2>宮島へ移動</h2>
+      <div class="sub">JR＋フェリー</div>
+      <p>ホテルから路面電車で広島駅（約15分）、<b>JR山陽本線で宮島口まで約30分</b>。宮島口から<b>フェリーで約10分</b>（片道200円＋宮島訪問税100円）。</p>
+      <div class="btns"><a href="https://www.google.com/maps/search/?api=1&query=%E5%AE%AE%E5%B3%B6%E5%8F%A3%E9%A7%85" target="_blank" rel="noopener">Googleマップ</a></div>
+    </div>
+  </section>
+
+  <section class="stop" data-lat="34.2958" data-lng="132.3196" data-zoom="15" data-label="3" data-group="A">
+    <div class="dot">3</div>
+    <div class="card">
+      <span class="time">参拝</span><h2>厳島神社</h2>
+      <div class="sub">世界遺産・厳島神社</div>
+      <p><b>6:30–17:30、昇殿料300円</b>。海に浮かぶ大鳥居と社殿を参拝。島内は歩いて回れる。</p>
+      <div class="photo"><img src="img/place-miyajima.jpg" alt="厳島神社の大鳥居（夕景）" loading="lazy"></div>
+      <div class="btns"><a href="https://www.google.com/maps/search/?api=1&query=%E5%8E%B3%E5%B3%B6%E7%A5%9E%E7%A4%BE" target="_blank" rel="noopener">Googleマップ</a></div>
+    </div>
+  </section>
+
+  <section class="stop" data-lat="34.2988" data-lng="132.3208" data-zoom="15" data-label="4" data-group="A">
+    <div class="dot">4</div>
+    <div class="card">
+      <span class="time">お昼</span><h2>表参道商店街</h2>
+      <div class="sub">宮島 表参道商店街</div>
+      <p>焼き牡蠣・あなご飯・もみじ饅頭を食べ歩き。帰りは<b>13:10–13:25頃のフェリー</b>で宮島を出て、<b>14:30頃に市内</b>へ戻る。</p>
+      <div class="photo"><img src="img/place-omotesando.jpg" alt="宮島 表参道商店街" loading="lazy"></div>
+      <p class="note">ランチは宮島であなご飯か牡蠣がおすすめ。市内に戻ってからゆっくり食べるのでもOK。</p>
+      <div class="btns"><a href="https://www.google.com/maps/search/?api=1&query=%E5%AE%AE%E5%B3%B6%20%E8%A1%A8%E5%8F%82%E9%81%93%E5%95%86%E5%BA%97%E8%A1%97" target="_blank" rel="noopener">Googleマップ</a></div>
+    </div>
+  </section>
+
+  <section class="stop" data-lat="34.2995" data-lng="132.3215" data-zoom="15" data-label="昼" data-group="A">
+    <div class="dot">昼</div>
+    <div class="card">
+      <span class="time">ランチ</span><h2>ランチ</h2>
+      <div class="sub">宮島・宮島口の6軒（土曜ランチ）</div>
+      <div class="tiles"><a class="tile" href="https://www.google.com/maps/search/?api=1&query=%E3%81%82%E3%81%AA%E3%81%94%E3%82%81%E3%81%97%E3%81%86%E3%81%88%E3%81%AE%20%E5%AE%AE%E5%B3%B6%E5%8F%A3%E6%9C%AC%E5%BA%97" target="_blank" rel="noopener"><img src="img/satlunch-a1.jpg" alt="あなごめしうえの 宮島口本店" loading="lazy"><span class="tag">あなご飯</span><span class="tname">あなごめしうえの 宮島口本店</span><span class="tmeta">宮島口 ・ 10:00–19:00</span><span class="tnote">あなごめし発祥の老舗（創業1901年）。土曜は行列覚悟</span></a><a class="tile" href="https://www.google.com/maps/search/?api=1&query=%E3%81%B5%E3%81%98%E3%81%9F%E3%82%84%20%E5%AE%AE%E5%B3%B6%20%E3%81%82%E3%81%AA%E3%81%94%E3%82%81%E3%81%97" target="_blank" rel="noopener"><img src="img/satlunch-a2.jpg" alt="ふじたや" loading="lazy"><span class="tag">あなご飯</span><span class="tname">ふじたや</span><span class="tmeta">宮島・厳島神社近く ・ 11:00–16:00</span><span class="tnote">宮島唯一のミシュラン星付き穴子店。売り切れ早仕舞いあり、早めの来店推奨</span></a><a class="tile" href="https://www.google.com/maps/search/?api=1&query=%E7%89%A1%E8%A0%A3%E5%B1%8B%20%E5%AE%AE%E5%B3%B6" target="_blank" rel="noopener"><img src="img/satlunch-a3.jpg" alt="牡蠣屋" loading="lazy"><span class="tag">牡蠣料理</span><span class="tname">牡蠣屋</span><span class="tmeta">宮島・表参道商店街 ・ 10:00–18:00</span><span class="tnote">宮島唯一の牡蠣専門店。牡蠣屋定食 ¥2,900、焼き牡蠣2ヶ ¥750〜</span></a><a class="tile" href="https://www.google.com/maps/search/?api=1&query=%E7%84%BC%E3%81%8C%E3%81%8D%E3%81%AE%E3%81%AF%E3%82%84%E3%81%97%20%E5%AE%AE%E5%B3%B6" target="_blank" rel="noopener"><img src="img/satlunch-a4.jpg" alt="焼がきのはやし" loading="lazy"><span class="tag">焼き牡蠣</span><span class="tname">焼がきのはやし</span><span class="tmeta">宮島・表参道商店街 ・ 10:30–17:30</span><span class="tnote">焼がき発祥の店（1948年）。地御前かきを殻ごと蒸し焼き</span></a><a class="tile" href="https://www.google.com/maps/search/?api=1&query=%E7%A9%B4%E5%AD%90%E3%81%A8%E7%89%A1%E8%A0%A3%20%E3%81%BE%E3%82%81%E3%81%9F%E3%81%AC%E3%81%8D%20%E5%AE%AE%E5%B3%B6" target="_blank" rel="noopener"><img src="img/satlunch-a5.jpg" alt="穴子と牡蠣 まめたぬき" loading="lazy"><span class="tag">あなご飯＋牡蠣</span><span class="tname">穴子と牡蠣 まめたぬき</span><span class="tmeta">宮島・表参道商店街 ・ 11:00–15:00</span><span class="tnote">陶箱蒸しあなごめし（煮穴子2本）。11/28は10:00開店（特別営業）</span></a><a class="tile" href="https://www.google.com/maps/search/?api=1&query=%E7%B4%85%E8%91%89%E5%A0%82%20%E6%9C%AC%E5%BA%97%20%E5%AE%AE%E5%B3%B6" target="_blank" rel="noopener"><img src="img/satlunch-a6.jpg" alt="紅葉堂 本店" loading="lazy"><span class="tag">揚げもみじ（軽食）</span><span class="tname">紅葉堂 本店</span><span class="tmeta">宮島・表参道商店街 ・ 9:00頃–17:30頃</span><span class="tnote">揚げもみじの元祖 ¥250。食べ歩き用で食事の代わりにはならない</span></a></div>
+    </div>
+  </section>
+
+  <section class="stop" data-lat="34.2451" data-lng="132.582" data-zoom="13" data-label="2" data-group="B" style="display:none">
+    <div class="dot">2</div>
+    <div class="card">
+      <span class="time">午前</span><h2>呉へ移動</h2>
+      <div class="sub">JR呉線</div>
+      <p>広島駅から<b>JR呉線で呉駅まで約45分</b>。駅から大和ミュージアム・てつのくじら館までは徒歩約5分。</p>
+      <div class="btns"><a href="https://www.google.com/maps/search/?api=1&query=%E5%91%89%E9%A7%85" target="_blank" rel="noopener">Googleマップ</a></div>
+    </div>
+  </section>
+
+  <section class="stop" data-lat="34.2413" data-lng="132.5558" data-zoom="15" data-label="3" data-group="B" style="display:none">
+    <div class="dot">3</div>
+    <div class="card">
+      <span class="time">見学</span><h2>大和ミュージアム</h2>
+      <div class="sub">呉市海事歴史科学館</div>
+      <p><b>9:00–18:00</b>。<b>2026年4月にリニューアルオープン</b>。戦艦「大和」の1/10スケール模型が目玉。</p>
+      <div class="photo"><img src="img/place-yamato.jpg" alt="大和ミュージアム（大和波止場から）" loading="lazy"></div>
+      <div class="btns"><a href="https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E5%92%8C%E3%83%9F%E3%83%A5%E3%83%BC%E3%82%B8%E3%82%A2%E3%83%A0" target="_blank" rel="noopener">Googleマップ</a></div>
+    </div>
+  </section>
+
+  <section class="stop" data-lat="34.2417" data-lng="132.5547" data-zoom="16" data-label="4" data-group="B" style="display:none">
+    <div class="dot">4</div>
+    <div class="card">
+      <span class="time">見学</span><h2>てつのくじら館</h2>
+      <div class="sub">海上自衛隊呉史料館</div>
+      <p><b>10:00–18:00、入館無料</b>。本物の潜水艦「あきしお」の艦内に入れる。大和ミュージアムのすぐ隣。</p>
+      <div class="photo"><img src="img/place-kujira.jpg" alt="てつのくじら館 潜水艦あきしお" loading="lazy"></div>
+      <p class="note">ランチは呉で海自カレーや呉冷麺を。<b>15:00頃に市内へ</b>戻る。</p>
+      <div class="btns"><a href="https://www.google.com/maps/search/?api=1&query=%E3%81%A6%E3%81%A4%E3%81%AE%E3%81%8F%E3%81%98%E3%82%89%E9%A4%A8" target="_blank" rel="noopener">Googleマップ</a></div>
+    </div>
+  </section>
+
+  <section class="stop" data-lat="34.2430" data-lng="132.5650" data-zoom="14" data-label="昼" data-group="B" style="display:none">
+    <div class="dot">昼</div>
+    <div class="card">
+      <span class="time">ランチ</span><h2>ランチ</h2>
+      <div class="sub">呉の6軒（土曜ランチ）</div>
+      <div class="tiles"><a class="tile" href="https://www.google.com/maps/search/?api=1&query=%E3%82%B7%E3%83%BC%E3%82%B5%E3%82%A4%E3%83%89%E3%82%AB%E3%83%95%E3%82%A7%20BEACON%20%E5%91%89%E5%B8%82%E5%AE%9D%E7%94%BA" target="_blank" rel="noopener"><img src="img/satlunch-b1.jpg" alt="シーサイドカフェ BEACON" loading="lazy"><span class="tag">海自カレー</span><span class="tname">シーサイドカフェ BEACON</span><span class="tmeta">大和ミュージアム隣接 ・ 11:00–18:00</span><span class="tnote">護衛艦「さみだれ」レシピ再現のさみだれカレー</span></a><a class="tile" href="https://www.google.com/maps/search/?api=1&query=%E5%91%89%E3%83%8F%E3%82%A4%E3%82%AB%E3%83%A9%E9%A3%9F%E5%A0%82%20%E5%91%89%E5%B8%82%E5%AE%9D%E7%94%BA" target="_blank" rel="noopener"><img src="img/satlunch-b2.jpg" alt="呉ハイカラ食堂" loading="lazy"><span class="tag">海自カレー／海軍グルメ</span><span class="tname">呉ハイカラ食堂</span><span class="tmeta">大和ミュージアム近く ・ 11:00–15:30</span><span class="tnote">潜水艦「そうりゅう」のテッパンカレー（鉄板食器に鯨カツ・肉じゃが、数量限定）</span></a><a class="tile" href="https://www.google.com/maps/search/?api=1&query=%E7%8F%8D%E6%9D%A5%E8%BB%92%20%E5%91%89%E5%B8%82%E6%9C%AC%E9%80%9A%20%E5%91%89%E5%86%B7%E9%BA%BA" target="_blank" rel="noopener"><img src="img/satlunch-b3.jpg" alt="珍来軒" loading="lazy"><span class="tag">呉冷麺</span><span class="tname">珍来軒</span><span class="tmeta">呉・本通 ・ 11:30–15:00</span><span class="tnote">呉冷麺発祥の店（創業70年）。（小）¥850／（大）¥950、材料切れで早仕舞いも</span></a><a class="tile" href="https://www.google.com/maps/search/?api=1&query=%E5%B1%B1%E4%B9%83%E5%AE%B6%20%E6%9C%AC%E5%BA%97%20%E5%91%89%E5%B8%82%E4%B8%AD%E9%80%9A%20%E7%B4%B0%E3%81%86%E3%81%A9%E3%82%93" target="_blank" rel="noopener"><img src="img/satlunch-b4.jpg" alt="山乃家 本店" loading="lazy"><span class="tag">細うどん</span><span class="tname">山乃家 本店</span><span class="tmeta">呉・中通 ・ 11:00–16:00</span><span class="tnote">呉細うどん発祥の店（昭和8年創業）。鯨の大和煮入り「大和カレーうどん」も</span></a><a class="tile" href="https://www.google.com/maps/search/?api=1&query=%E7%94%B0%E8%88%8E%E6%B4%8B%E9%A3%9F%20%E3%81%84%E3%81%9B%E5%B1%8B%20%E5%91%89%E5%B8%82%E4%B8%AD%E9%80%9A" target="_blank" rel="noopener"><img src="img/satlunch-b5.jpg" alt="田舎洋食 いせ屋" loading="lazy"><span class="tag">海軍グルメ／洋食</span><span class="tname">田舎洋食 いせ屋</span><span class="tmeta">呉・中通 ・ 11:00–14:00</span><span class="tnote">大正10年創業。「海軍さんの肉じゃが」と牛カツ＋デミの特製カツ丼</span></a><a class="tile" href="https://www.google.com/maps/search/?api=1&query=%E5%96%AB%E8%8C%B6%E3%83%AC%E3%82%B9%E3%83%88%20%E5%91%89%E5%B8%82%E4%B8%AD%E5%A4%AE%20%E5%91%89%E9%A7%85%E5%89%8D" target="_blank" rel="noopener"><img src="img/satlunch-b6.jpg" alt="喫茶レスト" loading="lazy"><span class="tag">海軍グルメ／喫茶</span><span class="tname">喫茶レスト</span><span class="tmeta">呉駅前 ・ 7:30–21:00</span><span class="tnote">呉海軍グルメ認定「戦艦大和 大和オムライス」¥950。駅前徒歩1分の老舗喫茶</span></a></div>
+    </div>
+  </section>
+
+  <section class="stop" data-lat="34.3916" data-lng="132.4535" data-zoom="15" data-label="2" data-group="C" style="display:none">
+    <div class="dot">2</div>
+    <div class="card">
+      <span class="time">午前</span><h2>平和記念資料館</h2>
+      <div class="sub">広島平和記念資料館</div>
+      <p><b>7:30–19:00</b>。混み合う前に、朝のうちにじっくり見学。</p>
+      <div class="photo"><img src="img/place-peace.jpg" alt="広島平和記念資料館" loading="lazy"></div>
+      <div class="btns"><a href="https://www.google.com/maps/search/?api=1&query=%E5%BA%83%E5%B3%B6%E5%B9%B3%E5%92%8C%E8%A8%98%E5%BF%B5%E8%B3%87%E6%96%99%E9%A4%A8" target="_blank" rel="noopener">Googleマップ</a></div>
+    </div>
+  </section>
+
+  <section class="stop" data-lat="34.3955" data-lng="132.4536" data-zoom="15" data-label="3" data-group="C" style="display:none">
+    <div class="dot">3</div>
+    <div class="card">
+      <span class="time">散策</span><h2>原爆ドーム</h2>
+      <div class="sub">原爆ドーム・平和記念公園</div>
+      <p>資料館から平和記念公園を歩いて原爆ドームへ。川沿いの散策が気持ちいい。</p>
+      <div class="photo"><img src="img/place-dome.jpg" alt="原爆ドームと元安川" loading="lazy"></div>
+      <div class="btns"><a href="https://www.google.com/maps/search/?api=1&query=%E5%8E%9F%E7%88%86%E3%83%89%E3%83%BC%E3%83%A0" target="_blank" rel="noopener">Googleマップ</a></div>
+    </div>
+  </section>
+
+  <section class="stop" data-lat="34.4003" data-lng="132.4674" data-zoom="15" data-label="4" data-group="C" style="display:none">
+    <div class="dot">4</div>
+    <div class="card">
+      <span class="time">散策</span><h2>縮景園</h2>
+      <div class="sub">縮景園</div>
+      <p><b>9:00–17:00</b>。ちょうど紅葉シーズンの庭園をゆっくり散策。このあとは紙屋町でランチ。</p>
+      <div class="photo"><img src="img/place-shukkeien.jpg" alt="縮景園の池" loading="lazy"></div>
+      <p class="note">広島城の天守は2026年3月に閉城したため外観のみ。会場のグリーンアリーナと同じ基町エリアで、午後の移動は最小限。</p>
+      <div class="btns"><a href="https://www.google.com/maps/search/?api=1&query=%E7%B8%AE%E6%99%AF%E5%9C%92" target="_blank" rel="noopener">Googleマップ</a></div>
+    </div>
+  </section>
+
+  <section class="stop" data-lat="34.3945" data-lng="132.4550" data-zoom="15" data-label="昼" data-group="C" style="display:none">
+    <div class="dot">昼</div>
+    <div class="card">
+      <span class="time">ランチ</span><h2>ランチ</h2>
+      <div class="sub">紙屋町・本通・平和公園周辺の6軒（土曜ランチ）</div>
+      <div class="tiles"><a class="tile" href="https://www.google.com/maps/search/?api=1&query=%E3%81%BF%E3%81%A3%E3%81%A1%E3%82%83%E3%82%93%20%E3%81%84%E3%81%9B%E3%82%84%20%E7%B4%99%E5%B1%8B%E7%94%BA%E6%9C%AC%E5%BA%97%20%E5%BA%83%E5%B3%B6" target="_blank" rel="noopener"><img src="img/satlunch-c1.jpg" alt="みっちゃん いせや 紙屋町本店" loading="lazy"><span class="tag">お好み焼き</span><span class="tname">みっちゃん いせや 紙屋町本店</span><span class="tmeta">紙屋町 ・ 11:00–22:00</span><span class="tnote">元祖広島流。スペシャルそば肉玉 ¥1,980、ボリューム満点</span></a><a class="tile" href="https://www.google.com/maps/search/?api=1&query=%E5%86%B7%E3%82%81%E3%82%93%E5%AE%B6%20%E5%A4%A7%E6%89%8B%E7%94%BA%E5%BA%97%20%E5%BA%83%E5%B3%B6" target="_blank" rel="noopener"><img src="img/satlunch-c2.jpg" alt="冷めん家 大手町店" loading="lazy"><span class="tag">広島つけ麺</span><span class="tname">冷めん家 大手町店</span><span class="tmeta">大手町 ・ 11:00–14:00</span><span class="tnote">元祖の流れを汲む広島冷麺（つけ麺）。辛さ調整可、昼のみ営業</span></a><a class="tile" href="https://www.google.com/maps/search/?api=1&query=%E6%B1%81%E3%81%AA%E3%81%97%E6%8B%85%E6%8B%85%E9%BA%BA%E5%B0%82%E9%96%80%20%E3%82%AD%E3%83%B3%E3%82%B0%E8%BB%92%20%E6%9C%AC%E9%80%9A%E5%BA%97%20%E5%BA%83%E5%B3%B6" target="_blank" rel="noopener"><img src="img/satlunch-c3.jpg" alt="汁なし担担麺専門 キング軒 本通店" loading="lazy"><span class="tag">汁なし担担麺</span><span class="tname">汁なし担担麺専門 キング軒 本通店</span><span class="tmeta">本通 ・ 11:00–22:00</span><span class="tnote">広島式汁なし担担麺 並盛 ¥770。30回混ぜて食べるのが流儀</span></a><a class="tile" href="https://www.google.com/maps/search/?api=1&query=%E3%82%AB%E3%83%95%E3%82%A7%20%E3%83%9D%E3%83%B3%E3%83%86%20%E5%BA%83%E5%B3%B6%20%E5%B9%B3%E5%92%8C%E5%85%AC%E5%9C%92" target="_blank" rel="noopener"><img src="img/satlunch-c4.jpg" alt="Caff'e Ponte ITALIANO（カフェ ポンテ）" loading="lazy"><span class="tag">カフェランチ／イタリアン</span><span class="tname">Caff'e Ponte ITALIANO（カフェ ポンテ）</span><span class="tmeta">平和公園近く ・ 8:00–22:00</span><span class="tnote">平和公園対岸の川辺テラスカフェ。ランチセットあり</span></a><a class="tile" href="https://www.google.com/maps/search/?api=1&query=%E5%BA%83%E5%B3%B6%E3%82%A2%E3%83%B3%E3%83%87%E3%83%AB%E3%82%BB%E3%83%B3%20%E6%9C%AC%E9%80%9A" target="_blank" rel="noopener"><img src="img/satlunch-c5.jpg" alt="広島アンデルセン（2F アンデルセンキッチン）" loading="lazy"><span class="tag">ベーカリーカフェ／洋食</span><span class="tname">広島アンデルセン（2F アンデルセンキッチン）</span><span class="tmeta">本通 ・ ランチ 11:00–17:00</span><span class="tnote">被爆建物の老舗ベーカリー2F。焼きたてパンと洋食ランチ、105席でゆったり</span></a><a class="tile" href="https://www.google.com/maps/search/?api=1&query=%E3%81%A1%E3%81%8B%E3%82%89%20%E6%9C%AC%E9%80%9A%E5%9B%9B%E4%B8%81%E7%9B%AE%E5%BA%97%20%E5%BA%83%E5%B3%B6" target="_blank" rel="noopener"><img src="img/satlunch-c6.jpg" alt="ちから 本通四丁目店" loading="lazy"><span class="tag">うどん</span><span class="tname">ちから 本通四丁目店</span><span class="tmeta">紙屋町／本通 ・ 11:00–20:00</span><span class="tnote">広島のソウルフード的うどん店。肉うどん ¥820と最安枠、名物おはぎも</span></a></div>
+    </div>
+  </section>
+
+  <section class="stop" data-lat="34.3985" data-lng="132.4755" data-zoom="14" data-label="5">
+    <div class="dot">5</div>
+    <div class="card">
+      <span class="time">昼〜午後</span><h2>ランチ＆市内へ戻る</h2>
+      <div class="sub">選んだ案に合わせて</div>
+      <p>ランチは案ごとに：<b>A 宮島（あなご飯・牡蠣）か市内／B 呉（海自カレー）／C 紙屋町</b>。いずれも夕方の物販と開演に間に合うよう、市内中心部へ戻ってくる。</p>
+      <div class="photo"><img src="img/place-lunch2.jpg" alt="鉄板で焼くお好み焼き" loading="lazy"></div>
+      <div class="btns"><a href="https://www.google.com/maps/search/?api=1&query=%E5%BA%83%E5%B3%B6%E9%A7%85" target="_blank" rel="noopener">Googleマップ</a></div>
+    </div>
+  </section>
+
+  <section class="stop" data-lat="34.3973" data-lng="132.4542" data-zoom="15" data-label="6">
+    <div class="dot">6</div>
+    <div class="card">
+      <span class="time">整理券の枠</span><h2>物販</h2>
+      <div class="sub">広島グリーンアリーナ 物販ブース</div>
+      <p>物販は<b>LINE「mogily」のデジタル整理券制</b>。当選したのは<b>ゆりっぺの整理券のみ</b>なので、<b>ゆりっぺが1人で入場して購入し、ユウキは外で待つ</b>形。</p>
+      <div class="photo"><img src="img/place-arena.jpg" alt="広島グリーンアリーナ" loading="lazy"></div>
+      <p class="note">整理券の時間枠は未定。枠の時間に合わせて前後の予定（ランチ・時間つぶし）を調整する。マイバッグ持参（袋の配布なし）。整理券があっても在庫の保証はないので、買うものは優先順位をつけてゆりっぺに渡しておく。</p>
+      <div class="btns"><a href="https://www.google.com/maps/search/?api=1&query=%E5%BA%83%E5%B3%B6%E3%82%B0%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A" target="_blank" rel="noopener">Googleマップ</a></div>
+    </div>
+  </section>
+
+  <section class="stop" data-lat="34.3936" data-lng="132.457" data-zoom="15" data-label="7">
+    <div class="dot">7</div>
+    <div class="card">
+      <span class="time">物販後</span><h2>紙屋町・本通で時間つぶし</h2>
+      <div class="sub">紙屋町・本通商店街</div>
+      <p>本通商店街で買い物したり、カフェで休んだり。会場までは歩いて行ける距離だから、開場ギリギリまでゆっくりできる。</p>
+      <div class="photo"><img src="img/place-hondori.jpg" alt="広島 本通商店街（夕方）" loading="lazy"></div>
+      <div class="btns"><a href="https://www.google.com/maps/search/?api=1&query=%E5%BA%83%E5%B3%B6%20%E6%9C%AC%E9%80%9A%E5%95%86%E5%BA%97%E8%A1%97" target="_blank" rel="noopener">Googleマップ</a></div>
+    </div>
+  </section>
+
+  <section class="stop" data-lat="34.3968" data-lng="132.4535" data-zoom="15" data-label="8">
+    <div class="dot">8</div>
+    <div class="card">
+      <span class="time">17:00／18:00</span><h2>開場・開演</h2>
+      <div class="sub">広島グリーンアリーナ</div>
+      <p><b>開場17:00、開演18:00</b>。最寄りの<b>原爆ドーム前／紙屋町西から徒歩約10分</b>。BUMP OF CHICKENのライブを楽しむ。</p>
+      <div class="btns"><a class="primary" href="https://www.google.com/maps/search/?api=1&query=%E5%BA%83%E5%B3%B6%E3%82%B0%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%8A" target="_blank" rel="noopener">Googleマップ</a></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  2026年11月28日（土）のプラン。午前の観光は3案（宮島／呉／市内ゆったり）から選択。物販はLINE mogilyのデジタル整理券制（当選はゆりっぺ分のみ、時間枠は未定）。
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  var stops = Array.prototype.slice.call(document.querySelectorAll('.stop'));
+  var map = L.map('map', {scrollWheelZoom:false});
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {maxZoom:16, attribution:'Esri, OpenStreetMap contributors'}).addTo(map);
+
+  var patternLayers = {A:L.layerGroup(), B:L.layerGroup(), C:L.layerGroup()};
+  var markers = stops.map(function(s, i){
+    var label = s.getAttribute('data-label') || String(i + 1);
+    var icon = L.divIcon({className:'', html:'<div class="pin" id="pin' + i + '"><span>' + label + '</span></div>', iconSize:[30,30], iconAnchor:[15,28]});
+    var m = L.marker([parseFloat(s.dataset.lat), parseFloat(s.dataset.lng)], {icon:icon});
+    m.on('click', function(){ s.scrollIntoView({behavior:'smooth', block:'start'}); });
+    var g = s.getAttribute('data-group');
+    if (g && patternLayers[g]) { patternLayers[g].addLayer(m); } else { m.addTo(map); }
+    return m;
+  });
+
+  var current = -1;
+  function activate(i, fly){
+    var s = stops[i];
+    if (!s || s.style.display === 'none' || i === current) return;
+    current = i;
+    stops.forEach(function(x, j){ x.classList.toggle('active', j === i); });
+    markers.forEach(function(m, j){
+      var el = document.getElementById('pin' + j);
+      if (el) el.classList.toggle('on', j === i);
+    });
+    if (fly !== false) map.flyTo([parseFloat(s.dataset.lat), parseFloat(s.dataset.lng)], parseInt(s.dataset.zoom, 10) || 15, {duration:1.1});
+  }
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) activate(stops.indexOf(e.target));
+    });
+  }, {rootMargin:'-52% 0px -38% 0px', threshold:0});
+  stops.forEach(function(s){ io.observe(s); });
+
+  var curPattern = 'A';
+  function visiblePts(){
+    return stops.filter(function(s){
+      var g = s.getAttribute('data-group');
+      return !g || g === curPattern;
+    }).map(function(s){ return [parseFloat(s.dataset.lat), parseFloat(s.dataset.lng)]; });
+  }
+  function setPattern(p){
+    curPattern = p;
+    Array.prototype.forEach.call(document.querySelectorAll('.pbtn'), function(b){
+      b.classList.toggle('active', b.getAttribute('data-pattern') === p);
+    });
+    stops.forEach(function(s){
+      var g = s.getAttribute('data-group');
+      if (g) {
+        s.style.display = (g === p) ? '' : 'none';
+        if (g !== p) s.classList.remove('active');
+      }
+    });
+    Object.keys(patternLayers).forEach(function(k){
+      if (k === p) { patternLayers[k].addTo(map); } else { map.removeLayer(patternLayers[k]); }
+    });
+    if (current >= 0 && stops[current].style.display === 'none') current = -1;
+    map.fitBounds(visiblePts(), {padding:[28,28]});
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('.pbtn'), function(b){
+    b.addEventListener('click', function(){ setPattern(b.getAttribute('data-pattern')); });
+  });
+
+  setPattern('A');
+  activate(0, false);
+</script>
+</body>
+</html>
