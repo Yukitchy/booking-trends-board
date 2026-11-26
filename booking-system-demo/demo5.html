@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>案5 AI秘書型 | 予約管理デモ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Noto Sans JP",sans-serif;background:#0f1b2d;color:#eef2f7;-webkit-font-smoothing:antialiased;padding:22px 12px 34px}
+.note{max-width:520px;margin:0 auto 12px;font-size:12px;color:#9fb2c8;text-align:center}
+.chat{max-width:520px;margin:0 auto;background:#16263d;border:2px solid #2c4562;border-radius:24px;overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,.4)}
+.hd{display:flex;align-items:center;gap:12px;padding:15px 18px;background:#1b3049;border-bottom:1.5px solid #2c4562}
+.ava{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#ff9a56,#e03c31);display:flex;align-items:center;justify-content:center;font-size:21px;flex:none}
+.hd .name{font-family:"M PLUS Rounded 1c",sans-serif;font-weight:800;font-size:16.5px}
+.hd .st{font-size:11.5px;color:#8fd18f}
+.hd .st::before{content:"● ";font-size:9px}
+.msgs{padding:18px 16px 8px;display:flex;flex-direction:column;gap:12px;min-height:420px}
+.msg{max-width:86%;padding:11px 14px;border-radius:16px;font-size:14px;line-height:1.75;white-space:pre-wrap}
+.msg.ai{background:#22395a;border-bottom-left-radius:4px;align-self:flex-start}
+.msg.me{background:#1d7a5f;border-bottom-right-radius:4px;align-self:flex-end}
+.msg .card{background:#0f1b2d;border:1.5px solid #3d5a7d;border-radius:12px;padding:10px 12px;margin-top:9px;font-size:13px;line-height:1.7}
+.msg .card b{color:#ffd34d}
+.msg.warn{border:1.5px solid #e03c31}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin:2px 0 8px 4px}
+.acts button{font-family:inherit;font-size:13px;font-weight:700;border-radius:999px;padding:8px 16px;cursor:pointer;border:1.5px solid #ffd34d;background:transparent;color:#ffd34d}
+.acts button:hover{background:#ffd34d;color:#151515}
+.acts button:disabled{opacity:.35;cursor:default}
+.acts button:disabled:hover{background:transparent;color:#ffd34d}
+.time{font-size:10.5px;color:#7d93ad;margin:0 4px}
+.input{display:flex;gap:9px;padding:13px 14px;border-top:1.5px solid #2c4562;background:#1b3049}
+.input input{flex:1;font-family:inherit;font-size:14px;border-radius:999px;border:1.5px solid #3d5a7d;background:#0f1b2d;color:#fff;padding:10px 16px}
+.input button{font-family:inherit;font-size:14px;font-weight:700;border:none;border-radius:999px;background:#ffd34d;color:#151515;padding:0 20px;cursor:pointer}
+footer{max-width:520px;margin:12px auto 0;font-size:12px;color:#7d93ad;text-align:center;line-height:1.7}
+</style>
+</head>
+<body>
+<p class="note">💬 AI秘書とのチャットで予約をさばくデモです。ボタンを押してみてください</p>
+<div class="chat">
+  <div class="hd">
+    <div class="ava">🤖</div>
+    <div>
+      <div class="name">AI秘書（予約担当）</div>
+      <div class="st">オンライン ― 全経路を監視中</div>
+    </div>
+  </div>
+  <div class="msgs" id="msgs"></div>
+  <div class="input">
+    <input id="inp" placeholder="メッセージを入力（デモでは送信のみ）">
+    <button onclick="sendFree()">送信</button>
+  </div>
+</div>
+<footer>※ 叩き台デモです。ゲスト名・日程はすべて架空のサンプルデータです。</footer>
+<script>
+const msgs=document.getElementById('msgs');
+function ai(html,warn){const d=document.createElement('div');d.className='msg ai'+(warn?' warn':'');d.innerHTML=html;msgs.appendChild(d);scroll();return d;}
+function me(text){const d=document.createElement('div');d.className='msg me';d.textContent=text;msgs.appendChild(d);scroll();}
+function acts(list){
+  const w=document.createElement('div');w.className='acts';
+  list.forEach(([label,fn])=>{const b=document.createElement('button');b.textContent=label;b.onclick=()=>{w.querySelectorAll('button').forEach(x=>x.disabled=true);fn();};w.appendChild(b);});
+  msgs.appendChild(w);scroll();return w;
+}
+function scroll(){window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});}
+
+ai('おはようございます。朝のまとめです。\n・今日 12/3 のツアー：1件（10:00 Emma Wilson 様）\n・新着の予約：3件\n・⚠️ 重なりの警告：1件あります');
+setTimeout(()=>{
+  ai('新しい予約が入りました。byFood からです。',false).insertAdjacentHTML('beforeend',
+   `<div class="card"><b>12/8（火）13:00</b> 金沢 酒蔵ツアー\nAva Thompson 様 / 5名 / 英語\n会社の視察旅行、領収書が必要とのメモあり</div>`);
+  acts([
+    ['承認する',()=>{me('承認する');setTimeout(()=>ai('カルテに登録し、Googleカレンダーへ反映しました。\n前日 12/7 の15:00に、前日連絡のリマインドを設定済みです。'),450);}],
+    ['下書きを作る',()=>{me('下書きを作る');setTimeout(()=>ai('承認連絡の下書きです。このまま送れます。').insertAdjacentHTML('beforeend',
+      `<div class="card">Ava Thompson 様\n\nご予約ありがとうございます。12/8（火）13:00より酒蔵ツアーでお待ちしております。集合場所は金沢駅 鼓門前です。領収書は当日お渡しします。\n\n株式会社あるところに（toaru）</div>`),450);}]
+  ]);
+},600);
+setTimeout(()=>{
+  ai('⚠️ 重なりの警告です。12/6（日）に2件が重なっています。',true).insertAdjacentHTML('beforeend',
+   `<div class="card"><b>10:00</b> Airbnb / Sofia Garcia 様 / 3名\n<b>10:30</b> Viator / Noah Brown 様 / 2名\nガイド1名では同時に対応できません</div>`);
+  acts([
+    ['Brown様へ変更を提案',()=>{me('Brown様へ変更を提案');setTimeout(()=>ai('Noah Brown 様への日程変更の提案文を作りました（14:00開始への変更案）。内容を確認して送信してください。\nこのまま重なりは「対応中」として記録します。'),450);}],
+    ['あとで対応',()=>{me('あとで対応');setTimeout(()=>ai('承知しました。明日の朝のまとめで、もう一度お知らせします。'),450);}]
+  ]);
+},1400);
+function sendFree(){
+  const i=document.getElementById('inp');if(!i.value.trim())return;
+  me(i.value);const v=i.value;i.value='';
+  setTimeout(()=>ai('承知しました。「'+v+'」ですね。デモのため、ここでは受け付けのみ行いました。'),450);
+}
+document.getElementById('inp').addEventListener('keydown',e=>{if(e.key==='Enter')sendFree();});
+</script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>案1 カルテ一覧型 | 予約管理デモ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f1efea;--ink:#151515;--red:#e03c31;--card:#fff;--line:#151515}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Noto Sans JP",sans-serif;background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased}
+header{background:var(--ink);color:#fff;padding:14px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+header.logo{font-family:"M PLUS Rounded 1c",sans-serif;font-weight:800;font-size:19px;letter-spacing:.04em}
+header.logo span{color:var(--red)}
+header.sub{font-size:12px;opacity:.75}
+header.today{margin-left:auto;font-size:13px;background:#fff;color:var(--ink);border-radius:999px;padding:5px 14px;font-weight:700}
+.alert{max-width:1080px;margin:16px auto 0;padding:0 16px}
+.alert.box{background:#fff;border:2.5px solid var(--red);border-radius:14px;padding:12px 16px;display:flex;gap:12px;align-items:center;font-size:14px}
+.alert.box b{color:var(--red)}
+.wrap{max-width:1080px;margin:0 auto;padding:16px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.filters button{font-family:inherit;font-size:13px;font-weight:700;border:2px solid var(--ink);background:#fff;border-radius:999px;padding:6px 16px;cursor:pointer}
+.filters button.on{background:var(--ink);color:#fff}
+.filters.cnt{margin-left:auto;font-size:13px;align-self:center;color:#555}
+.card{background:var(--card);border:2px solid var(--line);border-radius:16px;margin-bottom:12px;overflow:hidden}
+.card.head{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;flex-wrap:wrap}
+.when{font-weight:900;font-size:16px;white-space:nowrap}
+.when small{display:block;font-weight:500;font-size:12px;color:#666}
+.guest{font-weight:700;font-size:15px}
+.guest small{display:block;font-weight:400;font-size:12px;color:#666}
+.badge{font-size:11px;font-weight:700;border-radius:6px;padding:3px 9px;color:#fff;white-space:nowrap}
+.b-viator{background:#7a1f3d}.b-byfood{background:#e4572e}.b-own{background:#1d7a5f}.b-airbnb{background:#ff5a5f}
+.status{font-size:12px;font-weight:700;border:1.5px solid var(--ink);border-radius:999px;padding:3px 11px;white-space:nowrap}
+.status.new{border-color:var(--red);color:var(--red)}
+.next{margin-left:auto;font-size:12.5px;background:#fff7e6;border:1.5px solid #e8a13a;border-radius:10px;padding:6px 12px;font-weight:700;white-space:nowrap}
+.chev{font-size:14px;color:#888}
+.detail{display:none;border-top:1.5px dashed #bbb;padding:14px 16px;font-size:13.5px;line-height:1.9;background:#fbfaf7}
+.card.open.detail{display:block}
+.detail.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:6px 24px}
+.detail b{color:#555;font-weight:500;margin-right:8px}
+.btns{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap}
+.btns button{font-family:inherit;font-size:13px;font-weight:700;border-radius:10px;padding:8px 16px;cursor:pointer;border:2px solid var(--ink);background:var(--ink);color:#fff}
+.btns button.ghost{background:#fff;color:var(--ink)}
+.draft{display:none;margin-top:12px;background:#fff;border:1.5px solid #ccc;border-radius:10px;padding:12px 14px;font-size:13px;line-height:1.8;white-space:pre-wrap}
+.draft.show{display:block}
+footer{max-width:1080px;margin:0 auto;padding:4px 16px 28px;font-size:12px;color:#777}
+@media(max-width:640px){.next{margin-left:0}}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">予約カルテ <span>TOARU</span></div>
+<div class="sub">全経路の予約を、ゲストごとのカルテに集約</div>
+<div class="today">今日 12/3（木）</div>
+</header>
+
+<div class="alert"><div class="box">⚠️ <div><b>二重予約の警告：</b>12/6（日）10:00 Airbnb と 10:30 Viator が重なっています。どちらかへ日程変更の連絡が必要です。</div></div></div>
+
+<div class="wrap">
+<div class="filters" id="filters">
+<button class="on" data-f="all">すべて</button>
+<button data-f="viator">Viator</button>
+<button data-f="byfood">byFood</button>
+<button data-f="own">自社サイト</button>
+<button data-f="airbnb">Airbnb</button>
+<span class="cnt" id="cnt"></span>
+</div>
+<div id="list"></div>
+</div>
+<footer>※ 叩き台デモです。ゲスト名・日程はすべて架空のサンプルデータです。</footer>
+
+<script>
+const DATA=[
+{id:1,date:"12/3",dow:"木",time:"10:00",guest:"Emma Wilson",sub:"アメリカ / 2名",ch:"viator",chName:"Viator",status:"新着",scls:"new",next:"内容を確認して確定する",tour:"金沢 酒蔵ツアー（2.5時間）",pay:"Viator経由で決済済み",note:"日本酒は初めて。甘口が好きとメモあり",lang:"英語"},
+{id:2,date:"12/5",dow:"土",time:"10:00",guest:"Liam Chen",sub:"シンガポール / 4名",ch:"byfood",chName:"byFood",status:"確認済み",scls:"",next:"12/4に前日連絡を送る",tour:"金沢 酒蔵ツアー（2.5時間）",pay:"byFood経由で決済済み",note:"ベジタリアン1名。利き酒は全員参加",lang:"英語"},
+{id:3,date:"12/5",dow:"土",time:"14:00",guest:"佐藤 美咲",sub:"石川県 / 2名",ch:"own",chName:"自社サイト",status:"前日連絡済み",scls:"",next:"当日の集合場所を再確認",tour:"金沢 酒蔵ツアー（2.5時間）",pay:"Stripeで決済済み",note:"記念日利用。ラベル作りに興味あり",lang:"日本語"},
+{id:4,date:"12/6",dow:"日",time:"10:00",guest:"Sofia Garcia",sub:"スペイン / 3名",ch:"airbnb",chName:"Airbnb",status:"確認済み",scls:"",next:"⚠ 10:30の予約と重なりあり",tour:"金沢 酒蔵ツアー（2.5時間）",pay:"Airbnb経由で決済済み",note:"子ども1名（10歳）を含む",lang:"英語"},
+{id:5,date:"12/6",dow:"日",time:"10:30",guest:"Noah Brown",sub:"オーストラリア / 2名",ch:"viator",chName:"Viator",status:"新着",scls:"new",next:"⚠ 重なりのため日程変更を提案",tour:"金沢 酒蔵ツアー（2.5時間）",pay:"Viator経由で決済済み",note:"午後は兼六園へ行く予定と連絡あり",lang:"英語"},
+{id:6,date:"12/8",dow:"火",time:"13:00",guest:"Ava Thompson",sub:"イギリス / 5名",ch:"byfood",chName:"byFood",status:"新着",scls:"new",next:"内容を確認して確定する",tour:"金沢 酒蔵ツアー（2.5時間）",pay:"byFood経由で決済済み",note:"会社の視察旅行。領収書が必要",lang:"英語"},
+{id:7,date:"12/10",dow:"木",time:"14:00",guest:"Oliver Smith",sub:"アメリカ / 2名",ch:"own",chName:"自社サイト",status:"確認済み",scls:"",next:"12/9に前日連絡を送る",tour:"金沢 酒蔵ツアー（2.5時間）",pay:"Stripeで決済済み",note:"新婚旅行中。写真撮影OK",lang:"英語"},
+{id:8,date:"12/12",dow:"土",time:"10:00",guest:"Mia Johnson",sub:"カナダ / 6名",ch:"viator",chName:"Viator",status:"確認済み",scls:"",next:"人数が多いため車両を確認",tour:"金沢 酒蔵ツアー（2.5時間）",pay:"Viator経由で決済済み",note:"グループ全員が利き酒参加希望",lang:"英語"}
+];
+const list=document.getElementById('list'),cnt=document.getElementById('cnt');
+function render(f){
+const rows=DATA.filter(d=>f==='all'||d.ch===f);
+cnt.textContent=rows.length+" 件の予約";
+list.innerHTML=rows.map(d=>`
+<div class="card" data-id="${d.id}">
+<div class="head" onclick="toggle(${d.id})">
+<div class="when">${d.date}（${d.dow}）<small>${d.time} 開始</small></div>
+<div class="guest">${d.guest}<small>${d.sub}</small></div>
+<span class="badge b-${d.ch}">${d.chName}</span>
+<span class="status ${d.scls}">${d.status}</span>
+<div class="next">次の一手：${d.next}</div>
+<div class="chev">▾</div>
+</div>
+<div class="detail">
+<div class="grid">
+<div><b>ツアー</b>${d.tour}</div>
+<div><b>支払い</b>${d.pay}</div>
+<div><b>対応言語</b>${d.lang}</div>
+<div><b>メモ</b>${d.note}</div>
+</div>
+<div class="btns">
+<button onclick="draft(${d.id})">連絡文の下書きを作る</button>
+<button class="ghost" onclick="toggle(${d.id})">閉じる</button>
+</div>
+<div class="draft" id="draft-${d.id}"></div>
+</div>
+</div>`).join('');
+}
+function toggle(id){
+const c=document.querySelector(`.card[data-id="${id}"]`);
+c.classList.toggle('open');
+}
+function draft(id){
+const d=DATA.find(x=>x.id===id),el=document.getElementById('draft-'+id);
+el.textContent=`${d.guest} 様\n\nツアーのご予約ありがとうございます。\n${d.date}（${d.dow}）${d.time}より「${d.tour}」でお待ちしております。\n集合場所は金沢駅 鼓門前です。ご不明な点があればこのままご返信ください。\n\n株式会社あるところに（toaru）`;
+el.classList.add('show');
+}
+document.getElementById('filters').addEventListener('click',e=>{
+if(e.target.tagName!=='BUTTON')return;
+document.querySelectorAll('#filters button').forEach(b=>b.classList.remove('on'));
+e.target.classList.add('on');render(e.target.dataset.f);
+});
+render('all');
+</script>
+</body>
+</html>

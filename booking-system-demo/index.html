@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>予約管理の実物デモ 5案 | 見比べボード</title>
+<meta property="og:title" content="予約管理の実物デモ 5案">
+<meta property="og:description" content="予約管理一元化の制作代行 ― 納品物の動作イメージ5案。カルテ一覧／カレンダー／スマホ／かんばん／AI秘書。">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/booking-system-demo/og.jpg">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/booking-system-demo/">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Noto Sans JP",sans-serif;background:#151515;color:#fff;-webkit-font-smoothing:antialiased}
+header{max-width:1180px;margin:0 auto;padding:38px 20px 8px}
+header .kicker{font-size:12.5px;letter-spacing:.22em;color:#ff6b5e;font-weight:700}
+header h1{font-size:clamp(26px,5.4vw,44px);font-weight:900;margin-top:8px;white-space:nowrap}
+header h1::after{content:"";display:block;width:74px;height:6px;background:#e03c31;margin-top:14px;border-radius:3px}
+header p{margin-top:14px;font-size:14.5px;line-height:1.9;color:#cfd4da;max-width:760px}
+.grid{max-width:1180px;margin:0 auto;padding:22px 20px 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px}
+.card{background:#1e1e1e;border:1.5px solid #3a3a3a;border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.card .pv{background:#f1efea;height:400px;overflow:hidden;position:relative}
+.card iframe{width:200%;height:800px;border:none;transform:scale(.5);transform-origin:0 0;pointer-events:none}
+.card .info{padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card .num{display:inline-block;background:#e03c31;color:#fff;font-weight:900;font-size:12.5px;border-radius:7px;padding:3px 11px;align-self:flex-start}
+.card h2{font-family:"M PLUS Rounded 1c",sans-serif;font-size:19px;font-weight:800}
+.card p{font-size:13.5px;line-height:1.8;color:#c6ccd3;flex:1}
+.card a.open{align-self:flex-start;font-size:13.5px;font-weight:700;color:#fff;border:1.5px solid #fff;border-radius:999px;padding:8px 20px;text-decoration:none}
+.card a.open:hover{background:#fff;color:#151515}
+footer{max-width:1180px;margin:0 auto;padding:4px 20px 36px;font-size:12.5px;color:#8a929c;line-height:1.9}
+</style>
+</head>
+<body>
+<header>
+  <div class="kicker">BOOKING SYSTEM ― LIVE DEMOS</div>
+  <h1>予約管理の実物デモ 5案</h1>
+  <p>「予約管理一元化の制作代行」で実際に納品する管理画面の、触れる叩き台です。全経路（Viator／byFood／自社サイト／Airbnb）の予約がどう集まり、どうさばけるのかを、5つの形で比べられます。プレビュー内のボタンやタブは「大きく見る」先で実際に動きます。</p>
+</header>
+
+<div class="grid">
+  <div class="card">
+    <div class="pv"><iframe src="demo1.html" loading="lazy" title="案1 カルテ一覧型"></iframe></div>
+    <div class="info">
+      <span class="num">案1</span>
+      <h2>カルテ一覧型</h2>
+      <p>だんどりー本家に近い形。予約カードのリストに経路バッジ・状態・「次の一手」が並び、開くと連絡文の下書きまで作れる。PC向けの王道。</p>
+      <a class="open" href="demo1.html">大きく見る →</a>
+    </div>
+  </div>
+  <div class="card">
+    <div class="pv"><iframe src="demo2.html" loading="lazy" title="案2 カレンダー中心型"></iframe></div>
+    <div class="info">
+      <span class="num">案2</span>
+      <h2>カレンダー中心型</h2>
+      <p>月カレンダーに経路色分けで予約が入り、日を押すと詳細。二重予約の日は赤く光って警告するので、重なりがひと目で分かる。</p>
+      <a class="open" href="demo2.html">大きく見る →</a>
+    </div>
+  </div>
+  <div class="card">
+    <div class="pv"><iframe src="demo3.html" loading="lazy" title="案3 スマホファースト型"></iframe></div>
+    <div class="info">
+      <span class="num">案3</span>
+      <h2>スマホファースト型</h2>
+      <p>携帯で見る前提の形。今日の予約・新着通知・明日の準備チェックが1画面に収まる。忙しくてPCを開けない事業者向け。</p>
+      <a class="open" href="demo3.html">大きく見る →</a>
+    </div>
+  </div>
+  <div class="card">
+    <div class="pv"><iframe src="demo4.html" loading="lazy" title="案4 かんばん型"></iframe></div>
+    <div class="info">
+      <span class="num">案4</span>
+      <h2>かんばん型</h2>
+      <p>新着→確認済み→前日連絡済み→当日→完了 の流れで管理。「新着」に溜まると列が赤くなり、対応漏れが滞留で見える。</p>
+      <a class="open" href="demo4.html">大きく見る →</a>
+    </div>
+  </div>
+  <div class="card">
+    <div class="pv"><iframe src="demo5.html" loading="lazy" title="案5 AI秘書型"></iframe></div>
+    <div class="info">
+      <span class="num">案5</span>
+      <h2>AI秘書型</h2>
+      <p>チャットでAIが「新しい予約が入りました」「この日は重なっています」と報告。ボタン1つで承認や連絡文の下書きが出る。</p>
+      <a class="open" href="demo5.html">大きく見る →</a>
+    </div>
+  </div>
+</div>
+<footer>※ 各デモのゲスト名・日程はすべて架空のサンプルデータです（金沢の酒蔵ツアーを想定）。<br>関連：<a href="../booking-system-lp/" style="color:#c6ccd3">LP叩き台 5案はこちら</a></footer>
+</body>
+</html>

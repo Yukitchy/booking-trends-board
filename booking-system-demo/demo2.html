@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>案2 カレンダー中心型 | 予約管理デモ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f1efea;--ink:#151515}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"M PLUS Rounded 1c","Noto Sans JP",sans-serif;background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased}
+header{background:var(--ink);color:#fff;padding:14px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+header .logo{font-weight:800;font-size:19px}
+header .logo span{color:#e03c31}
+header .sub{font-size:12px;opacity:.75;font-family:"Noto Sans JP",sans-serif}
+.legend{display:flex;gap:14px;flex-wrap:wrap;max-width:1120px;margin:16px auto 0;padding:0 16px;font-size:12.5px;font-weight:700}
+.dot{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.c-viator{background:#7a1f3d}.c-byfood{background:#e4572e}.c-own{background:#1d7a5f}.c-airbnb{background:#ff5a5f}
+.layout{max-width:1120px;margin:14px auto;padding:0 16px 28px;display:grid;grid-template-columns:1fr 330px;gap:16px;align-items:start}
+.cal{background:#fff;border:2px solid var(--ink);border-radius:16px;padding:16px}
+.cal h2{font-size:19px;font-weight:800;margin-bottom:12px}
+.cal h2 small{font-size:12px;color:#777;font-weight:500;margin-left:8px}
+.dow,.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.dow div{text-align:center;font-size:12px;font-weight:700;color:#666;padding:4px 0}
+.dow div.sun{color:#d33}.dow div.sat{color:#36c}
+.cell{min-height:86px;border:1.5px solid #ddd;border-radius:10px;padding:6px;font-size:12px;background:#fff;cursor:pointer;position:relative}
+.cell:hover{border-color:var(--ink)}
+.cell.empty{background:transparent;border-color:transparent;cursor:default}
+.cell.today{border-color:var(--ink);border-width:2.5px}
+.cell.sel{outline:3px solid #ffd34d;outline-offset:-1px}
+.cell .d{font-weight:800;font-size:13px}
+.cell.sun .d{color:#d33}.cell.sat .d{color:#36c}
+.cell.overlap{background:#fff1f0;border-color:#e03c31;animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(224,60,49,.0)}50%{box-shadow:0 0 0 5px rgba(224,60,49,.18)}}
+.chip{display:block;color:#fff;border-radius:6px;padding:2px 6px;margin-top:4px;font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.warnmark{position:absolute;top:5px;right:7px;font-size:12px}
+.panel{background:#fff;border:2px solid var(--ink);border-radius:16px;padding:16px;position:sticky;top:16px}
+.panel h3{font-size:16px;font-weight:800;margin-bottom:4px}
+.panel .none{font-size:13px;color:#777;line-height:1.8}
+.res{border-top:1.5px dashed #ccc;padding:10px 0;font-size:13.5px;line-height:1.75}
+.res:first-of-type{border-top:none}
+.res .t{font-weight:800;font-size:14.5px}
+.badge{font-size:11px;font-weight:700;border-radius:6px;padding:2px 8px;color:#fff;margin-left:6px;vertical-align:2px}
+.warn{background:#fff1f0;border:1.5px solid #e03c31;color:#a02015;border-radius:10px;padding:9px 12px;font-size:12.5px;font-weight:700;margin-top:10px;line-height:1.6}
+footer{max-width:1120px;margin:0 auto;padding:0 16px 26px;font-size:12px;color:#777}
+@media(max-width:840px){.layout{grid-template-columns:1fr}.panel{position:static}.cell{min-height:64px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">予約カレンダー <span>TOARU</span></div>
+  <div class="sub">カレンダーと照合して、重なりを先に見つける</div>
+</header>
+
+<div class="legend">
+  <span><span class="dot c-viator"></span>Viator</span>
+  <span><span class="dot c-byfood"></span>byFood</span>
+  <span><span class="dot c-own"></span>自社サイト</span>
+  <span><span class="dot c-airbnb"></span>Airbnb</span>
+  <span>⚠️ = 時間が重なっている日</span>
+</div>
+
+<div class="layout">
+  <div class="cal">
+    <h2>2026年 12月<small>日付をクリックすると右に詳細が出ます</small></h2>
+    <div class="dow"><div>月</div><div>火</div><div>水</div><div>木</div><div>金</div><div class="sat">土</div><div class="sun">日</div></div>
+    <div class="grid" id="grid"></div>
+  </div>
+  <div class="panel" id="panel"></div>
+</div>
+<footer>※ 叩き台デモです。ゲスト名・日程はすべて架空のサンプルデータです。</footer>
+
+<script>
+const RES={
+ 3:[{time:"10:00",guest:"Emma Wilson",n:"2名",ch:"viator",chName:"Viator",status:"新着"}],
+ 5:[{time:"10:00",guest:"Liam Chen",n:"4名",ch:"byfood",chName:"byFood",status:"確認済み"},
+     {time:"14:00",guest:"佐藤 美咲",n:"2名",ch:"own",chName:"自社サイト",status:"前日連絡済み"}],
+ 6:[{time:"10:00",guest:"Sofia Garcia",n:"3名",ch:"airbnb",chName:"Airbnb",status:"確認済み"},
+     {time:"10:30",guest:"Noah Brown",n:"2名",ch:"viator",chName:"Viator",status:"新着"}],
+ 8:[{time:"13:00",guest:"Ava Thompson",n:"5名",ch:"byfood",chName:"byFood",status:"新着"}],
+ 10:[{time:"14:00",guest:"Oliver Smith",n:"2名",ch:"own",chName:"自社サイト",status:"確認済み"}],
+ 12:[{time:"10:00",guest:"Mia Johnson",n:"6名",ch:"viator",chName:"Viator",status:"確認済み"}]
+};
+const OVERLAP={6:"10:00 Airbnb（3名）と 10:30 Viator（2名）が重なっています。ガイド1名では同時に対応できません。"};
+const grid=document.getElementById('grid'),panel=document.getElementById('panel');
+// 2026-12-01 is Tuesday. Monday-start grid: 1 leading blank.
+let cells='<div class="cell empty"></div>';
+for(let d=1;d<=31;d++){
+  const dow=(d+1)%7; // 0=Sun.. with Dec1=Tue(2): (1+1)%7=2 ✓
+  const cls=['cell']; if(dow===0)cls.push('sun'); if(dow===6)cls.push('sat');
+  if(d===3)cls.push('today'); if(OVERLAP[d])cls.push('overlap');
+  const chips=(RES[d]||[]).map(r=>`<span class="chip c-${r.ch}">${r.time} ${r.guest.split(' ')[0]}</span>`).join('');
+  cells+=`<div class="${cls.join(' ')}" data-d="${d}" onclick="show(${d})"><span class="d">${d}</span>${OVERLAP[d]?'<span class="warnmark">⚠️</span>':''}${chips}</div>`;
+}
+grid.innerHTML=cells;
+function show(d){
+  document.querySelectorAll('.cell').forEach(c=>c.classList.remove('sel'));
+  const cell=document.querySelector(`.cell[data-d="${d}"]`); if(cell)cell.classList.add('sel');
+  const dowName=['日','月','火','水','木','金','土'][(d+1)%7];
+  const rows=RES[d];
+  if(!rows){panel.innerHTML=`<h3>12/${d}（${dowName}）</h3><p class="none">この日の予約はありません。<br>販売枠は開いています。</p>`;return;}
+  panel.innerHTML=`<h3>12/${d}（${dowName}）の予約 ${rows.length}件</h3>`+
+    rows.map(r=>`<div class="res"><span class="t">${r.time}</span><span class="badge c-${r.ch}">${r.chName}</span><br>${r.guest} / ${r.n}<br>状態：${r.status} / 金沢 酒蔵ツアー</div>`).join('')+
+    (OVERLAP[d]?`<div class="warn">⚠️ 二重予約の警告<br>${OVERLAP[d]}</div>`:'');
+}
+show(6);
+</script>
+</body>
+</html>

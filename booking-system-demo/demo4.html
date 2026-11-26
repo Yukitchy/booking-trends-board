@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>案4 かんばん型 | 予約管理デモ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f1efea;--ink:#151515;--red:#e03c31}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Noto Sans JP",sans-serif;background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased}
+header{background:var(--ink);color:#fff;padding:14px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+header .logo{font-family:"M PLUS Rounded 1c",sans-serif;font-weight:800;font-size:19px}
+header .logo span{color:var(--red)}
+header .sub{font-size:12px;opacity:.75}
+header .hint{margin-left:auto;font-size:12.5px;background:#fff;color:var(--ink);border-radius:999px;padding:5px 14px;font-weight:700}
+.board{display:flex;gap:12px;padding:18px 16px 10px;overflow-x:auto;align-items:flex-start;max-width:1280px;margin:0 auto}
+.col{flex:0 0 232px;background:#e9e6de;border:2px solid var(--ink);border-radius:16px;padding:12px;min-height:300px}
+.col.stuck{border-color:var(--red);background:#f7e9e7}
+.col h3{font-size:14.5px;font-weight:900;display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.col h3 .n{background:var(--ink);color:#fff;border-radius:999px;font-size:12px;padding:1px 10px}
+.col.stuck h3 .n{background:var(--red)}
+.col .desc{font-size:11.5px;color:#666;margin-bottom:10px;line-height:1.5}
+.col .stuckmsg{display:none;font-size:11.5px;font-weight:700;color:var(--red);margin-bottom:10px;line-height:1.5}
+.col.stuck .stuckmsg{display:block}
+.kcard{background:#fff;border:2px solid var(--ink);border-radius:12px;padding:10px 12px;margin-bottom:10px;font-size:13px}
+.kcard .g{font-weight:800;font-size:14px}
+.kcard .m{color:#555;font-size:12px;line-height:1.65;margin-top:2px}
+.kcard .warn{color:var(--red);font-weight:700;font-size:12px;margin-top:4px;line-height:1.5}
+.badge{font-size:10.5px;font-weight:700;border-radius:6px;padding:2px 8px;color:#fff}
+.b-viator{background:#7a1f3d}.b-byfood{background:#e4572e}.b-own{background:#1d7a5f}.b-airbnb{background:#ff5a5f}
+.kcard button{margin-top:9px;width:100%;font-family:inherit;font-size:12.5px;font-weight:700;border:2px solid var(--ink);background:var(--ink);color:#fff;border-radius:9px;padding:7px 0;cursor:pointer}
+.kcard button:hover{background:#333}
+.kcard .fin{text-align:center;font-size:12px;color:#1d7a5f;font-weight:800;margin-top:9px}
+.empty{font-size:12px;color:#999;text-align:center;padding:14px 0}
+footer{max-width:1280px;margin:0 auto;padding:6px 16px 26px;font-size:12px;color:#777}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">予約かんばん <span>TOARU</span></div>
+  <div class="sub">ステータスの流れで、対応漏れが見える</div>
+  <div class="hint">カードのボタンで次の列へ進みます</div>
+</header>
+<div class="board" id="board"></div>
+<footer>※ 叩き台デモです。ゲスト名・日程はすべて架空のサンプルデータです。「新着」にカードが溜まると列が赤くなります。</footer>
+<script>
+const COLS=[
+ {key:'new',name:'新着',desc:'入ったばかりの予約',btn:'確認済みにする'},
+ {key:'confirmed',name:'確認済み',desc:'内容を確認した予約',btn:'前日連絡済みにする'},
+ {key:'reminded',name:'前日連絡済み',desc:'前日の連絡を送った予約',btn:'当日にする'},
+ {key:'today',name:'当日',desc:'今日実施するツアー',btn:'完了にする'},
+ {key:'done',name:'完了',desc:'実施済み',btn:null}
+];
+let cards=[
+ {id:1,guest:'Emma Wilson',meta:'12/3（木）10:00 / 2名',ch:'viator',chName:'Viator',col:'today'},
+ {id:2,guest:'Ava Thompson',meta:'12/8（火）13:00 / 5名',ch:'byfood',chName:'byFood',col:'new'},
+ {id:3,guest:'Noah Brown',meta:'12/6（日）10:30 / 2名',ch:'viator',chName:'Viator',col:'new',warn:'⚠ 10:00の予約と重なっています'},
+ {id:4,guest:'高橋 蓮',meta:'12/9（水）10:00 / 3名',ch:'own',chName:'自社サイト',col:'new'},
+ {id:5,guest:'Liam Chen',meta:'12/5（土）10:00 / 4名',ch:'byfood',chName:'byFood',col:'confirmed'},
+ {id:6,guest:'Sofia Garcia',meta:'12/6（日）10:00 / 3名',ch:'airbnb',chName:'Airbnb',col:'confirmed',warn:'⚠ 10:30の予約と重なっています'},
+ {id:7,guest:'Oliver Smith',meta:'12/10（木）14:00 / 2名',ch:'own',chName:'自社サイト',col:'confirmed'},
+ {id:8,guest:'佐藤 美咲',meta:'12/5（土）14:00 / 2名',ch:'own',chName:'自社サイト',col:'reminded'},
+ {id:9,guest:'Mia Johnson',meta:'12/12（土）10:00 / 6名',ch:'viator',chName:'Viator',col:'confirmed'},
+ {id:10,guest:'Lucas Martin',meta:'11/29（日）10:00 / 2名',ch:'viator',chName:'Viator',col:'done'}
+];
+const board=document.getElementById('board');
+function render(){
+  board.innerHTML=COLS.map((c,ci)=>{
+    const cs=cards.filter(x=>x.col===c.key);
+    const stuck=c.key==='new'&&cs.length>=3;
+    return `<div class="col ${stuck?'stuck':''}">
+      <h3>${c.name}<span class="n">${cs.length}</span></h3>
+      <div class="desc">${c.desc}</div>
+      <div class="stuckmsg">⏳ 新着が${cs.length}件溜まっています。確認が漏れる前に処理しましょう。</div>
+      ${cs.length?cs.map(x=>`<div class="kcard">
+        <div class="g">${x.guest}</div>
+        <div class="m">${x.meta}<br><span class="badge b-${x.ch}">${x.chName}</span></div>
+        ${x.warn?`<div class="warn">${x.warn}</div>`:''}
+        ${c.btn?`<button onclick="move(${x.id})">${c.btn} →</button>`:'<div class="fin">✓ 完了</div>'}
+      </div>`).join(''):'<div class="empty">なし</div>'}
+    </div>`;
+  }).join('');
+}
+function move(id){
+  const x=cards.find(c=>c.id===id);
+  const i=COLS.findIndex(c=>c.key===x.col);
+  if(i<COLS.length-1)x.col=COLS[i+1].key;
+  render();
+}
+render();
+</script>
+</body>
+</html>
