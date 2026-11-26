@@ -55,8 +55,9 @@ h2{font-family:var(--f-min);font-size:clamp(21px,4.4vw,29px);font-weight:700;mar
 .price-band h3{font-size:15px;margin-bottom:10px}
 .price-band li{font-size:13.5px;margin-left:18px;margin-bottom:4px;color:#EFEAD8}
 .cta{text-align:center;padding:6px 0 56px}
-.cta a{display:inline-block;background:var(--terra);color:#fff;font-weight:700;font-size:16.5px;text-decoration:none;padding:15px 42px;border-radius:999px;box-shadow:0 10px 22px rgba(174,88,45,.3)}
-.cta p{font-size:12.5px;color:var(--soft);margin-top:12px}
+.cta a{display:inline-flex;align-items:center;justify-content:center;text-align:center;background:var(--terra);color:#fff;font-weight:700;font-size:16.5px;text-decoration:none;padding:16px 42px 14px;border-radius:999px;box-shadow:0 10px 22px rgba(174,88,45,.3)}
+.cta p{font-size:12.5px;color:var(--soft);margin-top:12px;text-wrap:balance}
+.nw{white-space:nowrap}
 footer{border-top:1px solid var(--line);padding:20px 0 28px;font-size:12px;color:var(--soft);text-align:center}
 
 
@@ -124,7 +125,7 @@ footer{border-top:1px solid var(--line);padding:20px 0 28px;font-size:12px;color
 
 <div class="cta"><div class="wrap">
   <a href="#">うちの事業でもできる？と聞く</a>
-  <p>進め方：内容の確認 → 情報の受け渡し → 制作 → 動作確認ミーティング</p>
+  <p>進め方：<span class="nw">内容の確認</span> → <span class="nw">情報の受け渡し</span> → <span class="nw">制作</span> → <span class="nw">動作確認ミーティング</span></p>
 </div></div>
 
 <footer>Anime Sensei / 市原佑樹 ― AIコンサル・仕組みづくり<br>このページはLP案（toaruデザイン 案1）です</footer>
