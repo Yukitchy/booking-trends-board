@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>案5 AI秘書 | 予約管理一元化の仕組みづくり</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:"Noto Sans JP",sans-serif; color:#182233; background:#f6f8fc; line-height:1.75; }
+  .wrap { max-width:960px; margin:0 auto; padding:0 20px; }
+  header.top { background:#0d1526; padding:14px 0; }
+  header.top .wrap { display:flex; justify-content:space-between; align-items:center; }
+  .brand { font-weight:900; font-size:15px; color:#fff; }
+  .brand span { color:#57c7ff; }
+  .plan-no { font-size:12px; font-weight:700; background:#57c7ff; color:#0d1526; padding:3px 12px; border-radius:999px; }
+  .hero { background:#0d1526; color:#fff; padding:52px 0 58px; }
+  .hero-grid { display:grid; grid-template-columns:1.05fr .95fr; gap:38px; align-items:center; }
+  @media (max-width:720px){ .hero-grid{ grid-template-columns:1fr; } }
+  .kicker { display:inline-block; font-size:12.5px; font-weight:700; color:#57c7ff; border:1.5px solid #57c7ff; border-radius:999px; padding:2px 14px; margin-bottom:18px; }
+  h1 { font-size:clamp(27px,6.2vw,48px); font-weight:900; line-height:1.32; white-space:nowrap; }
+  h1 .bl { color:#57c7ff; }
+  .hero p.lead { margin-top:16px; font-size:clamp(14.5px,2.4vw,16.5px); color:#c3cede; font-weight:500; max-width:520px; }
+  /* chat mock */
+  .chat { background:#101c33; border:1px solid #263550; border-radius:18px; padding:18px 16px; }
+  .chat .cap { font-size:11px; font-weight:700; color:#7e90ad; letter-spacing:.1em; margin-bottom:12px; }
+  .msg { max-width:88%; border-radius:14px; padding:10px 13px; font-size:13px; line-height:1.6; margin-bottom:10px; }
+  .msg.ai { background:#1d2c47; color:#eaf2ff; border-bottom-left-radius:4px; }
+  .msg.ai b { color:#57c7ff; }
+  .msg.me { background:#57c7ff; color:#0d1526; font-weight:700; margin-left:auto; border-bottom-right-radius:4px; }
+  .msg .tm { display:block; font-size:10px; color:#7e90ad; margin-top:4px; }
+  .msg.me .tm { color:#33526e; }
+  section { padding:52px 0; }
+  .sec-label { font-size:12px; font-weight:900; letter-spacing:.16em; color:#1f7ae0; margin-bottom:8px; }
+  h2 { font-size:clamp(21px,4.4vw,30px); font-weight:900; margin-bottom:22px; white-space:nowrap; }
+  .watch { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  @media (max-width:720px){ .watch{ grid-template-columns:1fr; } }
+  .w { background:#fff; border:1.5px solid #dde5f0; border-radius:16px; padding:22px; }
+  .w .ic { font-size:13px; font-weight:900; color:#fff; background:#1f7ae0; display:inline-block; border-radius:8px; padding:2px 10px; margin-bottom:10px; }
+  .w h3 { font-size:16.5px; font-weight:900; margin-bottom:6px; }
+  .w p { font-size:13.5px; color:#4c5a70; }
+  .human { background:#fff; border:2px solid #182233; border-radius:16px; padding:26px; display:grid; grid-template-columns:auto 1fr; gap:20px; align-items:center; }
+  @media (max-width:720px){ .human{ grid-template-columns:1fr; } }
+  .human .big { font-size:clamp(19px,3.8vw,25px); font-weight:900; line-height:1.55; }
+  .human p { font-size:14px; color:#4c5a70; margin-top:6px; }
+  .price-band { background:#0d1526; color:#fff; border-radius:16px; padding:30px; text-align:center; }
+  .price-band .yen { font-size:clamp(38px,8vw,56px); font-weight:900; line-height:1.15; }
+  .price-band .yen span { color:#57c7ff; }
+  .price-band p { font-size:13.5px; color:#c3cede; margin-top:6px; }
+  .incl { display:grid; grid-template-columns:repeat(2,1fr); gap:10px 22px; max-width:720px; margin:22px auto 0; text-align:left; }
+  @media (max-width:720px){ .incl{ grid-template-columns:1fr; } }
+  .incl div { background:#fff; border:1.5px solid #dde5f0; border-radius:12px; padding:12px 16px; font-size:13.5px; font-weight:700; }
+  .incl div::before { content:"✓ "; color:#1f7ae0; font-weight:900; }
+  .cta { text-align:center; padding:8px 0 62px; }
+  .cta a { display:inline-block; background:#1f7ae0; color:#fff; font-weight:900; font-size:17px; text-decoration:none; padding:16px 46px; border-radius:999px; box-shadow:0 10px 24px rgba(31,122,224,.32); }
+  .cta p { font-size:12.5px; color:#7e90ad; margin-top:13px; }
+  footer { border-top:1px solid #dde5f0; padding:20px 0 28px; font-size:12px; color:#93a3bb; text-align:center; }
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <div class="brand">予約一元管理 <span>制作代行</span></div>
+  <div class="plan-no">案5 AI秘書</div>
+</div></header>
+
+<div class="hero"><div class="wrap"><div class="hero-grid">
+  <div>
+    <span class="kicker">AIコンサルが作る、予約の見張り役</span>
+    <h1>AI秘書が、<span class="bl">予約を見張る。</span></h1>
+    <p class="lead">新しい予約が入ったら即通知。重なりそうな予約は先に警告。あなたが現場に出ている間も、AIが予約の番をします。</p>
+  </div>
+  <div class="chat">
+    <div class="cap">AI秘書からの報告</div>
+    <div class="msg ai"><b>新しい予約</b>が入りました。Viator・12/14（土）14:00・2名。カルテとカレンダーに反映済みです。<span class="tm">09:12</span></div>
+    <div class="msg ai"><b>二重予約チェック</b>：12/15 10:00の自社予約と、既存の予約に重なりはありません。<span class="tm">09:13</span></div>
+    <div class="msg me">ありがとう。明日の分をまとめて<span class="tm">09:15</span></div>
+    <div class="msg ai">明日は2件です。13:00 酒蔵ツアー（3名）、16:00 利き酒体験（2名）。事前フォームは全員回答済みです。<span class="tm">09:15</span></div>
+  </div>
+</div></div></div>
+
+<section><div class="wrap">
+  <div class="sec-label">WATCH</div>
+  <h2>AIが、24時間見ていること</h2>
+  <div class="watch">
+    <div class="w"><span class="ic">即時通知</span><h3>新着予約をすぐ知らせる</h3><p>どのサイトから入った予約も、入った瞬間に通知。メールを掘り返す必要がなくなります。</p></div>
+    <div class="w"><span class="ic">重なり監視</span><h3>二重予約を先に止める</h3><p>予約はGoogleカレンダーと照合。同じ時間に重なる予約は、受ける前に分かります。</p></div>
+    <div class="w"><span class="ic">集約</span><h3>カルテに自動で集まる</h3><p>自社サイト・Viator・byFood・Airbnbの予約は、ゲストごとのカルテに集約されます。</p></div>
+  </div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+  <div class="human">
+    <div class="big">見張るのはAI。<br>作るのは、人間です。</div>
+    <div>
+      <p>仕組みを作るのは、ツアーガイド事業「Anime Sensei」を運営し、この一元管理を自社で毎日使っている市原佑樹。AIに任せる部分と、人が見る部分の線引きまで含めて、現場の実感で設計します。</p>
+      <p><strong>導入実績：</strong>金沢の酒蔵ツアー「株式会社あるところに（toaru）」さま</p>
+    </div>
+  </div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+  <div class="price-band">
+    <div class="yen">¥30,000 <span>一式</span></div>
+    <p>AI秘書つきの予約管理の仕組みを、パッケージで作ります</p>
+  </div>
+  <div class="incl">
+    <div>自社サイトの申し込みフォーム＋Stripe決済</div>
+    <div>全経路の予約を集める一元管理カルテ</div>
+    <div>Googleカレンダー連携・二重予約チェック</div>
+    <div>会社のGoogleアカウントで複数人が見られる形</div>
+  </div>
+</div></section>
+
+<div class="cta"><div class="wrap">
+  <a href="#">AI秘書をうちにも、と相談する</a>
+  <p>進め方：内容の確認 → 情報の受け渡し → 制作 → 動作確認ミーティング</p>
+</div></div>
+
+<footer>Anime Sensei / 市原佑樹 ― AIコンサル・仕組みづくり<br>このページはLP叩き台（案5）です</footer>
+</body>
+</html>
