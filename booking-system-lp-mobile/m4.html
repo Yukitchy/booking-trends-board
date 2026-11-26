@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>案M4 ボトムシート型 | 予約管理一元化の仕組みづくり</title>
+<meta property="og:title" content="案M4 ボトムシート型 | 予約管理一元化の仕組みづくり">
+<meta property="og:description" content="LP案2のスマホ刷新・ボトムシート型。予約管理一元化パッケージ ¥30,000 一式の提案ページ。">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/booking-system-lp-mobile/og-m4.jpg">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/booking-system-lp-mobile/m4.html">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:"M PLUS Rounded 1c",sans-serif; color:#221d15; background:#f7f3ec; line-height:1.75; -webkit-text-size-adjust:100%; }
+  .wrap { max-width:980px; margin:0 auto; padding:0 20px; }
+  header.top { padding:14px 0; }
+  header.top .wrap { display:flex; justify-content:space-between; align-items:center; gap:12px; }
+  .brand { font-weight:800; font-size:15px; white-space:nowrap; }
+  .brand span { color:#d9622b; }
+  .plan-no { display:inline-flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; line-height:1.5; background:#221d15; color:#fff; padding:3px 12px; border-radius:999px; white-space:nowrap; }
+  .hero { padding:44px 0 30px; text-align:center; }
+  .kicker { display:inline-block; font-size:12.5px; font-weight:800; line-height:1.6; color:#d9622b; background:#fdeee3; border-radius:999px; padding:3px 14px; margin-bottom:16px; white-space:nowrap; }
+  h1 { font-size:clamp(20px,6.2vw,46px); font-weight:800; line-height:1.3; white-space:nowrap; }
+  h1 .or { color:#d9622b; }
+  .hero p.lead { margin:16px auto 0; font-size:clamp(14.5px,2.4vw,17px); font-weight:500; color:#5a5245; max-width:620px; }
+  /* app mock */
+  .app { background:#fff; border:2.5px solid #221d15; border-radius:20px; overflow:hidden; box-shadow:0 16px 36px rgba(34,29,21,.14); margin:34px auto 0; max-width:900px; text-align:left; }
+  .app-bar { background:#221d15; color:#fff; padding:10px 16px; display:flex; justify-content:space-between; align-items:center; font-size:13px; font-weight:800; line-height:1.5; }
+  .app-bar .dots { display:inline-flex; align-items:center; }
+  .app-bar .dots span { display:inline-block; width:10px; height:10px; border-radius:50%; margin-left:5px; }
+  .app-body { display:grid; grid-template-columns:250px 1fr; }
+  @media (max-width:720px){ .app-body{ grid-template-columns:1fr; } .app-side{ display:none; } }
+  .app-side { border-right:2px solid #efe9df; padding:14px 12px; background:#fbf9f5; }
+  .app-side .cap { font-size:11px; font-weight:800; color:#a08e76; letter-spacing:.1em; margin:4px 6px 10px; }
+  .guest { border-radius:12px; padding:9px 11px; margin-bottom:8px; border:2px solid transparent; }
+  .guest:last-child { margin-bottom:0; }
+  .guest.on { background:#fff; border-color:#221d15; }
+  .guest .nm { font-size:13.5px; font-weight:800; line-height:1.5; }
+  .guest .mt { font-size:11px; color:#8a7d68; }
+  .badge { display:inline-block; font-size:10px; font-weight:800; line-height:1.6; color:#fff; border-radius:6px; padding:1px 7px; margin-left:5px; vertical-align:middle; }
+  .b-viator { background:#00a699; } .b-own { background:#d9622b; } .b-byfood { background:#7c5cbf; } .b-airbnb { background:#ff5a5f; }
+  .app-main { padding:18px 20px 22px; }
+  .carte-head { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+  .carte-head .name { font-size:20px; font-weight:800; line-height:1.4; }
+  .status { display:inline-flex; align-items:center; justify-content:center; background:#e7f6ec; color:#157347; font-weight:800; font-size:12px; line-height:1.5; border-radius:999px; padding:3px 12px; white-space:nowrap; }
+  .rows { margin-top:14px; border-top:2px dashed #e7dfd2; }
+  .row { display:grid; grid-template-columns:92px 1fr; gap:10px; padding:9px 0; border-bottom:2px dashed #e7dfd2; font-size:13.5px; }
+  .row .k { color:#a08e76; font-weight:800; font-size:12px; padding-top:2px; }
+  .alert { margin-top:14px; background:#fff7e8; border:2px solid #e8a13a; border-radius:12px; padding:10px 14px; font-size:13px; font-weight:700; }
+  .alert.ok { background:#eefaf1; border-color:#3cb371; }
+  .next { margin-top:12px; background:#221d15; color:#fff; border-radius:12px; padding:12px 16px; font-size:13.5px; }
+  .next b { color:#ffb27a; }
+  section { padding:52px 0; }
+  section.tight { padding-top:0; }
+  .sec-label { font-size:12px; font-weight:800; letter-spacing:.16em; line-height:1.5; color:#d9622b; margin-bottom:8px; }
+  h2 { font-size:clamp(20px,4.4vw,30px); font-weight:800; line-height:1.4; margin-bottom:22px; white-space:nowrap; }
+  .pts { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  @media (max-width:720px){ .pts{ grid-template-columns:1fr; } }
+  .pt { background:#fff; border:2px solid #e9e1d3; border-radius:16px; padding:20px; }
+  .pt h3 { font-size:16px; font-weight:800; margin-bottom:6px; }
+  .pt h3 .tag { color:#d9622b; }
+  .pt p { font-size:13.5px; color:#5a5245; }
+  .price-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media (max-width:720px){ .price-row{ grid-template-columns:1fr; } }
+  .price-card { background:#221d15; color:#fff; border-radius:16px; padding:26px; text-align:center; }
+  .price-card .yen { font-size:clamp(36px,7vw,52px); font-weight:800; line-height:1.15; }
+  .price-card .yen small { font-size:.4em; font-weight:800; }
+  .price-card p { font-size:13px; color:#cfc6b8; margin-top:6px; }
+  .incl { background:#fff; border:2px solid #e9e1d3; border-radius:16px; padding:26px; }
+  .incl h3 { font-size:15px; font-weight:800; margin-bottom:10px; }
+  .incl li { font-size:13.5px; margin-left:18px; margin-bottom:4px; color:#4a4234; }
+  .incl li:last-child { margin-bottom:0; }
+  /* demo compare */
+  .demo-box { background:#fff; border:2px solid #e9e1d3; border-radius:20px; padding:24px; }
+  .demo-lead { font-size:14px; font-weight:500; color:#5a5245; margin-bottom:18px; }
+  .demo-tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
+  .demo-tab { font-family:inherit; display:inline-flex; align-items:center; justify-content:center; font-size:13.5px; font-weight:800; line-height:1.5; color:#221d15; background:#f7f3ec; border:2px solid #e9e1d3; border-radius:999px; padding:7px 18px; cursor:pointer; }
+  .demo-tab.is-on { background:#d9622b; border-color:#d9622b; color:#fff; }
+  .demo-panel { display:none; }
+  .demo-panel.is-on { display:block; }
+  .demo-cap { font-size:13.5px; font-weight:700; margin-bottom:10px; }
+  .demo-cap a { color:#d9622b; font-weight:800; white-space:nowrap; }
+  .demo-frame { border:2.5px solid #221d15; border-radius:16px; overflow:hidden; background:#fff; }
+  .demo-frame iframe { width:100%; height:640px; border:none; display:block; }
+  @media (max-width:720px){ .demo-frame iframe{ height:560px; } .demo-box{ padding:18px 14px; } }
+  .demo-note { font-size:11.5px; color:#a08e76; margin-top:10px; }
+  .demo-ask { font-size:14.5px; font-weight:700; color:#3d362b; margin-top:16px; line-height:1.9; }
+  .cta { text-align:center; padding:6px 0 60px; }
+  .cta a { display:inline-block; background:#d9622b; color:#fff; font-weight:800; font-size:16.5px; line-height:1.5; text-decoration:none; padding:15px 42px; border-radius:999px; box-shadow:0 10px 22px rgba(217,98,43,.32); }
+  .cta p { font-size:12.5px; color:#8a7d68; margin-top:12px; }
+  footer { border-top:2px solid #e9e1d3; padding:20px 0 28px; font-size:12px; color:#a08e76; text-align:center; }
+  .note { font-size:11.5px; color:#a08e76; text-align:center; margin-top:10px; }
+  html { scroll-behavior:smooth; }
+  section, .hero, .cta { scroll-margin-top:12px; }
+
+  /* ===== mobile refresh (shared) ===== */
+  @media (max-width:720px){
+    body { line-height:1.7; }
+    .wrap { padding:0 16px; }
+    header.top { padding:10px 0; }
+    .brand { font-size:14px; }
+    .plan-no { font-size:11px; padding:3px 10px; }
+    .hero { padding:24px 0 18px; }
+    .kicker { margin-bottom:11px; font-size:11.5px; }
+    .hero p.lead { margin-top:11px; font-size:14.5px; line-height:1.8; }
+    .app { margin-top:20px; border-radius:16px; box-shadow:0 10px 24px rgba(34,29,21,.12); }
+    .app-bar { padding:8px 13px; font-size:12px; }
+    .app-bar .dots span { width:8px; height:8px; margin-left:4px; }
+    .app-main { padding:12px 14px 14px; }
+    .carte-head { gap:8px; }
+    .carte-head .name { font-size:17px; }
+    .status { font-size:11px; padding:2px 10px; }
+    .rows { margin-top:8px; }
+    .row { grid-template-columns:40px 1fr; gap:8px; padding:6px 0; font-size:13px; line-height:1.55; }
+    .row .k { font-size:11px; padding-top:2px; }
+    .row > span:last-child, .alert, .next { word-break:keep-all; }
+    .alert { margin-top:10px; padding:8px 11px; font-size:12.5px; line-height:1.6; border-radius:10px; }
+    .next { margin-top:8px; padding:9px 12px; font-size:12.5px; line-height:1.6; border-radius:10px; }
+    .note { font-size:11px; margin-top:8px; line-height:1.6; }
+    section { padding:34px 0; }
+    h2 { margin-bottom:15px; }
+    .pts { gap:10px; }
+    .pt { padding:15px 16px; border-radius:14px; }
+    .pt h3 { font-size:15px; margin-bottom:3px; }
+    .pt p { font-size:13px; line-height:1.7; }
+    .price-row { gap:10px; }
+    .price-card { padding:20px 16px; border-radius:14px; }
+    .price-card p { font-size:12.5px; }
+    .incl { padding:18px; border-radius:14px; }
+    .incl li { font-size:13px; }
+    .demo-box { padding:16px 12px; border-radius:16px; }
+    .demo-lead { font-size:13.5px; margin-bottom:13px; line-height:1.7; }
+    .demo-tabs { gap:6px; margin-bottom:12px; }
+    .demo-tab { font-size:12.5px; padding:6px 13px; }
+    .demo-cap { font-size:12.5px; line-height:1.65; }
+    .demo-frame iframe { height:520px; }
+    .demo-note { font-size:11px; }
+    .demo-ask { font-size:13.5px; line-height:1.8; margin-top:13px; }
+    .cta { padding-bottom:36px; }
+    .cta a { font-size:15.5px; padding:14px 30px; }
+    .cta p { font-size:12px; line-height:1.7; }
+    footer { padding:18px 0 22px; }
+  }
+  @media (max-width:360px){
+    header.top .wrap { flex-wrap:wrap; row-gap:4px; }
+    .row { grid-template-columns:36px 1fr; font-size:12.5px; }
+    .demo-tab { font-size:11.5px; padding:6px 10px; }
+    .cta a { padding:14px 22px; font-size:14.5px; }
+  }
+
+  .mnav{ display:none; }
+  .sheet, .sheet-veil{ display:none; }
+  @media (max-width:720px){
+    body{ padding-bottom:96px; }
+    .mnav{ display:flex; align-items:center; gap:12px; position:fixed; left:0; right:0; bottom:0; z-index:60; background:rgba(255,255,255,.98); border-top:2px solid #e9e1d3; padding:10px 14px calc(10px + env(safe-area-inset-bottom)); }
+    .sheet-veil{ display:block; position:fixed; inset:0; z-index:70; background:rgba(34,29,21,.48); opacity:0; pointer-events:none; transition:opacity .3s; }
+    .sheet-veil.open{ opacity:1; pointer-events:auto; }
+    .sheet{ display:block; position:fixed; left:0; right:0; bottom:0; z-index:80; background:#fff; border-radius:22px 22px 0 0; padding:10px 20px calc(20px + env(safe-area-inset-bottom)); transform:translateY(105%); transition:transform .34s cubic-bezier(.32,.72,.24,1); max-height:82vh; overflow-y:auto; box-shadow:0 -12px 32px rgba(34,29,21,.25); }
+    .sheet.open{ transform:translateY(0); }
+  }
+  .mnav .pr .y{ font-size:19px; font-weight:800; line-height:1.2; white-space:nowrap; }
+  .mnav .pr .y small{ font-size:.55em; font-weight:800; color:#8a7d68; }
+  .mnav .pr .s{ font-size:10px; font-weight:700; color:#a08e76; line-height:1.4; white-space:nowrap; }
+  .mnav button.open{ margin-left:auto; font-family:inherit; background:#221d15; color:#fff; font-weight:800; font-size:13.5px; line-height:1.4; border:none; padding:11px 18px; border-radius:999px; cursor:pointer; white-space:nowrap; }
+  @media (max-width:360px){ .mnav .pr .y{ font-size:17px; } .mnav button.open{ padding:10px 14px; font-size:12.5px; } }
+  .sheet .grab{ width:44px; height:5px; border-radius:99px; background:#e3dacb; margin:2px auto 14px; }
+  .sheet h3{ font-size:16px; font-weight:800; margin-bottom:8px; }
+  .sheet li{ font-size:13.5px; margin-left:18px; margin-bottom:4px; color:#4a4234; }
+  .sheet .flow{ font-size:12px; color:#8a7d68; margin-top:12px; line-height:1.7; }
+  .sheet a.go{ display:block; text-align:center; background:#d9622b; color:#fff; font-weight:800; font-size:15px; line-height:1.5; text-decoration:none; padding:14px; border-radius:999px; margin-top:16px; box-shadow:0 8px 18px rgba(217,98,43,.32); }
+  .sheet button.close{ display:block; width:100%; font-family:inherit; background:none; border:none; color:#8a7d68; font-weight:800; font-size:13px; padding:12px 0 2px; cursor:pointer; }
+</style>
+</head>
+<body>
+
+<header class="top"><div class="wrap">
+  <div class="brand">予約一元管理 <span>制作代行</span></div>
+  <div class="plan-no">案M4 ボトムシート型</div>
+</div></header>
+
+<div class="hero" id="top" data-step="完成形のイメージ"><div class="wrap">
+  <span class="kicker">画面で見る、予約管理の完成形</span>
+  <h1>予約は、<span class="or">1枚のカルテ</span>に。</h1>
+  <p class="lead">どのサイトから入った予約も、ゲストごとのカルテに自動で集まります。私が自分のツアー事業で毎日使っている一元管理の仕組みを、あなたの事業にも作ります。</p>
+
+  <div class="app">
+    <div class="app-bar"><span>予約カルテ ― 今日の画面</span><span class="dots"><span style="background:#ff5f57"></span><span style="background:#febc2e"></span><span style="background:#28c840"></span></span></div>
+    <div class="app-body">
+      <div class="app-side">
+        <div class="cap">これからのゲスト</div>
+        <div class="guest on"><div class="nm">田中 様<span class="badge b-viator">Viator</span></div><div class="mt">12/14（土）14:00 ・ 2名</div></div>
+        <div class="guest"><div class="nm">Smith 様<span class="badge b-own">自社サイト</span></div><div class="mt">12/15（日）10:00 ・ 4名</div></div>
+        <div class="guest"><div class="nm">佐藤 様<span class="badge b-byfood">byFood</span></div><div class="mt">12/16（月）13:00 ・ 3名</div></div>
+        <div class="guest"><div class="nm">Garcia 様<span class="badge b-airbnb">Airbnb</span></div><div class="mt">12/18（水）15:00 ・ 2名</div></div>
+      </div>
+      <div class="app-main">
+        <div class="carte-head">
+          <div><span class="name">田中 様</span><span class="badge b-viator">Viator</span></div>
+          <span class="status">予約確定</span>
+        </div>
+        <div class="rows">
+          <div class="row"><span class="k">日時</span><span>12月14日（土）14:00〜16:30 ・ 酒蔵ツアー</span></div>
+          <div class="row"><span class="k">人数</span><span>大人2名</span></div>
+          <div class="row"><span class="k">連絡</span><span>事前フォーム回答済み ・ アレルギーなし</span></div>
+          <div class="row"><span class="k">メモ</span><span>記念日での参加。ラベルの文字は「K&amp;M」に決定</span></div>
+        </div>
+        <div class="alert ok">カレンダー照合OK ― この前後に重なる予約はありません</div>
+        <div class="next"><b>次の一手：</b>前日リマインドを送る（文面の下書きは用意済み）</div>
+      </div>
+    </div>
+  </div>
+  <p class="note">※ 画面は仕組みのイメージ（模式図）です。実際の画面は事業内容に合わせて作ります。</p>
+</div></div>
+
+<section style="padding-top:26px" id="points" data-step="変わること"><div class="wrap">
+  <div class="sec-label">POINTS</div>
+  <h2>カルテで、ここが変わる</h2>
+  <div class="pts">
+    <div class="pt"><h3><span class="tag">経路バッジ</span> ひと目で分かる</h3><p>Viator・byFood・Airbnb・自社サイト。どの経路の予約か、カルテを開けばすぐ分かります。</p></div>
+    <div class="pt"><h3><span class="tag">二重予約</span> を先回り</h3><p>予約はGoogleカレンダーと連携。重なりがあれば、受ける前に気づけます。</p></div>
+    <div class="pt"><h3><span class="tag">新着通知</span> 見落とさない</h3><p>新しい予約が入ったらすぐ通知。メールを掘り返す作業から解放されます。</p></div>
+  </div>
+</div></section>
+
+<section class="tight" id="price" data-step="料金と範囲"><div class="wrap">
+  <div class="price-row">
+    <div class="price-card">
+      <div class="yen">¥30,000<small> 一式</small></div>
+      <p>金沢の酒蔵ツアー「株式会社あるところに（toaru）」さまにも導入した仕組みです</p>
+    </div>
+    <div class="incl">
+      <h3>パッケージに含まれるもの</h3>
+      <ul>
+        <li>自社サイトの申し込みフォーム＋Stripe決済の接続</li>
+        <li>各予約サイトの予約を集める一元管理カルテ</li>
+        <li>Googleカレンダー連携・二重予約チェック</li>
+        <li>会社のGoogleアカウントで管理し、複数人で見られる形</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<section class="tight" id="demo" data-step="実物デモ"><div class="wrap">
+  <div class="sec-label">DEMO</div>
+  <h2>実物の画面で比べる</h2>
+  <div class="demo-box">
+    <p class="demo-lead">完成形の画面イメージを、実物のデモで用意しました。タブで切り替えて、操作感を比べてください。</p>
+    <div class="demo-tabs">
+      <button type="button" class="demo-tab is-on" data-demo="d6">カルテ型</button>
+      <button type="button" class="demo-tab" data-demo="d2">カレンダー中心型</button>
+      <button type="button" class="demo-tab" data-demo="d3">スマホファースト型</button>
+    </div>
+    <div class="demo-panel" id="demo-d2">
+      <p class="demo-cap">実物2 ― カレンダー中心型：月のカレンダーに全経路の予約が集まり、重なりがひと目で分かります。 <a href="https://yukitchy.github.io/booking-trends-board/booking-system-demo/demo2.html" target="_blank" rel="noopener">大きく見る →</a></p>
+      <div class="demo-frame"><iframe data-src="https://yukitchy.github.io/booking-trends-board/booking-system-demo/demo2.html" title="実物デモ2 カレンダー中心型"></iframe></div>
+    </div>
+    <div class="demo-panel" id="demo-d3">
+      <p class="demo-cap">実物3 ― スマホファースト型：スマホで見る前提の画面。新着通知と今日の予約がすぐ分かります。 <a href="https://yukitchy.github.io/booking-trends-board/booking-system-demo/demo3.html" target="_blank" rel="noopener">大きく見る →</a></p>
+      <div class="demo-frame"><iframe data-src="https://yukitchy.github.io/booking-trends-board/booking-system-demo/demo3.html" title="実物デモ3 スマホファースト型"></iframe></div>
+    </div>
+    <div class="demo-panel is-on" id="demo-d6">
+      <p class="demo-cap">実物6 ― カルテ型：このページのヒーローと同じ形。左の一覧からゲストを選ぶと、カルテ・照合結果・次の一手が切り替わります。 <a href="https://yukitchy.github.io/booking-trends-board/booking-system-demo/demo6.html" target="_blank" rel="noopener">大きく見る →</a></p>
+      <div class="demo-frame"><iframe data-src="https://yukitchy.github.io/booking-trends-board/booking-system-demo/demo6.html" title="実物デモ6 カルテ型"></iframe></div>
+    </div>
+    <p class="demo-note">※ デモは画面イメージです。実際の画面は事業内容に合わせて作ります。</p>
+    <p class="demo-ask">完成形は、この3つの形から選んで作ります。あなたの事業には、どの形が合いそうですか？<br>下の相談窓口から聞くときに、希望の形もあわせて教えてください。</p>
+  </div>
+</div></section>
+
+<div class="cta" id="contact" data-step="相談する"><div class="wrap">
+  <a href="#">うちの事業でもできる？と聞く</a>
+  <p>進め方：内容の確認 → 情報の受け渡し → 制作 → 動作確認ミーティング<br>範囲外：サイトの文章づくり、公開後の運用・集客支援</p>
+</div></div>
+
+<footer>Anime Sensei / 市原佑樹 ― AIコンサル・仕組みづくり<br>このページはLP叩き台（案2）です</footer>
+
+
+<div class="mnav">
+  <div class="pr"><div class="y">¥30,000<small> 一式</small></div><div class="s">フォーム＋カルテ＋カレンダー連携</div></div>
+  <button type="button" class="open" id="sheetOpen">詳細・相談 ↑</button>
+</div>
+<div class="sheet-veil" id="sheetVeil"></div>
+<div class="sheet" id="sheet" aria-hidden="true">
+  <div class="grab"></div>
+  <h3>パッケージに含まれるもの</h3>
+  <ul>
+    <li>自社サイトの申し込みフォーム＋Stripe決済の接続</li>
+    <li>各予約サイトの予約を集める一元管理カルテ</li>
+    <li>Googleカレンダー連携・二重予約チェック</li>
+    <li>会社のGoogleアカウントで管理し、複数人で見られる形</li>
+  </ul>
+  <p class="flow">進め方：内容の確認 → 情報の受け渡し → 制作 → 動作確認ミーティング<br>範囲外：サイトの文章づくり、公開後の運用・集客支援</p>
+  <a class="go" href="#contact" id="sheetGo">うちの事業でもできる？と聞く</a>
+  <button type="button" class="close" id="sheetClose">閉じる</button>
+</div>
+
+
+<script>
+(function(){
+  var tabs = document.querySelectorAll('.demo-tab');
+  var panels = document.querySelectorAll('.demo-panel');
+  function load(panel){
+    var f = panel.querySelector('iframe');
+    if (f && !f.getAttribute('src') && f.dataset.src) { f.src = f.dataset.src; }
+  }
+  panels.forEach(function(p){ if (p.classList.contains('is-on')) load(p); });
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(){
+      tabs.forEach(function(x){ x.classList.toggle('is-on', x === t); });
+      panels.forEach(function(p){
+        var on = p.id === 'demo-' + t.dataset.demo;
+        p.classList.toggle('is-on', on);
+        if (on) load(p);
+      });
+    });
+  });
+})();
+</script>
+
+
+<script>
+(function(){
+  var sheet = document.getElementById('sheet');
+  var veil = document.getElementById('sheetVeil');
+  function setOpen(on){
+    sheet.classList.toggle('open', on);
+    veil.classList.toggle('open', on);
+    sheet.setAttribute('aria-hidden', on ? 'false' : 'true');
+  }
+  document.getElementById('sheetOpen').addEventListener('click', function(){ setOpen(true); });
+  document.getElementById('sheetClose').addEventListener('click', function(){ setOpen(false); });
+  veil.addEventListener('click', function(){ setOpen(false); });
+  document.getElementById('sheetGo').addEventListener('click', function(){ setOpen(false); });
+})();
+</script>
+
+</body>
+</html>
