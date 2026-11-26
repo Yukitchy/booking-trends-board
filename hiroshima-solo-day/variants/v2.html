@@ -108,7 +108,7 @@
     <div class="card">
       <span class="time">08:10頃</span><h2>サウナでととのう＆作業</h2>
       <div class="sub">グランドサウナ広島（薬研堀）</div>
-      <p><b>広島駅から路面電車で約10分</b>。早朝サウナ <b>¥1,400</b>（5:00〜12:00）。カプセル型の8階建て施設で、休憩フロアとレストラン、<b>全館Wi-Fiとコンセント完備</b>。風呂上がりにそのまま横になって作業もできる。出発はカットの予約に合わせて。</p>
+      <p><b>広島駅から路面電車で約10分</b>。早朝サウナ <b>¥1,400</b>（5:00〜12:00）。カプセル型の8階建て施設で、休憩フロアとレストラン、<b>全館Wi-Fiとコンセント完備</b>。風呂上がりにそのまま横になって作業もできる。<b>10:40頃に出発</b>すれば、11:00のカットに余裕で間に合う。</p>
       <p class="note">サウナ気分じゃない日は、駅ビル ekie でモーニングに切り替え。</p>
       <div class="btns">
         <a class="primary" href="https://www.grand-sauna.com/hiroshima/" target="_blank" rel="noopener">公式サイト</a>
@@ -120,11 +120,11 @@
   <section class="stop" data-lat="34.4006" data-lng="132.4790" data-zoom="16">
     <div class="dot">4</div>
     <div class="card">
-      <span class="time">10:00–10:50</span><h2>ヘアカット</h2>
+      <span class="time">11:00–11:50</span><h2>ヘアカット</h2>
       <div class="sub">men's salon Gaudi 広島駅前店（予約確定）</div>
-      <p>メンズカット＋マッサージシャンプー <b>¥3,800</b>（現地払い）。予約番号 <b>BG10195713</b>。東区光町2-7-23 ことぶきビル1F、広島駅徒歩3分。電話 082-207-3386。</p>
+      <p>メンズカット＋マッサージシャンプー <b>¥3,800</b>（現地払い）。予約番号 <b>BG10214086</b>。東区光町2-7-23 ことぶきビル1F、広島駅徒歩3分。電話 082-207-3386。</p>
       <div class="btns">
-        <a class="primary" href="https://beauty.hotpepper.jp/CSP/my/reserveStatus/?reserveId=BG10195713" target="_blank" rel="noopener">予約詳細</a>
+        <a class="primary" href="https://beauty.hotpepper.jp/CSP/my/reserveStatus/?reserveId=BG10214086" target="_blank" rel="noopener">予約詳細</a>
         <a href="https://www.google.com/maps/search/?api=1&query=%E3%83%A1%E3%83%B3%E3%82%BA%E3%82%B5%E3%83%AD%E3%83%B3%20Gaudi%20%E5%BA%83%E5%B3%B6%E9%A7%85%E5%89%8D%E5%BA%97" target="_blank" rel="noopener">Googleマップ</a>
       </div>
     </div>
@@ -133,7 +133,7 @@
   <section class="stop" data-lat="34.3979" data-lng="132.4752" data-zoom="15">
     <div class="dot">5</div>
     <div class="card">
-      <span class="time">11:00–13:30</span><h2>ランチ＆移動</h2>
+      <span class="time">12:00–13:30</span><h2>ランチ＆移動</h2>
       <div class="sub">広島駅周辺 → イオンモール広島府中</div>
       <p>駅周辺で昼ご飯（お好み焼きが本命）。食べたら<b>JRで1駅、天神川駅</b>へ。徒歩5分で広島バルト11に13:30頃には着いておく。</p>
       <p class="note">広島駅新幹線口からイオンモール広島府中への直通シャトルバス（片道200円）でも行ける。</p>
@@ -223,7 +223,7 @@
   var stops = Array.prototype.slice.call(document.querySelectorAll('.stop'));
   var pts = stops.map(function(s){ return [parseFloat(s.dataset.lat), parseFloat(s.dataset.lng)]; });
   var map = L.map('map', {scrollWheelZoom:false}).setView(pts[0], 15);
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom:19, attribution:'© OpenStreetMap'}).addTo(map);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {maxZoom:19, attribution:'© OpenStreetMap © CARTO'}).addTo(map);
 
   var markers = pts.map(function(p, i){
     var icon = L.divIcon({className:'', html:'<div class="pin" id="pin'+i+'"><span>'+(i+1)+'</span></div>', iconSize:[30,30], iconAnchor:[15,28]});

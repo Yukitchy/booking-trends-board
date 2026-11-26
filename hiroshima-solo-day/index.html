@@ -222,7 +222,7 @@
   var stops = Array.prototype.slice.call(document.querySelectorAll('.stop'));
   var pts = stops.map(function(s){ return [parseFloat(s.dataset.lat), parseFloat(s.dataset.lng)]; });
   var map = L.map('map', {scrollWheelZoom:false}).setView(pts[0], 15);
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom:19, attribution:'© OpenStreetMap'}).addTo(map);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {maxZoom:19, attribution:'© OpenStreetMap © CARTO'}).addTo(map);
 
   var markers = pts.map(function(p, i){
     var icon = L.divIcon({className:'', html:'<div class="pin" id="pin'+i+'"><span>'+(i+1)+'</span></div>', iconSize:[30,30], iconAnchor:[15,28]});
