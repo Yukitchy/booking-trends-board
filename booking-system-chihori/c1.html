@@ -13,6 +13,7 @@
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { overflow-x:hidden; }
   body { font-family:"M PLUS Rounded 1c",sans-serif; color:#221d15; background:#f7f3ec; line-height:1.75; -webkit-text-size-adjust:100%; }
   .wrap { max-width:980px; margin:0 auto; padding:0 20px; }
   header.top { padding:14px 0; }
@@ -157,6 +158,13 @@
   .q p { font-size:13.5px; color:#5a5245; }
   .q .ans { margin-top:12px; background:#eefaf1; border:2px solid #3cb371; border-radius:12px; padding:10px 14px; font-size:13.5px; }
   .q .ans b { color:#157347; }
+  /* small-screen overflow fixes: 横はみ出し防止 */
+  @media (max-width:720px){
+    header.top .wrap{ flex-wrap:wrap; row-gap:6px; }
+    .which p{ min-width:min(240px,100%); }
+    .sheet .doc-head .ttl{ white-space:normal; }
+    .sel{ flex-wrap:wrap; flex-shrink:1; min-width:0; }
+  }
 </style>
 </head>
 <body>

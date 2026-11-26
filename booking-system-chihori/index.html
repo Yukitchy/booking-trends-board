@@ -13,6 +13,7 @@
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { overflow-x:hidden; }
   body { font-family:"Noto Sans JP",sans-serif; color:#161616; background:#f2efe9; line-height:1.7; }
   .band { background:#0a0a0a; color:#fff; padding:34px 0 30px; }
   .wrap { max-width:1080px; margin:0 auto; padding:0 20px; }
@@ -27,8 +28,8 @@
   .plan-head h2 { font-size:clamp(16px,3.6vw,22px); font-weight:900; white-space:nowrap; }
   .plan-head a.open { margin-left:auto; font-size:13px; font-weight:700; color:#e60012; text-decoration:none; border:2px solid #e60012; border-radius:999px; padding:4px 16px; white-space:nowrap; }
   .concept { font-size:13.5px; color:#555; margin-bottom:14px; }
-  .frame { border:1.5px solid #ddd6c9; border-radius:10px; overflow:hidden; background:#fff; }
-  iframe { width:100%; height:560px; border:none; display:block; }
+  .frame { border:1.5px solid #ddd6c9; border-radius:10px; overflow:hidden; background:#fff; position:relative; }
+  iframe { width:100%; height:560px; border:none; display:block; transform-origin:0 0; }
   @media (max-width:720px){ iframe{ height:480px; } }
   footer { padding:6px 0 34px; font-size:12px; color:#999; text-align:center; }
 </style>
@@ -69,5 +70,30 @@
   </div>
 </div></main>
 <footer>予約管理一元化の制作代行 ― ちほり様向け提案ページ見比べボード</footer>
+<script>
+(function(){
+  var DW = 390, DH = 620;
+  function fit(){
+    document.querySelectorAll('.frame').forEach(function(fr){
+      var f = fr.querySelector('iframe');
+      if (!f) return;
+      var W = fr.clientWidth;
+      if (W > 0 && W < DW) {
+        var s = W / DW;
+        f.style.width = DW + 'px';
+        f.style.height = DH + 'px';
+        f.style.transform = 'scale(' + s + ')';
+        fr.style.height = Math.round(DH * s) + 'px';
+      } else {
+        f.style.width = ''; f.style.height = ''; f.style.transform = '';
+        fr.style.height = '';
+      }
+    });
+  }
+  window.addEventListener('resize', fit);
+  window.addEventListener('load', fit);
+  fit();
+})();
+</script>
 </body>
 </html>
