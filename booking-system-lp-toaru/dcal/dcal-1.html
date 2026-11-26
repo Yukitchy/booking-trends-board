@@ -72,13 +72,13 @@ body{font-family:"Yu Gothic","YuGothic","Hiragino Kaku Gothic ProN","Noto Sans J
 .warncard .wt{font-family:"Hiragino Mincho ProN","Yu Mincho","YuMincho","Noto Serif JP",serif;font-size:15.5px;font-weight:700;letter-spacing:.03em;color:#743B1E;display:flex;align-items:center;gap:8px}
 .warncard p{font-size:13px;font-weight:600;line-height:1.75;margin-top:6px}
 .warncard button{margin-top:10px;background:var(--red);color:#fff;border:none;font-family:inherit;font-size:13.5px;font-weight:800;border-radius:999px;padding:11px 20px;cursor:pointer;min-height:44px}
-.grow{display:flex;align-items:center;gap:10px;width:100%;background:none;border:none;border-top:1.5px dashed #E3DCCB;padding:11px 0;font-family:inherit;text-align:left;cursor:pointer;color:var(--ink)}
+.grow{display:flex;align-items:center;gap:12px;width:100%;background:none;border:none;border-top:1px solid #EFEAE0;padding:12px 0;font-family:inherit;text-align:left;cursor:pointer;color:var(--ink)}
 .grow:first-of-type{border-top:none}
-.grow .gd{background:var(--ink);color:#fff;border-radius:9px;font-size:11.5px;font-weight:800;padding:5px 8px;line-height:1.3;text-align:center;flex:none;min-width:46px}
+.grow .gtile{width:52px;height:52px;border-radius:14px;color:#fff;font-size:20px;font-weight:900;display:flex;align-items:center;justify-content:center;flex:none}
 .grow .gm{flex:1;min-width:0}
-.grow .gm .a{font-size:14px;font-weight:800;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.grow .gm .b{font-size:11.5px;color:#8A8474;font-weight:600;line-height:1.4}
-.grow .chev{color:#C9C2B0;font-size:16px;flex:none}
+.grow .gm .a{display:block;font-size:15.5px;font-weight:800;line-height:1.45;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.grow .gm .b{display:block;font-size:12.5px;color:#8A8474;font-weight:600;line-height:1.45;margin-top:2px}
+.grow .chev{color:#C9C2B0;font-size:18px;flex:none}
 footer{margin:14px auto 0;font-size:11.5px;color:#9B9B99;text-align:center;line-height:1.7}
 .view{display:none}.view.on{display:block}
 .pillnav{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);width:min(456px,calc(100% - 24px));background:#fff;border:1px solid #F0EBE0;border-radius:99px;box-shadow:0 10px 30px rgba(57,57,57,.18);display:flex;padding:6px;z-index:50}
@@ -206,7 +206,7 @@ function pick(d){ if(isDec()) dayPanel.innerHTML=detailHtml(d); else dayPanel.in
 bindCal(document.getElementById('grid'),pick); pick(6);
 const all=Object.keys(RES).flatMap(d=>RES[d].map(r=>({d:+d,...r}))).sort((a,b)=>a.d-b.d||a.time.localeCompare(b.time));
 document.getElementById('guestPanel').innerHTML='<h3>ゲスト一覧（12月）</h3>'+all.map(g=>
- `<button class="grow" data-d="${g.d}"><span class="gd">12/${g.d}</span><span class="gm"><span class="a">${g.guest}</span><span class="b">${g.time} ・ ${g.n} ・ ${CH[g.ch].name} ・ ${g.status}</span></span><span class="chev">›</span></button>`).join('');
+ `<button class="grow" data-d="${g.d}"><span class="gtile ${CH[g.ch].cls}">${CH[g.ch].icon}</span><span class="gm"><span class="a">${g.guest} さん</span><span class="b">12月${g.d}日（${DOW[new Date(2026,11,g.d).getDay()]}） ${g.time} ・ ${g.n}</span></span><span class="chev">›</span></button>`).join('');
 document.getElementById('warnPanel').innerHTML='<h3>照合 ― 二重予約チェック</h3>'+
  '<div class="warnbox">⚠️ 12/6（日）に重なりがあります<br>'+OVERLAP[6]+'</div>'+
  '<p class="none" style="margin-top:10px">Viator / byFood / 自社サイト / Airbnb の4経路を照合しました。<br>他の日は重なりなしです。</p>';
