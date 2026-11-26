@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>案5 Notion 風｜写真日記デザイン5案</title>
+<meta property="og:title" content="案5 Notion 風｜写真日記デザイン5案">
+<meta property="og:description" content="写真日記のデザイン案5。Notion／カレンダーアプリの文法で組み直した画面。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/photo-diary-design/">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/photo-diary-design/og.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#fff;color:#37352f;font-family:ui-sans-system,-apple-system,"Hiragino Sans","Zen Kaku Gothic New",sans-serif;line-height:1.55;font-size:14.5px}
+.layout{display:flex;min-height:100vh}
+.side{width:248px;flex:none;background:#f7f7f5;border-right:1px solid #e9e9e7;padding:14px 10px;position:sticky;top:0;height:100vh}
+.side .ws{font-weight:700;font-size:14px;padding:6px 10px}
+.side .srch{background:#efefed;border-radius:6px;color:#8b8b87;font-size:13px;padding:6px 10px;margin:8px 0 14px}
+.nav{font-size:13.5px}
+.nav .h{color:#9b9b96;font-size:11.5px;font-weight:700;letter-spacing:.06em;padding:8px 10px 3px}
+.nav a{display:flex;justify-content:space-between;color:#37352f;text-decoration:none;padding:4.5px 10px;border-radius:6px}
+.nav a:hover{background:#efefed}
+.nav a.on{background:#e8e8e5;font-weight:700}
+.nav a span{color:#9b9b96;font-size:12px}
+.main{flex:1;min-width:0;padding:26px 40px 80px;max-width:1060px}
+.crumb{color:#9b9b96;font-size:12.5px;margin-bottom:10px}
+h1{font-size:38px;font-weight:800;margin:0 0 4px;letter-spacing:-.01em}
+.tot{color:#6b6b66;font-size:14px;margin:0 0 22px}
+.seg{display:inline-flex;border:1px solid #e0e0de;border-radius:8px;overflow:hidden;margin-bottom:20px}
+.seg span{padding:5px 18px;font-size:13px;font-weight:600;color:#6b6b66;background:#fff}
+.seg span.on{background:#37352f;color:#fff}
+h2.st{font-size:19px;font-weight:700;margin:30px 0 12px;padding-bottom:6px;border-bottom:1px solid #e9e9e7}
+.wk{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));border:1px solid #e3e3e1;border-bottom:0}
+.wk i{font-style:normal;font-size:11.5px;color:#9b9b96;font-weight:700;padding:5px 8px;border-right:1px solid #e3e3e1}
+.wk i:last-child{border-right:0}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));border:1px solid #e3e3e1}
+.c{border-right:1px solid #e3e3e1;border-bottom:1px solid #e3e3e1;padding:6px 7px;min-height:96px;display:block;text-decoration:none;color:#37352f;position:relative}
+.c:nth-child(7n){border-right:0}
+.c .dn{font-size:12.5px;font-weight:700;display:block}
+.c img{width:100%;height:44px;object-fit:cover;border-radius:4px;display:block;margin:4px 0 3px}
+.c .cm2{font-size:11px;color:#9b9b96}
+.c.no .dn{color:#c4c4c0}
+.c.e{background:#fbfbfa}
+.c.sel{background:#eef3fd;box-shadow:inset 0 0 0 2px #2f6fdd}
+.pr{display:flex;border-bottom:1px solid #e9e9e7;padding:7px 0;font-size:14px}
+.pk{width:150px;flex:none;color:#9b9b96}
+.callout{background:#f1f1ef;border-radius:8px;padding:16px 18px;font-size:14.5px;line-height:1.85;margin-top:12px}
+.gal{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.gal figure{margin:0;border:1px solid #e3e3e1;border-radius:8px;overflow:hidden}
+.gal img{width:100%;height:104px;object-fit:cover;display:block}
+.gal figcaption{font-size:12px;padding:6px 9px;color:#6b6b66}
+table.pl{border-collapse:collapse;width:100%;font-size:14px}
+table.pl td,table.pl th{border:1px solid #e3e3e1;padding:7px 10px;text-align:left}
+table.pl th{background:#f7f7f5;font-weight:700}
+@media(max-width:820px){.side{display:none}.main{padding:18px 14px 60px}.c{min-height:74px}.c img{height:30px}.gal{grid-template-columns:repeat(3,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+
+<div class="layout">
+<aside class="side">
+<div class="ws">写真日記</div>
+<div class="srch">検索…</div>
+<nav class="nav">
+<div class="h">2026年</div>
+<a href="#">8月 <span>31日</span></a>
+<a href="#">9月 <span>30日</span></a>
+<a href="#">10月 <span>31日</span></a>
+<a href="#" class="on">11月 <span>21日</span></a>
+<div class="h">集計</div>
+<a href="#">すべての日 <span>111</span></a>
+<a href="#">写真 <span>6,614</span></a>
+<a href="#">移動 <span>4,917km</span></a>
+</nav>
+</aside>
+<main class="main">
+<p class="crumb">写真日記 / 2026年 / 11月</p>
+<h1>2026年11月</h1>
+<p class="tot">21日ぶん ・ 写真 1,517枚 ・ 移動 154.0km（全期間 111日 ・ 6,614枚 ・ 4,917km）</p>
+<div class="seg"><span class="on">写真</span><span>Claude</span></div>
+<div class="wk"><i>月</i><i>火</i><i>水</i><i>木</i><i>金</i><i>土</i><i>日</i></div>
+<div class="cal"><div class="c e"></div>
+<div class="c e"></div>
+<div class="c e"></div>
+<div class="c e"></div>
+<div class="c e"></div>
+<div class="c e"></div>
+<div class="c no"><span class="dn">1</span></div>
+<a class="c" href="#day"><span class="dn">2</span><img src="assets/cells/2026-11-02.jpg" alt=""><span class="cm2">65枚 ・ 7.7km</span></a>
+<a class="c" href="#day"><span class="dn">3</span><img src="assets/cells/2026-11-03.jpg" alt=""><span class="cm2">134枚 ・ 5.7km</span></a>
+<a class="c" href="#day"><span class="dn">4</span><img src="assets/cells/2026-11-04.jpg" alt=""><span class="cm2">15枚 ・ 4.3km</span></a>
+<a class="c" href="#day"><span class="dn">5</span><img src="assets/cells/2026-11-05.jpg" alt=""><span class="cm2">47枚 ・ 0.9km</span></a>
+<a class="c" href="#day"><span class="dn">6</span><img src="assets/cells/2026-11-06.jpg" alt=""><span class="cm2">80枚 ・ 1.7km</span></a>
+<a class="c" href="#day"><span class="dn">7</span><img src="assets/cells/2026-11-07.jpg" alt=""><span class="cm2">10枚 ・ 0km</span></a>
+<a class="c" href="#day"><span class="dn">8</span><img src="assets/cells/2026-11-08.jpg" alt=""><span class="cm2">22枚 ・ 2.7km</span></a>
+<a class="c" href="#day"><span class="dn">9</span><img src="assets/cells/2026-11-09.jpg" alt=""><span class="cm2">238枚 ・ 29.7km</span></a>
+<a class="c" href="#day"><span class="dn">10</span><img src="assets/cells/2026-11-10.jpg" alt=""><span class="cm2">46枚 ・ 0km</span></a>
+<a class="c" href="#day"><span class="dn">11</span><img src="assets/cells/2026-11-11.jpg" alt=""><span class="cm2">90枚 ・ 6.2km</span></a>
+<a class="c" href="#day"><span class="dn">12</span><img src="assets/cells/2026-11-12.jpg" alt=""><span class="cm2">127枚 ・ 3.6km</span></a>
+<a class="c" href="#day"><span class="dn">13</span><img src="assets/cells/2026-11-13.jpg" alt=""><span class="cm2">87枚 ・ 29.4km</span></a>
+<a class="c" href="#day"><span class="dn">14</span><img src="assets/cells/2026-11-14.jpg" alt=""><span class="cm2">91枚 ・ 9.2km</span></a>
+<a class="c sel" href="#day"><span class="dn">15</span><img src="assets/cells/2026-11-15.jpg" alt=""><span class="cm2">43枚 ・ 21.4km</span></a>
+<a class="c" href="#day"><span class="dn">16</span><img src="assets/cells/2026-11-16.jpg" alt=""><span class="cm2">48枚 ・ 5.3km</span></a>
+<a class="c" href="#day"><span class="dn">17</span><img src="assets/cells/2026-11-17.jpg" alt=""><span class="cm2">139枚 ・ 1.6km</span></a>
+<a class="c" href="#day"><span class="dn">18</span><img src="assets/cells/2026-11-18.jpg" alt=""><span class="cm2">87枚 ・ 8.8km</span></a>
+<a class="c" href="#day"><span class="dn">19</span><img src="assets/cells/2026-11-19.jpg" alt=""><span class="cm2">99枚 ・ 7.9km</span></a>
+<a class="c" href="#day"><span class="dn">20</span><img src="assets/cells/2026-11-20.jpg" alt=""><span class="cm2">17枚 ・ 1.9km</span></a>
+<a class="c" href="#day"><span class="dn">21</span><img src="assets/cells/2026-11-21.jpg" alt=""><span class="cm2">32枚 ・ 6.0km</span></a>
+<div class="c no"><span class="dn">22</span></div>
+<div class="c no"><span class="dn">23</span></div>
+<div class="c no"><span class="dn">24</span></div>
+<div class="c no"><span class="dn">25</span></div>
+<div class="c no"><span class="dn">26</span></div>
+<div class="c no"><span class="dn">27</span></div>
+<div class="c no"><span class="dn">28</span></div>
+<div class="c no"><span class="dn">29</span></div>
+<div class="c no"><span class="dn">30</span></div></div>
+<h2 class="st" id="day">2026年11月15日（日）</h2>
+<div class="pr"><span class="pk">日付</span><span class="pv">2026/11/15（日）</span></div><div class="pr"><span class="pk">写真</span><span class="pv">43枚（画像43・動画0）</span></div><div class="pr"><span class="pk">移動</span><span class="pv">21.4 km</span></div><div class="pr"><span class="pk">場所</span><span class="pv">大山東町（板橋区） ・ 東京 ・ 住吉（江東区）</span></div><div class="pr"><span class="pk">食事</span><span class="pv">3件</span></div><div class="pr"><span class="pk">ハイライト</span><span class="pv">3件</span></div><div class="pr"><span class="pk">Claude</span><span class="pv">362ターン ・ 593分（00:51〜23:59）</span></div>
+<div class="callout">写真は43枚（画像43・動画0）。01:27はDandoriのゲスト画面。10:56は大山東町（板橋区）で、「日出鯛」と書かれた鯛の絵の扉、10:57は海老の絵の壁。11:40は玄関の戸の前に立つ子どもと男性、11:43は肩に子どもを乗せた男性と女性。13:33は「コメダ珈琲店」の店先、13:59は橙色の蓋の容器に入った黄色い飲み物と、コップを持つ子ども。14:38は「パンを楽しむ店 ぱーね」の店先。15:12は東京で、Brooklyn Parlorの入口に並ぶ人たち。19:01は住吉（江東区）で、ビールらしきもののジョッキを持つ男性2人。19:10はご飯、目玉焼き、きのこの載ったハンバーグらしきものの皿。移動は大山東町 → 東京 → 住吉。</div>
+<h2 class="st">訪れた場所</h2>
+<table class="pl"><tr><th>場所</th><th>滞在</th><th>写真</th></tr>
+<tr><td>大山東町（板橋区）</td><td>10:56–14:49</td><td>19枚</td></tr><tr><td>東京</td><td>15:05–17:23</td><td>10枚</td></tr><tr><td>住吉（江東区）</td><td>18:53–22:52</td><td>8枚</td></tr>
+</table>
+<h2 class="st">この日の写真</h2>
+<div class="gal"><figure><img src="assets/thumbs/90fc8517.jpg" alt=""><figcaption>01:27</figcaption></figure><figure><img src="assets/thumbs/839fac6a.jpg" alt=""><figcaption>10:56</figcaption></figure><figure><img src="assets/thumbs/7af3799f.jpg" alt=""><figcaption>10:57</figcaption></figure><figure><img src="assets/thumbs/0482fc08.jpg" alt=""><figcaption>11:40</figcaption></figure><figure><img src="assets/thumbs/7de0206a.jpg" alt=""><figcaption>11:43</figcaption></figure><figure><img src="assets/thumbs/06165e6a.jpg" alt=""><figcaption>11:43</figcaption></figure><figure><img src="assets/thumbs/bee68f59.jpg" alt=""><figcaption>13:33</figcaption></figure><figure><img src="assets/thumbs/e9a1d051.jpg" alt=""><figcaption>13:59</figcaption></figure><figure><img src="assets/thumbs/7a1e87b1.jpg" alt=""><figcaption>14:38</figcaption></figure><figure><img src="assets/thumbs/97b718e2.jpg" alt=""><figcaption>15:12</figcaption></figure><figure><img src="assets/thumbs/430dcec6.jpg" alt=""><figcaption>19:01</figcaption></figure><figure><img src="assets/thumbs/f1538dfa.jpg" alt=""><figcaption>19:10</figcaption></figure></div>
+</main>
+</div>
+</body></html>
