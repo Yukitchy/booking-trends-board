@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>だんどりーベース カレンダー型 案8 ハイライト連動型（toaruデザイン） | 予約管理デモ（スマホ版）</title>
+<meta property="og:title" content="だんどりーベース カレンダー型 案8 ハイライト連動型（toaruデザイン） | 予約管理デモ（スマホ版）">
+<meta property="og:description" content="上のハイライトカードが、タップした日のゲストにそのまま切り替わる型。">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/booking-system-lp-toaru/og.jpg">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/booking-system-lp-toaru/dcal/dcal-3.html">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@600;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#FDFCF9;--ink:#393939;--red:#AE582D;--pink:#F7E8DE;--line:#EAE5D9;--gray:#9B9B99;--sat:#5F733F}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Yu Gothic","YuGothic","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.6}
+.wrap{max-width:480px;margin:0 auto;padding:0 12px 118px}
+.note{font-size:12px;font-weight:700;color:#6A6A69;text-align:center;padding:12px 4px 2px;line-height:1.7}
+.note b{color:var(--red)}
+.card{background:#fff;border:1px solid #F0EBE0;border-radius:18px;box-shadow:0 2px 12px rgba(57,57,57,.06)}
+.nextcard{overflow:hidden;margin-top:12px}
+.nextcard .strip{height:5px;background:linear-gradient(90deg,#AE582D 0%,#D78B65 55%,#CBBF97 100%)}
+.nextcard .in{padding:14px 16px 16px}
+.nc-cap{font-family:"Raleway","Yu Gothic",sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;color:#9D8B4F;margin-bottom:8px}
+.nc-row{display:flex;align-items:center;gap:10px}
+.datechip{background:var(--ink);color:#fff;border-radius:12px;padding:6px 10px;text-align:center;line-height:1.15;flex:none;min-width:52px}
+.datechip .n{font-size:19px;font-weight:900}
+.datechip .w{font-size:11px;font-weight:700}
+.chicon{width:44px;height:44px;border-radius:12px;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;flex:none}
+.nc-name{font-family:"Hiragino Mincho ProN","Yu Mincho","YuMincho","Noto Serif JP",serif;font-size:19.5px;font-weight:700;letter-spacing:.03em;line-height:1.3;flex:1;min-width:0}
+.nc-meta{margin-top:10px;font-size:14px;font-weight:500;display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center}
+.wchip{background:var(--pink);color:#AE582D;font-size:12px;font-weight:800;border-radius:99px;padding:3px 10px;line-height:1.5}
+.gchip{background:#EDF2E2;color:#5F733F;font-size:12px;font-weight:800;border-radius:99px;padding:3px 10px;line-height:1.5}
+.calcard{padding:14px 12px 14px;margin-top:12px}
+.cal-hd{display:flex;align-items:center;gap:7px;margin-bottom:4px;padding:0 2px}
+.navbtn{width:42px;height:42px;border-radius:50%;border:1.5px solid #D8D2C2;background:#fff;font-size:16px;cursor:pointer;flex:none;display:flex;align-items:center;justify-content:center;color:var(--ink);font-family:inherit}
+.cal-title{font-family:"Hiragino Mincho ProN","Yu Mincho","YuMincho","Noto Serif JP",serif;font-size:15px;font-weight:700;white-space:nowrap}
+.cal-title b{font-size:22px;font-weight:700;margin-right:3px}
+.cal-hd .sp{flex:1}
+.viewbtn{width:42px;height:42px;border-radius:12px;border:none;background:transparent;color:#CFC9B8;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none}
+.viewbtn svg{width:21px;height:21px}
+.viewbtn.on{background:var(--ink);color:#fff}
+.todaybtn{height:42px;padding:0 13px;border-radius:99px;border:1.5px solid #D8D2C2;background:#fff;font-weight:800;font-size:13.5px;cursor:pointer;flex:none;font-family:inherit;color:var(--ink)}
+.dow{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font-size:12px;font-weight:700;color:#3A3A3A;padding:8px 0 4px}
+.dow .sun{color:var(--red)}.dow .sat{color:var(--sat)}
+.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.cell{min-height:63px;padding:5px 3px 4px;border-radius:12px;cursor:pointer;position:relative;min-width:0}
+.cell.blank{cursor:default}
+.cell .dn{font-size:15px;font-weight:500;color:#C9C4B4;width:26px;height:26px;display:flex;align-items:center;justify-content:center;border-radius:50%;line-height:1}
+.cell.has .dn{font-weight:800;color:var(--ink)}
+.cell.today .dn{background:var(--red);color:#fff;font-weight:800;box-shadow:0 0 0 5px rgba(174,88,45,.16)}
+.cell.sel{background:#FAF1E9;box-shadow:inset 0 0 0 2px var(--red)}
+.cell .bk{display:flex;align-items:center;gap:3px;font-size:9.5px;font-weight:700;line-height:1.4;white-space:nowrap;overflow:hidden;margin-top:1px;color:#393939}
+.cell .bk i{width:6px;height:6px;border-radius:50%;flex:none}
+.cell .wdot{position:absolute;top:6px;right:7px;width:7px;height:7px;border-radius:50%;background:var(--red)}
+.cell.olap{box-shadow:inset 0 0 0 1.5px rgba(174,88,45,.55)}
+.cell.olap.sel{box-shadow:inset 0 0 0 2px var(--red)}
+.c-viator{background:#5F733F}.c-byfood{background:#D78B65}.c-own{background:#9D8B4F}.c-airbnb{background:#AE582D}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;font-weight:700;margin-top:12px;padding:12px 4px 2px;border-top:1px solid #EFEAE0;color:#3A3A3A}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:9px;height:9px;border-radius:50%;flex:none}
+.panel{padding:16px;margin-top:12px}
+.panel h3{font-family:"Hiragino Mincho ProN","Yu Mincho","YuMincho","Noto Serif JP",serif;font-size:16.5px;font-weight:700;letter-spacing:.03em;margin-bottom:4px;line-height:1.5}
+.panel .none{font-size:13.5px;color:#8A8474;line-height:1.85}
+.res{border-top:1.5px dashed #E3DCCB;padding:11px 0;font-size:13.5px;line-height:1.75}
+.res:first-of-type{border-top:none;padding-top:4px}
+.res .t{font-weight:900;font-size:15px}
+.badge{display:inline-flex;align-items:center;font-size:11px;font-weight:800;border-radius:6px;padding:3px 8px;line-height:1.4;color:#fff;margin-left:6px;white-space:nowrap}
+.warnbox{background:#FBF0E8;border:1.5px solid #E3B393;border-radius:12px;padding:10px 12px;font-size:12.5px;font-weight:700;margin-top:10px;line-height:1.7;color:#743B1E}
+.warncard{margin-top:12px;background:#FDFBF7;border:1.5px solid var(--red);border-radius:18px;padding:15px 16px;box-shadow:0 2px 12px rgba(57,57,57,.06)}
+.warncard .wt{font-family:"Hiragino Mincho ProN","Yu Mincho","YuMincho","Noto Serif JP",serif;font-size:15.5px;font-weight:700;letter-spacing:.03em;color:#743B1E;display:flex;align-items:center;gap:8px}
+.warncard p{font-size:13px;font-weight:600;line-height:1.75;margin-top:6px}
+.warncard button{margin-top:10px;background:var(--red);color:#fff;border:none;font-family:inherit;font-size:13.5px;font-weight:800;border-radius:999px;padding:11px 20px;cursor:pointer;min-height:44px}
+.grow{display:flex;align-items:center;gap:10px;width:100%;background:none;border:none;border-top:1.5px dashed #E3DCCB;padding:11px 0;font-family:inherit;text-align:left;cursor:pointer;color:var(--ink)}
+.grow:first-of-type{border-top:none}
+.grow .gd{background:var(--ink);color:#fff;border-radius:9px;font-size:11.5px;font-weight:800;padding:5px 8px;line-height:1.3;text-align:center;flex:none;min-width:46px}
+.grow .gm{flex:1;min-width:0}
+.grow .gm .a{font-size:14px;font-weight:800;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.grow .gm .b{font-size:11.5px;color:#8A8474;font-weight:600;line-height:1.4}
+.grow .chev{color:#C9C2B0;font-size:16px;flex:none}
+footer{margin:14px auto 0;font-size:11.5px;color:#9B9B99;text-align:center;line-height:1.7}
+.view{display:none}.view.on{display:block}
+.pillnav{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);width:min(456px,calc(100% - 24px));background:#fff;border:1px solid #F0EBE0;border-radius:99px;box-shadow:0 10px 30px rgba(57,57,57,.18);display:flex;padding:6px;z-index:50}
+.pillnav button{flex:1;border:none;background:transparent;font-family:inherit;cursor:pointer;padding:7px 0 6px;border-radius:99px;color:#6A6A69;font-size:11px;font-weight:800;line-height:1.35;position:relative}
+.pillnav button svg{display:block;margin:0 auto 2px;width:21px;height:21px}
+.pillnav button.on{background:#28311B;color:#fff}
+.pillnav .cnt{position:absolute;top:3px;right:calc(50% - 21px);background:var(--red);color:#fff;font-size:10px;border-radius:99px;padding:0 6px;line-height:1.6;font-weight:800}
+.actionbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);background:var(--ink);color:#fff;display:flex;gap:12px;align-items:center;padding:12px 16px calc(12px + env(safe-area-inset-bottom));z-index:50}
+.actionbar.warn{box-shadow:inset 0 3px 0 var(--red)}
+.ab-txt{flex:1;min-width:0}
+.ab-cap{display:block;font-size:10.5px;font-weight:800;color:#CBBF97;letter-spacing:.08em}
+.ab-main{display:block;font-size:13.5px;font-weight:800;line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ab-btn{flex:none;background:#CBBF97;color:var(--ink);border:none;font-family:inherit;font-size:13.5px;font-weight:800;border-radius:999px;padding:12px 18px;cursor:pointer;min-height:44px}
+.sticky-next{position:sticky;top:8px;z-index:30}
+.wstrip{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center}
+.wday{padding:7px 0 8px;border-radius:12px;cursor:pointer;min-width:0}
+.wday .wd{font-size:11px;font-weight:700;color:#3A3A3A}
+.wday .wd.sun{color:var(--red)}.wday .wd.sat{color:var(--sat)}
+.wday .wn{width:34px;height:34px;margin:3px auto 0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:500;color:#C9C4B4;position:relative}
+.wday.has .wn{font-weight:800;color:var(--ink)}
+.wday.today .wn{background:var(--red);color:#fff;font-weight:800;box-shadow:0 0 0 5px rgba(174,88,45,.16)}
+.wday.sel{background:#FAF1E9;box-shadow:inset 0 0 0 2px var(--red)}
+.wday .dt{width:6px;height:6px;border-radius:50%;margin:3px auto 0}
+.wday.out .wn{color:#E3DCCB}
+@media (max-width:370px){
+.cal-hd{gap:5px}
+.navbtn{width:38px;height:38px}
+.cal-title{font-size:13.5px}.cal-title b{font-size:19px}
+.viewbtn{width:38px;height:38px}
+.viewbtn.listbtn{display:none}
+.todaybtn{height:38px;padding:0 10px;font-size:12.5px}
+.nc-name{font-size:17.5px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<p class="note">実物デモ だんどりーベース カレンダー型 案8 ― <b>ハイライト連動型</b>：日付をタップすると上のカードがその日のゲストに変わります</p>
+<div class="card nextcard sticky-next" id="nextCard"></div>
+<div class="card calcard"><div class="cal-hd"><button class="navbtn" data-mv="-1">‹</button><div class="cal-title" data-cal="1"></div><button class="navbtn" data-mv="1">›</button><div class="sp"></div><button class="viewbtn listbtn" aria-label="リスト表示"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8.5 6h12M8.5 12h12M8.5 18h12"/><circle cx="4" cy="6" r="1.3" fill="currentColor" stroke="none"/><circle cx="4" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="4" cy="18" r="1.3" fill="currentColor" stroke="none"/></svg></button><button class="viewbtn on" aria-label="カレンダー表示"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></button><button class="todaybtn" id="todayBtn">今日</button></div><div class="dow"><div class="sun">日</div><div>月</div><div>火</div><div>水</div><div>木</div><div>金</div><div class="sat">土</div></div><div class="grid" id="grid"></div><div class="legend"><span><i class="c-viator"></i>Viator</span><span><i class="c-byfood"></i>byFood</span><span><i class="c-own"></i>自社サイト</span><span><i class="c-airbnb"></i>Airbnb</span><span style="color:#9D8B4F">●の色 = 予約が入った経路</span></div></div>
+<nav class="pillnav">
+  <button id="jumpToday"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>今日 12/3</button>
+  <button id="jumpWarn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4 2.8 20h18.4L12 4z"/><path d="M12 10v4.5M12 17.2v.3"/></svg>警告の日 12/6<span class="cnt">1</span></button>
+  <button id="jumpNext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h13M13 6l6 6-6 6"/></svg>次のゲスト</button>
+</nav>
+<footer>※ 叩き台デモです。ゲスト名・日程はすべて架空のサンプルデータです（金沢の酒蔵ツアーを想定）。</footer></div>
+<script>
+const RES={
+ 3:[{time:"10:00",guest:"Emma Wilson",n:"2名",ch:"viator",status:"新着"}],
+ 5:[{time:"10:00",guest:"Liam Chen",n:"4名",ch:"byfood",status:"確認済み"},
+     {time:"14:00",guest:"佐藤 美咲",n:"2名",ch:"own",status:"前日連絡済み"}],
+ 6:[{time:"10:00",guest:"Sofia Garcia",n:"3名",ch:"airbnb",status:"確認済み"},
+     {time:"10:30",guest:"Noah Brown",n:"2名",ch:"viator",status:"新着"}],
+ 8:[{time:"13:00",guest:"Ava Thompson",n:"5名",ch:"byfood",status:"新着"}],
+ 10:[{time:"14:00",guest:"Oliver Smith",n:"2名",ch:"own",status:"確認済み"}],
+ 12:[{time:"10:00",guest:"Mia Johnson",n:"6名",ch:"viator",status:"確認済み"}]
+};
+const OVERLAP={6:"10:00 Airbnb（3名）と 10:30 Viator（2名）が重なっています。ガイド1名では同時に対応できません。"};
+const CH={viator:{name:"Viator",cls:"c-viator",icon:"V"},byfood:{name:"byFood",cls:"c-byfood",icon:"b"},own:{name:"自社サイト",cls:"c-own",icon:"自"},airbnb:{name:"Airbnb",cls:"c-airbnb",icon:"A"}};
+const DOW=['日','月','火','水','木','金','土'];
+const MONTHS=[{y:2026,m:11},{y:2026,m:12},{y:2027,m:1}];
+let mi=1, sel=6;
+function isDec(){return MONTHS[mi].y===2026&&MONTHS[mi].m===12}
+function resOf(d){return isDec()?(RES[d]||[]):[]}
+function gridHtml(){
+  const {y,m}=MONTHS[mi];
+  const first=new Date(y,m-1,1).getDay(), days=new Date(y,m,0).getDate();
+  let cells='';
+  for(let i=0;i<first;i++) cells+='<div class="cell blank"></div>';
+  for(let d=1;d<=days;d++){
+    const rows=resOf(d), cls=['cell'];
+    if(rows.length)cls.push('has');
+    if(isDec()&&d===3)cls.push('today');
+    if(d===sel&&isDec())cls.push('sel');
+    if(isDec()&&OVERLAP[d])cls.push('olap');
+    const bks=rows.map(r=>`<div class="bk"><i class="${CH[r.ch].cls}"></i>${r.guest.split(' ')[0]}</div>`).join('');
+    cells+=`<div class="${cls.join(' ')}" data-d="${d}"><span class="dn">${d}</span>${isDec()&&OVERLAP[d]?'<span class="wdot"></span>':''}${bks}</div>`;
+  }
+  return cells;
+}
+function calTitle(){const{y,m}=MONTHS[mi];return `<b>${y}</b>${m}月`}
+function chipsFor(r){
+  if(r.status==="新着")return '<span class="wchip">確認連絡 未送信</span>';
+  if(r.status==="前日連絡済み")return '<span class="gchip">前日連絡済み</span>';
+  return '';
+}
+function detailHtml(d){
+  const dowName=DOW[(new Date(2026,11,d)).getDay()];
+  const rows=RES[d];
+  if(!rows) return `<h3>12/${d}（${dowName}）</h3><p class="none">この日の予約はありません。<br>販売枠は開いています。</p>`;
+  return `<h3>12/${d}（${dowName}）の予約 ${rows.length}件</h3>`+
+    rows.map(r=>`<div class="res"><span class="t">${r.time}</span><span class="badge ${CH[r.ch].cls}">${CH[r.ch].name}</span> ${chipsFor(r)}<br>${r.guest} / ${r.n}<br>状態：${r.status} / 金沢 酒蔵ツアー</div>`).join('')+
+    (OVERLAP[d]?`<div class="warnbox">⚠️ 二重予約の警告<br>${OVERLAP[d]}</div>`:'');
+}
+function nextCardHtml(cap,d,r,extra){
+  const dowName=DOW[(new Date(2026,11,d)).getDay()];
+  return `<div class="strip"></div><div class="in"><div class="nc-cap">${cap}</div>`+
+  `<div class="nc-row"><div class="datechip"><div class="n">${d}</div><div class="w">${dowName}</div></div>`+
+  `<div class="chicon ${CH[r.ch].cls}">${CH[r.ch].icon}</div><div class="nc-name">${r.guest}</div></div>`+
+  `<div class="nc-meta"><span>${r.time} ・ ${r.n} ・ ${CH[r.ch].name}</span>${chipsFor(r)}${extra||''}</div></div>`;
+}
+function bindCal(gridEl,onPick){
+  function render(){
+    gridEl.innerHTML=gridHtml();
+    document.querySelectorAll('[data-cal]').forEach(t=>t.innerHTML=calTitle());
+    gridEl.querySelectorAll('.cell[data-d]').forEach(c=>c.addEventListener('click',()=>{sel=+c.dataset.d;render();onPick(sel)}));
+  }
+  document.querySelectorAll('[data-mv]').forEach(b=>{ if(b.dataset.bound)return; b.dataset.bound=1; b.addEventListener('click',()=>{mi=Math.min(2,Math.max(0,mi+ +b.dataset.mv));render()}); });
+  const tb=document.getElementById('todayBtn');
+  if(tb&&!tb.dataset.bound){ tb.dataset.bound=1; tb.addEventListener('click',()=>{mi=1;sel=3;render();onPick(3)}); }
+  render();
+  return render;
+}
+
+const nc=document.getElementById('nextCard');
+function showDay(d){
+  const rows=RES[d];
+  if(!rows){ const dn=DOW[(new Date(2026,11,d)).getDay()];
+    nc.innerHTML=`<div class="strip"></div><div class="in"><div class="nc-cap">SELECTED ― 選んだ日</div><div class="nc-row"><div class="datechip"><div class="n">${d}</div><div class="w">${dn}</div></div><div class="nc-name" style="font-size:17px">予約はありません</div></div><div class="nc-meta"><span>販売枠は開いています</span></div></div>`; return; }
+  const extra=rows.length>1?`<span class="gchip">ほか ${rows.length-1} 件</span>`:'';
+  nc.innerHTML=nextCardHtml(d===3?'TODAY ― 今日のゲスト':(OVERLAP[d]?'⚠ 重なりのある日':'SELECTED ― 選んだ日'),d,rows[0],extra);
+}
+bindCal(document.getElementById('grid'),showDay); showDay(6);
+function jump(d){ sel=d; mi=1; bindCal(document.getElementById('grid'),showDay); showDay(d); window.scrollTo({top:0,behavior:'smooth'}); }
+document.getElementById('jumpToday').addEventListener('click',()=>jump(3));
+document.getElementById('jumpWarn').addEventListener('click',()=>jump(6));
+document.getElementById('jumpNext').addEventListener('click',()=>jump(3));
+</script>
+</body>
+</html>

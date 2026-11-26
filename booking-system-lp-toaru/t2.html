@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>案2 誌面左寄せ型 | 予約管理一元化の仕組みづくり（toaruデザイン）</title>
-<meta name="description" content="予約管理システム一元化の制作代行LP。toaruデザイン案2。スマホ版の実物デモ15案で完成形を比べられます。">
+<meta name="description" content="予約管理システム一元化の制作代行LP。toaruデザイン案2。だんどりーベースのカレンダー型デモ5案で完成形を比べられます。">
 <meta property="og:title" content="案2 誌面左寄せ型 | 予約管理一元化の仕組みづくり（toaruデザイン）">
-<meta property="og:description" content="予約管理システム一元化の制作代行LP。toaruデザイン案2。スマホ版の実物デモ15案で完成形を比べられます。">
+<meta property="og:description" content="予約管理システム一元化の制作代行LP。toaruデザイン案2。だんどりーベースのカレンダー型デモ5案で完成形を比べられます。">
 <meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/booking-system-lp-toaru/og.jpg">
 <meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/booking-system-lp-toaru/t2.html">
 <meta property="og:type" content="website">
@@ -62,12 +62,9 @@ footer{border-top:1px solid var(--line);padding:20px 0 28px;font-size:12px;color
 
 .demo-box{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:26px 24px;box-shadow:0 10px 30px rgba(40,49,27,.06)}
 .demo-lead{font-size:14px;color:#5d564a;margin-bottom:18px}
-.demo-fams{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
 .demo-nums{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
-.dfam,.dnum{font-family:var(--f-body);cursor:pointer;border-radius:999px;line-height:1.5;color:var(--ink)}
-.dfam{font-size:13.5px;font-weight:700;background:var(--bg);border:1.5px solid var(--line);padding:8px 16px}
+.dnum{font-family:var(--f-body);cursor:pointer;border-radius:999px;line-height:1.5;color:var(--ink)}
 .dnum{font-size:12.5px;font-weight:700;background:#fff;border:1.5px solid var(--line);padding:6px 13px}
-.dfam.is-on{background:var(--acc);border-color:var(--acc);color:#fff}
 .dnum.is-on{background:var(--deep);border-color:var(--deep);color:#fff}
 .demo-cap{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:14px;font-weight:700;margin-bottom:12px}
 .demo-open{display:inline-flex;align-items:center;min-height:44px;padding:9px 24px;background:var(--acc);color:#fff;font-size:15px;font-weight:700;white-space:nowrap;text-decoration:none;border-radius:999px}
@@ -75,7 +72,7 @@ footer{border-top:1px solid var(--line);padding:20px 0 28px;font-size:12px;color
 .demo-frame iframe{width:100%;height:660px;border:none;display:block}
 .demo-note{font-size:11.5px;color:var(--soft);margin-top:12px}
 .demo-ask{font-size:14.5px;font-weight:700;margin-top:14px;line-height:1.9}
-@media (max-width:720px){.demo-box{padding:20px 14px}.demo-frame iframe{height:600px}}
+@media (max-width:720px){.wrap{padding:0 12px}.demo-box{padding:20px 10px}.demo-frame iframe{height:600px}}
 
 </style>
 </head>
@@ -103,17 +100,12 @@ footer{border-top:1px solid var(--line);padding:20px 0 28px;font-size:12px;color
   <h2>実物の画面で比べる</h2>
   
   <div class="demo-box">
-    <p class="demo-lead">完成形の画面イメージを、スマホ版の実物デモ15案で用意しました。系統と案番号を切り替えて、操作感を比べてください。</p>
-    <div class="demo-fams">
-      <button type="button" class="dfam is-on" data-fam="carte">カルテ型</button>
-      <button type="button" class="dfam" data-fam="cal">カレンダー中心型</button>
-      <button type="button" class="dfam" data-fam="sp">スマホファースト型</button>
-    </div>
-    <div class="demo-nums"><button type="button" class="dnum is-on" data-n="1">1 ボトムタブ</button><button type="button" class="dnum" data-n="2">2 固定バー</button><button type="button" class="dnum" data-n="3">3 ドック</button><button type="button" class="dnum" data-n="4">4 ボトムシート</button><button type="button" class="dnum" data-n="5">5 ステップ</button></div>
-    <p class="demo-cap"><span id="demoCapText">カルテ型 案1 ― ボトムタブ型</span><a class="demo-open" id="demoOpen" href="demo15/carte-1.html" target="_blank" rel="noopener">実物を触ってみる</a></p>
-    <div class="demo-frame"><iframe id="demoFrame" src="demo15/carte-1.html" title="実物デモ（スマホ版）"></iframe></div>
+    <p class="demo-lead">完成形の画面イメージを、だんどりーベースのカレンダー型デモ5案で用意しました。案を切り替えて、操作感を比べてください。</p>
+    <div class="demo-nums"><button type="button" class="dnum is-on" data-n="1">案6 本家準拠型</button><button type="button" class="dnum" data-n="2">案7 日タップ詳細型</button><button type="button" class="dnum" data-n="3">案8 ハイライト連動型</button><button type="button" class="dnum" data-n="4">案9 週表示型</button><button type="button" class="dnum" data-n="5">案10 警告特化型</button></div>
+    <p class="demo-cap"><span id="demoCapText">カレンダー型 案6 ― 本家準拠型</span><a class="demo-open" id="demoOpen" href="dcal/dcal-1.html" target="_blank" rel="noopener">実物を触ってみる</a></p>
+    <div class="demo-frame"><iframe id="demoFrame" src="dcal/dcal-1.html" title="実物デモ（スマホ版）"></iframe></div>
     <p class="demo-note">※ デモは画面イメージです。実際の画面は事業内容に合わせて作ります。</p>
-    <p class="demo-ask">完成形は、この15の形から選んで作ります。あなたの事業には、どの形が合いそうですか？<br>下の相談窓口から聞くときに、希望の形もあわせて教えてください。</p>
+    <p class="demo-ask">完成形は、この5つの形から選んで作ります。あなたの事業には、どの形が合いそうですか？<br>下の相談窓口から聞くときに、希望の形もあわせて教えてください。</p>
   </div>
 </div></section>
 
@@ -136,22 +128,15 @@ footer{border-top:1px solid var(--line);padding:20px 0 28px;font-size:12px;color
 
 <script>
 (function(){
-  var FAMS={carte:"カルテ型",cal:"カレンダー中心型",sp:"スマホファースト型"};
-  var NUMS={1:"ボトムタブ型",2:"固定アクションバー型",3:"フローティングドック型",4:"ボトムシート型",5:"ステップナビ型"};
-  var fam="carte",num="1";
+  var NAMES={1:["案6","本家準拠型"],2:["案7","日タップ詳細型"],3:["案8","ハイライト連動型"],4:["案9","週表示型"],5:["案10","警告特化型"]};
+  var num="1";
   var frame=document.getElementById('demoFrame'),cap=document.getElementById('demoCapText'),open=document.getElementById('demoOpen');
   function upd(){
-    var src="demo15/"+fam+"-"+num+".html";
+    var src="dcal/dcal-"+num+".html";
     if(frame.getAttribute('src')!==src){frame.setAttribute('src',src);}
-    cap.textContent=FAMS[fam]+" 案"+num+" ― "+NUMS[num];
+    cap.textContent="カレンダー型 "+NAMES[num][0]+" ― "+NAMES[num][1];
     open.setAttribute('href',src);
   }
-  Array.prototype.forEach.call(document.querySelectorAll('.dfam'),function(b){
-    b.addEventListener('click',function(){
-      Array.prototype.forEach.call(document.querySelectorAll('.dfam'),function(x){x.classList.remove('is-on');});
-      b.classList.add('is-on');fam=b.getAttribute('data-fam');upd();
-    });
-  });
   Array.prototype.forEach.call(document.querySelectorAll('.dnum'),function(b){
     b.addEventListener('click',function(){
       Array.prototype.forEach.call(document.querySelectorAll('.dnum'),function(x){x.classList.remove('is-on');});
