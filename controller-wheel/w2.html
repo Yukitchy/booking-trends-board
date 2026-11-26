@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ホイール設定｜ライトペーパー</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif}
+
+body{background:#f4f2ed;color:#191919}
+.phead{padding:26px 18px 4px;max-width:560px;margin:0 auto}
+.pkick{font-size:11px;letter-spacing:.28em;color:#a33c31;font-weight:700}
+.phead h1{font-size:24px;margin:6px 0 8px}
+.plead{font-size:13px;line-height:1.8;color:#55534e;margin:0}
+.block{max-width:560px;margin:0 auto;padding:20px 14px 8px}
+.block h2{font-size:17px;margin:0 2px 6px;border-bottom:2.5px solid #191919;padding-bottom:6px}
+.bnote{font-size:12.5px;line-height:1.7;color:#55534e;margin:8px 2px 12px}
+.stream{border-radius:12px;padding:14px 12px 16px;background:linear-gradient(165deg,#5a6c8c,#33415c 60%,#26314a);box-shadow:0 4px 18px rgba(20,20,20,.25)}
+.stream-bar{display:flex;align-items:center;gap:6px;padding:2px 4px 10px}
+.stream-bar .dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.3)}
+.stream-title{margin-left:6px;font-size:11.5px;color:rgba(255,255,255,.7);letter-spacing:.06em}
+.wheel-unit{padding:8px 0 4px}
+.wheel-cap{display:flex;align-items:center;gap:8px;padding:0 4px 6px;flex-wrap:wrap}
+.stick-chip{font-size:11px;font-weight:700;color:#fff;background:#c22f24;padding:3px 9px;border-radius:999px}
+.wheel-unit:nth-of-type(3) .stick-chip{background:#191919}
+.wheel-name{font-size:14px;font-weight:700;color:#fff}
+.howto{margin-left:auto;font-size:11px;color:rgba(255,255,255,.6)}
+.wheel{display:block;width:min(300px,86vw);height:auto;margin:2px auto 6px}
+.wheel .seg{fill:rgba(244,242,237,.14);stroke:rgba(255,255,255,.35);stroke-width:.8}
+.wheel .seg.sel{fill:#f4f2ed;stroke:#fff;stroke-width:1.4}
+.wheel .lab{fill:rgba(255,255,255,.9);font-size:9.5px;font-weight:600}
+.wheel .lab.sel{fill:#191919;font-weight:800}
+.wheel .hub{fill:#f4f2ed;stroke:#191919;stroke-width:1.2}
+.wheel .hubmain{fill:#191919;font-size:16.5px;font-weight:800}
+.wheel .hubsub{fill:#8a463c;font-size:8px;font-weight:700}
+.cancel-note{font-size:11.5px;color:rgba(255,255,255,.65);text-align:center;margin:8px 0 2px}
+.settings{background:#fff;border:1px solid #e2ded4;border-radius:12px;padding:16px 14px 14px;box-shadow:0 4px 18px rgba(20,20,20,.08)}
+.sgroup{margin-bottom:18px}
+.sgroup h3{font-size:14.5px;margin:0 0 10px}
+.gsub{font-size:11px;color:#8a867e;margin-left:8px;font-weight:500}
+.shead .field{background:none;border:none}
+.shead,.srow{display:flex;align-items:center;gap:9px}
+.shead{font-size:10.5px;color:#8a867e;letter-spacing:.08em;padding:0 2px 6px}
+.srow{padding:7px 2px;border-top:1px solid #e9e5da}
+.dir{flex:0 0 34px;font-size:11.5px;font-weight:700;text-align:center;background:#191919;color:#fff;border-radius:6px;padding:4px 0}
+.field{flex:1 1 auto;min-width:0;background:#fbfaf7;border:1px solid #d9d4c7;border-radius:8px;padding:7px 10px;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.url{flex:0 1 42%;min-width:0;font-size:10.5px;color:#8a867e;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.shead .url{flex:0 1 42%}
+.tgl{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;flex:0 0 auto}
+.tgl i{width:32px;height:18px;border-radius:999px;background:#cfccc2;position:relative;display:inline-block}
+.tgl i::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#fff}
+.tgl.on{color:#c22f24}.tgl.on i{background:#c22f24}.tgl.on i::after{left:16px}
+.tgl.off{color:#a09c92}
+.tgl-h{flex:0 0 52px;text-align:right}
+.savebar{display:flex;align-items:center;gap:12px;margin-top:2px}
+.savebtn{background:#191919;color:#fff;font-weight:800;font-size:13.5px;padding:10px 22px;border-radius:999px}
+.savenote{font-size:11px;color:#8a867e}
+
+</style>
+</head>
+<body>
+
+<header class="phead">
+  <div class="pkick">CONTROLLER SETTINGS</div>
+  <h1>ホイール設定</h1>
+  <p class="plead">LBを押したままスティックを倒すと出る円形メニューの設定。右スティックは定型文で左スティックは起動。</p>
+</header>
+
+<section class="block">
+  <h2>ホイール表示</h2>
+  <p class="bnote">配信画面に重なって出る状態。倒した方向が光って中央に大きく出る。</p>
+  <div class="stream">
+    <div class="stream-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="stream-title">Macの画面を配信中</span></div>
+    <div class="wheel-unit">
+      <div class="wheel-cap"><span class="stick-chip">右スティック</span><span class="wheel-name">定型文ホイール</span><span class="howto">LB＋R3で設定</span></div>
+      <svg class="wheel text" viewBox="0 0 200 200" aria-hidden="true"><path class="seg sel" d="M 65.2 9.4 A 97 97 0 0 1 134.8 9.4 L 115.8 58.9 A 44 44 0 0 0 84.2 58.9 Z"/><path class="seg" d="M 139.5 11.4 A 97 97 0 0 1 188.6 60.5 L 140.2 82.1 A 44 44 0 0 0 117.9 59.8 Z"/><path class="seg" d="M 190.6 65.2 A 97 97 0 0 1 190.6 134.8 L 141.1 115.8 A 44 44 0 0 0 141.1 84.2 Z"/><path class="seg" d="M 188.6 139.5 A 97 97 0 0 1 139.5 188.6 L 117.9 140.2 A 44 44 0 0 0 140.2 117.9 Z"/><path class="seg" d="M 134.8 190.6 A 97 97 0 0 1 65.2 190.6 L 84.2 141.1 A 44 44 0 0 0 115.8 141.1 Z"/><path class="seg" d="M 60.5 188.6 A 97 97 0 0 1 11.4 139.5 L 59.8 117.9 A 44 44 0 0 0 82.1 140.2 Z"/><path class="seg" d="M 9.4 134.8 A 97 97 0 0 1 9.4 65.2 L 58.9 84.2 A 44 44 0 0 0 58.9 115.8 Z"/><path class="seg" d="M 11.4 60.5 A 97 97 0 0 1 60.5 11.4 L 82.1 59.8 A 44 44 0 0 0 59.8 82.1 Z"/><text class="lab sel" x="100" y="32" text-anchor="middle">俺の玉！</text><text class="lab" x="150" y="53" text-anchor="middle">ばっちこい！</text><text class="lab" x="171" y="99" text-anchor="middle">immich<tspan x="171" dy="9">いつもの</tspan></text><text class="lab" x="150" y="149" text-anchor="middle">ありがとう<tspan x="150" dy="9">ございます</tspan></text><text class="lab" x="100" y="174" text-anchor="middle">再開！</text><text class="lab" x="50" y="149" text-anchor="middle">お願い<tspan x="50" dy="9">します</tspan></text><text class="lab" x="29" y="103" text-anchor="middle">次</text><text class="lab" x="50" y="53" text-anchor="middle">OK</text><circle class="hub" cx="100" cy="100" r="41"/><text class="hubmain" x="100" y="98" text-anchor="middle">俺の玉！</text><text class="hubsub" x="100" y="114" text-anchor="middle">離すと入力＋送信</text></svg>
+    </div>
+    <div class="wheel-unit">
+      <div class="wheel-cap"><span class="stick-chip">左スティック</span><span class="wheel-name">起動ホイール</span><span class="howto">LB＋L3で設定</span></div>
+      <svg class="wheel launch" viewBox="0 0 200 200" aria-hidden="true"><path class="seg sel" d="M 65.2 9.4 A 97 97 0 0 1 134.8 9.4 L 115.8 58.9 A 44 44 0 0 0 84.2 58.9 Z"/><path class="seg" d="M 139.5 11.4 A 97 97 0 0 1 188.6 60.5 L 140.2 82.1 A 44 44 0 0 0 117.9 59.8 Z"/><path class="seg" d="M 190.6 65.2 A 97 97 0 0 1 190.6 134.8 L 141.1 115.8 A 44 44 0 0 0 141.1 84.2 Z"/><path class="seg" d="M 188.6 139.5 A 97 97 0 0 1 139.5 188.6 L 117.9 140.2 A 44 44 0 0 0 140.2 117.9 Z"/><path class="seg" d="M 134.8 190.6 A 97 97 0 0 1 65.2 190.6 L 84.2 141.1 A 44 44 0 0 0 115.8 141.1 Z"/><path class="seg" d="M 60.5 188.6 A 97 97 0 0 1 11.4 139.5 L 59.8 117.9 A 44 44 0 0 0 82.1 140.2 Z"/><path class="seg" d="M 9.4 134.8 A 97 97 0 0 1 9.4 65.2 L 58.9 84.2 A 44 44 0 0 0 58.9 115.8 Z"/><path class="seg" d="M 11.4 60.5 A 97 97 0 0 1 60.5 11.4 L 82.1 59.8 A 44 44 0 0 0 59.8 82.1 Z"/><text class="lab sel" x="100" y="32" text-anchor="middle">だんどりー</text><text class="lab" x="150" y="53" text-anchor="middle">Gmail</text><text class="lab" x="171" y="103" text-anchor="middle">つあろぐ</text><text class="lab" x="150" y="149" text-anchor="middle">Google<tspan x="150" dy="9">カレンダー</tspan></text><text class="lab" x="100" y="174" text-anchor="middle">俺すたぐらむ</text><text class="lab" x="50" y="149" text-anchor="middle">Google<tspan x="50" dy="9">ドライブ</tspan></text><text class="lab" x="29" y="103" text-anchor="middle">LINE</text><text class="lab" x="50" y="53" text-anchor="middle">Claude</text><circle class="hub" cx="100" cy="100" r="41"/><text class="hubmain" x="100" y="98" text-anchor="middle">だんどりー</text><text class="hubsub" x="100" y="114" text-anchor="middle">離すと開く</text></svg>
+    </div>
+    <p class="cancel-note">スティックを中心へ戻すと中央が「キャンセル」になり離しても何も起きない。</p>
+  </div>
+</section>
+
+<section class="block">
+  <h2>設定画面</h2>
+  <p class="bnote">スティックを押し込むと開く画面。コントローラー設定サイトへの追加セクション。</p>
+  <div class="settings">
+    <div class="sgroup">
+      <h3>定型文ホイール<span class="gsub">右スティック</span></h3>
+      <div class="shead"><span class="dir">方向</span><span class="field">入力する文</span><span class="tgl-h">送信</span></div>
+      <div class="srow"><span class="dir">上</span><span class="field">俺の玉！</span><span class="tgl on"><i></i>送信する</span></div><div class="srow"><span class="dir">右上</span><span class="field">ばっちこい！</span><span class="tgl on"><i></i>送信する</span></div><div class="srow"><span class="dir">右</span><span class="field">immichいつもの</span><span class="tgl on"><i></i>送信する</span></div><div class="srow"><span class="dir">右下</span><span class="field">ありがとうございます</span><span class="tgl off"><i></i>打つだけ</span></div><div class="srow"><span class="dir">下</span><span class="field">再開！</span><span class="tgl on"><i></i>送信する</span></div><div class="srow"><span class="dir">左下</span><span class="field">お願いします</span><span class="tgl off"><i></i>打つだけ</span></div><div class="srow"><span class="dir">左</span><span class="field">次</span><span class="tgl on"><i></i>送信する</span></div><div class="srow"><span class="dir">左上</span><span class="field">OK</span><span class="tgl off"><i></i>打つだけ</span></div>
+    </div>
+    <div class="sgroup">
+      <h3>起動ホイール<span class="gsub">左スティック</span></h3>
+      <div class="shead"><span class="dir">方向</span><span class="field">名前</span><span class="url">開く場所</span></div>
+      <div class="srow"><span class="dir">上</span><span class="field">だんどりー</span><span class="url">http://127.0.0.1:8795</span></div><div class="srow"><span class="dir">右上</span><span class="field">Gmail</span><span class="url">https://mail.google.com</span></div><div class="srow"><span class="dir">右</span><span class="field">つあろぐ</span><span class="url">https://yukitchy.github.io/kyo-no-koe/</span></div><div class="srow"><span class="dir">右下</span><span class="field">Googleカレンダー</span><span class="url">https://calendar.google.com</span></div><div class="srow"><span class="dir">下</span><span class="field">俺すたぐらむ</span><span class="url">http://100.108.194.70:4250</span></div><div class="srow"><span class="dir">左下</span><span class="field">Googleドライブ</span><span class="url">https://drive.google.com</span></div><div class="srow"><span class="dir">左</span><span class="field">LINE</span><span class="url">アプリを起動</span></div><div class="srow"><span class="dir">左上</span><span class="field">Claude</span><span class="url">https://claude.ai</span></div>
+    </div>
+    <div class="savebar"><span class="savebtn">保存する</span><span class="savenote">保存した瞬間から実機へ反映</span></div>
+  </div>
+</section>
+
+</body>
+</html>

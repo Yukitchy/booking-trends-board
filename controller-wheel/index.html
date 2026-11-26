@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ホイール設定UI 5案</title>
+<meta property="og:title" content="ホイール設定UI 5案">
+<meta property="og:description" content="LBを押したままスティックを倒すと出る円形メニューとスティックを押し込んで開く設定画面のデザイン5案。右スティックは定型文で左スティックは起動。">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/controller-wheel/og.jpg">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/controller-wheel/">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #f4f2ed; color: #191919;
+         font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif; }
+  header { padding: 30px 18px 4px; max-width: 1060px; margin: 0 auto; }
+  h1 { font-size: 25px; margin: 0 0 10px; letter-spacing: .02em; }
+  header p { font-size: 13.5px; line-height: 1.8; color: #55534e; margin: 0 0 8px; }
+  header p b { color: #191919; }
+  main { max-width: 1060px; margin: 0 auto; padding: 8px 14px 56px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 22px; }
+  @media (max-width: 640px) { .grid { grid-template-columns: 1fr; } }
+  section { margin: 26px 0 34px; }
+  .tag { display: flex; align-items: center; gap: 9px; margin: 0 2px 10px; flex-wrap: wrap; }
+  .num { background: #151515; color: #fff; font-weight: 700; font-size: 14px;
+         padding: 3px 11px; border-radius: 999px; letter-spacing: .04em; white-space: nowrap; }
+  .name { font-size: 17.5px; font-weight: 700; }
+  figure { margin: 0; }
+  figure img { display: block; width: 100%; border-radius: 10px;
+               box-shadow: 0 4px 18px rgba(20,20,20,.16); border: 1px solid #e2ded4; }
+  figcaption { margin: 10px 2px 0; font-size: 13px; line-height: 1.8; color: #55534e; }
+  figcaption b { color: #191919; }
+  .open { display: inline-block; margin-top: 6px; font-weight: 700; color: #191919; }
+</style>
+</head>
+<body>
+<header>
+  <h1>ホイール設定UI 5案</h1>
+  <p>LBを押したままスティックを倒すと出る<b>円形メニュー</b>とスティックを押し込んで開く<b>設定画面</b>のデザイン案。中身は全案共通で<b>右スティックは定型文で左スティックは起動</b>。設定画面は既存の<a href="https://yukitchy.github.io/booking-trends-board/controller-map/">コントローラー設定サイト</a>へ足す形で各案とも1ページに両方を載せた。</p>
+  <p>ホイールは選択中も全スロットの文が見えて倒した方向が光り中央に大きく出る。朝ゆっくり見て番号で選んでほしい。</p>
+</header>
+<main>
+<div class="grid">
+
+  <section>
+    <div class="tag"><span class="num">1</span><span class="name">ダークグラス型</span></div>
+    <figure>
+      <img src="shot-w1.png" alt="ダークグラス型">
+      <figcaption>暗い配信画面に<b>半透明のガラス</b>を重ねた型。選択中は定型文がオレンジで起動がミントに光る。映像の上に出ても下の画面が透けて見える。<br><a class="open" href="w1.html">→ 実物を開く</a></figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="tag"><span class="num">2</span><span class="name">ライトペーパー型</span></div>
+    <figure>
+      <img src="shot-w2.png" alt="ライトペーパー型">
+      <figcaption>既存のコントローラー設定サイトと<b>同じ紙色と黒罫</b>でそろえた型。設定画面まで世界観がそろい追加セクションとして一番自然。<br><a class="open" href="w2.html">→ 実物を開く</a></figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="tag"><span class="num">3</span><span class="name">ミニマル型</span></div>
+    <figure>
+      <img src="shot-w3.png" alt="ミニマル型">
+      <figcaption>白地に<b>細い線だけ</b>で組んだ型。色は使わず選択中だけ黒く塗る。設定画面も下線だけの入力欄でそろえた。<br><a class="open" href="w3.html">→ 実物を開く</a></figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="tag"><span class="num">4</span><span class="name">ゲームネオン型</span></div>
+    <figure>
+      <img src="shot-w4.png" alt="ゲームネオン型">
+      <figcaption>暗背景に<b>ネオンで光る</b>ゲーミング機材風。定型文は緑で起動はオレンジに色分けした。既存サイトのダーク案と並べてもそろう。<br><a class="open" href="w4.html">→ 実物を開く</a></figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="tag"><span class="num">5</span><span class="name">iOS型</span></div>
+    <figure>
+      <img src="shot-w5.png" alt="iOS型">
+      <figcaption><b>iPhone標準の設定画面</b>に寄せた型。グループリストもスイッチも標準そっくりで説明なしに触れる。ホイールは青と緑のベタ塗り。<br><a class="open" href="w5.html">→ 実物を開く</a></figcaption>
+    </figure>
+  </section>
+
+</div>
+</main>
+</body>
+</html>
