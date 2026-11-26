@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>実物デモ スマホ版（下固定メニュー）15案 | 見比べボード</title>
+<meta property="og:title" content="実物デモ スマホ版（下固定メニュー）15案">
+<meta property="og:description" content="予約管理の実物デモ3種（カルテ／カレンダー／スマホ）を、スマホの下固定メニューで見せる15案。">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/booking-system-demo-mobile/og.jpg">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/booking-system-demo-mobile/">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Noto Sans JP",sans-serif;background:#151515;color:#fff;-webkit-font-smoothing:antialiased}
+header{max-width:1180px;margin:0 auto;padding:38px 20px 8px}
+header .kicker{font-size:12.5px;letter-spacing:.22em;color:#ff6b5e;font-weight:700}
+header h1{font-family:"M PLUS Rounded 1c",sans-serif;font-size:clamp(24px,5.4vw,44px);font-weight:800;margin-top:8px;white-space:nowrap}
+header h1::after{content:"";display:block;width:74px;height:6px;background:#e03c31;margin-top:14px;border-radius:3px}
+header p{margin-top:14px;font-size:14.5px;line-height:1.9;color:#cfd4da;max-width:780px}
+.sec-title{max-width:1180px;margin:30px auto 0;padding:0 20px;font-family:"M PLUS Rounded 1c",sans-serif;font-size:clamp(20px,4vw,27px);font-weight:800}
+.sec-desc{max-width:1180px;margin:6px auto 0;padding:0 20px;font-size:13.5px;line-height:1.8;color:#aeb6bf}
+.grid{max-width:1180px;margin:0 auto;padding:16px 20px 6px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px}
+.card{background:#1e1e1e;border:1.5px solid #3a3a3a;border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.card .pv{background:#f1efea;height:400px;overflow:hidden;position:relative}
+.card iframe{width:780px;height:800px;border:none;transform:scale(.5);transform-origin:0 0;pointer-events:none}
+.card .info{padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card .num{display:inline-block;background:#e03c31;color:#fff;font-weight:900;font-size:12.5px;border-radius:7px;padding:3px 11px;line-height:1.5}
+.card h3{font-family:"M PLUS Rounded 1c",sans-serif;font-size:19px;font-weight:800}
+.card p{font-size:13.5px;line-height:1.8;color:#c6ccd3;flex:1}
+.card a.open{align-self:flex-start;display:inline-flex;align-items:center;min-height:44px;font-size:15px;font-weight:800;color:#151515;background:#fff;border:1.5px solid #fff;border-radius:999px;padding:10px 26px;text-decoration:none}
+footer{max-width:1180px;margin:0 auto;padding:14px 20px 36px;font-size:12.5px;color:#8a929c;line-height:1.9}
+footer a{color:#c6ccd3}
+</style>
+</head>
+<body>
+<header>
+  <div class="kicker">BOOKING SYSTEM ― LIVE DEMOS MOBILE</div>
+  <h1>実物デモ スマホ版 15案</h1>
+  <p>実物デモ3種（カルテ型／カレンダー中心型／スマホファースト型）を、スマホで開いたときに見やすい形へ作り替えた案です。各デモとも、画面下に固定したメニュー（下固定メニュー）の使い方を5通りずつ比べられます。データと操作は元のデモと同じです。</p>
+</header>
+
+<h2 class="sec-title">カルテ型 ― スマホ版5案</h2>
+<p class="sec-desc">元の案6（カルテ型）と同じゲスト一覧＋カルテ詳細を、スマホの下固定メニューでどう見せるか。</p>
+<div class="grid">
+  <div class="card">
+    <div class="pv"><iframe src="carte-1.html" loading="lazy" title="カルテ型 案1 ボトムタブ型"></iframe></div>
+    <div class="info">
+      <div class="tags"><span class="num">カルテ型 案1</span></div>
+      <h3>ボトムタブ型</h3>
+      <p>一覧／カルテ／照合／次の一手を下タブで切り替える</p>
+      <a class="open" href="carte-1.html">実物を触ってみる</a>
+    </div>
+  </div>
+  <div class="card">
+    <div class="pv"><iframe src="carte-2.html" loading="lazy" title="カルテ型 案2 固定アクションバー型"></iframe></div>
+    <div class="info">
+      <div class="tags"><span class="num">カルテ型 案2</span></div>
+      <h3>固定アクションバー型</h3>
+      <p>選んだゲストの「次の一手」を下のバーに常時表示</p>
+      <a class="open" href="carte-2.html">実物を触ってみる</a>
+    </div>
+  </div>
+  <div class="card">
+    <div class="pv"><iframe src="carte-3.html" loading="lazy" title="カルテ型 案3 フローティングドック型"></iframe></div>
+    <div class="info">
+      <div class="tags"><span class="num">カルテ型 案3</span></div>
+      <h3>フローティングドック型</h3>
+      <p>一覧・照合・次の一手へのジャンプを浮いたドックに集約</p>
+      <a class="open" href="carte-3.html">実物を触ってみる</a>
+    </div>
+  </div>
+  <div class="card">
+    <div class="pv"><iframe src="carte-4.html" loading="lazy" title="カルテ型 案4 ボトムシート型"></iframe></div>
+    <div class="info">
+      <div class="tags"><span class="num">カルテ型 案4</span></div>
+      <h3>ボトムシート型</h3>
+      <p>ゲストを選ぶとカルテが下からせり上がる</p>
+      <a class="open" href="carte-4.html">実物を触ってみる</a>
+    </div>
+  </div>
+  <div class="card">
+    <div class="pv"><iframe src="carte-5.html" loading="lazy" title="カルテ型 案5 ステップナビ型"></iframe></div>
+    <div class="info">
+      <div class="tags"><span class="num">カルテ型 案5</span></div>
+      <h3>ステップナビ型</h3>
+      <p>前へ／次へでゲストを1件ずつ確認</p>
+      <a class="open" href="carte-5.html">実物を触ってみる</a>
+    </div>
+  </div>
+</div>
+<h2 class="sec-title">カレンダー中心型 ― スマホ版5案</h2>
+<p class="sec-desc">元の案2（カレンダー中心型）と同じ月カレンダー＋その日の詳細を、スマホの下固定メニューでどう見せるか。</p>
+<div class="grid">
+  <div class="card">
+    <div class="pv"><iframe src="cal-1.html" loading="lazy" title="カレンダー中心型 案1 ボトムタブ型"></iframe></div>
+    <div class="info">
+      <div class="tags"><span class="num">カレンダー中心型 案1</span></div>
+      <h3>ボトムタブ型</h3>
+      <p>カレンダー／その日の予約／警告を下タブで切り替える</p>
+      <a class="open" href="cal-1.html">実物を触ってみる</a>
+    </div>
+  </div>
+  <div class="card">
+    <div class="pv"><iframe src="cal-2.html" loading="lazy" title="カレンダー中心型 案2 固定アクションバー型"></iframe></div>
+    <div class="info">
+      <div class="tags"><span class="num">カレンダー中心型 案2</span></div>
+      <h3>固定アクションバー型</h3>
+      <p>選んだ日の要約を下のバーに常時表示</p>
+      <a class="open" href="cal-2.html">実物を触ってみる</a>
+    </div>
+  </div>
+  <div class="card">
+    <div class="pv"><iframe src="cal-3.html" loading="lazy" title="カレンダー中心型 案3 フローティングドック型"></iframe></div>
+    <div class="info">
+      <div class="tags"><span class="num">カレンダー中心型 案3</span></div>
+      <h3>フローティングドック型</h3>
+      <p>今日・警告の日へのジャンプを浮いたドックに集約</p>
+      <a class="open" href="cal-3.html">実物を触ってみる</a>
+    </div>
+  </div>
+  <div class="card">
+    <div class="pv"><iframe src="cal-4.html" loading="lazy" title="カレンダー中心型 案4 ボトムシート型"></iframe></div>
+    <div class="info">
+      <div class="tags"><span class="num">カレンダー中心型 案4</span></div>
+      <h3>ボトムシート型</h3>
+      <p>日付をタップすると詳細が下からせり上がる</p>
+      <a class="open" href="cal-4.html">実物を触ってみる</a>
+    </div>
+  </div>
+  <div class="card">
+    <div class="pv"><iframe src="cal-5.html" loading="lazy" title="カレンダー中心型 案5 ステップナビ型"></iframe></div>
+    <div class="info">
+      <div class="tags"><span class="num">カレンダー中心型 案5</span></div>
+      <h3>ステップナビ型</h3>
+      <p>前の予約日／次の予約日で、予約のある日を順に確認</p>
+      <a class="open" href="cal-5.html">実物を触ってみる</a>
+    </div>
+  </div>
+</div>
+<h2 class="sec-title">スマホファースト型 ― スマホ版5案</h2>
+<p class="sec-desc">元の案3（スマホファースト型）と同じ今日・これから・準備の要素を、スマホの下固定メニューでどう見せるか。</p>
+<div class="grid">
+  <div class="card">
+    <div class="pv"><iframe src="sp-1.html" loading="lazy" title="スマホファースト型 案1 ボトムタブ型"></iframe></div>
+    <div class="info">
+      <div class="tags"><span class="num">スマホファースト型 案1</span></div>
+      <h3>ボトムタブ型</h3>
+      <p>今日／これから／準備を画面下に固定したタブで切り替える</p>
+      <a class="open" href="sp-1.html">実物を触ってみる</a>
+    </div>
+  </div>
+  <div class="card">
+    <div class="pv"><iframe src="sp-2.html" loading="lazy" title="スマホファースト型 案2 固定アクションバー型"></iframe></div>
+    <div class="info">
+      <div class="tags"><span class="num">スマホファースト型 案2</span></div>
+      <h3>固定アクションバー型</h3>
+      <p>準備の進み具合を下のバーに常時表示</p>
+      <a class="open" href="sp-2.html">実物を触ってみる</a>
+    </div>
+  </div>
+  <div class="card">
+    <div class="pv"><iframe src="sp-3.html" loading="lazy" title="スマホファースト型 案3 フローティングドック型"></iframe></div>
+    <div class="info">
+      <div class="tags"><span class="num">スマホファースト型 案3</span></div>
+      <h3>フローティングドック型</h3>
+      <p>新着・今日・これから・準備への移動を浮いたドックに集約</p>
+      <a class="open" href="sp-3.html">実物を触ってみる</a>
+    </div>
+  </div>
+  <div class="card">
+    <div class="pv"><iframe src="sp-4.html" loading="lazy" title="スマホファースト型 案4 ボトムシート型"></iframe></div>
+    <div class="info">
+      <div class="tags"><span class="num">スマホファースト型 案4</span></div>
+      <h3>ボトムシート型</h3>
+      <p>準備チェックリストが下からせり上がる</p>
+      <a class="open" href="sp-4.html">実物を触ってみる</a>
+    </div>
+  </div>
+  <div class="card">
+    <div class="pv"><iframe src="sp-5.html" loading="lazy" title="スマホファースト型 案5 ステップナビ型"></iframe></div>
+    <div class="info">
+      <div class="tags"><span class="num">スマホファースト型 案5</span></div>
+      <h3>ステップナビ型</h3>
+      <p>前の日／次の日で日付を送って、その日の予約を確認</p>
+      <a class="open" href="sp-5.html">実物を触ってみる</a>
+    </div>
+  </div>
+</div>
+<footer>※ 各デモのゲスト名・日程はすべて架空のサンプルデータです（金沢の酒蔵ツアーを想定）。<br>関連：<a href="../booking-system-demo/">PC向け実物デモ（元の3案）はこちら</a> ／ <a href="../booking-system-lp/">LP（採用案）はこちら</a></footer>
+</body>
+</html>

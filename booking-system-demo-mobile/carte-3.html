@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>カルテ型 案3 フローティングドック型 | 予約管理デモ（スマホ版）</title>
+<meta property="og:title" content="カルテ型 案3 フローティングドック型 | 予約管理デモ（スマホ版）">
+<meta property="og:description" content="カルテ型デモのスマホ版・フローティングドック型。主要操作を下部の浮いたドックに集約します。">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/booking-system-demo-mobile/og.jpg">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/booking-system-demo-mobile/carte-3.html">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"M PLUS Rounded 1c",sans-serif;color:#221d15;background:#f7f3ec;line-height:1.7;-webkit-text-size-adjust:100%}
+.wrap{max-width:480px;margin:0 auto;padding:14px 12px 132px}
+.note{font-size:12.5px;font-weight:700;color:#5a5245;text-align:center;margin-bottom:12px;line-height:1.75}
+.note b{color:#d9622b}
+.app{background:#fff;border:2.5px solid #221d15;border-radius:20px;overflow:hidden;box-shadow:0 10px 26px rgba(34,29,21,.12)}
+.app-bar{background:#221d15;color:#fff;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:13px;font-weight:800;line-height:1.5}
+.dots{flex:none}.dots span{display:inline-block;width:10px;height:10px;border-radius:50%;margin-left:5px}
+.sec{padding:14px 14px 16px}
+.sec-div{border-top:2px solid #efe9df}
+.cap{font-size:11px;font-weight:800;color:#a08e76;letter-spacing:.1em;margin:2px 2px 10px}
+.guest{display:block;width:100%;text-align:left;font-family:inherit;background:#fbf9f5;border:2px solid #efe9df;border-radius:12px;padding:9px 11px;margin-bottom:8px;cursor:pointer;color:#221d15}
+.guest:last-child{margin-bottom:0}
+.guest.on{background:#fff;border-color:#221d15}
+.guest .nm{font-size:13.5px;font-weight:800;line-height:1.5}
+.guest .mt{font-size:11.5px;color:#8a7d68;line-height:1.55}
+.warnflag{color:#c22e2e;font-weight:800}
+.badge{display:inline-block;font-size:10px;font-weight:800;line-height:1.6;color:#fff;border-radius:6px;padding:1px 7px;margin-left:5px;vertical-align:middle;white-space:nowrap}
+.b-viator{background:#00a699}.b-own{background:#d9622b}.b-byfood{background:#7c5cbf}.b-airbnb{background:#ff5a5f}
+.carte-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.carte-head .name{font-size:19px;font-weight:800;line-height:1.4}
+.status{display:inline-flex;align-items:center;background:#e7f6ec;color:#157347;font-weight:800;font-size:12px;line-height:1.5;border-radius:999px;padding:3px 12px;white-space:nowrap}
+.status.new{background:#fdeee3;color:#d9622b}
+.rows{margin-top:12px;border-top:2px dashed #e7dfd2}
+.row{display:grid;grid-template-columns:52px 1fr;gap:10px;padding:9px 0;border-bottom:2px dashed #e7dfd2;font-size:13.5px}
+.row .k{color:#a08e76;font-weight:800;font-size:12px;padding-top:2px}
+.alert{margin-top:14px;background:#fff7e8;border:2px solid #e8a13a;border-radius:12px;padding:10px 14px;font-size:13px;font-weight:700;line-height:1.7}
+.alert.ok{background:#eefaf1;border-color:#3cb371}
+.alert.big{font-size:14px;padding:14px 16px}
+.subnote{font-size:12.5px;color:#5a5245;margin-top:12px;line-height:1.8}
+.next{margin-top:12px;background:#221d15;color:#fff;border-radius:12px;padding:12px 16px;font-size:13.5px;line-height:1.7}
+.next b{color:#ffb27a}
+.next.big{font-size:14.5px;padding:16px 18px}
+footer{margin:12px auto 0;font-size:11.5px;color:#a08e76;text-align:center;line-height:1.7}
+.view{display:none}.view.on{display:block}
+.bbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);z-index:50}
+.tabbar{background:#fff;border-top:2.5px solid #221d15;display:flex}
+.tabbar button{flex:1;background:none;border:none;font-family:inherit;font-size:11.5px;font-weight:800;color:#a08e76;padding:8px 0 12px;cursor:pointer;position:relative;line-height:1.4}
+.tabbar button .ic{display:block;font-size:19px;line-height:1.3}
+.tabbar button.on{color:#221d15}
+.tabbar .dot{position:absolute;top:7px;right:calc(50% - 17px);width:9px;height:9px;border-radius:50%;background:#c22e2e;display:none}
+.actionbar{background:#221d15;color:#fff;display:flex;align-items:center;gap:12px;padding:12px 14px calc(12px + env(safe-area-inset-bottom))}
+.actionbar.warn{box-shadow:inset 0 3px 0 #c22e2e}
+.ab-txt{flex:1;min-width:0}
+.ab-cap{display:block;font-size:10.5px;font-weight:800;color:#ffb27a;letter-spacing:.08em}
+.ab-next{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:12.5px;font-weight:700;line-height:1.5}
+.ab-btn{flex:none;background:#d9622b;color:#fff;border:none;font-family:inherit;font-size:13.5px;font-weight:800;border-radius:999px;padding:12px 18px;cursor:pointer;min-height:44px}
+.dockwrap{padding:0 14px calc(12px + env(safe-area-inset-bottom));pointer-events:none}
+.dockin{pointer-events:auto;background:#fff;border:2px solid #221d15;border-radius:999px;box-shadow:0 10px 24px rgba(34,29,21,.25);display:flex;padding:6px}
+.dockin button{flex:1;background:none;border:none;font-family:inherit;font-size:10.5px;font-weight:800;color:#5a5245;padding:7px 0 8px;cursor:pointer;line-height:1.35;border-radius:999px}
+.dockin button .ic{display:block;font-size:17px;line-height:1.25}
+.dockin button:active{background:#f7f3ec}
+.sumbar{background:#221d15;color:#fff;border:none;width:100%;font-family:inherit;display:flex;align-items:center;gap:10px;text-align:left;padding:12px 16px calc(12px + env(safe-area-inset-bottom));cursor:pointer}
+.sumbar .sb-main{flex:1;min-width:0}
+.sumbar .sb-name{display:block;font-size:14.5px;font-weight:800;line-height:1.45;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sumbar .sb-meta{display:block;font-size:11.5px;color:#cfc6b8;line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sumbar .sb-open{flex:none;background:#d9622b;color:#fff;font-size:12.5px;font-weight:800;border-radius:999px;padding:9px 14px;line-height:1.4}
+.overlay{position:fixed;inset:0;background:rgba(34,29,21,.45);opacity:0;pointer-events:none;transition:opacity .3s;z-index:60}
+.overlay.on{opacity:1;pointer-events:auto}
+.sheet{position:fixed;bottom:0;left:50%;transform:translate(-50%,106%);width:min(480px,100%);max-height:84vh;overflow-y:auto;background:#fff;border:2.5px solid #221d15;border-bottom:none;border-radius:20px 20px 0 0;z-index:61;transition:transform .32s ease;padding:8px 16px 26px}
+.sheet.on{transform:translate(-50%,0)}
+.sheet .grab{width:44px;height:5px;border-radius:99px;background:#ddd3c2;margin:4px auto 8px}
+.sheet-hd{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.sheet-hd .t{font-size:13px;font-weight:800;color:#a08e76;letter-spacing:.08em}
+.sheet-hd button{background:#f7f3ec;border:2px solid #efe9df;width:38px;height:38px;border-radius:50%;font-size:15px;cursor:pointer;color:#221d15;flex:none}
+.stepbar{background:#fff;border-top:2.5px solid #221d15;display:flex;align-items:center;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom))}
+.stepbar .nav{flex:none;background:#221d15;color:#fff;border:none;font-family:inherit;font-size:13px;font-weight:800;border-radius:999px;padding:11px 16px;cursor:pointer;min-height:44px}
+.stepbar .nav:disabled{background:#ddd3c2;color:#a08e76;cursor:default}
+.step-mid{flex:1;text-align:center;min-width:0}
+.step-count{font-size:13px;font-weight:800;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.step-dots{margin-top:3px;line-height:1}
+.step-dots i{display:inline-block;width:7px;height:7px;border-radius:50%;background:#ddd3c2;margin:0 2.5px}
+.step-dots i.on{background:#d9622b}
+.posline{font-size:12px;font-weight:800;color:#a08e76;letter-spacing:.06em;margin:2px 2px 8px}
+
+</style>
+</head>
+<body>
+
+<div class="wrap" style="padding-bottom:150px">
+<p class="note">実物デモ カルテ型 案3 ― <b>フローティングドック型</b>：下の浮いたドックから、一覧・照合・次の一手へ飛べます</p>
+<div class="app">
+<div class="app-bar"><span>予約カルテ ― これからの予約</span><span class="dots"><span style="background:#ff5f57"></span><span style="background:#febc2e"></span><span style="background:#28c840"></span></span></div>
+<div class="sec" id="listSec"><div class="cap">これからのゲスト</div><div id="guestList"></div></div>
+<div class="sec sec-div" id="carteSec"><div class="cap">カルテ</div><div id="carteBox"></div></div>
+</div>
+<footer>※ 叩き台デモです。ゲスト名・日程はすべて架空のサンプルデータです（金沢の酒蔵ツアーを想定）。</footer>
+</div>
+<div class="dockwrap bbar"><div class="dockin">
+<button data-act="list"><span class="ic">📋</span>一覧</button>
+<button data-act="check"><span class="ic">⚠️</span>照合</button>
+<button data-act="next"><span class="ic">➜</span>次の一手</button>
+<button data-act="advance"><span class="ic">👤</span>次のゲスト</button>
+</div></div>
+
+<script>
+
+const GUESTS=[
+ {name:"Emma Wilson 様", ch:"viator", chName:"Viator", status:"新着",
+  meta:"12/3（木）10:00 ・ 2名",
+  date:"12月3日（木）10:00〜12:30 ・ 酒蔵ツアー", people:"大人2名",
+  contact:"事前フォーム回答済み ・ 金沢駅 鼓門前集合",
+  memo:"日本酒は初めて。甘口が好き（事前フォームより）",
+  overlap:null,
+  next:"予約確定の連絡を送る（文面の下書きは用意済み）"},
+ {name:"Liam Chen 様", ch:"byfood", chName:"byFood", status:"確認済み",
+  meta:"12/5（土）10:00 ・ 4名",
+  date:"12月5日（土）10:00〜12:30 ・ 酒蔵ツアー", people:"大人4名",
+  contact:"事前フォーム回答済み ・ ベジタリアン1名",
+  memo:"ベジタリアン対応は酒蔵へ伝達済み",
+  overlap:null,
+  next:"前日リマインドを送る（文面の下書きは用意済み）"},
+ {name:"佐藤 美咲 様", ch:"own", chName:"自社サイト", status:"前日連絡済み",
+  meta:"12/5（土）14:00 ・ 2名",
+  date:"12月5日（土）14:00〜16:30 ・ 酒蔵ツアー", people:"大人2名",
+  contact:"前日連絡済み ・ 日本語対応",
+  memo:"ラベル作りを楽しみにしている",
+  overlap:null,
+  next:"当日の集合場所を最終確認する"},
+ {name:"Sofia Garcia 様", ch:"airbnb", chName:"Airbnb", status:"確認済み",
+  meta:"12/6（日）10:00 ・ 3名",
+  date:"12月6日（日）10:00〜12:30 ・ 酒蔵ツアー", people:"大人3名",
+  contact:"事前フォーム回答済み ・ アレルギーなし",
+  memo:"記念日での参加",
+  overlap:"10:30〜 Noah Brown 様（Viator・2名）の予約と時間が重なっています",
+  next:"重なっている Noah Brown 様の予約と日程を調整する（連絡文の下書きは用意済み）"},
+ {name:"Noah Brown 様", ch:"viator", chName:"Viator", status:"新着",
+  meta:"12/6（日）10:30 ・ 2名",
+  date:"12月6日（日）10:30〜13:00 ・ 酒蔵ツアー", people:"大人2名",
+  contact:"事前フォーム未回答",
+  memo:"Sofia Garcia 様の予約との重なりの解消が先",
+  overlap:"10:00〜 Sofia Garcia 様（Airbnb・3名）の予約と時間が重なっています",
+  next:"Sofia Garcia 様の予約との重なりを調整してから、確定連絡を送る"},
+ {name:"Ava Thompson 様", ch:"byfood", chName:"byFood", status:"新着",
+  meta:"12/8（火）13:00 ・ 5名",
+  date:"12月8日（火）13:00〜15:30 ・ 酒蔵ツアー", people:"大人5名",
+  contact:"事前フォーム未回答",
+  memo:"団体。利き酒用グラスの追加が必要",
+  overlap:null,
+  next:"予約確定の連絡を送る（文面の下書きは用意済み）"},
+ {name:"Oliver Smith 様", ch:"own", chName:"自社サイト", status:"確認済み",
+  meta:"12/10（木）14:00 ・ 2名",
+  date:"12月10日（木）14:00〜16:30 ・ 酒蔵ツアー", people:"大人2名",
+  contact:"事前フォーム回答済み ・ アレルギーなし",
+  memo:"リピーターからの紹介",
+  overlap:null,
+  next:"前日リマインドを送る（文面の下書きは用意済み）"},
+ {name:"Mia Johnson 様", ch:"viator", chName:"Viator", status:"確認済み",
+  meta:"12/12（土）10:00 ・ 6名",
+  date:"12月12日（土）10:00〜12:30 ・ 酒蔵ツアー", people:"大人6名",
+  contact:"事前フォーム回答済み",
+  memo:"子ども1名を含む",
+  overlap:null,
+  next:"前日リマインドを送る（文面の下書きは用意済み）"}
+];
+function badge(g){return `<span class="badge b-${g.ch}">${g.chName}</span>`}
+function headHtml(g){return `<div class="carte-head"><div><span class="name">${g.name}</span>${badge(g)}</div><span class="status${g.status==='新着'?' new':''}">${g.status}</span></div>`}
+function rowsHtml(g){return `<div class="rows"><div class="row"><span class="k">日時</span><span>${g.date}</span></div><div class="row"><span class="k">人数</span><span>${g.people}</span></div><div class="row"><span class="k">連絡</span><span>${g.contact}</span></div><div class="row"><span class="k">メモ</span><span>${g.memo}</span></div></div>`}
+function alertHtml(g,big){return g.overlap
+  ? `<div class="alert${big?' big':''}" id="alertBox">カレンダー照合 ― 重なりあり：${g.overlap}</div>`
+  : `<div class="alert ok${big?' big':''}" id="alertBox">カレンダー照合OK ― この前後に重なる予約はありません</div>`}
+function nextHtml(g,big){return `<div class="next${big?' big':''}" id="nextBox"><b>次の一手：</b>${g.next}</div>`}
+function carteHtml(g){return headHtml(g)+rowsHtml(g)+alertHtml(g)+nextHtml(g)}
+function listHtml(){return GUESTS.map((g,i)=>`<button type="button" class="guest" data-i="${i}"><div class="nm">${g.name}${badge(g)}</div><div class="mt">${g.meta}${g.overlap?' ・ <span class="warnflag">⚠ 重なりあり</span>':''}</div></button>`).join('')}
+function markOn(i){document.querySelectorAll('.guest').forEach((el,j)=>el.classList.toggle('on',j===i))}
+
+let cur=3;
+const guestList=document.getElementById('guestList');
+guestList.innerHTML=listHtml();
+function render(){ markOn(cur); document.getElementById('carteBox').innerHTML=carteHtml(GUESTS[cur]); }
+guestList.querySelectorAll('.guest').forEach(el=>el.addEventListener('click',()=>{cur=+el.dataset.i;render();document.getElementById('carteSec').scrollIntoView({behavior:'smooth'});}));
+function go(id){const el=document.getElementById(id); if(el) el.scrollIntoView({behavior:'smooth',block:'center'});}
+document.querySelectorAll('.dockin button').forEach(b=>b.addEventListener('click',()=>{
+  const a=b.dataset.act;
+  if(a==='list') go('listSec');
+  if(a==='check') go('alertBox');
+  if(a==='next') go('nextBox');
+  if(a==='advance'){ cur=(cur+1)%GUESTS.length; render(); go('carteSec'); }
+}));
+render();
+
+</script>
+</body>
+</html>

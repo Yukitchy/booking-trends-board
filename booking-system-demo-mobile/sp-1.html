@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>スマホファースト型 案1 ボトムタブ型 | 予約管理デモ（スマホ版）</title>
+<meta property="og:title" content="スマホファースト型 案1 ボトムタブ型 | 予約管理デモ（スマホ版）">
+<meta property="og:description" content="スマホファースト型デモのスマホ版・ボトムタブ型。今日／これから／準備を画面下に固定したタブで切り替えます。">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/booking-system-demo-mobile/og.jpg">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/booking-system-demo-mobile/sp-1.html">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Noto Sans JP",sans-serif;background:#f7f5f1;color:#151515;-webkit-font-smoothing:antialiased;line-height:1.7}
+.wrap{max-width:480px;margin:0 auto;padding:14px 12px 132px}
+.note{font-size:12px;color:#555;text-align:center;margin-bottom:12px;font-weight:700;line-height:1.75}
+.note b{color:#e03c31}
+.hd{background:#151515;color:#fff;padding:18px 18px 14px;border-radius:20px;border:2.5px solid #151515}
+.hd .date{font-size:12.5px;opacity:.75}
+.hd h1{font-family:"M PLUS Rounded 1c",sans-serif;font-size:clamp(16.5px,5.2vw,21px);font-weight:800;margin-top:2px;white-space:nowrap;letter-spacing:-.01em;line-height:1.5}
+.hd .sum{margin-top:10px;display:flex;gap:8px}
+.hd .sum div{flex:1;background:#262626;border-radius:12px;padding:8px 6px;text-align:center;font-size:11px;line-height:1.5}
+.hd .sum b{display:block;font-size:18px}
+.body{padding:14px 2px 0}
+.push{background:#fff;border:2px solid #e03c31;border-radius:16px;padding:12px 14px;margin-bottom:12px;cursor:pointer}
+.push .tag{font-size:11px;font-weight:900;color:#e03c31;letter-spacing:.06em}
+.push .main{font-size:14.5px;font-weight:700;margin-top:3px;line-height:1.55}
+.push .sub{font-size:12px;color:#666;margin-top:2px}
+.push.opened{border-color:#bbb}
+.push.opened .tag{color:#888}
+h2{font-size:13px;font-weight:900;letter-spacing:.05em;color:#555;margin:16px 2px 8px}
+.res{background:#fff;border:2px solid #151515;border-radius:16px;padding:12px 14px;margin-bottom:10px}
+.res.warn{border-color:#e03c31}
+.res .row{display:flex;align-items:center;gap:10px}
+.res .time{font-size:17px;font-weight:900;white-space:nowrap}
+.res .guest{font-size:15px;font-weight:700}
+.res .meta{font-size:12.5px;color:#666;margin-top:3px;line-height:1.6}
+.badge{display:inline-flex;align-items:center;font-size:10.5px;font-weight:700;border-radius:6px;padding:4px 8px;line-height:1.3;color:#fff;margin-left:auto;white-space:nowrap;flex:none}
+.b-viator{background:#7a1f3d}.b-byfood{background:#e4572e}.b-own{background:#1d7a5f}.b-airbnb{background:#ff5a5f}
+.check{background:#fff;border:2px solid #151515;border-radius:16px;padding:6px 14px}
+.check label{display:flex;gap:11px;align-items:flex-start;padding:11px 0;border-bottom:1.5px dashed #ddd;font-size:14px;cursor:pointer;line-height:1.5}
+.check label:last-child{border-bottom:none}
+.check input{width:20px;height:20px;margin-top:1px;accent-color:#1d7a5f;flex:none}
+.check label.done span{color:#999;text-decoration:line-through}
+.prog{height:9px;background:#e7e3da;border-radius:99px;overflow:hidden;margin:10px 2px 2px}
+.prog i{display:block;height:100%;background:#1d7a5f;width:0;transition:width .3s}
+.progtxt{font-size:12px;color:#555;margin:5px 2px 0}
+.warnbox{background:#fff1f0;border:1.5px solid #e03c31;color:#a02015;border-radius:12px;padding:10px 14px;font-size:13px;font-weight:700;line-height:1.65;margin-bottom:10px}
+footer{margin:12px auto 0;font-size:11.5px;color:#8a929c;text-align:center;line-height:1.7}
+.view{display:none}.view.on{display:block}
+.bbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);z-index:50}
+.tabbar{display:flex;border-top:2.5px solid #151515;background:#fff}
+.tabbar button{flex:1;font-family:inherit;background:none;border:none;padding:10px 0 13px;font-size:12.5px;font-weight:700;color:#999;cursor:pointer;line-height:1.35}
+.tabbar button.on{color:#151515}
+.tabbar button .n{display:block;font-size:17px;line-height:1.2;margin-bottom:2px}
+.actionbar{background:#151515;color:#fff;display:flex;align-items:center;gap:12px;padding:12px 14px calc(12px + env(safe-area-inset-bottom))}
+.ab-txt{flex:1;min-width:0}
+.ab-cap{display:block;font-size:10.5px;font-weight:800;color:#8fd8bd;letter-spacing:.08em}
+.ab-prog{display:block;height:8px;background:#333;border-radius:99px;overflow:hidden;margin-top:5px}
+.ab-prog i{display:block;height:100%;background:#3cb371;width:0;transition:width .3s}
+.ab-count{flex:none;font-size:14px;font-weight:800;white-space:nowrap}
+.ab-btn{flex:none;background:#1d7a5f;color:#fff;border:none;font-family:inherit;font-size:13.5px;font-weight:800;border-radius:999px;padding:12px 18px;cursor:pointer;min-height:44px}
+.dockwrap{padding:0 14px calc(12px + env(safe-area-inset-bottom));pointer-events:none}
+.dockin{pointer-events:auto;background:#fff;border:2px solid #151515;border-radius:999px;box-shadow:0 10px 24px rgba(21,21,21,.25);display:flex;padding:6px}
+.dockin button{flex:1;background:none;border:none;font-family:inherit;font-size:10.5px;font-weight:700;color:#666;padding:7px 0 8px;cursor:pointer;line-height:1.35;border-radius:999px}
+.dockin button .ic{display:block;font-size:17px;line-height:1.25}
+.dockin button:active{background:#f7f5f1}
+.sumbar{background:#151515;color:#fff;border:none;width:100%;font-family:inherit;display:flex;align-items:center;gap:10px;text-align:left;padding:12px 16px calc(12px + env(safe-area-inset-bottom));cursor:pointer}
+.sumbar .sb-main{flex:1;min-width:0}
+.sumbar .sb-name{display:block;font-size:14.5px;font-weight:800;line-height:1.45;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sumbar .sb-meta{display:block;font-size:11.5px;color:#cfd4da;line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sumbar .sb-open{flex:none;background:#1d7a5f;color:#fff;font-size:12.5px;font-weight:800;border-radius:999px;padding:9px 14px;line-height:1.4}
+.overlay{position:fixed;inset:0;background:rgba(21,21,21,.45);opacity:0;pointer-events:none;transition:opacity .3s;z-index:60}
+.overlay.on{opacity:1;pointer-events:auto}
+.sheet{position:fixed;bottom:0;left:50%;transform:translate(-50%,106%);width:min(480px,100%);max-height:84vh;overflow-y:auto;background:#f7f5f1;border:2.5px solid #151515;border-bottom:none;border-radius:20px 20px 0 0;z-index:61;transition:transform .32s ease;padding:8px 16px 26px}
+.sheet.on{transform:translate(-50%,0)}
+.sheet .grab{width:44px;height:5px;border-radius:99px;background:#ddd;margin:4px auto 8px}
+.sheet-hd{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+.sheet-hd .t{font-size:13px;font-weight:900;color:#555;letter-spacing:.08em}
+.sheet-hd button{background:#fff;border:2px solid #e3e0d9;width:38px;height:38px;border-radius:50%;font-size:15px;cursor:pointer;color:#151515;flex:none}
+.stepbar{background:#fff;border-top:2.5px solid #151515;display:flex;align-items:center;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom))}
+.stepbar .nav{flex:none;background:#151515;color:#fff;border:none;font-family:inherit;font-size:13px;font-weight:800;border-radius:999px;padding:11px 16px;cursor:pointer;min-height:44px}
+.stepbar .nav:disabled{background:#ddd;color:#a39e93;cursor:default}
+.step-mid{flex:1;text-align:center;min-width:0}
+.step-count{font-size:13px;font-weight:800;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.step-date{font-size:11px;color:#8a929c;font-weight:700;line-height:1.4;white-space:nowrap}
+
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<p class="note">実物デモ スマホファースト型 案1 ― <b>ボトムタブ型</b>：今日／これから／準備を、画面下に固定したタブで切り替えます</p>
+<div class="hd">
+<div class="date">2026年12月3日（木）</div>
+<h1>おはようございます、ちほりさん</h1>
+<div class="sum">
+<div><b>1件</b>今日のツアー</div>
+<div><b>3件</b>新着の予約</div>
+<div><b>1件</b>⚠ 重なり警告</div>
+</div>
+</div>
+<div class="body">
+<div class="view on" id="v-today">
+<div class="push" id="push" onclick="this.classList.add('opened')">
+<div class="tag">🔔 新着の予約（タップで既読）</div>
+<div class="main">Ava Thompson 様 / 5名<br>12/8（火）13:00 酒蔵ツアー</div>
+<div class="sub">byFood から 8:42 に入りました</div>
+</div>
+<h2>今日の予約</h2>
+<div class="res">
+<div class="row"><span class="time">10:00</span><span class="guest">Emma Wilson</span><span class="badge b-viator">Viator</span></div>
+<div class="meta">2名 / 英語 / 金沢駅 鼓門前集合<br>メモ：日本酒は初めて。甘口が好き</div>
+</div>
+</div>
+<div class="view" id="v-week">
+<h2>これからの予約</h2>
+<div class="res"><div class="row"><span class="time">12/5</span><span class="guest">Liam Chen</span><span class="badge b-byfood">byFood</span></div><div class="meta">10:00 / 4名 / 確認済み</div></div>
+<div class="res"><div class="row"><span class="time">12/5</span><span class="guest">佐藤 美咲</span><span class="badge b-own">自社サイト</span></div><div class="meta">14:00 / 2名 / 前日連絡済み</div></div>
+<div class="res warn"><div class="row"><span class="time">12/6</span><span class="guest">Sofia Garcia</span><span class="badge b-airbnb">Airbnb</span></div><div class="meta">10:00 / 3名 / ⚠ 10:30の予約と重なっています</div></div>
+<div class="res warn"><div class="row"><span class="time">12/6</span><span class="guest">Noah Brown</span><span class="badge b-viator">Viator</span></div><div class="meta">10:30 / 2名 / 新着・要対応</div></div>
+<div class="res"><div class="row"><span class="time">12/8</span><span class="guest">Ava Thompson</span><span class="badge b-byfood">byFood</span></div><div class="meta">13:00 / 5名 / 新着</div></div>
+<div class="res"><div class="row"><span class="time">12/10</span><span class="guest">Oliver Smith</span><span class="badge b-own">自社サイト</span></div><div class="meta">14:00 / 2名 / 確認済み</div></div>
+<div class="res"><div class="row"><span class="time">12/12</span><span class="guest">Mia Johnson</span><span class="badge b-viator">Viator</span></div><div class="meta">10:00 / 6名 / 確認済み</div></div>
+</div>
+<div class="view" id="v-prep">
+<h2>明後日 12/5 の準備</h2>
+<div class="check" id="checks">
+<label><input type="checkbox"><span>Liam Chen 様（4名）へ前日連絡を送る</span></label>
+<label><input type="checkbox"><span>ベジタリアン対応を酒蔵へ伝える</span></label>
+<label><input type="checkbox"><span>利き酒用グラスを8脚用意する</span></label>
+<label><input type="checkbox"><span>ラベル作りの台紙を補充する</span></label>
+</div>
+<div class="prog"><i id="bar"></i></div>
+<p class="progtxt" id="progtxt">準備 0 / 4</p>
+</div>
+</div>
+<footer>※ 叩き台デモです。ゲスト名・日程はすべて架空のサンプルデータです（金沢の酒蔵ツアーを想定）。</footer>
+</div>
+<div class="tabbar bbar">
+<button class="on" data-v="v-today"><span class="n">🏠</span>今日</button>
+<button data-v="v-week"><span class="n">📅</span>これから</button>
+<button data-v="v-prep"><span class="n">☑</span>準備</button>
+</div>
+
+<script>
+
+function initChecks(extra){
+  const boxes=document.querySelectorAll('#checks input'),bar=document.getElementById('bar'),txt=document.getElementById('progtxt');
+  function upd(){
+    const n=[...boxes].filter(b=>b.checked).length;
+    if(bar) bar.style.width=(n/boxes.length*100)+'%';
+    if(txt) txt.textContent=`準備 ${n} / ${boxes.length}`+(n===boxes.length?' ― 完了です 🎉':'');
+    boxes.forEach(b=>b.closest('label').classList.toggle('done',b.checked));
+    if(extra) extra(n,boxes.length);
+  }
+  boxes.forEach(b=>b.addEventListener('change',upd)); upd();
+}
+
+initChecks();
+document.querySelectorAll('.tabbar button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.tabbar button').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('.view').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');document.getElementById(b.dataset.v).classList.add('on');
+  window.scrollTo(0,0);
+}));
+
+</script>
+</body>
+</html>
