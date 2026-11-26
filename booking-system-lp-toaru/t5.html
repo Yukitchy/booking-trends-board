@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>案5 余白ミニマル型 | 予約管理一元化の仕組みづくり（toaruデザイン）</title>
+<meta name="description" content="予約管理システム一元化の制作代行LP。toaruデザイン案5。スマホ版の実物デモ15案で完成形を比べられます。">
+<meta property="og:title" content="案5 余白ミニマル型 | 予約管理一元化の仕組みづくり（toaruデザイン）">
+<meta property="og:description" content="予約管理システム一元化の制作代行LP。toaruデザイン案5。スマホ版の実物デモ15案で完成形を比べられます。">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/booking-system-lp-toaru/og.jpg">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/booking-system-lp-toaru/t5.html">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500;600;700&family=Noto+Serif+JP:wght@600;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FDFCF9; --ink:#393939; --terra:#AE582D; --terra-l:#D78B65;
+  --moss:#8BA75F; --moss-d:#5F733F; --deep:#28311B;
+  --gold:#CBBF97; --gold-d:#9D8B4F; --gold-x:#997601;
+  --line:#E6DCC8; --soft:#8A7D68; --paper:#FFFFFF;
+  --f-body:"YuGothic","游ゴシック体","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+  --f-min:"YuMincho","游明朝体","Hiragino Mincho ProN","Noto Serif JP",serif;
+  --f-en:"Raleway",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--f-body);color:var(--ink);background:var(--bg);line-height:1.8;overflow-x:hidden}
+.en{font-family:var(--f-en);letter-spacing:.18em}
+
+:root{--acc:#997601}
+
+.wrap{max-width:760px;margin:0 auto;padding:0 22px}
+header.top{padding:20px 0;border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.brand{font-size:14px;font-weight:500;letter-spacing:.06em}.brand span{color:var(--gold-x)}
+.plan-no{font-family:var(--f-en);font-size:11px;font-weight:600;letter-spacing:.16em;color:var(--gold-x)}
+.hero{padding:76px 0 20px}
+.kicker{font-family:var(--f-en);font-size:11px;font-weight:600;letter-spacing:.34em;color:var(--gold-x)}
+.hero h1{font-family:var(--f-min);font-size:clamp(30px,6.6vw,48px);font-weight:700;line-height:1.45;margin:20px 0 8px}
+.hero h1 .ac{color:var(--terra)}
+.lead{margin-top:18px;font-size:15px;color:#5d564a;max-width:560px}
+section{padding:40px 0;border-top:1px solid var(--line);margin-top:44px}
+.sec-label{font-family:var(--f-en);font-size:11px;font-weight:600;letter-spacing:.3em;color:var(--gold-x);margin-bottom:10px}
+h2{font-family:var(--f-min);font-size:clamp(20px,4.2vw,26px);font-weight:700;margin-bottom:24px}
+.pt{padding:14px 0;border-bottom:1px solid #EFE8D8}
+.pt:last-child{border-bottom:none}
+.pt h3{font-size:15.5px;font-weight:700}
+.pt h3::before{content:"";display:inline-block;width:8px;height:8px;background:var(--gold);border-radius:50%;margin-right:10px;vertical-align:2px}
+.pt h3 .tag{color:var(--terra)}
+.pt p{font-size:13.5px;color:#5d564a;margin-top:4px;padding-left:18px}
+.price-line{font-family:var(--f-min);font-size:clamp(30px,6vw,42px);font-weight:700}
+.price-line small{font-size:.45em;color:#5d564a}
+.proof{font-size:13px;color:#5d564a;margin-top:10px}
+.scope{margin-top:20px}
+.scope li{font-size:14px;margin-left:18px;margin-bottom:5px}
+.cta{padding:10px 0 64px;text-align:center}
+.cta a{display:inline-block;background:transparent;color:var(--gold-x);border:1.5px solid var(--gold-x);font-weight:700;font-size:16px;text-decoration:none;padding:14px 44px;border-radius:999px}
+.cta p{font-size:12.5px;color:var(--soft);margin-top:14px}
+footer{border-top:1px solid var(--line);padding:20px 0 28px;font-size:12px;color:var(--soft);text-align:center}
+.demo-frame{border:1px solid var(--gold-d)}
+
+
+.demo-box{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:26px 24px;box-shadow:0 10px 30px rgba(40,49,27,.06)}
+.demo-lead{font-size:14px;color:#5d564a;margin-bottom:18px}
+.demo-fams{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.demo-nums{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.dfam,.dnum{font-family:var(--f-body);cursor:pointer;border-radius:999px;line-height:1.5;color:var(--ink)}
+.dfam{font-size:13.5px;font-weight:700;background:var(--bg);border:1.5px solid var(--line);padding:8px 16px}
+.dnum{font-size:12.5px;font-weight:700;background:#fff;border:1.5px solid var(--line);padding:6px 13px}
+.dfam.is-on{background:var(--acc);border-color:var(--acc);color:#fff}
+.dnum.is-on{background:var(--deep);border-color:var(--deep);color:#fff}
+.demo-cap{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:14px;font-weight:700;margin-bottom:12px}
+.demo-open{display:inline-flex;align-items:center;min-height:44px;padding:9px 24px;background:var(--acc);color:#fff;font-size:15px;font-weight:700;white-space:nowrap;text-decoration:none;border-radius:999px}
+.demo-frame{border:2px solid var(--deep);border-radius:16px;overflow:hidden;background:#fff;max-width:480px;margin:0 auto}
+.demo-frame iframe{width:100%;height:660px;border:none;display:block}
+.demo-note{font-size:11.5px;color:var(--soft);margin-top:12px}
+.demo-ask{font-size:14.5px;font-weight:700;margin-top:14px;line-height:1.9}
+@media (max-width:720px){.demo-box{padding:20px 14px}.demo-frame iframe{height:600px}}
+
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <div class="brand">予約一元管理 <span>制作代行</span></div>
+  <div class="plan-no">PLAN 5 / TOARU</div>
+</div></header>
+
+<div class="hero"><div class="wrap">
+  <div class="kicker">BOOKING MANAGEMENT</div>
+  <h1>予約は、<span class="ac">静かに</span>整う。</h1>
+  <p class="lead">どのサイトから入った予約も、ゲストごとのカルテに自動で集まります。私が自分のツアー事業で毎日使っている一元管理の仕組みを、あなたの事業にも作ります。</p>
+</div></div>
+
+<section><div class="wrap">
+  <div class="sec-label">POINTS</div>
+  <h2>カルテで、ここが変わる</h2>
+  <div class="pt"><h3><span class="tag">経路バッジ</span> ひと目で分かる</h3><p>Viator・byFood・Airbnb・自社サイト。どの経路の予約か、カルテを開けばすぐ分かります。</p></div><div class="pt"><h3><span class="tag">二重予約</span> を先回り</h3><p>予約はGoogleカレンダーと連携。重なりがあれば、受ける前に気づけます。</p></div><div class="pt"><h3><span class="tag">新着通知</span> 見落とさない</h3><p>新しい予約が入ったらすぐ通知。メールを掘り返す作業から解放されます。</p></div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-label">DEMO</div>
+  <h2>実物の画面で比べる</h2>
+  
+  <div class="demo-box">
+    <p class="demo-lead">完成形の画面イメージを、スマホ版の実物デモ15案で用意しました。系統と案番号を切り替えて、操作感を比べてください。</p>
+    <div class="demo-fams">
+      <button type="button" class="dfam is-on" data-fam="carte">カルテ型</button>
+      <button type="button" class="dfam" data-fam="cal">カレンダー中心型</button>
+      <button type="button" class="dfam" data-fam="sp">スマホファースト型</button>
+    </div>
+    <div class="demo-nums"><button type="button" class="dnum is-on" data-n="1">1 ボトムタブ</button><button type="button" class="dnum" data-n="2">2 固定バー</button><button type="button" class="dnum" data-n="3">3 ドック</button><button type="button" class="dnum" data-n="4">4 ボトムシート</button><button type="button" class="dnum" data-n="5">5 ステップ</button></div>
+    <p class="demo-cap"><span id="demoCapText">カルテ型 案1 ― ボトムタブ型</span><a class="demo-open" id="demoOpen" href="demo15/carte-1.html" target="_blank" rel="noopener">実物を触ってみる</a></p>
+    <div class="demo-frame"><iframe id="demoFrame" src="demo15/carte-1.html" title="実物デモ（スマホ版）"></iframe></div>
+    <p class="demo-note">※ デモは画面イメージです。実際の画面は事業内容に合わせて作ります。</p>
+    <p class="demo-ask">完成形は、この15の形から選んで作ります。あなたの事業には、どの形が合いそうですか？<br>下の相談窓口から聞くときに、希望の形もあわせて教えてください。</p>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-label">PRICE</div>
+  <h2>料金と、含まれるもの</h2>
+  <div class="price-line">¥30,000<small> 一式</small></div>
+  <p class="proof">金沢の酒蔵ツアー「株式会社あるところに（toaru）」さまにも導入した仕組みです</p>
+  <ul class="scope"><li>自社サイトの申し込みフォーム＋Stripe決済の接続</li><li>各予約サイトの予約を集める一元管理カルテ</li><li>Googleカレンダー連携・二重予約チェック</li><li>会社のGoogleアカウントで管理し、複数人で見られる形</li></ul>
+</div></section>
+
+<div class="cta"><div class="wrap">
+  <a href="#">うちの事業でもできる？と聞く</a>
+  <p>進め方：内容の確認 → 情報の受け渡し → 制作 → 動作確認ミーティング</p>
+</div></div>
+
+<footer>Anime Sensei / 市原佑樹 ― AIコンサル・仕組みづくり<br>このページはLP案（toaruデザイン 案5）です</footer>
+
+<script>
+(function(){
+  var FAMS={carte:"カルテ型",cal:"カレンダー中心型",sp:"スマホファースト型"};
+  var NUMS={1:"ボトムタブ型",2:"固定アクションバー型",3:"フローティングドック型",4:"ボトムシート型",5:"ステップナビ型"};
+  var fam="carte",num="1";
+  var frame=document.getElementById('demoFrame'),cap=document.getElementById('demoCapText'),open=document.getElementById('demoOpen');
+  function upd(){
+    var src="demo15/"+fam+"-"+num+".html";
+    if(frame.getAttribute('src')!==src){frame.setAttribute('src',src);}
+    cap.textContent=FAMS[fam]+" 案"+num+" ― "+NUMS[num];
+    open.setAttribute('href',src);
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('.dfam'),function(b){
+    b.addEventListener('click',function(){
+      Array.prototype.forEach.call(document.querySelectorAll('.dfam'),function(x){x.classList.remove('is-on');});
+      b.classList.add('is-on');fam=b.getAttribute('data-fam');upd();
+    });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('.dnum'),function(b){
+    b.addEventListener('click',function(){
+      Array.prototype.forEach.call(document.querySelectorAll('.dnum'),function(x){x.classList.remove('is-on');});
+      b.classList.add('is-on');num=b.getAttribute('data-n');upd();
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
