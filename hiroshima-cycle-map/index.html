@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>広島シェアサイクル移動マップ — 2026.11.27</title>
+<meta property="og:title" content="広島シェアサイクル移動マップ">
+<meta property="og:description" content="広島駅→サウナ→美容室→映画館→ホテルをシェアサイクルで回る1日の地図">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/hiroshima-solo-day/og.jpg">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/hiroshima-cycle-map/">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;background:#F5F0E6;color:#1D1A16;}
+  header{padding:16px 18px 10px;}
+  header .kicker{font-size:11px;font-weight:800;letter-spacing:.14em;color:#C73E2C;}
+  header h1{font-size:24px;font-weight:900;margin-top:2px;}
+  header p{font-size:12.5px;color:#5A5348;margin-top:4px;}
+  #map{height:52vh;min-height:340px;border-top:2px solid #1D1A16;border-bottom:2px solid #1D1A16;}
+  .pin{background:#1D1A16;color:#fff;border:2px solid #fff;border-radius:50%;width:30px;height:30px;line-height:26px;text-align:center;font-weight:900;font-size:14px;box-shadow:0 1px 5px rgba(0,0,0,.4);}
+  main{max-width:680px;margin:0 auto;padding:16px 16px 40px;}
+  .leg{background:#fff;border:2px solid #1D1A16;border-radius:16px;padding:13px 15px;margin-top:12px;}
+  .leg .lt{font-size:15px;font-weight:900;}
+  .leg .lm{font-size:12px;color:#C73E2C;font-weight:800;margin-top:2px;}
+  .leg p{font-size:12.5px;color:#3E382E;margin-top:5px;line-height:1.6;}
+  .port{font-size:11.5px;background:#FBF6EA;border:1.5px dashed #B9AE97;border-radius:10px;padding:7px 10px;margin-top:8px;color:#6B6252;}
+  footer{max-width:680px;margin:0 auto;padding:0 16px 34px;font-size:11px;color:#8A8172;}
+</style>
+</head>
+<body>
+<header>
+  <div class="kicker">HIROSHIMA ・ SHARE CYCLE ・ 2026.11.27 FRI</div>
+  <h1>シェアサイクルで回る広島</h1>
+  <p>広島駅 → グランドサウナ → 美容室 → 映画館 → ホテル。自転車の所要時間は目安。</p>
+</header>
+<div id="map"></div>
+<main>
+  <div class="leg"><div class="lt">① 広島駅 → ② グランドサウナ広島（薬研堀）</div><div class="lm">自転車 約11分 ・ 2.6km</div><p>駅を出て南へ。相生通りを進んで薬研堀へ。</p><div class="port">ポート：調査結果を反映中</div></div>
+  <div class="leg"><div class="lt">② グランドサウナ → ③ 美容室 Gaudi（光町）</div><div class="lm">自転車 約12分 ・ 2.8km</div><p>サウナでゆっくりしたあと、駅方面へ戻る。</p><div class="port">ポート：調査結果を反映中</div></div>
+  <div class="leg"><div class="lt">③ 美容室 Gaudi → ④ 広島バルト11（イオンモール広島府中）</div><div class="lm">自転車 約10分 ・ 2.2km</div><p>カットが終わったら東へまっすぐ。14:00のIMAXに合わせて。</p><div class="port">ポート：調査結果を反映中</div></div>
+  <div class="leg"><div class="lt">④ 広島バルト11 → ⑤ Hotel HAGOROMO（羽衣町）</div><div class="lm">自転車 約19分 ・ 4.6km</div><p>映画のあと、チェックインへ。市内中心部を抜けて羽衣町へ。</p><div class="port">ポート：調査結果を反映中</div></div>
+</main>
+<footer>ポート情報と料金は調査が終わり次第このページに反映します。</footer>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  var stops = [
+    {n:1, name:"広島駅", ll:[34.4022,132.4758]},
+    {n:2, name:"グランドサウナ広島", ll:[34.3928,132.4650]},
+    {n:3, name:"美容室 Gaudi", ll:[34.4006,132.4790]},
+    {n:4, name:"広島バルト11", ll:[34.3968,132.4998]},
+    {n:5, name:"Hotel HAGOROMO", ll:[34.3883,132.4598]}
+  ];
+  var map = L.map('map');
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom:19, attribution:'© OpenStreetMap'}).addTo(map);
+  var pts = [];
+  stops.forEach(function(s){
+    var icon = L.divIcon({className:'', html:'<div class="pin">'+s.n+'</div>', iconSize:[30,30], iconAnchor:[15,15]});
+    L.marker(s.ll, {icon:icon}).addTo(map).bindPopup('<b>'+s.n+'. '+s.name+'</b>');
+    pts.push(s.ll);
+  });
+  map.fitBounds(pts, {padding:[36,36]});
+</script>
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>案2 右マップ固定 | 広島ひとり時間</title>
+<meta name="description" content="2026年11月27日、広島でひとり時間を満喫する1日のプラン。サウナ→ヘアカット→ゴジラIMAX→夕方観光→ゆりっぺおむかえ。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="広島ひとり時間 — 2026.11.27 FRI">
+<meta property="og:description" content="バス到着→サウナ→ヘアカット→ゴジラIMAX→チェックイン→夕方観光→21時にゆりっぺおむかえ→バー。動くマップ付き1日プラン。">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/hiroshima-solo-day/">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/hiroshima-solo-day/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' fill='%23C73E2C'/><text x='50' y='66' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>広</text></svg>">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+  :root{
+    --paper:#F7F3EC; --ink:#1D1A16; --muted:#6E675C; --red:#C73E2C; --line:#E3DCCF;
+    --card:#FFFFFF; --chip:#EFE9DC;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--paper);color:var(--ink);font-family:"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;-webkit-font-smoothing:antialiased;}
+  header.hero{padding:22px 18px 14px;max-width:640px;margin:0 auto;}
+  .hero .date{font-size:12px;letter-spacing:.22em;color:var(--red);font-weight:700;}
+  .hero h1{font-size:30px;line-height:1.25;margin:6px 0 8px;font-weight:800;letter-spacing:.02em;}
+  .hero p{font-size:13.5px;line-height:1.8;color:var(--muted);}
+  .hero .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;}
+  .hero .chips span{background:var(--chip);border:1px solid var(--line);border-radius:999px;padding:5px 11px;font-size:11.5px;font-weight:600;}
+  #mapwrap{position:sticky;top:0;z-index:50;height:44vh;min-height:260px;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);background:#DDD6C6;}
+  #map{width:100%;height:100%;}
+  .maphint{position:absolute;right:10px;bottom:10px;z-index:600;background:rgba(29,26,22,.82);color:#fff;font-size:11px;padding:5px 10px;border-radius:999px;pointer-events:none;}
+  main{max-width:640px;margin:0 auto;padding:10px 14px 40px;position:relative;}
+  .rail{position:absolute;left:29px;top:26px;bottom:60px;width:2px;background:var(--line);}
+  .stop{position:relative;margin:14px 0 14px 0;padding-left:44px;scroll-margin-top:48vh;}
+  .stop .dot{position:absolute;left:8px;top:16px;width:28px;height:28px;border-radius:50%;background:var(--card);border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;z-index:2;transition:all .25s;}
+  .stop.active .dot{background:var(--red);border-color:var(--red);color:#fff;transform:scale(1.15);}
+  .card{background:var(--card);border:1.5px solid var(--ink);border-radius:14px;padding:14px 16px;box-shadow:3px 3px 0 rgba(29,26,22,.9);transition:all .25s;}
+  .stop.active .card{border-color:var(--red);box-shadow:3px 3px 0 var(--red);}
+  .time{display:inline-block;background:var(--ink);color:#fff;font-size:12px;font-weight:700;letter-spacing:.06em;padding:3px 9px;border-radius:6px;}
+  .stop.active .time{background:var(--red);}
+  .card h2{display:inline;font-size:17.5px;font-weight:800;margin-left:8px;line-height:1.4;}
+  .card .sub{font-size:12px;color:var(--red);font-weight:700;margin-top:6px;letter-spacing:.04em;}
+  .card p{font-size:13.5px;line-height:1.85;margin-top:6px;color:#33302A;}
+  .card p b{color:var(--ink);}
+  .card .note{font-size:12px;color:var(--muted);line-height:1.7;margin-top:6px;}
+  .btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+  .btns a{display:inline-block;text-decoration:none;font-size:12.5px;font-weight:700;padding:8px 13px;border-radius:999px;border:1.5px solid var(--ink);color:var(--ink);background:var(--paper);}
+  .btns a.primary{background:var(--red);border-color:var(--red);color:#fff;}
+  footer{max-width:640px;margin:0 auto;padding:0 18px 34px;font-size:11.5px;color:var(--muted);line-height:1.8;}
+  .pin{width:30px;height:30px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:#fff;border:2.5px solid var(--ink);display:flex;align-items:center;justify-content:center;transition:all .25s;}
+  .pin span{transform:rotate(45deg);font-size:13px;font-weight:800;color:var(--ink);}
+  .pin.on{background:var(--red);border-color:var(--red);}
+  .pin.on span{color:#fff;}
+  .leaflet-container{font-family:inherit;}
+
+  .tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;}
+  .tile{display:block;background:#211D18;color:#F5EFE3;border-radius:14px;padding:12px 13px;text-decoration:none;}
+  .tile .tag{display:inline-block;background:#C73E2C;color:#fff;font-size:10px;font-weight:800;letter-spacing:.06em;padding:2px 8px;border-radius:999px;}
+  .tile .tname{display:block;font-size:15.5px;font-weight:800;margin-top:7px;line-height:1.3;}
+  .tile .tmeta{display:block;font-size:11.5px;color:#E8C87E;font-weight:700;margin-top:3px;}
+  .tile .tnote{display:block;font-size:11.5px;color:#CFC6B4;margin-top:4px;line-height:1.5;}
+  @media (max-width:480px){.tiles{grid-template-columns:1fr 1fr;gap:8px;}}
+</style>
+<style>/* PC layout variant: 案2 右マップ固定 */@media (min-width:900px){#mapwrap{position:fixed;right:0;top:0;width:44vw;height:100vh;min-height:0;border:none;border-left:2px solid var(--ink);}header.hero, main, footer{margin-right:44vw;}header.hero{max-width:640px;margin-left:auto;}main{max-width:640px;margin-left:auto;}footer{max-width:640px;margin-left:auto;}.stop{scroll-margin-top:24px;}}</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="date">2026.11.27 FRI — HIROSHIMA</div>
+  <h1>広島ひとり時間</h1>
+  <p>夜行バスで朝到着してから、21時にゆりっぺを迎えるまで。サウナでととのい、髪を切り、ゴジラをIMAXで浴びる1日。</p>
+  <div class="chips">
+    <span>🚌 07:35 広島駅着</span><span>🧖 サウナ</span><span>✂️ 10:00 カット予約済</span><span>🦖 14:00 IMAX</span><span>💑 21:00 おむかえ</span>
+  </div>
+</header>
+
+<div id="mapwrap">
+  <div id="map"></div>
+  <div class="maphint">スクロールすると地図がついてくる</div>
+</div>
+
+<main>
+  <div class="rail"></div>
+
+  <section class="stop" data-lat="34.3985" data-lng="132.4755" data-zoom="15">
+    <div class="dot">1</div>
+    <div class="card">
+      <span class="time">07:35</span><h2>広島駅 到着</h2>
+      <div class="sub">WILLER グランドリーム広島1便</div>
+      <p>東京駅21:10発の夜行バスで<b>広島駅新幹線口</b>に到着。予約番号 44588198／座席 10C。まずは身軽になる。</p>
+      <div class="btns"><a href="https://www.google.com/maps/search/?api=1&query=%E5%BA%83%E5%B3%B6%E9%A7%85%E6%96%B0%E5%B9%B9%E7%B7%9A%E5%8F%A3" target="_blank" rel="noopener">Googleマップ</a></div>
+    </div>
+  </section>
+
+  <section class="stop" data-lat="34.3979" data-lng="132.4750" data-zoom="16">
+    <div class="dot">2</div>
+    <div class="card">
+      <span class="time">07:40頃</span><h2>荷物を預ける</h2>
+      <div class="sub">広島駅 コインロッカー</div>
+      <p>大きな荷物は駅のコインロッカーへ。チェックインは15時からだけど、ホテルに寄るのは映画のあとでOK。手ぶらで動く。</p>
+      <p class="note">※ロッカーが満杯のときは新幹線口の手荷物一時預かり所へ。</p>
+    </div>
+  </section>
+
+  <section class="stop" data-lat="34.3928" data-lng="132.4650" data-zoom="15">
+    <div class="dot">3</div>
+    <div class="card">
+      <span class="time">08:10頃</span><h2>サウナでととのう＆作業</h2>
+      <div class="sub">グランドサウナ広島（薬研堀）</div>
+      <p><b>広島駅から路面電車で約10分</b>。早朝サウナ <b>¥1,400</b>（5:00〜12:00）。カプセル型の8階建て施設で、休憩フロアとレストラン、<b>全館Wi-Fiとコンセント完備</b>。風呂上がりにそのまま横になって作業もできる。出発はカットの予約に合わせて。</p>
+      <p class="note">サウナ気分じゃない日は、駅ビル ekie でモーニングに切り替え。</p>
+      <div class="btns">
+        <a class="primary" href="https://www.grand-sauna.com/hiroshima/" target="_blank" rel="noopener">公式サイト</a>
+        <a href="https://www.google.com/maps/search/?api=1&query=%E3%82%B0%E3%83%A9%E3%83%B3%E3%83%89%E3%82%B5%E3%82%A6%E3%83%8A%E5%BA%83%E5%B3%B6" target="_blank" rel="noopener">Googleマップ</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="stop" data-lat="34.4006" data-lng="132.4790" data-zoom="16">
+    <div class="dot">4</div>
+    <div class="card">
+      <span class="time">10:00–10:50</span><h2>ヘアカット</h2>
+      <div class="sub">men's salon Gaudi 広島駅前店（予約確定）</div>
+      <p>メンズカット＋マッサージシャンプー <b>¥3,800</b>（現地払い）。予約番号 <b>BG10195713</b>。東区光町2-7-23 ことぶきビル1F、広島駅徒歩3分。電話 082-207-3386。</p>
+      <div class="btns">
+        <a class="primary" href="https://beauty.hotpepper.jp/CSP/my/reserveStatus/?reserveId=BG10195713" target="_blank" rel="noopener">予約詳細</a>
+        <a href="https://www.google.com/maps/search/?api=1&query=%E3%83%A1%E3%83%B3%E3%82%BA%E3%82%B5%E3%83%AD%E3%83%B3%20Gaudi%20%E5%BA%83%E5%B3%B6%E9%A7%85%E5%89%8D%E5%BA%97" target="_blank" rel="noopener">Googleマップ</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="stop" data-lat="34.3979" data-lng="132.4752" data-zoom="15">
+    <div class="dot">5</div>
+    <div class="card">
+      <span class="time">11:00–13:30</span><h2>ランチ＆移動</h2>
+      <div class="sub">広島駅周辺 → イオンモール広島府中</div>
+      <p>駅周辺で昼ご飯（お好み焼きが本命）。食べたら<b>JRで1駅、天神川駅</b>へ。徒歩5分で広島バルト11に13:30頃には着いておく。</p>
+      <p class="note">広島駅新幹線口からイオンモール広島府中への直通シャトルバス（片道200円）でも行ける。</p>
+    </div>
+  </section>
+
+  <section class="stop" data-lat="34.3968" data-lng="132.4998" data-zoom="15">
+    <div class="dot">6</div>
+    <div class="card">
+      <span class="time">14:00–16:30</span><h2>ゴジラ-0.0 IMAX</h2>
+      <div class="sub">広島バルト11 シアター10</div>
+      <p>『ゴジラ-1.0』の続編をIMAXで。一般 ¥2,200＋IMAX ¥500＝<b>¥2,700</b>。前日夜時点で空席は約9割、中央・後方の良席も選び放題。当日窓口でもオンラインでも買える。</p>
+      <div class="btns">
+        <a class="primary" href="https://tjoy.jp/hiroshima_wald11" target="_blank" rel="noopener">上映スケジュール</a>
+        <a href="https://www.google.com/maps/search/?api=1&query=%E5%BA%83%E5%B3%B6%E3%83%90%E3%83%AB%E3%83%8811" target="_blank" rel="noopener">Googleマップ</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="stop" data-lat="34.3883" data-lng="132.4598" data-zoom="15">
+    <div class="dot">7</div>
+    <div class="card">
+      <span class="time">17:00頃</span><h2>チェックイン</h2>
+      <div class="sub">Hotel HAGOROMO（中区羽衣町6-5）203号室</div>
+      <p>セルフチェックイン。1階のタブレットに<b>事前登録済みのQRコード</b>をかざして、写真撮影と署名。Booking.com予約 5847290482（PIN 6802）／¥22,138 支払済み。</p>
+      <div class="btns">
+        <a class="primary" href="https://drive.google.com/file/d/1HHGVkcteaRwL8ro4rJpunPg70rOY_Nb9/view" target="_blank" rel="noopener">チェックインQR</a>
+        <a href="https://www.google.com/maps/search/?api=1&query=Hotel%20HAGOROMO%20%E5%BA%83%E5%B3%B6%E5%B8%82%E4%B8%AD%E5%8C%BA%E7%BE%BD%E8%A1%A3%E7%94%BA6-5" target="_blank" rel="noopener">Googleマップ</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="stop" data-lat="34.3955" data-lng="132.4536" data-zoom="15">
+    <div class="dot">8</div>
+    <div class="card">
+      <span class="time">17:30–21:00</span><h2>夕方の広島を歩く</h2>
+      <div class="sub">原爆ドーム・平和記念公園 → 本通</div>
+      <p>ホテルから歩いて平和記念公園へ。夕方の原爆ドームと川沿いをゆっくり歩いて、本通アーケードで買い物と軽く腹ごしらえ。21時のおむかえまで自由時間。</p>
+      <div class="btns"><a href="https://www.google.com/maps/search/?api=1&query=%E5%8E%9F%E7%88%86%E3%83%89%E3%83%BC%E3%83%A0" target="_blank" rel="noopener">Googleマップ</a></div>
+    </div>
+  </section>
+
+  <section class="stop" data-lat="34.3985" data-lng="132.4755" data-zoom="15">
+    <div class="dot">9</div>
+    <div class="card">
+      <span class="time">21:00</span><h2>ゆりっぺ おむかえ</h2>
+      <div class="sub">広島駅</div>
+      <p>ここからはふたり時間。駅で合流して、そのまま夜の街へ。</p>
+    </div>
+  </section>
+
+  <section class="stop" data-lat="34.3903" data-lng="132.4633" data-zoom="15">
+    <div class="dot">10</div>
+    <div class="card">
+      <span class="time">21:30頃</span><h2>ふたりでバー</h2>
+      <div class="sub">流川・薬研堀エリア</div>
+      <p>広島の夜の中心地で一杯。ホテル（羽衣町）からも歩ける距離だから、時間を気にせずゆっくり。金曜の営業時間で8軒セレクト（タップでGoogleマップ）。</p>
+      <div class="tiles">
+        <a class="tile" href="https://www.google.com/maps/search/?api=1&query=Bar%20Kirkwall%20%E5%BA%83%E5%B3%B6" target="_blank" rel="noopener"><span class="tag">ウイスキー</span><span class="tname">Bar Kirkwall</span><span class="tmeta">18:00–翌2:00 ・ ★4.9</span><span class="tnote">シングルモルト豊富な本格派。静かなカウンター</span></a>
+        <a class="tile" href="https://www.google.com/maps/search/?api=1&query=%E3%82%A6%E3%83%BC%E3%82%BA%E3%83%90%E3%83%BC%20%E5%BA%83%E5%B3%B6" target="_blank" rel="noopener"><span class="tag">カクテル</span><span class="tname">ウーズバー Oo's bar</span><span class="tmeta">18:00–翌4:00 ・ ★4.5</span><span class="tnote">深夜4時まで。締めの一杯にも</span></a>
+        <a class="tile" href="https://www.google.com/maps/search/?api=1&query=Bar%20Terrace%20%E5%BA%83%E5%B3%B6%20%E6%B5%81%E5%B7%9D" target="_blank" rel="noopener"><span class="tag">テラス</span><span class="tname">Bar Terrace</span><span class="tmeta">19:00–翌5:00 ・ ★4.9</span><span class="tnote">7階テラス席と夜景。朝5時まで</span></a>
+        <a class="tile" href="https://www.google.com/maps/search/?api=1&query=%E3%83%95%E3%83%BC%E3%83%89%E3%83%9A%E3%82%A2%E3%83%AA%E3%83%B3%E3%82%B0%E3%83%90%E3%83%BC%20%E3%83%A6%E3%83%AA%E3%82%A4%E3%82%AB%20%E5%BA%83%E5%B3%B6" target="_blank" rel="noopener"><span class="tag">ペアリング</span><span class="tname">ユリイカ</span><span class="tmeta">17:00–翌3:00 ・ ★4.8</span><span class="tnote">料理と酒のペアリング。チャージなし</span></a>
+        <a class="tile" href="https://www.google.com/maps/search/?api=1&query=bar%20tre%20%E5%BA%83%E5%B3%B6" target="_blank" rel="noopener"><span class="tag">オーセンティック</span><span class="tname">bar tre</span><span class="tmeta">18:00–翌1:00 ・ ★4.6</span><span class="tnote">路地裏の隠れ家。クラフトカクテル</span></a>
+        <a class="tile" href="https://www.google.com/maps/search/?api=1&query=Bar%20UNCOEUR%20%E5%BA%83%E5%B3%B6" target="_blank" rel="noopener"><span class="tag">カクテル</span><span class="tname">Bar UNCOEUR</span><span class="tmeta">17:00–翌1:00 ・ ★4.8</span><span class="tnote">広島産フルーツのカクテル。ホテルに近い</span></a>
+        <a class="tile" href="https://www.google.com/maps/search/?api=1&query=Bar%20Shake%20Drip%20%E5%BA%83%E5%B3%B6" target="_blank" rel="noopener"><span class="tag">カクテル</span><span class="tname">Bar Shake Drip</span><span class="tmeta">17:00–24:00 ・ ★5.0</span><span class="tnote">銀山町の落ち着いた空間。フルーツカクテル</span></a>
+        <a class="tile" href="https://www.google.com/maps/search/?api=1&query=%E3%83%A1%E3%82%A4%E3%83%B3%20%E3%83%90%E3%83%BC%20%E3%83%96%E3%83%A9%E3%83%89%E3%83%BC%E3%83%AB%20%E5%BA%83%E5%B3%B6" target="_blank" rel="noopener"><span class="tag">オーセンティック</span><span class="tname">ブラドール</span><span class="tmeta">18:00–翌2:00 ・ ★4.6</span><span class="tnote">2001年開業の老舗。ウイスキー約80種</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="stop" data-lat="34.3883" data-lng="132.4598" data-zoom="16">
+    <div class="dot">11</div>
+    <div class="card">
+      <span class="time">深夜</span><h2>ホテルへ帰宅</h2>
+      <div class="sub">Hotel HAGOROMO 203号室</div>
+      <p>おつかれさま。明日は BUMP OF CHICKEN（広島グリーンアリーナ、開場17:00／開演18:00）。</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  2026年11月27日（金）の個人プラン。予約確定済み：WILLERバス／Gaudi 10:00（BG10195713）／Hotel HAGOROMO（5847290482）。ゴジラIMAXは当日購入。
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  var stops = Array.prototype.slice.call(document.querySelectorAll('.stop'));
+  var pts = stops.map(function(s){ return [parseFloat(s.dataset.lat), parseFloat(s.dataset.lng)]; });
+  var map = L.map('map', {scrollWheelZoom:false}).setView(pts[0], 15);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom:19, attribution:'© OpenStreetMap'}).addTo(map);
+
+  var markers = pts.map(function(p, i){
+    var icon = L.divIcon({className:'', html:'<div class="pin" id="pin'+i+'"><span>'+(i+1)+'</span></div>', iconSize:[30,30], iconAnchor:[15,28]});
+    var m = L.marker(p, {icon:icon}).addTo(map);
+    m.on('click', function(){ stops[i].scrollIntoView({behavior:'smooth', block:'start'}); });
+    return m;
+  });
+
+  var current = -1;
+  function activate(i){
+    if (i === current) return;
+    current = i;
+    stops.forEach(function(s, j){ s.classList.toggle('active', j === i); });
+    markers.forEach(function(m, j){
+      var el = document.getElementById('pin'+j);
+      if (el) el.classList.toggle('on', j === i);
+    });
+    map.flyTo(pts[i], parseInt(stops[i].dataset.zoom, 10) || 15, {duration:1.1});
+  }
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) activate(stops.indexOf(e.target));
+    });
+  }, {rootMargin:'-52% 0px -38% 0px', threshold:0});
+  stops.forEach(function(s){ io.observe(s); });
+  activate(0);
+</script>
+<script>window.addEventListener('load',function(){setTimeout(function(){try{map.invalidateSize()}catch(e){}},400)});</script></body>
+</html>

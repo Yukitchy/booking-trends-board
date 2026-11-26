@@ -53,6 +53,14 @@
   .pin.on{background:var(--red);border-color:var(--red);}
   .pin.on span{color:#fff;}
   .leaflet-container{font-family:inherit;}
+
+  .tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;}
+  .tile{display:block;background:#211D18;color:#F5EFE3;border-radius:14px;padding:12px 13px;text-decoration:none;}
+  .tile .tag{display:inline-block;background:#C73E2C;color:#fff;font-size:10px;font-weight:800;letter-spacing:.06em;padding:2px 8px;border-radius:999px;}
+  .tile .tname{display:block;font-size:15.5px;font-weight:800;margin-top:7px;line-height:1.3;}
+  .tile .tmeta{display:block;font-size:11.5px;color:#E8C87E;font-weight:700;margin-top:3px;}
+  .tile .tnote{display:block;font-size:11.5px;color:#CFC6B4;margin-top:4px;line-height:1.5;}
+  @media (max-width:480px){.tiles{grid-template-columns:1fr 1fr;gap:8px;}}
 </style>
 </head>
 <body>
@@ -94,16 +102,16 @@
     </div>
   </section>
 
-  <section class="stop" data-lat="34.4025" data-lng="132.4775" data-zoom="15">
+  <section class="stop" data-lat="34.3928" data-lng="132.4650" data-zoom="15">
     <div class="dot">3</div>
     <div class="card">
-      <span class="time">08:00頃</span><h2>サウナでととのう</h2>
-      <div class="sub">天然温泉「神代の湯」ホテルリブマックスPREMIUM広島</div>
-      <p><b>広島駅北口から徒歩5分</b>。天然温泉の大浴場＋サウナ（約90℃）＋露天風呂。日帰り入浴 <b>¥1,000＋入湯税150円</b>、朝の部は6:00〜10:00。夜行バスの疲れをここで落とす。<b>09:30頃に出発</b>すれば、10:00のカットに余裕で間に合う。</p>
+      <span class="time">08:10頃</span><h2>サウナでととのう＆作業</h2>
+      <div class="sub">グランドサウナ広島（薬研堀）</div>
+      <p><b>広島駅から路面電車で約10分</b>。早朝サウナ <b>¥1,400</b>（5:00〜12:00）。カプセル型の8階建て施設で、休憩フロアとレストラン、<b>全館Wi-Fiとコンセント完備</b>。風呂上がりにそのまま横になって作業もできる。出発はカットの予約に合わせて。</p>
       <p class="note">サウナ気分じゃない日は、駅ビル ekie でモーニングに切り替え。</p>
       <div class="btns">
-        <a class="primary" href="https://www.hotel-livemax.com/hiroshima/hiroshima/bath/" target="_blank" rel="noopener">公式サイト</a>
-        <a href="https://www.google.com/maps/search/?api=1&query=%E3%83%9B%E3%83%86%E3%83%AB%E3%83%AA%E3%83%96%E3%83%9E%E3%83%83%E3%82%AF%E3%82%B9PREMIUM%E5%BA%83%E5%B3%B6" target="_blank" rel="noopener">Googleマップ</a>
+        <a class="primary" href="https://www.grand-sauna.com/hiroshima/" target="_blank" rel="noopener">公式サイト</a>
+        <a href="https://www.google.com/maps/search/?api=1&query=%E3%82%B0%E3%83%A9%E3%83%B3%E3%83%89%E3%82%B5%E3%82%A6%E3%83%8A%E5%BA%83%E5%B3%B6" target="_blank" rel="noopener">Googleマップ</a>
       </div>
     </div>
   </section>
@@ -181,8 +189,17 @@
     <div class="card">
       <span class="time">21:30頃</span><h2>ふたりでバー</h2>
       <div class="sub">流川・薬研堀エリア</div>
-      <p>広島の夜の中心地で一杯。ホテル（羽衣町）からも歩ける距離だから、時間を気にせずゆっくり。</p>
-      <div class="btns"><a href="https://www.google.com/maps/search/?api=1&query=%E5%BA%83%E5%B3%B6%20%E6%B5%81%E5%B7%9D%20%E3%83%90%E3%83%BC" target="_blank" rel="noopener">バーを探す</a></div>
+      <p>広島の夜の中心地で一杯。ホテル（羽衣町）からも歩ける距離だから、時間を気にせずゆっくり。金曜の営業時間で8軒セレクト（タップでGoogleマップ）。</p>
+      <div class="tiles">
+        <a class="tile" href="https://www.google.com/maps/search/?api=1&query=Bar%20Kirkwall%20%E5%BA%83%E5%B3%B6" target="_blank" rel="noopener"><span class="tag">ウイスキー</span><span class="tname">Bar Kirkwall</span><span class="tmeta">18:00–翌2:00 ・ ★4.9</span><span class="tnote">シングルモルト豊富な本格派。静かなカウンター</span></a>
+        <a class="tile" href="https://www.google.com/maps/search/?api=1&query=%E3%82%A6%E3%83%BC%E3%82%BA%E3%83%90%E3%83%BC%20%E5%BA%83%E5%B3%B6" target="_blank" rel="noopener"><span class="tag">カクテル</span><span class="tname">ウーズバー Oo's bar</span><span class="tmeta">18:00–翌4:00 ・ ★4.5</span><span class="tnote">深夜4時まで。締めの一杯にも</span></a>
+        <a class="tile" href="https://www.google.com/maps/search/?api=1&query=Bar%20Terrace%20%E5%BA%83%E5%B3%B6%20%E6%B5%81%E5%B7%9D" target="_blank" rel="noopener"><span class="tag">テラス</span><span class="tname">Bar Terrace</span><span class="tmeta">19:00–翌5:00 ・ ★4.9</span><span class="tnote">7階テラス席と夜景。朝5時まで</span></a>
+        <a class="tile" href="https://www.google.com/maps/search/?api=1&query=%E3%83%95%E3%83%BC%E3%83%89%E3%83%9A%E3%82%A2%E3%83%AA%E3%83%B3%E3%82%B0%E3%83%90%E3%83%BC%20%E3%83%A6%E3%83%AA%E3%82%A4%E3%82%AB%20%E5%BA%83%E5%B3%B6" target="_blank" rel="noopener"><span class="tag">ペアリング</span><span class="tname">ユリイカ</span><span class="tmeta">17:00–翌3:00 ・ ★4.8</span><span class="tnote">料理と酒のペアリング。チャージなし</span></a>
+        <a class="tile" href="https://www.google.com/maps/search/?api=1&query=bar%20tre%20%E5%BA%83%E5%B3%B6" target="_blank" rel="noopener"><span class="tag">オーセンティック</span><span class="tname">bar tre</span><span class="tmeta">18:00–翌1:00 ・ ★4.6</span><span class="tnote">路地裏の隠れ家。クラフトカクテル</span></a>
+        <a class="tile" href="https://www.google.com/maps/search/?api=1&query=Bar%20UNCOEUR%20%E5%BA%83%E5%B3%B6" target="_blank" rel="noopener"><span class="tag">カクテル</span><span class="tname">Bar UNCOEUR</span><span class="tmeta">17:00–翌1:00 ・ ★4.8</span><span class="tnote">広島産フルーツのカクテル。ホテルに近い</span></a>
+        <a class="tile" href="https://www.google.com/maps/search/?api=1&query=Bar%20Shake%20Drip%20%E5%BA%83%E5%B3%B6" target="_blank" rel="noopener"><span class="tag">カクテル</span><span class="tname">Bar Shake Drip</span><span class="tmeta">17:00–24:00 ・ ★5.0</span><span class="tnote">銀山町の落ち着いた空間。フルーツカクテル</span></a>
+        <a class="tile" href="https://www.google.com/maps/search/?api=1&query=%E3%83%A1%E3%82%A4%E3%83%B3%20%E3%83%90%E3%83%BC%20%E3%83%96%E3%83%A9%E3%83%89%E3%83%BC%E3%83%AB%20%E5%BA%83%E5%B3%B6" target="_blank" rel="noopener"><span class="tag">オーセンティック</span><span class="tname">ブラドール</span><span class="tmeta">18:00–翌2:00 ・ ★4.6</span><span class="tnote">2001年開業の老舗。ウイスキー約80種</span></a>
+      </div>
     </div>
   </section>
 
@@ -207,9 +224,6 @@
   var map = L.map('map', {scrollWheelZoom:false}).setView(pts[0], 15);
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom:19, attribution:'© OpenStreetMap'}).addTo(map);
 
-  var routeAll = L.polyline(pts, {color:'#1D1A16', weight:3, opacity:.28, dashArray:'2 7'}).addTo(map);
-  var routeDone = L.polyline([pts[0]], {color:'#C73E2C', weight:4.5, opacity:.95}).addTo(map);
-
   var markers = pts.map(function(p, i){
     var icon = L.divIcon({className:'', html:'<div class="pin" id="pin'+i+'"><span>'+(i+1)+'</span></div>', iconSize:[30,30], iconAnchor:[15,28]});
     var m = L.marker(p, {icon:icon}).addTo(map);
@@ -226,7 +240,6 @@
       var el = document.getElementById('pin'+j);
       if (el) el.classList.toggle('on', j === i);
     });
-    routeDone.setLatLngs(pts.slice(0, i + 1));
     map.flyTo(pts[i], parseInt(stops[i].dataset.zoom, 10) || 15, {duration:1.1});
   }
 
