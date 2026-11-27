@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dinner Tiles 5案 — Ikebukuro Guide</title>
+<meta name="description" content="池袋ガイドの夕食タイル、黒帯を細くするデザイン5案の見比べ。">
+<meta property="og:title" content="Dinner Tiles 5案 — Ikebukuro Guide">
+<meta property="og:description" content="池袋ガイドの夕食タイル、黒帯を細くするデザイン5案の見比べ。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/ikebukuro-guide/tiles/">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/ikebukuro-guide/tiles/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 fill=%22%23D9342B%22/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Noto+Sans+JP:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F1EFEA;--ink:#121212;--red:#D9342B;--mu:#5D5A54;--sal:#FFB0A0}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Archivo,"Noto Sans JP",sans-serif;color-scheme:light}
+img{max-width:100%}
+.col{max-width:640px;margin:0 auto;padding:0 16px 48px}
+.top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px 10px;font-weight:800;font-size:13px;letter-spacing:.14em;padding:18px 0 8px;border-bottom:4px solid var(--ink)}
+h1{margin:14px 0 6px;font-family:Archivo,"Noto Sans JP",sans-serif;font-stretch:62%;font-weight:900;letter-spacing:-.01em;text-transform:uppercase;font-size:clamp(34px,10vw,54px);line-height:.98}
+h1 em{font-style:normal;color:var(--red)}
+.lede{font-size:15px;color:#2A2925;margin:0 0 4px}
+.bar{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:2px 10px;margin:38px 0 4px;border-top:4px solid var(--ink);padding-top:14px}
+.bar h2{margin:0;font-family:Archivo,"Noto Sans JP",sans-serif;font-stretch:62%;font-weight:900;text-transform:uppercase;font-size:26px}
+.bar span{font-weight:800;font-size:13px;color:var(--mu);letter-spacing:.08em}
+.gp{margin:0 0 12px;font-size:14.5px;color:var(--mu)}
+.biglink{display:inline-block;margin-top:12px;font-weight:800;font-size:14px;color:var(--red);text-decoration:underline;text-underline-offset:3px}
+.stage{max-width:402px;margin:0 auto;background:var(--bg);border:1px solid #D8D3C8;border-radius:18px;padding:14px 12px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.stage .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stage .grid>*{min-width:0}
+.foot{margin-top:44px;border-top:1px solid #D8D3C8;padding-top:14px;font-size:12.5px;color:var(--mu);line-height:1.6}
+.tile{display:block;text-decoration:none}
+.tile img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover}
+.tile.wide{grid-column:span 2}
+.tile.wide img{aspect-ratio:16/8}
+.gn{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* current production tile */
+.t0{position:relative;color:#fff;border-radius:12px;overflow:hidden;background:#222}
+.t0 .cb{position:absolute;left:0;right:0;bottom:0;display:block;padding:8px 10px 9px;background:rgba(0,0,0,.66)}
+.t0 .gn{display:block;font-size:10.5px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:#ffb0a0;white-space:normal}
+.t0 b{display:block;font-size:15.5px;line-height:1.25;margin-top:2px}
+.t0 .hr{display:inline-block;margin-top:5px;padding:2px 9px;border-radius:999px;background:#fff;color:#121212;font-size:11.5px;font-weight:900}
+
+/* t1 slim band */
+.t1{position:relative;color:#fff;border-radius:12px;overflow:hidden;background:#222}
+.t1 .cb{position:absolute;left:0;right:0;bottom:0;padding:4px 9px 5px;background:rgba(10,10,10,.84)}
+.t1 .gn{display:block;font-size:8px;line-height:1.1;font-weight:900;letter-spacing:.03em;text-transform:uppercase;color:var(--sal)}
+.t1 .row{display:flex;align-items:baseline;margin-top:1px}
+.t1 .nm{font-size:12.5px;line-height:1.15;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:0 1 auto}
+.t1 .hr{font-size:9px;font-weight:900;color:#FFD9D2;margin-left:6px;white-space:nowrap;flex:none}
+
+/* t2 no band, caption on paper */
+.t2{color:var(--ink)}
+.t2 .ph{display:block;border-radius:12px;overflow:hidden;background:#ddd}
+.t2 .cap{display:block;padding:7px 2px 2px}
+.t2 .gn{display:block;font-size:8.5px;font-weight:900;letter-spacing:.03em;text-transform:uppercase;color:var(--red)}
+.t2 .nm{display:block;font-size:15px;font-weight:900;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.t2 .hr{display:inline-block;margin-top:5px;font-size:11px;font-weight:900;color:var(--ink);background:#fff;border:1.5px solid var(--ink);border-radius:999px;padding:1px 8px;white-space:nowrap}
+
+/* t3 gradient scrim */
+.t3{position:relative;color:#fff;border-radius:12px;overflow:hidden;background:#222}
+.t3 .sc{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,.88) 0%,rgba(8,8,8,.5) 27%,rgba(8,8,8,0) 54%);pointer-events:none}
+.t3 .tx{position:absolute;left:0;right:0;bottom:0;padding:7px 10px 8px}
+.t3 .gn{display:block;font-size:8px;font-weight:900;letter-spacing:.03em;text-transform:uppercase;color:var(--sal)}
+.t3 .nm{display:block;font-size:15px;font-weight:800;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.t3 .hr{position:absolute;top:8px;right:8px;font-size:10.5px;font-weight:900;color:#121212;background:#fff;border-radius:999px;padding:2px 8px;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,.25)}
+
+/* t4 floating chips */
+.t4{position:relative;color:#fff;border-radius:12px;overflow:hidden;background:#222}
+.t4 .gn{position:absolute;top:6px;left:6px;background:rgba(10,10,10,.85);color:var(--sal);font-size:8px;font-weight:900;letter-spacing:.02em;text-transform:uppercase;padding:3px 6px;border-radius:6px;max-width:calc(100% - 12px)}
+.t4 .stack{position:absolute;left:8px;bottom:8px;display:flex;flex-direction:column;align-items:flex-start;gap:5px;max-width:calc(100% - 16px)}
+.t4 .hr{background:#fff;color:#121212;font-size:10.5px;font-weight:900;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.t4 .nm{background:#121212;color:#fff;font-weight:800;font-size:14px;line-height:1.2;padding:5px 10px;border-radius:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+
+/* t5 caption strip overlapping photo edge */
+.t5{color:var(--ink);position:relative}
+.t5 .ph{display:block;border-radius:12px;overflow:hidden;background:#ddd}
+.t5 .gn{position:absolute;top:6px;left:6px;background:var(--red);color:#fff;font-size:8px;font-weight:900;letter-spacing:.02em;text-transform:uppercase;padding:3px 6px;border-radius:6px;max-width:calc(100% - 12px)}
+.t5 .cap{position:relative;display:block;margin:-16px 2px 0;background:#fff;border:2px solid var(--ink);border-radius:10px;padding:5px 8px 6px;box-shadow:0 2px 6px rgba(0,0,0,.14)}
+.t5 .nm{display:block;font-size:13.5px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.t5 .hr{display:block;margin-top:1px;font-size:10px;font-weight:900;color:var(--red);white-space:nowrap}
+</style>
+</head>
+<body>
+<div class="col">
+<div class="top"><span>GUEST GUIDE</span><span>IKEBUKURO · TOKYO</span></div>
+<h1>Dinner tiles <em>5案</em></h1>
+<p class="lede">夕食タイルの黒帯が大きくて料理写真が隠れる、という指摘への5案。写真・店名・ジャンル・営業時間・Google Mapsリンクは本番と同一。帯を細くして、写真の見える面積を広げた。</p>
+<div class="bar"><h2>現行</h2><span>CURRENT</span></div>
+<p class="gp">今の本番タイル。黒帯が写真の下半分を覆い、ジャンルが2行に折り返ることもある。</p>
+<div class="stage"><div class="grid"><a class="tile t0" href="https://www.google.com/maps/search/?api=1&query=Kura%20Sushi%20Ikebukuro%20Sunshine%2060" target="_blank" rel="noopener"><img src="../img/sushi.jpg" alt="Kura Sushi"><span class="cb"><span class="gn">Sushi · conveyor belt</span><b>Kura Sushi</b><span class="hr">11:00 – 00:00</span></span></a>
+<a class="tile t0" href="https://www.google.com/maps/search/?api=1&query=Mutekiya%20Ikebukuro%20ramen" target="_blank" rel="noopener"><img src="../img/ramen.jpg" alt="Mutekiya"><span class="cb"><span class="gn">Ramen · the famous queue</span><b>Mutekiya</b><span class="hr">10:30 – 4:00</span></span></a>
+<a class="tile t0" href="https://www.google.com/maps/search/?api=1&query=Shabu%20Sai%20Sunshine%20City%20Ikebukuro" target="_blank" rel="noopener"><img src="../img/shabu.jpg" alt="Shabu Sai"><span class="cb"><span class="gn">Shabu-shabu · all-you-can-eat</span><b>Shabu Sai</b><span class="hr">11:00 – 22:00</span></span></a>
+<a class="tile t0" href="https://www.google.com/maps/search/?api=1&query=Tonkatsu%20Wako%20Sunshine%20City%20Ikebukuro" target="_blank" rel="noopener"><img src="../img/tonkatsu.jpg" alt="Tonkatsu Wako"><span class="cb"><span class="gn">Tonkatsu</span><b>Tonkatsu Wako</b><span class="hr">11:00 – 22:00</span></span></a>
+<a class="tile t0 wide" href="https://www.google.com/maps/search/?api=1&query=Uchouten%20Ikebukuro%20hamburg" target="_blank" rel="noopener"><img src="../img/hamburg.jpg" alt="Uchouten"><span class="cb"><span class="gn">Yoshoku · hamburg steak</span><b>Uchouten</b><span class="hr">Dinner 18:00 – 20:45 · closed Sun</span></span></a></div></div><div class="bar"><h2>案1 細帯</h2><span>SLIM BAND</span></div>
+<p class="gp">黒帯を今の約4割の高さに圧縮。ジャンルは小さく1行、店名と時間を同じ行に並べて帯の面積を最小化した案。</p>
+<div class="stage"><div class="grid"><a class="tile t1" href="https://www.google.com/maps/search/?api=1&query=Kura%20Sushi%20Ikebukuro%20Sunshine%2060" target="_blank" rel="noopener"><img src="../img/sushi.jpg" alt="Kura Sushi"><span class="cb"><span class="gn">Sushi · conveyor belt</span><span class="row"><span class="nm">Kura Sushi</span><span class="hr">11:00–00:00</span></span></span></a>
+<a class="tile t1" href="https://www.google.com/maps/search/?api=1&query=Mutekiya%20Ikebukuro%20ramen" target="_blank" rel="noopener"><img src="../img/ramen.jpg" alt="Mutekiya"><span class="cb"><span class="gn">Ramen · the famous queue</span><span class="row"><span class="nm">Mutekiya</span><span class="hr">10:30–4:00</span></span></span></a>
+<a class="tile t1" href="https://www.google.com/maps/search/?api=1&query=Shabu%20Sai%20Sunshine%20City%20Ikebukuro" target="_blank" rel="noopener"><img src="../img/shabu.jpg" alt="Shabu Sai"><span class="cb"><span class="gn">Shabu-shabu · all-you-can-eat</span><span class="row"><span class="nm">Shabu Sai</span><span class="hr">11:00–22:00</span></span></span></a>
+<a class="tile t1" href="https://www.google.com/maps/search/?api=1&query=Tonkatsu%20Wako%20Sunshine%20City%20Ikebukuro" target="_blank" rel="noopener"><img src="../img/tonkatsu.jpg" alt="Tonkatsu Wako"><span class="cb"><span class="gn">Tonkatsu</span><span class="row"><span class="nm">Tonkatsu Wako</span><span class="hr">11:00–22:00</span></span></span></a>
+<a class="tile t1 wide" href="https://www.google.com/maps/search/?api=1&query=Uchouten%20Ikebukuro%20hamburg" target="_blank" rel="noopener"><img src="../img/hamburg.jpg" alt="Uchouten"><span class="cb"><span class="gn">Yoshoku · hamburg steak</span><span class="row"><span class="nm">Uchouten</span><span class="hr">Dinner 18:00–20:45 · closed Sun</span></span></span></a></div></div>
+<a class="biglink" href="t1.html">案1を大きく見る →</a><div class="bar"><h2>案2 帯なし</h2><span>NO BAND</span></div>
+<p class="gp">帯をなくして写真は100%そのまま。ジャンル・店名・時間は写真の下の紙面に縦に置く案。料理写真が一番大きく見える。</p>
+<div class="stage"><div class="grid"><a class="tile t2" href="https://www.google.com/maps/search/?api=1&query=Kura%20Sushi%20Ikebukuro%20Sunshine%2060" target="_blank" rel="noopener"><span class="ph"><img src="../img/sushi.jpg" alt="Kura Sushi"></span><span class="cap"><span class="gn">Sushi · conveyor belt</span><span class="nm">Kura Sushi</span><span class="hr">11:00 – 00:00</span></span></a>
+<a class="tile t2" href="https://www.google.com/maps/search/?api=1&query=Mutekiya%20Ikebukuro%20ramen" target="_blank" rel="noopener"><span class="ph"><img src="../img/ramen.jpg" alt="Mutekiya"></span><span class="cap"><span class="gn">Ramen · the famous queue</span><span class="nm">Mutekiya</span><span class="hr">10:30 – 4:00</span></span></a>
+<a class="tile t2" href="https://www.google.com/maps/search/?api=1&query=Shabu%20Sai%20Sunshine%20City%20Ikebukuro" target="_blank" rel="noopener"><span class="ph"><img src="../img/shabu.jpg" alt="Shabu Sai"></span><span class="cap"><span class="gn">Shabu-shabu · all-you-can-eat</span><span class="nm">Shabu Sai</span><span class="hr">11:00 – 22:00</span></span></a>
+<a class="tile t2" href="https://www.google.com/maps/search/?api=1&query=Tonkatsu%20Wako%20Sunshine%20City%20Ikebukuro" target="_blank" rel="noopener"><span class="ph"><img src="../img/tonkatsu.jpg" alt="Tonkatsu Wako"></span><span class="cap"><span class="gn">Tonkatsu</span><span class="nm">Tonkatsu Wako</span><span class="hr">11:00 – 22:00</span></span></a>
+<a class="tile t2 wide" href="https://www.google.com/maps/search/?api=1&query=Uchouten%20Ikebukuro%20hamburg" target="_blank" rel="noopener"><span class="ph"><img src="../img/hamburg.jpg" alt="Uchouten"></span><span class="cap"><span class="gn">Yoshoku · hamburg steak</span><span class="nm">Uchouten</span><span class="hr">Dinner 18:00 – 20:45 · closed Sun</span></span></a></div></div>
+<a class="biglink" href="t2.html">案2を大きく見る →</a><div class="bar"><h2>案3 グラデーション</h2><span>GRADIENT SCRIM</span></div>
+<p class="gp">帯の代わりに下部だけ透明から黒へのグラデーション。帯の境界線が消えて写真と地続きになり、時間ピルは右上に浮かせる案。</p>
+<div class="stage"><div class="grid"><a class="tile t3" href="https://www.google.com/maps/search/?api=1&query=Kura%20Sushi%20Ikebukuro%20Sunshine%2060" target="_blank" rel="noopener"><img src="../img/sushi.jpg" alt="Kura Sushi"><span class="sc"></span><span class="tx"><span class="gn">Sushi · conveyor belt</span><span class="nm">Kura Sushi</span></span><span class="hr">11:00–00:00</span></a>
+<a class="tile t3" href="https://www.google.com/maps/search/?api=1&query=Mutekiya%20Ikebukuro%20ramen" target="_blank" rel="noopener"><img src="../img/ramen.jpg" alt="Mutekiya"><span class="sc"></span><span class="tx"><span class="gn">Ramen · the famous queue</span><span class="nm">Mutekiya</span></span><span class="hr">10:30–4:00</span></a>
+<a class="tile t3" href="https://www.google.com/maps/search/?api=1&query=Shabu%20Sai%20Sunshine%20City%20Ikebukuro" target="_blank" rel="noopener"><img src="../img/shabu.jpg" alt="Shabu Sai"><span class="sc"></span><span class="tx"><span class="gn">Shabu-shabu · all-you-can-eat</span><span class="nm">Shabu Sai</span></span><span class="hr">11:00–22:00</span></a>
+<a class="tile t3" href="https://www.google.com/maps/search/?api=1&query=Tonkatsu%20Wako%20Sunshine%20City%20Ikebukuro" target="_blank" rel="noopener"><img src="../img/tonkatsu.jpg" alt="Tonkatsu Wako"><span class="sc"></span><span class="tx"><span class="gn">Tonkatsu</span><span class="nm">Tonkatsu Wako</span></span><span class="hr">11:00–22:00</span></a>
+<a class="tile t3 wide" href="https://www.google.com/maps/search/?api=1&query=Uchouten%20Ikebukuro%20hamburg" target="_blank" rel="noopener"><img src="../img/hamburg.jpg" alt="Uchouten"><span class="sc"></span><span class="tx"><span class="gn">Yoshoku · hamburg steak</span><span class="nm">Uchouten</span></span><span class="hr">Dinner 18:00–20:45 · closed Sun</span></a></div></div>
+<a class="biglink" href="t3.html">案3を大きく見る →</a><div class="bar"><h2>案4 チップ浮かせ</h2><span>FLOATING CHIPS</span></div>
+<p class="gp">帯なし。ジャンルは左上の小さなチップ、時間と店名は左下に小さなチップで浮かせる案。写真の中央は完全に開く。</p>
+<div class="stage"><div class="grid"><a class="tile t4" href="https://www.google.com/maps/search/?api=1&query=Kura%20Sushi%20Ikebukuro%20Sunshine%2060" target="_blank" rel="noopener"><img src="../img/sushi.jpg" alt="Kura Sushi"><span class="gn">Sushi · conveyor belt</span><span class="stack"><span class="hr">11:00 – 00:00</span><span class="nm">Kura Sushi</span></span></a>
+<a class="tile t4" href="https://www.google.com/maps/search/?api=1&query=Mutekiya%20Ikebukuro%20ramen" target="_blank" rel="noopener"><img src="../img/ramen.jpg" alt="Mutekiya"><span class="gn">Ramen · the famous queue</span><span class="stack"><span class="hr">10:30 – 4:00</span><span class="nm">Mutekiya</span></span></a>
+<a class="tile t4" href="https://www.google.com/maps/search/?api=1&query=Shabu%20Sai%20Sunshine%20City%20Ikebukuro" target="_blank" rel="noopener"><img src="../img/shabu.jpg" alt="Shabu Sai"><span class="gn">Shabu-shabu · all-you-can-eat</span><span class="stack"><span class="hr">11:00 – 22:00</span><span class="nm">Shabu Sai</span></span></a>
+<a class="tile t4" href="https://www.google.com/maps/search/?api=1&query=Tonkatsu%20Wako%20Sunshine%20City%20Ikebukuro" target="_blank" rel="noopener"><img src="../img/tonkatsu.jpg" alt="Tonkatsu Wako"><span class="gn">Tonkatsu</span><span class="stack"><span class="hr">11:00 – 22:00</span><span class="nm">Tonkatsu Wako</span></span></a>
+<a class="tile t4 wide" href="https://www.google.com/maps/search/?api=1&query=Uchouten%20Ikebukuro%20hamburg" target="_blank" rel="noopener"><img src="../img/hamburg.jpg" alt="Uchouten"><span class="gn">Yoshoku · hamburg steak</span><span class="stack"><span class="hr">Dinner 18:00 – 20:45 · closed Sun</span><span class="nm">Uchouten</span></span></a></div></div>
+<a class="biglink" href="t4.html">案4を大きく見る →</a><div class="bar"><h2>案5 キャプション帯</h2><span>CAPTION STRIP</span></div>
+<p class="gp">写真の下端に店名と時間の白い細帯を少しだけ重ね、ジャンルは写真の左上に赤チップで出す案。帯は写真に16pxしか被らない。</p>
+<div class="stage"><div class="grid"><a class="tile t5" href="https://www.google.com/maps/search/?api=1&query=Kura%20Sushi%20Ikebukuro%20Sunshine%2060" target="_blank" rel="noopener"><span class="ph"><img src="../img/sushi.jpg" alt="Kura Sushi"></span><span class="gn">Sushi · conveyor belt</span><span class="cap"><span class="nm">Kura Sushi</span><span class="hr">11:00–00:00</span></span></a>
+<a class="tile t5" href="https://www.google.com/maps/search/?api=1&query=Mutekiya%20Ikebukuro%20ramen" target="_blank" rel="noopener"><span class="ph"><img src="../img/ramen.jpg" alt="Mutekiya"></span><span class="gn">Ramen · the famous queue</span><span class="cap"><span class="nm">Mutekiya</span><span class="hr">10:30–4:00</span></span></a>
+<a class="tile t5" href="https://www.google.com/maps/search/?api=1&query=Shabu%20Sai%20Sunshine%20City%20Ikebukuro" target="_blank" rel="noopener"><span class="ph"><img src="../img/shabu.jpg" alt="Shabu Sai"></span><span class="gn">Shabu-shabu · all-you-can-eat</span><span class="cap"><span class="nm">Shabu Sai</span><span class="hr">11:00–22:00</span></span></a>
+<a class="tile t5" href="https://www.google.com/maps/search/?api=1&query=Tonkatsu%20Wako%20Sunshine%20City%20Ikebukuro" target="_blank" rel="noopener"><span class="ph"><img src="../img/tonkatsu.jpg" alt="Tonkatsu Wako"></span><span class="gn">Tonkatsu</span><span class="cap"><span class="nm">Tonkatsu Wako</span><span class="hr">11:00–22:00</span></span></a>
+<a class="tile t5 wide" href="https://www.google.com/maps/search/?api=1&query=Uchouten%20Ikebukuro%20hamburg" target="_blank" rel="noopener"><span class="ph"><img src="../img/hamburg.jpg" alt="Uchouten"></span><span class="gn">Yoshoku · hamburg steak</span><span class="cap"><span class="nm">Uchouten</span><span class="hr">Dinner 18:00–20:45 · closed Sun</span></span></a></div></div>
+<a class="biglink" href="t5.html">案5を大きく見る →</a>
+<div class="foot">Photos: same Wikimedia Commons dish photos as the production Ikebukuro guide page. Tiles link to Google Maps, same as production. This board does not change the production page.</div>
+</div>
+</body>
+</html>
