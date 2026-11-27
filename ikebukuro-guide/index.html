@@ -56,12 +56,13 @@ h1{margin:14px 0;font-size:clamp(40px,12vw,68px);line-height:.95}h1 em{font-styl
 .strip span+span:before{content:"";display:inline-block;width:4px;height:4px;background:#FF7A6E;margin:0 8px;flex:none}
 .ltiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
 .ltiles>*{min-width:0}
-.ltile{position:relative;display:block;color:#fff;text-decoration:none;border-radius:12px;overflow:hidden;background:#222}
+.ltile{position:relative;display:block;color:var(--ink);text-decoration:none}
+.ltile .ph{display:block;border-radius:12px;overflow:hidden;background:#ddd;aspect-ratio:auto;width:auto}
 .ltile img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover}
-.ltile .lcb{position:absolute;left:0;right:0;bottom:0;display:block;padding:8px 10px 9px;background:rgba(0,0,0,.66)}
-.ltile .lgn{display:block;font-size:10.5px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:#ffb0a0}
-.ltile b{display:block;font-size:15.5px;line-height:1.25;margin-top:2px}
-.ltile .lhrs{display:inline-block;margin-top:5px;padding:2px 9px;border-radius:999px;background:#fff;color:#121212;font-size:11.5px;font-weight:900;letter-spacing:.02em}
+.ltile .lgn{position:absolute;top:6px;left:6px;background:var(--red);color:#fff;font-size:8px;font-weight:900;letter-spacing:.02em;text-transform:uppercase;padding:3px 6px;border-radius:6px;max-width:calc(100% - 12px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ltile .lcb{position:relative;display:block;margin:-16px 2px 0;background:#fff;border:2px solid var(--ink);border-radius:10px;padding:5px 8px 6px;box-shadow:0 2px 6px rgba(0,0,0,.14)}
+.ltile .lcb b{display:block;font-size:13.5px;font-weight:900;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ltile .lhrs{display:block;margin-top:1px;font-size:10px;font-weight:900;color:var(--red);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ltile.wide{grid-column:span 2}.ltile.wide img{aspect-ratio:16/8}
 .crd{padding:6px 0 30px}
 .crd summary{cursor:pointer;font:800 12.5px/1 Archivo,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);padding:10px 0}
@@ -161,15 +162,15 @@ h1{margin:14px 0;font-size:clamp(40px,12vw,68px);line-height:.95}h1 em{font-styl
 <div class="bar"><h2>Dinner</h2><span>9 PICKS</span></div>
 <p class="gp">All nine are family friendly — sushi is the easy favourite. Tap a tile to open it in Google Maps.</p>
 <div class="ltiles">
-<a class="ltile" href="https://www.google.com/maps/search/?api=1&query=Kura%20Sushi%20Ikebukuro%20Sunshine%2060" target="_blank" rel="noopener"><img src="img/sushi.jpg" alt="Kura Sushi"><span class="lcb"><span class="lgn">Sushi · conveyor belt</span><b>Kura Sushi</b><span class="lhrs">11:00 – 00:00</span></span></a>
-<a class="ltile" href="https://www.google.com/maps/search/?api=1&query=Mutekiya%20Ikebukuro%20ramen" target="_blank" rel="noopener"><img src="img/ramen.jpg" alt="Mutekiya"><span class="lcb"><span class="lgn">Ramen · the famous queue</span><b>Mutekiya</b><span class="lhrs">10:30 – 4:00</span></span></a>
-<a class="ltile" href="https://www.google.com/maps/search/?api=1&query=Shabu%20Sai%20Sunshine%20City%20Ikebukuro" target="_blank" rel="noopener"><img src="img/shabu.jpg" alt="Shabu Sai"><span class="lcb"><span class="lgn">Shabu-shabu · all-you-can-eat</span><b>Shabu Sai</b><span class="lhrs">11:00 – 22:00</span></span></a>
-<a class="ltile" href="https://www.google.com/maps/search/?api=1&query=Tonkatsu%20Wako%20Sunshine%20City%20Ikebukuro" target="_blank" rel="noopener"><img src="img/tonkatsu.jpg" alt="Tonkatsu Wako"><span class="lcb"><span class="lgn">Tonkatsu</span><b>Tonkatsu Wako</b><span class="lhrs">11:00 – 22:00</span></span></a>
-<a class="ltile" href="https://www.google.com/maps/search/?api=1&query=Gyukatsu%20Motomura%20Sunshine%20City%20Ikebukuro" target="_blank" rel="noopener"><img src="img/gyukatsu.jpg" alt="Gyukatsu Motomura"><span class="lcb"><span class="lgn">Gyukatsu · beef cutlet</span><b>Gyukatsu Motomura</b><span class="lhrs">11:00 – 22:00</span></span></a>
-<a class="ltile" href="https://www.google.com/maps/search/?api=1&query=Pasutakan%20Sunshine%20City%20Ikebukuro" target="_blank" rel="noopener"><img src="img/okonomiyaki.jpg" alt="Pasutakan"><span class="lcb"><span class="lgn">Okonomiyaki · monja</span><b>Pasutakan</b><span class="lhrs">11:00 – 22:00</span></span></a>
-<a class="ltile" href="https://www.google.com/maps/search/?api=1&query=Gyukaku%20Ikebukuro%20Sunshine%20Street" target="_blank" rel="noopener"><img src="img/yakiniku.jpg" alt="Gyukaku"><span class="lcb"><span class="lgn">Yakiniku · tabletop grill</span><b>Gyukaku</b><span class="lhrs">11:30 – 00:00</span></span></a>
-<a class="ltile" href="https://www.google.com/maps/search/?api=1&query=Tendon%20Tenya%20Sunshine%20City%20Ikebukuro" target="_blank" rel="noopener"><img src="img/tendon.jpg" alt="Tendon Tenya"><span class="lcb"><span class="lgn">Tempura · tendon bowls</span><b>Tendon Tenya</b><span class="lhrs">11:00 – 21:00</span></span></a>
-<a class="ltile wide" href="https://www.google.com/maps/search/?api=1&query=Uchouten%20Ikebukuro%20hamburg" target="_blank" rel="noopener"><img src="img/hamburg.jpg" alt="Uchouten"><span class="lcb"><span class="lgn">Yoshoku · hamburg steak</span><b>Uchouten</b><span class="lhrs">Dinner 18:00 – 20:45 · closed Sun</span></span></a>
+<a class="ltile" href="https://www.google.com/maps/search/?api=1&query=Kura%20Sushi%20Ikebukuro%20Sunshine%2060" target="_blank" rel="noopener"><span class="ph"><img src="img/sushi.jpg" alt="Kura Sushi"></span><span class="lgn">Sushi · conveyor belt</span><span class="lcb"><b>Kura Sushi</b><span class="lhrs">11:00 – 00:00</span></span></a>
+<a class="ltile" href="https://www.google.com/maps/search/?api=1&query=Mutekiya%20Ikebukuro%20ramen" target="_blank" rel="noopener"><span class="ph"><img src="img/ramen.jpg" alt="Mutekiya"></span><span class="lgn">Ramen · the famous queue</span><span class="lcb"><b>Mutekiya</b><span class="lhrs">10:30 – 4:00</span></span></a>
+<a class="ltile" href="https://www.google.com/maps/search/?api=1&query=Shabu%20Sai%20Sunshine%20City%20Ikebukuro" target="_blank" rel="noopener"><span class="ph"><img src="img/shabu.jpg" alt="Shabu Sai"></span><span class="lgn">Shabu-shabu · all-you-can-eat</span><span class="lcb"><b>Shabu Sai</b><span class="lhrs">11:00 – 22:00</span></span></a>
+<a class="ltile" href="https://www.google.com/maps/search/?api=1&query=Tonkatsu%20Wako%20Sunshine%20City%20Ikebukuro" target="_blank" rel="noopener"><span class="ph"><img src="img/tonkatsu.jpg" alt="Tonkatsu Wako"></span><span class="lgn">Tonkatsu</span><span class="lcb"><b>Tonkatsu Wako</b><span class="lhrs">11:00 – 22:00</span></span></a>
+<a class="ltile" href="https://www.google.com/maps/search/?api=1&query=Gyukatsu%20Motomura%20Sunshine%20City%20Ikebukuro" target="_blank" rel="noopener"><span class="ph"><img src="img/gyukatsu.jpg" alt="Gyukatsu Motomura"></span><span class="lgn">Gyukatsu · beef cutlet</span><span class="lcb"><b>Gyukatsu Motomura</b><span class="lhrs">11:00 – 22:00</span></span></a>
+<a class="ltile" href="https://www.google.com/maps/search/?api=1&query=Pasutakan%20Sunshine%20City%20Ikebukuro" target="_blank" rel="noopener"><span class="ph"><img src="img/okonomiyaki.jpg" alt="Pasutakan"></span><span class="lgn">Okonomiyaki · monja</span><span class="lcb"><b>Pasutakan</b><span class="lhrs">11:00 – 22:00</span></span></a>
+<a class="ltile" href="https://www.google.com/maps/search/?api=1&query=Gyukaku%20Ikebukuro%20Sunshine%20Street" target="_blank" rel="noopener"><span class="ph"><img src="img/yakiniku.jpg" alt="Gyukaku"></span><span class="lgn">Yakiniku · tabletop grill</span><span class="lcb"><b>Gyukaku</b><span class="lhrs">11:30 – 00:00</span></span></a>
+<a class="ltile" href="https://www.google.com/maps/search/?api=1&query=Tendon%20Tenya%20Sunshine%20City%20Ikebukuro" target="_blank" rel="noopener"><span class="ph"><img src="img/tendon.jpg" alt="Tendon Tenya"></span><span class="lgn">Tempura · tendon bowls</span><span class="lcb"><b>Tendon Tenya</b><span class="lhrs">11:00 – 21:00</span></span></a>
+<a class="ltile wide" href="https://www.google.com/maps/search/?api=1&query=Uchouten%20Ikebukuro%20hamburg" target="_blank" rel="noopener"><span class="ph"><img src="img/hamburg.jpg" alt="Uchouten"></span><span class="lgn">Yoshoku · hamburg steak</span><span class="lcb"><b>Uchouten</b><span class="lhrs">Dinner 18:00 – 20:45 · closed Sun</span></span></a>
 </div>
 <section class="profile"><img class="pface" src="img/yuuki.jpg" alt="Yuuki Ichihara, Anime Sensei guide"><div><p class="pname">Yuuki Ichihara</p>
 <p class="pbrand">“Anime Sensei” — anime &amp; game tour guide, Tokyo</p>
