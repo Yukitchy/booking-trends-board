@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Read More Toggle 5案 — Ikebukuro Guide</title>
+<meta name="description" content="池袋ガイドのスポットカード、キャプション帯の右下に入れる開閉ボタンのデザイン5案。">
+<meta property="og:title" content="Read More Toggle 5案 — Ikebukuro Guide">
+<meta property="og:description" content="池袋ガイドのスポットカード、キャプション帯の右下に入れる開閉ボタンのデザイン5案。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yukitchy.github.io/booking-trends-board/ikebukuro-guide/readmore/">
+<meta property="og:image" content="https://yukitchy.github.io/booking-trends-board/ikebukuro-guide/readmore/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 fill=%22%23D9342B%22/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Noto+Sans+JP:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F1EFEA;--ink:#121212;--red:#D9342B;--mu:#5D5A54;--line:#D8D3C8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Archivo,"Noto Sans JP",sans-serif;color-scheme:light}
+img{max-width:100%}
+.col{max-width:640px;margin:0 auto;padding:0 16px 48px}
+.top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px 10px;font-weight:800;font-size:13px;letter-spacing:.14em;padding:18px 0 8px;border-bottom:4px solid var(--ink)}
+h1{margin:14px 0 6px;font-family:Archivo,"Noto Sans JP",sans-serif;font-stretch:62%;font-weight:900;letter-spacing:-.01em;text-transform:uppercase;font-size:clamp(34px,10vw,54px);line-height:.98}
+h1 em{font-style:normal;color:var(--red)}
+.lede{font-size:15px;color:#2A2925;margin:0 0 4px}
+.bar{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:2px 10px;margin:38px 0 4px;border-top:4px solid var(--ink);padding-top:14px}
+.bar h2{margin:0;font-family:Archivo,"Noto Sans JP",sans-serif;font-stretch:62%;font-weight:900;text-transform:uppercase;font-size:24px}
+.bar span{font-weight:800;font-size:13px;color:var(--mu);letter-spacing:.08em}
+.gp{margin:0 0 12px;font-size:14.5px;color:var(--mu)}
+.stage{max-width:340px;margin:0 auto;background:var(--bg);border:1px solid var(--line);border-radius:18px;padding:14px 12px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.biglink{display:inline-block;margin-top:12px;font-weight:800;font-size:14px;color:var(--red);text-decoration:underline;text-underline-offset:3px}
+.foot{margin-top:44px;border-top:1px solid var(--line);padding-top:14px;font-size:12.5px;color:var(--mu);line-height:1.6}
+
+/* ==== production spot card (copied from ikebukuro-guide/index.html) ==== */
+.spot{background:#fff;border:2px solid var(--ink);border-radius:14px;padding:8px 8px 11px;display:flex;flex-direction:column}
+.phw{position:relative}
+.phbox{display:block;position:relative}
+.ph{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;background:#ddd}
+.gmap{position:absolute;bottom:22px;right:8px;width:34px;height:34px;border-radius:50%;background:#fff;color:var(--ink);display:flex;align-items:center;justify-content:center;box-shadow:0 1px 5px rgba(0,0,0,.35);text-decoration:none;z-index:2}
+.gmap svg{width:17px;height:17px}
+.web{position:absolute;bottom:22px;right:50px;width:34px;height:34px;border-radius:50%;background:#fff;color:var(--ink);display:flex;align-items:center;justify-content:center;box-shadow:0 1px 5px rgba(0,0,0,.35);text-decoration:none;z-index:2}
+.web svg{width:17px;height:17px}
+.place{margin:1px 2px 0;font-size:11.5px;font-weight:700;color:var(--mu)}
+.tx{margin:6px 2px 0;font-size:12.5px;line-height:1.5;color:#2A2925}
+.spot .cap{position:relative;display:block;margin:-16px 0 0;background:#fff;border:2px solid var(--ink);border-radius:10px;padding:5px 6px 6px;box-shadow:0 2px 6px rgba(0,0,0,.14)}
+.spot .nm{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:12.5px;font-stretch:62%;font-weight:900;line-height:1.15;height:29px}
+.spot .hr{display:block;margin-top:1px;font-size:9px;letter-spacing:-.02em;font-weight:900;color:var(--red);white-space:nowrap;line-height:1.25;height:13px}
+.spot .gn{position:absolute;top:6px;left:6px;background:var(--red);color:#fff;font-size:8px;font-weight:900;letter-spacing:.02em;text-transform:uppercase;padding:3px 6px;border-radius:6px;max-width:calc(100% - 12px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;z-index:1}
+.fold{display:none}
+.fold.open{display:block}
+.fold .place{margin:8px 2px 0}
+.fold .tx{display:block;overflow:visible}
+
+/* ==== R1 chevron circle ==== */
+.v1 .cap{padding-right:38px}
+.tgl1{position:absolute;right:6px;bottom:6px;width:26px;height:26px;border-radius:50%;background:var(--ink);border:0;padding:0;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.tgl1 svg{width:13px;height:13px;transition:transform .25s ease}
+.v1.open .tgl1 svg{transform:rotate(180deg)}
+
+/* ==== R2 plus button ==== */
+.v2 .cap{padding-right:38px}
+.tgl2{position:absolute;right:6px;bottom:6px;width:26px;height:26px;border-radius:50%;background:var(--red);border:0;padding:0;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.tgl2 svg{width:13px;height:13px}
+.tgl2 .vbar{transform-origin:12px 12px;transition:transform .25s ease}
+.v2.open .tgl2 .vbar{transform:scaleY(0)}
+
+/* ==== R3 mini text chip ==== */
+.v3 .cap{padding-right:62px}
+.tgl3{position:absolute;right:7px;bottom:5px;background:none;border:0;padding:2px 0;font-family:Archivo,sans-serif;font-size:9.5px;font-weight:900;letter-spacing:.08em;color:var(--red);cursor:pointer;display:flex;align-items:center;gap:2px}
+.tgl3 svg{width:9px;height:9px;transition:transform .25s ease}
+.tgl3 .less{display:none}
+.v3.open .tgl3 .less{display:inline}
+.v3.open .tgl3 .more{display:none}
+.v3.open .tgl3 svg{transform:rotate(180deg)}
+
+/* ==== R4 dog-ear corner ==== */
+.v4 .cap{padding-right:24px;cursor:pointer}
+.dear{position:absolute;right:-2px;bottom:-2px;width:22px;height:22px;pointer-events:none}
+.dear::before{content:"";position:absolute;inset:0;background:var(--ink);clip-path:polygon(0 100%,100% 0,100% 100%);border-radius:0 0 9px 0;transition:background .2s ease}
+.dear::after{content:"";position:absolute;inset:0;background:linear-gradient(315deg,rgba(0,0,0,0) 49%,rgba(0,0,0,.10) 50%,rgba(0,0,0,0) 78%);clip-path:polygon(0 0,100% 0,0 100%)}
+.v4.open .dear::before{background:var(--red)}
+
+/* ==== R5 protruding tab ==== */
+.v5{padding-bottom:17px}
+.tgl5{position:absolute;right:12px;bottom:-14px;width:38px;height:17px;background:var(--ink);border:0;border-radius:0 0 9px 9px;padding:2px 0 0;display:flex;align-items:flex-start;justify-content:center;cursor:pointer;box-shadow:0 2px 4px rgba(0,0,0,.25);z-index:2}
+.tgl5 svg{width:11px;height:11px;transition:transform .25s ease}
+.v5.open .tgl5 svg{transform:rotate(180deg)}
+</style>
+</head>
+<body>
+<div class="col">
+<div class="top"><span>DESIGN BOARD</span><span>IKEBUKURO GUIDE</span></div>
+<h1>Read More <em>5案</em></h1>
+<p class="lede">スポットカードのキャプション帯の右下に開閉のしかけを入れた5案。どれもタップで実際に開きます。</p>
+
+<div class="bar"><h2>1 — Chevron Circle</h2><span>R1</span></div>
+<p class="gp">黒丸に白のシェブロン。開くと矢印が上を向く。</p>
+<div class="stage">
+<article class="spot v1"><div class="phw"><span class="phbox"><img class="ph" src="../img/pokemon.jpg" alt="Pokémon Center Mega Tokyo"><span class="gn">POKÉMON</span><a class="gmap" href="https://www.google.com/maps/search/?api=1&query=Pokemon%20Center%20Mega%20Tokyo%20Sunshine%20City" target="_blank" rel="noopener" aria-label="Open Pokémon Center Mega Tokyo in Google Maps"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-5.6-7-11a7 7 0 1 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg></a><a class="web" href="https://shop.pokemon.co.jp/en/shop/pokemoncenter-megatokyo/" target="_blank" rel="noopener" aria-label="Open Pokémon Center Mega Tokyo official website"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.6 3.9 5.7 3.9 9s-1.4 6.4-3.9 9c-2.5-2.6-3.9-5.7-3.9-9S9.5 5.6 12 3z"/></svg></a></span><span class="cap"><span class="nm">Pokémon Center Mega Tokyo</span><span class="hr">10:00 – 20:00</span><button class="tgl1" type="button" data-tgl aria-expanded="false" aria-label="Read more about Pokémon Center Mega Tokyo"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg></button></span></div><div class="fold"><p class="place">Sunshine City Alpa 2F</p><p class="tx">Japan's largest Pokémon Center — limited Mega Tokyo goods, a Charizard statue for photos and the Pikachu Sweets takeout counter. The Mugiwara Store, the official One Piece shop, sits on the same floor.</p></div></article>
+</div>
+
+<div class="bar"><h2>2 — Plus Button</h2><span>R2</span></div>
+<p class="gp">赤丸に白のプラス。開くとマイナスになる。</p>
+<div class="stage">
+<article class="spot v2"><div class="phw"><span class="phbox"><img class="ph" src="../img/pokemon.jpg" alt="Pokémon Center Mega Tokyo"><span class="gn">POKÉMON</span><a class="gmap" href="https://www.google.com/maps/search/?api=1&query=Pokemon%20Center%20Mega%20Tokyo%20Sunshine%20City" target="_blank" rel="noopener" aria-label="Open Pokémon Center Mega Tokyo in Google Maps"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-5.6-7-11a7 7 0 1 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg></a><a class="web" href="https://shop.pokemon.co.jp/en/shop/pokemoncenter-megatokyo/" target="_blank" rel="noopener" aria-label="Open Pokémon Center Mega Tokyo official website"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.6 3.9 5.7 3.9 9s-1.4 6.4-3.9 9c-2.5-2.6-3.9-5.7-3.9-9S9.5 5.6 12 3z"/></svg></a></span><span class="cap"><span class="nm">Pokémon Center Mega Tokyo</span><span class="hr">10:00 – 20:00</span><button class="tgl2" type="button" data-tgl aria-expanded="false" aria-label="Read more about Pokémon Center Mega Tokyo"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path class="vbar" d="M12 5v14"/></svg></button></span></div><div class="fold"><p class="place">Sunshine City Alpa 2F</p><p class="tx">Japan's largest Pokémon Center — limited Mega Tokyo goods, a Charizard statue for photos and the Pikachu Sweets takeout counter. The Mugiwara Store, the official One Piece shop, sits on the same floor.</p></div></article>
+</div>
+
+<div class="bar"><h2>3 — Mini Text Chip</h2><span>R3</span></div>
+<p class="gp">帯の右端に小さな MORE の文字。開くと LESS に変わる。</p>
+<div class="stage">
+<article class="spot v3"><div class="phw"><span class="phbox"><img class="ph" src="../img/pokemon.jpg" alt="Pokémon Center Mega Tokyo"><span class="gn">POKÉMON</span><a class="gmap" href="https://www.google.com/maps/search/?api=1&query=Pokemon%20Center%20Mega%20Tokyo%20Sunshine%20City" target="_blank" rel="noopener" aria-label="Open Pokémon Center Mega Tokyo in Google Maps"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-5.6-7-11a7 7 0 1 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg></a><a class="web" href="https://shop.pokemon.co.jp/en/shop/pokemoncenter-megatokyo/" target="_blank" rel="noopener" aria-label="Open Pokémon Center Mega Tokyo official website"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.6 3.9 5.7 3.9 9s-1.4 6.4-3.9 9c-2.5-2.6-3.9-5.7-3.9-9S9.5 5.6 12 3z"/></svg></a></span><span class="cap"><span class="nm">Pokémon Center Mega Tokyo</span><span class="hr">10:00 – 20:00</span><button class="tgl3" type="button" data-tgl aria-expanded="false" aria-label="Read more about Pokémon Center Mega Tokyo"><span class="more">MORE</span><span class="less">LESS</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg></button></span></div><div class="fold"><p class="place">Sunshine City Alpa 2F</p><p class="tx">Japan's largest Pokémon Center — limited Mega Tokyo goods, a Charizard statue for photos and the Pikachu Sweets takeout counter. The Mugiwara Store, the official One Piece shop, sits on the same floor.</p></div></article>
+</div>
+
+<div class="bar"><h2>4 — Dog-ear Corner</h2><span>R4</span></div>
+<p class="gp">帯の右下が折れた角の形。帯全体をタップして開く。開くと角が赤くなる。</p>
+<div class="stage">
+<article class="spot v4"><div class="phw"><span class="phbox"><img class="ph" src="../img/pokemon.jpg" alt="Pokémon Center Mega Tokyo"><span class="gn">POKÉMON</span><a class="gmap" href="https://www.google.com/maps/search/?api=1&query=Pokemon%20Center%20Mega%20Tokyo%20Sunshine%20City" target="_blank" rel="noopener" aria-label="Open Pokémon Center Mega Tokyo in Google Maps"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-5.6-7-11a7 7 0 1 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg></a><a class="web" href="https://shop.pokemon.co.jp/en/shop/pokemoncenter-megatokyo/" target="_blank" rel="noopener" aria-label="Open Pokémon Center Mega Tokyo official website"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.6 3.9 5.7 3.9 9s-1.4 6.4-3.9 9c-2.5-2.6-3.9-5.7-3.9-9S9.5 5.6 12 3z"/></svg></a></span><span class="cap" data-tgl role="button" tabindex="0" aria-expanded="false" aria-label="Read more about Pokémon Center Mega Tokyo"><span class="nm">Pokémon Center Mega Tokyo</span><span class="hr">10:00 – 20:00</span><span class="dear" aria-hidden="true"></span></span></div><div class="fold"><p class="place">Sunshine City Alpa 2F</p><p class="tx">Japan's largest Pokémon Center — limited Mega Tokyo goods, a Charizard statue for photos and the Pikachu Sweets takeout counter. The Mugiwara Store, the official One Piece shop, sits on the same floor.</p></div></article>
+</div>
+
+<div class="bar"><h2>5 — Protruding Tab</h2><span>R5</span></div>
+<p class="gp">帯の下から黒いタブが飛び出す。開くと矢印が上を向く。</p>
+<div class="stage">
+<article class="spot v5"><div class="phw"><span class="phbox"><img class="ph" src="../img/pokemon.jpg" alt="Pokémon Center Mega Tokyo"><span class="gn">POKÉMON</span><a class="gmap" href="https://www.google.com/maps/search/?api=1&query=Pokemon%20Center%20Mega%20Tokyo%20Sunshine%20City" target="_blank" rel="noopener" aria-label="Open Pokémon Center Mega Tokyo in Google Maps"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-5.6-7-11a7 7 0 1 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg></a><a class="web" href="https://shop.pokemon.co.jp/en/shop/pokemoncenter-megatokyo/" target="_blank" rel="noopener" aria-label="Open Pokémon Center Mega Tokyo official website"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.6 3.9 5.7 3.9 9s-1.4 6.4-3.9 9c-2.5-2.6-3.9-5.7-3.9-9S9.5 5.6 12 3z"/></svg></a></span><span class="cap"><span class="nm">Pokémon Center Mega Tokyo</span><span class="hr">10:00 – 20:00</span><button class="tgl5" type="button" data-tgl aria-expanded="false" aria-label="Read more about Pokémon Center Mega Tokyo"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg></button></span></div><div class="fold"><p class="place">Sunshine City Alpa 2F</p><p class="tx">Japan's largest Pokémon Center — limited Mega Tokyo goods, a Charizard statue for photos and the Pikachu Sweets takeout counter. The Mugiwara Store, the official One Piece shop, sits on the same floor.</p></div></article>
+</div>
+
+<p><a class="biglink" href="../">本番の池袋ガイドを見る</a></p>
+<p class="foot">スポットカードの開閉ボタンの見比べボード。本番ページは変更していません。</p>
+</div>
+<script>
+function toggleCard(el){
+  var card=el.closest('.spot');
+  if(!card)return;
+  var fold=card.querySelector('.fold');
+  var open=card.classList.toggle('open');
+  if(fold)fold.classList.toggle('open',open);
+  card.querySelectorAll('[data-tgl]').forEach(function(b){b.setAttribute('aria-expanded',open?'true':'false')});
+}
+document.querySelectorAll('[data-tgl]').forEach(function(el){
+  el.addEventListener('click',function(){toggleCard(el)});
+  if(el.getAttribute('role')==='button'){
+    el.addEventListener('keydown',function(e){
+      if(e.key==='Enter'||e.key===' '){e.preventDefault();toggleCard(el)}
+    });
+  }
+});
+</script>
+</body>
+</html>
